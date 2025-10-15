@@ -1,0 +1,152 @@
+"use client";
+
+import Slider from "react-slick";
+import Image from "next/image";
+import { useRef } from "react";
+
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
+export default function PortfolioSlider({ items, title }: any) {
+
+    const sliderRef = useRef<Slider | null>(null);
+
+    const settings = {
+        arrows: false,
+        dots: false,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        adaptiveHeight: true,
+    };
+
+    return (
+        <section className="w-full relative">
+            {/* Custom controls */}
+            <div className="flex absolute top-8 w-1/2 ml-18 z-9">
+                <div className="flex mx-auto w-full justify-between items-center py-10">
+                    <button
+                        onClick={() => sliderRef.current?.slickPrev()}
+                        className="px-4 py-2"
+                    >
+                        <img
+                            src="/slider-navigation-left.svg"
+                            alt="Previous slide"
+                        />
+                    </button>
+
+                    <h2 className="text-4xl font-bold text-gradient-starbright">
+                        {title}
+                    </h2>
+
+                    <button
+                        onClick={() => sliderRef.current?.slickNext()}
+                        className="px-4 py-2"
+                    >
+                        <img
+                            src="/slider-navigation-right.svg"
+                            alt="Next slide"
+                        />
+                    </button>
+                </div>
+            </div>
+
+            <Slider ref={sliderRef} {...settings}>
+                {items.map((item: any) => {
+                    const logo = item.portfolioFields?.logo?.node?.mediaItemUrl || null;
+                    const mainImage =
+                        item.portfolioFields?.sliderImageMain?.node?.mediaItemUrl || null;
+                    const sideImage1 =
+                        item.portfolioFields?.sliderImageSlide1?.node?.mediaItemUrl || null;
+                    const sideImage2 =
+                        item.portfolioFields?.sliderImageSlide2?.node?.mediaItemUrl || null;
+
+                    return (
+                        <div
+                            key={item.slug}
+                            className="flex w-full h-screen"
+                        >
+                            <div className="flex flex-col md:flex-row w-full h-full">
+                                {/* Left side: text + logo */}
+                                <div className="flex flex-col justify-center md:w-2/3 p-12 pt-24 mt-16">
+                                    {logo && (
+                                        <Image
+                                            src={logo}
+                                            alt={`${item.title} logo`}
+                                            width={160}
+                                            height={80}
+                                            className="object-contain mb-6 self-center py-8"
+                                        />
+                                    )}
+
+                                    <div className="bg-neutral-strongest rounded-lg border border-neutral-stronger p-6">
+                                        <h3 className="text-4xl font-bold mb-4 uppercase font-archivo">
+                                            {item.title}
+                                        </h3>
+
+                                        <div
+                                            className="text-base text-neutral-softest"
+                                            dangerouslySetInnerHTML={{
+                                                __html: item.content,
+                                            }}
+                                        />
+                                    </div>
+                                </div>
+
+                                {/* Right side: images */}
+                                <div className="flex md:w-1/2 gap-3">
+                                    {/* Main image */}
+                                    {mainImage ? (
+                                        <div className="flex-1">
+                                            <Image
+                                                src={mainImage}
+                                                alt={`${item.title} main image`}
+                                                width={1960}
+                                                height={1080}
+                                                className="w-full h-[400px] object-cover h-full"
+                                            />
+                                        </div>
+                                    ) : (
+                                        <div className="flex-1 bg-neutral-stronger rounded-lg flex items-center justify-center text-neutral-regular">
+                                            <span>No image available</span>
+                                        </div>
+                                    )}
+
+                                    {/* Side images stacked vertically */}
+                                    {(sideImage1 || sideImage2) && (
+                                        <div className="hidden md:flex flex-col w-1/3 h-full gap-3">
+                                            {sideImage1 && (
+                                                <div className="flex-1">
+                                                    <Image
+                                                        src={sideImage1}
+                                                        alt={`${item.title} side image 1`}
+                                                        width={400}
+                                                        height={200}
+                                                        className="w-full h-full object-cover"
+                                                    />
+                                                </div>
+                                            )}
+                                            {sideImage2 && (
+                                                <div className="flex-1">
+                                                    <Image
+                                                        src={sideImage2}
+                                                        alt={`${item.title} side image 2`}
+                                                        width={400}
+                                                        height={200}
+                                                        className="w-full h-full object-cover"
+                                                    />
+                                                </div>
+                                            )}
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    );
+                })}
+            </Slider>
+
+        </section>
+    );
+}
