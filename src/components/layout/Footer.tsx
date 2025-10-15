@@ -2,10 +2,9 @@ export default function Footer({ footer, logo }: any) {
     const { address, officeNumber, whatsappNumber } = footer;
     const {altText, mediaItemUrl} = logo;
 
-    console.log(logo)
     return (
         <footer className="bg-neutral-strongest w-full">
-            <div className="max-w-[1690px] mx-auto grid grid-cols-1 md:grid-cols-5 gap-12 py-8">
+            <div className="max-w-[1690px] mx-auto grid grid-cols-1 md:grid-cols-5 gap-12 py-8 px-6">
                 {/* Column 1: Logo */}
                 <div className="flex flex-col space-y-4 self-center">
                     {logo && (

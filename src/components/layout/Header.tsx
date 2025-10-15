@@ -26,7 +26,7 @@ export default function Header({
                             <Image
                                 src={logo.mediaItemUrl}
                                 alt={logo.altText || "Company Logo"}
-                                className="h-12 w-auto ml-4 object-contain"
+                                className="h-10 w-auto ml-4 object-contain"
                                 width={logo?.width ?? 206}
                                 height={logo?.height ?? 82}
                                 priority
