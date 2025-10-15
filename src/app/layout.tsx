@@ -3,7 +3,9 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
 import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
 import { getPrimaryMenu } from "@/lib/graphql/queries/getPrimaryMenu";
+import { getFooter } from "@/lib/graphql/queries/getFooter";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,6 +29,7 @@ export default async function RootLayout({
 }>) {
 
   const { menu, logo } = await getPrimaryMenu();
+  const {footer, logo: footerLogo} = await getFooter();
   
   return (
     <html lang="en">
@@ -35,6 +38,7 @@ export default async function RootLayout({
       >
         <Header menu={menu} logo={logo} />
         {children}
+        <Footer footer={footer} logo={footerLogo} />
       </body>
     </html>
   );

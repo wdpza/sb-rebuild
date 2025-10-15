@@ -48,6 +48,10 @@ export const GET_PAGE_BY_SLUG = gql`
                         numberOfItems
                         title
                     }
+                    ... on PageFieldGroupPageBuilderBusinessSolutionsLayout {
+                        numberOfItems
+                        title
+                    }
                 }
             }
         }

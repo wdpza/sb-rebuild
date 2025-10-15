@@ -50,14 +50,9 @@ export const GET_PRIMARY_MENU = gql`
     }
 `;
 
-export interface PrimaryMenuResponse {
-    menu: any;
-    siteOptions: any;
-}
-
 export async function getPrimaryMenu() {
     try {
-        const data = await client.request<PrimaryMenuResponse>(GET_PRIMARY_MENU);
+        const data: any = await client.request(GET_PRIMARY_MENU);
 
         return {
             menu: data.menu,

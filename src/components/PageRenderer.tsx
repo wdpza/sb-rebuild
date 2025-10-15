@@ -2,6 +2,7 @@ import HeroLayout from "@/components/blocks/HeroLayout"
 import ServicesAccordionLayout from "@/components/blocks/ServicesAccordionLayout"
 import LogoSliderLayout from "./blocks/LogoSliderLayout"
 import PortfolioSliderLayout from "./blocks/PortfolioSliderLayout"
+import BusinessSolutionsLayout from "./blocks/BusinessSolutionsLayout"
 
 export default function PageRenderer({ pageBuilder }: any) {
 	if (!pageBuilder) return null
@@ -18,6 +19,8 @@ export default function PageRenderer({ pageBuilder }: any) {
 						return <LogoSliderLayout key={index} {...block} />
 					case "PageFieldGroupPageBuilderPortfolioSectionLayout":
 						return <PortfolioSliderLayout key={index} {...block} />
+					case "PageFieldGroupPageBuilderBusinessSolutionsLayout":
+						return <BusinessSolutionsLayout key={index} {...block} />
 					default:
 						return null
 				}
