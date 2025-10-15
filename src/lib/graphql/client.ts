@@ -1,7 +1,5 @@
-import { client } from "@/lib/graphql/client"
-import { GET_PAGE_BY_SLUG } from "@/lib/graphql/queries/getPageBySlug"
+import { GraphQLClient } from "graphql-request";
 
-export async function getPageBySlug(slug: string) {
-  const { page } = await client.request(GET_PAGE_BY_SLUG, { slug })
-  return page
-}
+export const client = new GraphQLClient(process.env.WORDPRESS_GRAPHQL_URL!, {
+    headers: { "Content-Type": "application/json" },
+});
