@@ -3,6 +3,7 @@ import ServicesAccordionLayout from "@/components/blocks/ServicesAccordionLayout
 import LogoSliderLayout from "./blocks/LogoSliderLayout"
 import PortfolioSliderLayout from "./blocks/PortfolioSliderLayout"
 import BusinessSolutionsLayout from "./blocks/BusinessSolutionsLayout"
+import ExitLayout from "./blocks/ExitLayout"
 import StatsLayout from "./blocks/StatsLayout"
 
 export default function PageRenderer({ pageBuilder }: any) {
@@ -24,6 +25,8 @@ export default function PageRenderer({ pageBuilder }: any) {
 						return <BusinessSolutionsLayout key={index} {...block} />
 					case "PageFieldGroupPageBuilderStatsSectionLayout":
 						return <StatsLayout key={index} {...block} />
+					case "PageFieldGroupPageBuilderExitSectionLayout":
+						return <ExitLayout key={index} {...block} />
 					default:
 						return null
 				}
