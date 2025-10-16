@@ -68,7 +68,7 @@ export const GET_PAGE_BY_SLUG = gql`
                         }
                         }
                     }
-                    link {
+                    ctaLink {
                         target
                         title
                         url
