@@ -26,9 +26,10 @@ export default function HeroLayout({ title, description, subTitle, background, i
 					)}
 
 					{description && (
-						<p className="mt-6 text-lg text-gray-100">
-							{description}
-						</p>
+						<div
+							className="mt-6 text-lg text-gray-100"
+							dangerouslySetInnerHTML={{ __html: description }}
+						/>
 					)}
 				</div>
 
