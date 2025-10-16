@@ -1,8 +1,10 @@
+import DOMPurify from 'dompurify';
+
 export default function HeroLayout({ title, description, subTitle, background, image }: any) {
 	const bgUrl = background?.node?.mediaItemUrl ?? null
 	const imageUrl = image?.node?.mediaItemUrl ?? null
 
-	console.log(subTitle)
+	const safeDescription = DOMPurify.sanitize(description);
 
 	return (
 		<section
@@ -28,7 +30,7 @@ export default function HeroLayout({ title, description, subTitle, background, i
 					{description && (
 						<div
 							className="mt-6 text-lg text-gray-100"
-							dangerouslySetInnerHTML={{ __html: description }}
+							dangerouslySetInnerHTML={{ __html: safeDescription }}
 						/>
 					)}
 				</div>
