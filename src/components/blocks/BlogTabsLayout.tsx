@@ -6,7 +6,6 @@ export default async function BlogTabsLayout({ perPage, categories }: any) {
     console.log(categories);
 
     const items = await getPostItems(perPage);
-    console.log(items);
 
     return (
         <div className="py-20 bg-[#171717]">
