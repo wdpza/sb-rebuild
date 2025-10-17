@@ -7,7 +7,6 @@ export default function BusinessSolutions({ items, title }: any) {
     const [activeIndex, setActiveIndex] = useState(0);
 
     const activeItem = items[activeIndex];
-    const activeLogo = activeItem?.businessSolutionFields?.logo?.node?.mediaItemUrl || "";
     const activeDescription = activeItem?.content || "";
     const activeLink = activeItem?.uri || "#";
 

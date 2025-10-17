@@ -33,7 +33,6 @@ export default function PageRenderer({ pageBuilder }: any) {
 					case "PageFieldGroupPageBuilderStatsSectionLayout":
 						return <StatsLayout key={index} {...block} />
 					case "PageFieldGroupPageBuilderExitSectionLayout":
-						console.log
 						return <ExitLayout key={index} {...block} />
 					case "PageFieldGroupPageBuilderEmployeeCarouselLayout":
 						return <EmployeeCarouselLayout key={index} {...block} />

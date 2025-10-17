@@ -10,7 +10,7 @@ export default function Footer({ footer, logo }: any) {
                     {logo && (
                         <img
                             src={mediaItemUrl}
-                            alt="Company Logo"
+                            alt={altText}
                             className="w-40 h-auto"
                         />
                     )}
