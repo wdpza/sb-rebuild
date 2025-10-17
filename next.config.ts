@@ -4,7 +4,7 @@ const nextConfig: NextConfig = {
   /* config options here */
    images: {
     remotePatterns: [
-      { protocol: "http", hostname: "z-starbright-rb.co.za.dedi1011.jnb2.host-h.net" },
+      { protocol: "https", hostname: "cms.starbright.co.za" },
     ],
   },
 };

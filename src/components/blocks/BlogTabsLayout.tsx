@@ -3,7 +3,7 @@ import PostItem from "../post/PostItem";
 
 export default async function BlogTabsLayout({ perPage, categories }: any) {
 
-    console.log(categories);
+    console.log(categories, perPage);
 
     const items = await getPostItems(perPage);
 

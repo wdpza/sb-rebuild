@@ -125,27 +125,27 @@ export const GET_PAGE_BY_SLUG = gql`
                     title
                     }
                     ... on PageFieldGroupPageBuilderPortfolioTabsLayout {
-                    perCategory
-                    categories {
-                        nodes {
-                        termTaxonomyId
-                        slug
-                        name
-                        databaseId
+                        perCategory
+                        categories {
+                            nodes {
+                            termTaxonomyId
+                            slug
+                            name
+                            databaseId
+                            }
                         }
-                    }
                     }
                     ... on PageFieldGroupPageBuilderBlogTabsLayout {
-                    fieldGroupName
-                    perPage
-                    categories {
-                        nodes {
-                        databaseId
-                        name
-                        slug
-                        termTaxonomyId
+                        fieldGroupName
+                        perPage
+                        categories {
+                                nodes {
+                                databaseId
+                                name
+                                slug
+                                termTaxonomyId
+                            }
                         }
-                    }
                     }
                 }
             }
