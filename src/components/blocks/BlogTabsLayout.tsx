@@ -2,9 +2,6 @@ import { getPostItems } from "@/lib/graphql/queries/getPostItems";
 import PostItem from "../post/PostItem";
 
 export default async function BlogTabsLayout({ perPage, categories }: any) {
-
-    console.log(categories, perPage);
-
     const items = await getPostItems(perPage);
 
     return (

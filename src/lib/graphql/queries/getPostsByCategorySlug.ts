@@ -33,7 +33,7 @@ export const GET_POSTS_BY_CATEGORY_SLUG = gql`
     }
 `;
 
-export async function getFooter() {
+export async function GetPostsByCategorySlug() {
     try {
         const data: any = await client.request(
             GET_POSTS_BY_CATEGORY_SLUG
