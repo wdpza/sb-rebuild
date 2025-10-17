@@ -6,6 +6,8 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { getPrimaryMenu } from "@/lib/graphql/queries/getPrimaryMenu";
 import { getFooter } from "@/lib/graphql/queries/getFooter";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
