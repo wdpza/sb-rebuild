@@ -12,6 +12,7 @@ export const GET_PRIMARY_MENU = gql`
                     id
                     label
                     url
+                    uri
                     target
                     cssClasses
                     parentId

@@ -7,9 +7,10 @@ import type { Settings } from "react-slick";
 // Load Slick only on the client to avoid SSR "window is not defined" issues
 const Slider = dynamic(() => import("react-slick"), { ssr: false });
 
-// Be sure to import slick styles once globally (e.g., in app/layout.tsx or globals.css):
-// import "slick-carousel/slick/slick.css";
-// import "slick-carousel/slick/slick-theme.css";
+type MediaNode = {
+  mediaItemUrl?: string | null;
+  altText?: string | null;
+};
 
 type EmployeePhoto = {
   mediaItemUrl: string;
@@ -23,6 +24,7 @@ type Props = {
   employeePhotos: { nodes: EmployeePhoto[] };
   /** number of visible cards; must be odd; default 5 */
   visible?: 5 | 7 | 9;
+  backgroundImage?: { node?: MediaNode | null } | null;
 };
 
 export default function EmployeeCarouselLayout({
@@ -30,9 +32,12 @@ export default function EmployeeCarouselLayout({
   employeePhotos,
   title,
   visible = 5,
+  backgroundImage
 }: Props) {
   // Hooks must be declared before any early returns
   const [active, setActive] = React.useState(0);
+
+  const bgUrl = backgroundImage?.node?.mediaItemUrl ?? "";
 
   const images = employeePhotos?.nodes ?? [];
   if (!images.length) return null;
@@ -46,27 +51,40 @@ export default function EmployeeCarouselLayout({
     return Math.min(diff, total - diff);
   };
 
-  const getStackedStyles = (index: number, activeIndex: number, total: number) => {
-    const d = circDist(index, activeIndex, total); // distance from center
-    const isCenter = d === 0;
+    const CARD_H = 600;
+    const CAPTION_H = 26;
+    const STAGE_H = CARD_H + CAPTION_H + 16;
 
-    // visual tuning
-    const scale = Math.max(0.64, 1 - d * 0.12);   // 1, .88, .76…
-    const drop = d * 28;                           // push non-center downward
-    const opacity = Math.max(0.45, 1 - d * 0.15); // fade further slides
-    const z = 100 - d;                             // center on top
+    const getStackedStyles = (index: number, activeIndex: number, total: number) => {
+        const d = circDist(index, activeIndex, total);
+        const isCenter = d === 0;
 
-    return {
-      style: {
-        transform: `translateY(${drop}px) scale(${scale})`,
-        opacity,
-        filter: isCenter ? "none" : "grayscale(100%)",
-        zIndex: z,
-        transition: "transform 220ms ease, opacity 220ms ease, filter 220ms ease",
-      } as React.CSSProperties,
-      isCenter,
+        // visual tuning
+        const scale = Math.max(0.64, 1 - d * 0.12);   // 1, .88, .76…
+        const opacity = Math.max(0.45, 1 - d * 0.15);
+        const z = 100 - d;
+
+        // Centering fix: move each slide UP by half of the height it loses due to scaling
+        // (because Slick aligns bottoms). This aligns visual centers horizontally.
+        const baselineFix = -((1 - scale) * CARD_H) / 2;
+
+        // Optional tiny stagger if you still want a subtle stack effect around center
+        // (set to 0 to remove): slides to the left go slightly up, right slightly down.
+        const sign = ((index - activeIndex + total) % total) > total / 2 ? 1 : -1;
+        const stagger = d === 0 ? 0 : sign * 6 * d; // small ± vertical nudge
+
+        return {
+            style: {
+            transform: `scale(${scale})`,
+            opacity,
+            filter: isCenter ? "none" : "grayscale(100%)",
+            zIndex: z,
+            transition: "transform 220ms ease, opacity 220ms ease, filter 220ms ease",
+            willChange: "transform, opacity, filter",
+            } as React.CSSProperties,
+            isCenter,
+        };
     };
-  };
 
   const settings: Settings = {
     slidesToShow: slots,         // use computed slots
@@ -79,6 +97,10 @@ export default function EmployeeCarouselLayout({
     arrows: false,
     dots: false,
     focusOnSelect: true,
+    autoplay: true,
+    autoplaySpeed: 5000,
+    pauseOnHover: false,
+    pauseOnFocus: false, 
     beforeChange: (_current, next) => setActive(next % images.length),
     afterChange: (current) => setActive(current % images.length),
     responsive: [
@@ -91,48 +113,58 @@ export default function EmployeeCarouselLayout({
   };
 
   return (
-    <section className="py-20 bg-[#171717] px-8 text-center">
-      <h2 className="text-[40px] font-bold text-white">
+    <section 
+      className="py-20 bg-[#171717] px-8 text-center"
+      style={{
+          backgroundImage: bgUrl ? `url(${bgUrl})` : undefined,
+          backgroundSize: "auto 100%",
+          backgroundPosition: "bottom right",
+      }}
+    >
+      <h2 className="text-[60px] font-bold text-white">
         <span className="bg-gradient-to-r from-[#6EE7F9] via-[#A855F7] to-[#F59E0B] bg-clip-text text-transparent">
           {title}
         </span>
       </h2>
       {description ? (
-        <p className="text-white/90 mt-8 max-w-3xl mx-auto">{description}</p>
+        <p className="text-white/90 mt-8 max-w-3xl mx-auto whitespace-pre-line">{description}</p>
       ) : null}
 
-      <div className="relative flex-1 flex items-center justify-center overflow-visible">
-        <div className="w-full max-w-[1600px] mx-auto overflow-visible stacked-slick">
+      <div className="relative flex-1 flex items-center justify-center overflow-visible mt-12 -mx-8">
+        <div className="w-full mx-auto overflow-visible stacked-slick">
           <Slider {...settings}>
             {images.map((item, index) => {
               const { style, isCenter } = getStackedStyles(index, active, images.length);
               return (
                 <div key={index}>
                   {/* negative/overlap handled via CSS class 'stacked-slick' below */}
+                <div
+                    className="mx-auto"
+                    style={{
+                        height: STAGE_H,
+                        display: "grid",
+                        placeItems: "center",
+                    }}
+                >
                   <div
                     className="mx-auto flex flex-col items-center justify-center"
                     style={style}
                     onClick={() => setActive(index)}
                   >
-                    <div className="rounded-3xl border border-white/10 bg-white/10 p-2 shadow-2xl backdrop-blur">
+                    <div className="rounded-3xl">
                       {/* Fixed-size RELATIVE wrapper so next/image fill works and cards are uniform */}
-                      <div className="relative h-[500px] w-[400px] overflow-hidden rounded-2xl ring-1 ring-white/10">
+                      <div className="relative h-[600px] w-[500px] overflow-hidden rounded-2xl ring-1 ring-white/10">
                         <Image
                           src={item.mediaItemUrl}
                           alt={item.altText || item.title || `Employee ${index + 1}`}
                           fill
-                          className="object-cover"
+                          className="object-cover gradient-border"
                           sizes="(max-width: 640px) 90vw, (max-width: 1024px) 60vw, 400px"
                           priority={isCenter}
                         />
                       </div>
-
-                      {isCenter ? (
-                        <figcaption className="mt-3 text-sm font-medium text-white/95">
-                          {item.title || item.altText || ""}
-                        </figcaption>
-                      ) : null}
                     </div>
+                  </div>
                   </div>
                 </div>
               );
@@ -142,23 +174,26 @@ export default function EmployeeCarouselLayout({
       </div>
 
       <style jsx global>{`
-        /* Let the stage show overflow so side slides can peek out */
         .stacked-slick .slick-list {
-          overflow: visible;
+          overflow: hidden;
         }
 
-        /* Overlap slides by giving them negative horizontal margin.
-           Tune -140px to increase/decrease overlap depending on your card width. */
         .stacked-slick .slick-slide > div {
-          margin: 0 -140px;
+            display: flex;
+            justify-content: center;
+            align-items: center; /* vertical centering */
+            margin: 0 -140px;
         }
 
-        /* Optional: improve click targeting so only visible/nearby slides catch clicks */
         .stacked-slick .slick-slide {
           pointer-events: none;
         }
         .stacked-slick .slick-slide.slick-active {
           pointer-events: auto;
+        }
+        .stacked-slick .slick-slide.slick-current {
+            z-index: 999 !important;
+            position: relative;
         }
       `}</style>
     </section>

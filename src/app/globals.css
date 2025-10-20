@@ -118,6 +118,12 @@
 .w-\[240px\] {
     width: 240px;
 }
+.text-\[60px\] {
+    font-size: 60px;
+}
+
+
+
 .max-w-\[1200px\] {
     max-width: 1200px;
 }
@@ -131,4 +137,8 @@
 body {
     background: var(--color-neutral-strongest);
     color: var(--foreground);
+}
+
+.max-w-\[1600px\] {
+    max-width: 1600px;
 }

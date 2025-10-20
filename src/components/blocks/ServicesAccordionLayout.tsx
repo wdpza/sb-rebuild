@@ -32,7 +32,7 @@ export default function ServicesAccordionLayout({ content }: any) {
 									}`}
 							>
 								<h3
-									className={`text-4xl mb-4 transition-all duration-300 ${isActive ? "font-semibold" : "font-extralight"
+									className={`text-white text-4xl mb-4 transition-all duration-300 ${isActive ? "font-semibold" : "font-extralight"
 										}`}
 								>
 									{item.title}

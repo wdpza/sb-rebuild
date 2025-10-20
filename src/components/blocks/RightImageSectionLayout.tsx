@@ -1,12 +1,96 @@
-export default function PortfolioTabsLayout({ description, image, title }: any) {
+"use client";
 
-    console.log(description);
-    console.log(image);
-    console.log(title);
+import Image from "next/image";
+import DOMPurify from "isomorphic-dompurify";
 
-    return (
-        <div>
+type MediaNode = {
+  mediaItemUrl?: string | null;
+  altText?: string | null;
+};
 
+interface PortfolioTabsLayoutProps {
+  title?: string | null;
+  description?: string | null; // may contain HTML
+  image?: { node?: MediaNode | null } | null;
+  backgroundImage?: { node?: MediaNode | null } | null;
+}
+
+export default function PortfolioTabsLayout({
+  description,
+  image,
+  title,
+  backgroundImage,
+}: PortfolioTabsLayoutProps) {
+  const src = image?.node?.mediaItemUrl ?? "";
+  const alt = image?.node?.altText ?? title ?? "Image";
+
+  const bgUrl = backgroundImage?.node?.mediaItemUrl ?? "";
+
+  return (
+    <section
+        className="py-20 bg-[#171717] bg-no-repeat px-8"
+        style={{
+            backgroundImage: bgUrl ? `url(${bgUrl})` : undefined,
+            backgroundSize: "auto 100%",
+            backgroundPosition: "bottom right",
+        }}
+    >
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-[1600px] mx-auto">
+      {/* Left: text */}
+      <div>
+        {title ? (
+          <h2 className="text-[40px] font-bold">
+            <span className="bg-gradient-to-r from-[#6EE7F9] via-[#A855F7] to-[#F59E0B] bg-clip-text text-transparent">
+              {title}
+            </span>
+          </h2>
+        ) : null}
+
+        <div
+          className="right-text-section mt-6 text-lg text-white prose prose-invert max-w-none"
+          dangerouslySetInnerHTML={{
+            __html: DOMPurify.sanitize(description ?? ""),
+          }}
+        />
+      </div>
+
+      {/* Right: image */}
+      <div className="-mr-8 -mb-20">
+        <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden">
+          {src ? (
+            <Image
+              src={src}
+              alt={alt}
+              fill
+              sizes="(min-width:1024px) 40vw, 90vw"
+              className="object-cover"
+              priority={false}
+            />
+          ) : (
+            <div className="absolute inset-0 flex items-center justify-center text-white/60 text-sm bg-black/20">
+              No image
+            </div>
+          )}
         </div>
-    );
+      </div>
+
+      {/* Styled-JSX: style headings inside the rich-text block */}
+      <style jsx>{`
+        .right-text-section :global(h3) {
+          font-weight: 700;
+          margin-top: 1rem;
+          margin-bottom: 1rem;
+          background: linear-gradient(90deg, #6ee7f9, #a855f7, #f59e0b);
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+        }
+        .right-text-section :global(p) {
+          margin-top: 1rem;
+          margin-bottom: 1rem;
+        }
+      `}</style>
+      </div>
+    </section>
+  );
 }

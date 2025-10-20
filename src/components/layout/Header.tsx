@@ -17,7 +17,7 @@ export default function Header({
     return (
         <header className="absolute top-0 left-0 right-0 z-50 py-12">
             {/* constrain width */}
-            <div className="max-w-[1690px] mx-auto flex flex-col justify-between p-4 bg-transparent">
+            <div className="max-w-[1600px] mx-auto flex flex-col justify-between p-4 bg-transparent">
                 {/* Logo + Menu */}
                 <div className="flex items-center justify-between">
                     {/* Logo */}

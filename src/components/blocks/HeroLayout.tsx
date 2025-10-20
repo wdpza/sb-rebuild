@@ -6,12 +6,12 @@ export default function HeroLayout({ title, description, subTitle, background, i
 
 	return (
 		<section
-			className="relative flex min-h-screen h-screen w-full items-center bg-cover bg-bottom bg-no-repeat"
+			className="relative flex min-h-screen h-screen w-full items-center bg-cover bg-bottom bg-no-repeat overflow-hidden"
 			style={{
 				backgroundImage: bgUrl ? `url(${bgUrl})` : undefined,
 			}}
 		>
-			<div className="h-screen relative z-10 grid w-full max-w-[1690px] mx-auto grid-cols-1 md:grid-cols-24 gap-2 px-12 py-24">
+			<div className="h-screen relative z-10 grid w-full max-w-[1600px] mx-auto grid-cols-1 md:grid-cols-24 gap-2 px-12 py-24">
 				{/* Left column: 60% */}
 				<div className="col-span-13 flex flex-col justify-center text-left gap-4">
 					<h1 className="font-archivo uppercase text-[75px]/20 font-black drop-shadow-lg text-gradient-starbright">
@@ -39,7 +39,7 @@ export default function HeroLayout({ title, description, subTitle, background, i
 						<img
 							src={imageUrl}
 							alt={title ?? ""}
-							className="absolute max-h-[90vh] object-contain"
+							className="absolute max-h-[80vh] object-contain"
 							style={{ bottom: "2px" }}
 						/>
 					</div>

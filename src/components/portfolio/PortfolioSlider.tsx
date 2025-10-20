@@ -81,7 +81,7 @@ export default function PortfolioSlider({ items, title }: any) {
                                     )}
 
                                     <div className="bg-neutral-strongest rounded-lg border border-neutral-stronger p-6">
-                                        <h3 className="text-4xl font-bold mb-4 uppercase font-archivo">
+                                        <h3 className="text-white text-4xl font-bold mb-4 uppercase font-archivo">
                                             {item.title}
                                         </h3>
 
