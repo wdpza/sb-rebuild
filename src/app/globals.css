@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin '@tailwindcss/typography';
 
 :root {
     --background: #ffffff;
@@ -92,11 +93,22 @@
     }
 
 	.gradient-border {
+        transition:250ms;
 		border: 2px solid transparent;
 		background:
 			linear-gradient(var(--btn-bg, #000), var(--btn-bg, #000)) padding-box,
 			linear-gradient(98.51deg, #36AEFA 0%, #BD208B 37.5%, #F15D22 87.02%, #EEB42C 99.99%) border-box;
 	}
+
+    .gradient-border:hover {
+         background: linear-gradient(
+            99deg,
+            var(--color-blue-softer, #36aefa) 0%,
+            var(--color-purple-regular, #bd208b) 37.5%,
+            var(--color-orange-regular, #f15d22) 87.02%,
+            var(--color-yellow-regular, #eeb42c) 99.99%
+        );       
+    }
 
 	.gradient-border-left {
 		border-left: 4px solid;
@@ -165,6 +177,7 @@
 body {
     background: var(--color-neutral-strongest);
     color: var(--foreground);
+    font-family: var(--font-archivo);
 }
 
 .max-w-\[1600px\] {

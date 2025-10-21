@@ -60,14 +60,14 @@ export default function BusinessSolutions({ items, title }: any) {
                             <button
                                 key={item.slug || index}
                                 onClick={() => setActiveIndex(index)}
-                                className={`relative flex items-center justify-center aspect-4/3 w-full rounded-lg transition-all duration-300 ease-in-out ${
+                                className={`cursor-pointer relative flex items-center justify-center aspect-4/3 w-full rounded-lg transition-all duration-300 ease-in-out ${
                                     index === activeIndex
                                         ? "bg-neutral-softest"
                                         : "bg-neutral-softest hover:bg-neutral-softest opacity-60"
                                 }`}
                             >
                                 {logo ? (
-                                    <div className="relative w-64 h-64">
+                                    <div className="relative w-64 h-64 transform hover:scale-110 transition-transform duration-300 ease-in-out">
                                         <Image
                                             src={logo}
                                             alt={item.slug}

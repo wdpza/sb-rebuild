@@ -64,11 +64,11 @@ export default function FaqLayout({ introTitle, image, item, backgroundImage }: 
         </div>
 
         {/* Right Column - Image */}
-        <div className="flex justify-center items-center -mb-24">
+        <div className="relative flex justify-center items-end min-h-[380px] -mb-24">
           <img
             src={img}
             alt={alt}
-            className="rounded-lg shadow-lg object-cover w-full h-auto max-w-md self-end"
+            className="absolute left-0 bottom-0 w-full max-w-[700px] h-auto object-contain"
           />
         </div>
       </div>

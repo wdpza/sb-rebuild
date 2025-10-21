@@ -25,7 +25,7 @@ export default function PortfolioLayout({ title, portfolioItems }: any) {
 
       {/* Masonry-like layout using CSS columns */}
       <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-6 px-8">
-        {portfolioItems.nodes.map((item: any, index: number) => (
+        {portfolioItems?.nodes?.map((item: any, index: number) => (
           <div
             key={index}
             className="relative group mb-6 cursor-pointer"

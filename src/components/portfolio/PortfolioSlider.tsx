@@ -7,9 +7,10 @@ import { useRef } from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-export default function PortfolioSlider({ items, title }: any) {
+export default function PortfolioSlider({ items, title, backgroundImage }: any) {
 
     const sliderRef = useRef<Slider | null>(null);
+    const bgUrl = backgroundImage?.node?.mediaItemUrl ?? null;
 
     const settings = {
         arrows: false,
@@ -22,16 +23,21 @@ export default function PortfolioSlider({ items, title }: any) {
     };
 
     return (
-        <section className="w-full relative">
+        <section
+            className="w-full relative bg-cover bg-center"
+            style={{
+                backgroundImage: bgUrl ? `url(${bgUrl})` : undefined,
+            }}
+        >
             {/* Custom controls */}
             <div className="flex absolute top-8 w-1/2 ml-18 z-9">
                 <div className="flex mx-auto w-full justify-between items-center py-10">
                     <button
                         onClick={() => sliderRef.current?.slickPrev()}
-                        className="px-4 py-2"
+                        className="w-18 h-18 flex items-center justify-center cursor-pointer gradient-border rounded-full transition-transform duration-300 ease-in-out"
                     >
                         <img
-                            src="/slider-navigation-left.svg"
+                            src="/slider-navigation-right.svg"
                             alt="Previous slide"
                         />
                     </button>
@@ -42,10 +48,10 @@ export default function PortfolioSlider({ items, title }: any) {
 
                     <button
                         onClick={() => sliderRef.current?.slickNext()}
-                        className="px-4 py-2"
+                        className="w-18 h-18 flex items-center justify-center cursor-pointer gradient-border rounded-full transition-transform duration-300 ease-in-out"
                     >
                         <img
-                            src="/slider-navigation-right.svg"
+                            src="/slider-navigation-left.svg"
                             alt="Next slide"
                         />
                     </button>
@@ -80,13 +86,13 @@ export default function PortfolioSlider({ items, title }: any) {
                                         />
                                     )}
 
-                                    <div className="bg-neutral-strongest rounded-lg border border-neutral-stronger p-6">
+                                    <div className="bg-neutral-strongest/25 rounded-lg p-6 shadow-sm">
                                         <h3 className="text-white text-4xl font-bold mb-4 uppercase font-archivo">
                                             {item.title}
                                         </h3>
 
                                         <div
-                                            className="text-base text-neutral-softest"
+                                            className="text-base text-neutral-softest prose max-w-full"
                                             dangerouslySetInnerHTML={{
                                                 __html: item.content,
                                             }}

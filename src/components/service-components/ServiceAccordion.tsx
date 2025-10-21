@@ -20,18 +20,18 @@ function ArrowBase({
 const isLeft = side === "left";
 const label = isLeft ? "Previous" : "Next";
 const iconSrc = isLeft
-  ? "/slider-navigation-left.svg"
-  : "/slider-navigation-right.svg";
+  ? "/slider-navigation-right.svg"
+  : "/slider-navigation-left.svg";
 
   return (
     <button
       aria-label={side === "left" ? "Previous" : "Next"}
       onClick={onClick}
-      className={`absolute top-1/2 -translate-y-1/2 z-20 cursor-pointer ${
-        side === "left" ? "left-3" : "right-3"
+      className={`absolute top-1/2 -translate-y-1/2 z-20 cursor-pointer w-18 h-18 flex items-center justify-center cursor-pointer gradient-border rounded-full ${
+        side === "left" ? "hidden" : "right-3"
       }`}
     >
-      <Image src={iconSrc} alt={label} width={66} height={66} />
+      <img src={iconSrc} alt={label} />
     </button>
   );
 }
@@ -72,6 +72,7 @@ export default function ServiceAccordion({ introTitle, item }: any) {
             <div className="max-w-[1600px] mx-auto w-full">
                 <h2 className="text-[45px] font-bold mb-8 text-white text-center">{introTitle}</h2>
                 <div className="relative rounded-2xl p-6">
+                    <div className="absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-[#28262C] to-transparent z-10" />
                     <Slider {...settings}>
                     {item.map((item: Item, idx: number) => (
                         <div key={idx} className="px-3">

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Archivo } from "next/font/google";
 import "./globals.css";
 
 import Header from "@/components/layout/Header";
@@ -8,6 +8,12 @@ import { getPrimaryMenu } from "@/lib/graphql/queries/getPrimaryMenu";
 import { getFooter } from "@/lib/graphql/queries/getFooter";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+
+const archivo = Archivo({
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  variable: "--font-archivo",
+  subsets: ["latin"],
+});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,7 +42,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden`}
+        className={`${archivo.variable} antialiased overflow-x-hidden`}
       >
         <Header menu={menu} logo={logo} />
         {children}
