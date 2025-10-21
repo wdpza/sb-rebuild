@@ -35,6 +35,12 @@ export const GET_SERVICE_BY_SLUG = gql`
                         description
                         title
                     }
+                    backgroundImage {
+                        node {
+                        altText
+                        mediaItemUrl
+                        }
+                    }
                     }
                     ... on ServicePageFieldsServicePageBuilderFaqSectionLayout {
                     introTitle
@@ -47,6 +53,12 @@ export const GET_SERVICE_BY_SLUG = gql`
                     item {
                         description
                         title
+                    }
+                    backgroundImage {
+                        node {
+                        altText
+                        mediaItemUrl
+                        }
                     }
                     }
                     ... on ServicePageFieldsServicePageBuilderExitSectionLayout {
@@ -74,21 +86,46 @@ export const GET_SERVICE_BY_SLUG = gql`
                     }
                     ... on ServicePageFieldsServicePageBuilderSocialMediaPlatformsLayout {
                     introTitle
-                    item {
-                        description
-                        title
+                    backgroundImage {
+                        node {
+                        altText
+                        mediaItemUrl
+                        }
+                    }
+                    platform {
+                        platformLink
+                        platformImage {
+                        node {
+                            altText
+                            mediaItemUrl
+                        }
+                        }
                     }
                     }
                     ... on ServicePageFieldsServicePageBuilderSocialMediaPackagedLayout {
                     introTitle
-                    item {
+                    spackages {
+                        ctaLink {
+                        title
+                        url
+                        target
+                        }
                         description
                         title
                     }
                     }
                     ... on ServicePageFieldsServicePageBuilderHostingPackagesLayout {
-                    packagesTable
                     title
+                    hpackages {
+                        service
+                        notes
+                        fee
+                    }
+                    ctaLink {
+                        target
+                        title
+                        url
+                    }
                     }
                 }
             }

@@ -97,6 +97,12 @@
 			linear-gradient(var(--btn-bg, #000), var(--btn-bg, #000)) padding-box,
 			linear-gradient(98.51deg, #36AEFA 0%, #BD208B 37.5%, #F15D22 87.02%, #EEB42C 99.99%) border-box;
 	}
+
+	.gradient-border-left {
+		border-left: 4px solid;
+        border-image: linear-gradient(to bottom, #36AEFA, #B32992, #DE464B) 1;
+
+	}
 }
 
 @media (prefers-color-scheme: dark) {
@@ -122,10 +128,32 @@
     font-size: 60px;
 }
 
+.bg-\[\#38363C\] {
+    background-color:#38363C;
+}
 
+.text-\[\#5F5F5F\] {
+    color:#5F5F5F;
+}
+
+.text-white-important {
+    color:#FFF !important;
+}
+
+.bg-\[\#49474D\] {
+    background-color:#49474D;
+}
+
+.bg-\[\#252328\] {
+    background-color:#252328;
+}
 
 .max-w-\[1200px\] {
     max-width: 1200px;
+}
+
+.h-70 {
+    height: calc(var(--spacing) * 70);
 }
 
 .animate-marquee {

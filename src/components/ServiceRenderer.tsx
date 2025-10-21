@@ -1,3 +1,12 @@
+import HeroLayout from "@/components/service-components/HeroLayout"
+import ExitLayout from "@/components/service-components/ExitLayout"
+import ServiceAccordion from "@/components/service-components/ServiceAccordion"
+import WhyWorkWithUs from "@/components/service-components/WhyWorkWithUs"
+import PortfolioLayout from "@/components/service-components/PortfolioLayout"
+import FaqLayout from "@/components/service-components/FaqLayout"
+import SocialMediaPlatforms from "@/components/service-components/SocialMediaPlatforms"
+import SocialMediaPackages from "@/components/service-components/SocialMediaPackages"
+import HostingPackages from "@/components/service-components/HostingPackages"
 
 export default function ServiceRenderer({ pageBuilder }: any) {
     if (!pageBuilder) return null
@@ -5,40 +14,29 @@ export default function ServiceRenderer({ pageBuilder }: any) {
     return (
         <>
             {pageBuilder.map((block: any, index: number) => {
-                console.log(block);
                 switch (block.__typename) {
-                    /*
-                    case "PageFieldGroupPageBuilderHeroLayout":
+
+                    case "ServicePageFieldsServicePageBuilderHeroLayout":
                         return <HeroLayout key={index} {...block} />
-                    case "PageFieldGroupPageBuilderServicesAccordionLayout":
-                        return <ServicesAccordionLayout key={index} {...block} />
-                    case "PageFieldGroupPageBuilderLogoSliderLayout":
-                        return <LogoSliderLayout key={index} {...block} />
-                    case "PageFieldGroupPageBuilderPortfolioSectionLayout":
-                        return <PortfolioSliderLayout key={index} {...block} />
-                    case "PageFieldGroupPageBuilderBusinessSolutionsLayout":
-                        return <BusinessSolutionsLayout key={index} {...block} />
-                    case "PageFieldGroupPageBuilderStatsSectionLayout":
-                        return <StatsLayout key={index} {...block} />
-                    case "PageFieldGroupPageBuilderExitSectionLayout":
+                    case "ServicePageFieldsServicePageBuilderExitSectionLayout":
                         return <ExitLayout key={index} {...block} />
-                    case "PageFieldGroupPageBuilderEmployeeCarouselLayout":
-                        return <EmployeeCarouselLayout key={index} {...block} />
-                    case "PageFieldGroupPageBuilderTeamsSectionLayout":
-                        return <TeamsSectionLayout key={index} {...block} />
-                    case "PageFieldGroupPageBuilderCertificationSectionLayout":
-                        return <CertificationSectionLayout key={index} {...block} />
-                    case "PageFieldGroupPageBuilderPortfolioTabsLayout":
-                        return <PortfolioTabsLayout key={index} {...block} />
-                    case "PageFieldGroupPageBuilderLeftGallerySectionLayout":
-                        return <LeftGallerySectionLayout key={index} {...block} />
-                    case "PageFieldGroupPageBuilderRightImageSectionLayout":
-                        return <RightImageSectionLayout key={index} {...block} />
-                    case "PageFieldGroupPageBuilderBlogTabsLayout":
-                        return <BlogTabsLayout key={index} {...block} />
+                    case "ServicePageFieldsServicePageBuilderServiceCarouselLayout":
+                        return <ServiceAccordion key={index} {...block} />
+                    case "ServicePageFieldsServicePageBuilderWhyWordWithUsSectionLayout":
+                        return <WhyWorkWithUs key={index} {...block} />
+                    case "ServicePageFieldsServicePageBuilderPortfolioSectionLayout":
+                        return <PortfolioLayout key={index} {...block} />
+                    case "ServicePageFieldsServicePageBuilderFaqSectionLayout":
+                        return <FaqLayout key={index} {...block} />
+                    case "ServicePageFieldsServicePageBuilderSocialMediaPlatformsLayout":
+                        console.log(block);
+                        return <SocialMediaPlatforms key={index} {...block} />
+                    case "ServicePageFieldsServicePageBuilderSocialMediaPackagedLayout":
+                        return <SocialMediaPackages key={index} {...block} />
+                    case "ServicePageFieldsServicePageBuilderHostingPackagesLayout":
+                        return <HostingPackages key={index} {...block} />
                     default:
                         return null
-                    */
                 }
             })}
         </>

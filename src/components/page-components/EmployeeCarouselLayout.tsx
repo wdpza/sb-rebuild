@@ -64,15 +64,6 @@ export default function EmployeeCarouselLayout({
         const opacity = Math.max(0.45, 1 - d * 0.15);
         const z = 100 - d;
 
-        // Centering fix: move each slide UP by half of the height it loses due to scaling
-        // (because Slick aligns bottoms). This aligns visual centers horizontally.
-        const baselineFix = -((1 - scale) * CARD_H) / 2;
-
-        // Optional tiny stagger if you still want a subtle stack effect around center
-        // (set to 0 to remove): slides to the left go slightly up, right slightly down.
-        const sign = ((index - activeIndex + total) % total) > total / 2 ? 1 : -1;
-        const stagger = d === 0 ? 0 : sign * 6 * d; // small ± vertical nudge
-
         return {
             style: {
             transform: `scale(${scale})`,

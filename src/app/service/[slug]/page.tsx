@@ -7,19 +7,18 @@ export const revalidate = 60 // ISR
 export default async function Page({ params }: { params: Promise<{ slug: string }>}) {
 
     const { slug } = await params;
-    const page = await getServiceBySlug(slug)
+    const page = await getServiceBySlug(slug);
 
     if (!page) return notFound()
 
     return (
         <main>
             <h1 className="sr-only">{page.title}</h1>
-            <ServiceRenderer pageBuilder={page.pageFieldGroup?.pageBuilder} />
+            <ServiceRenderer pageBuilder={page.servicePageFields?.servicePageBuilder} />
         </main>
     )
 }
 
 export async function generateStaticParams() {
-    // Optionally fetch slugs here for static generation
     return [{ slug: "home" }]
 }
