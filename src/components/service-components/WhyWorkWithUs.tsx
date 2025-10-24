@@ -9,14 +9,14 @@ export default function WhyWorkWithUs({ introTitle, item, backgroundImage }: any
 
     return (
         <div
-            className="relative py-24 bg-cover bg-center"
+            className="relative py-20 bg-cover bg-center"
             style={{
                 backgroundImage: bgUrl ? `url(${bgUrl})` : undefined,
             }}
         >
             <div className="absolute inset-0"></div>
             <div className="relative z-10 w-full max-w-[1200px] mx-auto flex flex-col items-center justify-center text-center text-white px-6">
-                <h2 className="uppercase text-5xl md:text-6xl font-bold mb-8">
+                <h2 className="text-[45px] font-bold mb-8 text-white text-center">
                     {introTitle ?? null}
                 </h2>
             </div>

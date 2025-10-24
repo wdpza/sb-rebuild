@@ -100,6 +100,7 @@
 			linear-gradient(98.51deg, #36AEFA 0%, #BD208B 37.5%, #F15D22 87.02%, #EEB42C 99.99%) border-box;
 	}
 
+    .gradient-border.active,
     .gradient-border:hover {
          background: linear-gradient(
             99deg,
@@ -138,6 +139,10 @@
 }
 .text-\[60px\] {
     font-size: 60px;
+}
+
+.text-white strong {
+    color: #fff !important;
 }
 
 .bg-\[\#38363C\] {

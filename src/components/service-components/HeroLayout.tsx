@@ -20,7 +20,7 @@ export default function HeroLayout({ title, description, subTitle, backgrounD, i
 
 					{/* If subtitle or description fields are added later, leave placeholders */}
 					{subTitle && (
-						<h2 className="font-bold mt-4 text-[45px] text-neutral-softest drop-shadow-md tracking-wide">
+						<h2 className="leading-snug font-bold mt-4 text-[45px] text-neutral-softest drop-shadow-md tracking-wide">
 							{subTitle}
 						</h2>
 					)}

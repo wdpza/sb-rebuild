@@ -2,9 +2,9 @@
 export default function SocialMediaPackages({ introTitle, spackages }: any) {
 
     return (
-        <div className="bg-[#28262C] relative py-24 bg-cover bg-center">
+        <div className="bg-[#28262C] relative py-20 bg-cover bg-center">
             <div className="max-w-[1600px] mx-auto w-full">
-                <h2 className="text-[45px] font-bold mb-8 text-gradient-starbright text-center">{introTitle}</h2>
+                <h2 className="text-[45px] font-bold mb-12 text-gradient-starbright text-center">{introTitle}</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 text-center">
                     {spackages.map((pkg: any, index: number) => (
                         <div

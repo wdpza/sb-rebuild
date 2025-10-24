@@ -17,9 +17,9 @@ export default function PortfolioLayout({ title, portfolioItems }: any) {
   };
 
   return (
-    <div className="relative py-24 bg-cover bg-center bg-[#28262C]">
+    <div className="relative py-20 bg-cover bg-center bg-[#28262C]">
       <div className="max-w-[1600px] mx-auto w-full">
-      <h2 className="uppercase text-4xl md:text-6xl font-bold mb-8 text-center text-white">
+      <h2 className="text-[45px] font-bold mb-12 text-white text-center">
         {title ?? null}
       </h2>
 

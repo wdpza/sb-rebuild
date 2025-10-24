@@ -21,7 +21,7 @@ export default function FaqLayout({ introTitle, image, item, backgroundImage }: 
 
   return (
     <div
-      className="relative py-24 bg-cover bg-center"
+      className="relative py-20 bg-cover bg-center"
       style={{
         backgroundImage: bgUrl ? `url(${bgUrl})` : undefined,
       }}
@@ -29,7 +29,7 @@ export default function FaqLayout({ introTitle, image, item, backgroundImage }: 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-[1200px] mx-auto">
         {/* Left Column - FAQ Items */}
         <div className="flex flex-col justify-center">
-          <h2 className="text-white text-[45px] font-bold mb-8">{introTitle}</h2>
+          <h2 className="text-white text-[45px] font-bold mb-8 leading-snug">{introTitle}</h2>
           <div className="space-y-2">
             {item.map((item: Item, index: number) => (
               <div key={index} className="rounded space-y-2">

@@ -7,6 +7,7 @@ import FaqLayout from "@/components/service-components/FaqLayout"
 import SocialMediaPlatforms from "@/components/service-components/SocialMediaPlatforms"
 import SocialMediaPackages from "@/components/service-components/SocialMediaPackages"
 import HostingPackages from "@/components/service-components/HostingPackages"
+import TextHeadingBlock from "@/components/service-components/TextHeadingBlock"
 
 export default function ServiceRenderer({ pageBuilder }: any) {
     if (!pageBuilder) return null
@@ -35,6 +36,8 @@ export default function ServiceRenderer({ pageBuilder }: any) {
                         return <SocialMediaPackages key={index} {...block} />
                     case "ServicePageFieldsServicePageBuilderHostingPackagesLayout":
                         return <HostingPackages key={index} {...block} />
+                    case "ServicePageFieldsServicePageBuilderTextHeadingBlockLayout":
+                        return <TextHeadingBlock key={index} {...block} />
                     default:
                         return null
                 }

@@ -127,6 +127,21 @@ export const GET_SERVICE_BY_SLUG = gql`
                         url
                     }
                     }
+                    ... on ServicePageFieldsServicePageBuilderTextHeadingBlockLayout {
+                    description
+                    title
+                    ctaLink {
+                        target
+                        title
+                        url
+                    }
+                    backgroundImage {
+                        node {
+                        altText
+                        mediaItemUrl
+                        }
+                    }
+                    }
                 }
             }
         }

@@ -8,12 +8,11 @@ import StatsLayout from "./page-components/StatsLayout"
 import EmployeeCarouselLayout from "./page-components/EmployeeCarouselLayout"
 import TeamsSectionLayout from "./page-components/TeamsSectionLayout"
 import CertificationSectionLayout from "./page-components/CertificationSectionLayout"
-import PortfolioTabsLayout from "./page-components/PortfolioTabsLayout"
 import LeftGallerySectionLayout from "./page-components/LeftGallerySectionLayout"
 import RightImageSectionLayout from "./page-components/RightImageSectionLayout"
 import BlogTabsLayout from "./page-components/BlogTabsLayout"
 
-export default function PageRenderer({ pageBuilder }: any) {
+export default function PageRenderer({ pageBuilder, categories = null }: any) {
 	if (!pageBuilder) return null
 
 	return (
@@ -40,8 +39,6 @@ export default function PageRenderer({ pageBuilder }: any) {
 						return <TeamsSectionLayout key={index} {...block} />
 					case "PageFieldGroupPageBuilderCertificationSectionLayout":
 						return <CertificationSectionLayout key={index} {...block} />
-					case "PageFieldGroupPageBuilderPortfolioTabsLayout":
-						return <PortfolioTabsLayout key={index} {...block} />
 					case "PageFieldGroupPageBuilderLeftGallerySectionLayout":
 						return <LeftGallerySectionLayout key={index} {...block} />
 					case "PageFieldGroupPageBuilderRightImageSectionLayout":

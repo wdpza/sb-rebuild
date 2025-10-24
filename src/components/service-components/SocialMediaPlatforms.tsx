@@ -4,13 +4,13 @@ export default function SocialMediaPlatforms({ introTitle, platform, backgroundI
 
     return (
         <div
-            className="relative py-24 bg-cover bg-center"
+            className="relative py-20 bg-cover bg-center"
             style={{
                 backgroundImage: bgUrl ? `url(${bgUrl})` : undefined,
             }}
         >
             <div className="max-w-[1600px] mx-auto w-full">
-                <h2 className="text-[45px] font-bold mb-8 text-white text-center">{introTitle}</h2>
+                <h2 className="text-[45px] font-bold mb-12 text-white text-center">{introTitle}</h2>
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 max-w-[1200px] mx-auto">
                     {platform.map((platform: any, index: number) => (
                     <a
