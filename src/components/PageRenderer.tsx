@@ -12,7 +12,7 @@ import LeftGallerySectionLayout from "./page-components/LeftGallerySectionLayout
 import RightImageSectionLayout from "./page-components/RightImageSectionLayout"
 import BlogTabsLayout from "./page-components/BlogTabsLayout"
 
-export default function PageRenderer({ pageBuilder, categories = null }: any) {
+export default function PageRenderer({ pageBuilder }: any) {
 	if (!pageBuilder) return null
 
 	return (

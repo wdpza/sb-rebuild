@@ -2,7 +2,6 @@
 
 import Slider from "react-slick";
 import { useMemo } from "react";
-import Image from "next/image";
 
 type Item = {
   title: string;

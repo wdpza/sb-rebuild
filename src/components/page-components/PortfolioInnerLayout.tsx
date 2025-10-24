@@ -10,7 +10,7 @@ export default async function PortfolioInnerLayout({ perCategory, backgroundImag
     if(slug == null) {
         portfolioItems = await getPortfolioItems(perCategory);
     } else {
-        let data = await getPortfolioByCategorySlug(slug);
+        const data = await getPortfolioByCategorySlug(slug);
         portfolioItems = data?.portfolioCategory?.portfolio?.nodes;
     } 
 
