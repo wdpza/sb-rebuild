@@ -2,8 +2,12 @@ import { gql } from "graphql-request";
 import { client } from "@/lib/graphql/client";
 
 export const GET_POSTS_BY_CATEGORY_SLUG = gql`
-    query GetPostsByCategorySlug($slug: String, $first: Int = 10, $after: String) {
-        posts(where: {categoryName: $slug}, first: $first, after: $after) {
+    query GetPostsByCategorySlug(
+        $slug: String
+        $first: Int = 10
+        $after: String
+    ) {
+        posts(where: { categoryName: $slug }, first: $first, after: $after) {
             pageInfo {
                 hasNextPage
                 endCursor
@@ -17,8 +21,8 @@ export const GET_POSTS_BY_CATEGORY_SLUG = gql`
                 uri
                 featuredImage {
                     node {
-                    sourceUrl
-                    altText
+                        sourceUrl
+                        altText
                     }
                 }
                 categories {
@@ -30,14 +34,46 @@ export const GET_POSTS_BY_CATEGORY_SLUG = gql`
                 }
             }
         }
+        blogOptions {
+            blogOptionsFields {
+                blogHero {
+                    backgroundImage {
+                        node {
+                            altText
+                            mediaDetails {
+                                filePath
+                                file
+                            }
+                        }
+                    }
+                    title
+                    subHeading
+                    description
+                    mainImage {
+                        node {
+                            altText
+                            mediaDetails {
+                                file
+                                filePath
+                            }
+                        }
+                    }
+                    anchor
+                }
+            }
+        }
+        categories {
+            nodes {
+                name
+                uri
+            }
+        }
     }
 `;
 
 export async function GetPostsByCategorySlug() {
     try {
-        const data: any = await client.request(
-            GET_POSTS_BY_CATEGORY_SLUG
-        );
+        const data: any = await client.request(GET_POSTS_BY_CATEGORY_SLUG);
 
         return data.posts;
     } catch (error) {

@@ -2,7 +2,7 @@ import OptionsRenderer from "@/components/OptionsRenderer"
 import { getPortfolioOptions } from "@/lib/data/portfolio"
 import { notFound } from "next/navigation"
 
-export const revalidate = 60 // ISR
+export const revalidate = 60;
 
 export default async function PortfolioPage({ params }: { params: Promise<{ slug: string }>}) {
 
