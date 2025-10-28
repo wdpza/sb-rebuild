@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react"; // Importing Lucide React icons
 
 type Item = {
@@ -13,7 +13,8 @@ export default function FaqLayout({ introTitle, image, item, backgroundImage }: 
   const img = image?.node?.mediaItemUrl ?? null;
   const alt = image?.node?.altText ?? null;
 
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  // Set the first item to be open by default
+  const [activeIndex, setActiveIndex] = useState<number | null>(0);
 
   const toggleItem = (index: number) => {
     setActiveIndex(activeIndex === index ? null : index);
