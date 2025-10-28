@@ -61,6 +61,7 @@ export default function PortfolioSlider({ items, title, backgroundImage }: any) 
             <Slider ref={sliderRef} {...settings}>
                 {items.map((item: any) => {
                     const logo = item.portfolioFields?.logo?.node?.mediaItemUrl || null;
+                    const altText = item.portfolioFields?.logo?.node?.altText || '';
                     const mainImage =
                         item.portfolioFields?.sliderImageMain?.node?.mediaItemUrl || null;
                     const sideImage1 =
@@ -79,25 +80,12 @@ export default function PortfolioSlider({ items, title, backgroundImage }: any) 
                                     {logo && (
                                         <Image
                                             src={logo}
-                                            alt={`${item.title} logo`}
-                                            width={160}
+                                            alt={`${altText}`}
+                                            width={300}
                                             height={80}
                                             className="object-contain mb-6 self-center py-8"
                                         />
                                     )}
-
-                                    <div className="bg-neutral-strongest/25 rounded-lg p-6 shadow-sm">
-                                        <h3 className="text-white text-4xl font-bold mb-4 uppercase font-archivo">
-                                            {item.title}
-                                        </h3>
-
-                                        <div
-                                            className="text-base text-neutral-softest prose max-w-full"
-                                            dangerouslySetInnerHTML={{
-                                                __html: item.content,
-                                            }}
-                                        />
-                                    </div>
                                 </div>
 
                                 {/* Right side: images */}

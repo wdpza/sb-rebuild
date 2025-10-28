@@ -12,6 +12,7 @@ import LeftGallerySectionLayout from "./page-components/LeftGallerySectionLayout
 import RightImageSectionLayout from "./page-components/RightImageSectionLayout"
 import BlogTabsLayout from "./page-components/BlogTabsLayout"
 import CaseStudiesLayout from "./page-components/CaseStudiesLayout"
+import TestWillemLayout from "./page-components/TestWillemLayout"
 
 export default function PageRenderer({ pageBuilder }: any) {
 	if (!pageBuilder) return null
@@ -48,6 +49,8 @@ export default function PageRenderer({ pageBuilder }: any) {
 						return <BlogTabsLayout key={index} {...block} />
 					case "PageFieldGroupPageBuilderCaseStudiesLayout":
 						return <CaseStudiesLayout key={index} {...block} />
+					case "PageFieldGroupPageBuilderTestWillemLayout":
+						return <TestWillemLayout key={index} {...block} />
 					default:
 						return null
 				}
