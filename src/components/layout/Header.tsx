@@ -66,14 +66,16 @@ export default function Header({ menu, logo }: { menu: any; logo: any }) {
 					{/* Logo */}
 					{logo?.mediaItemUrl && (
 						<div className="flex items-start justify-start">
-							<Image
-								src={logo.mediaItemUrl}
-								alt={logo.altText || "Company Logo"}
-								className="h-10 w-auto ml-4 object-contain"
-								width={logo?.width ?? 206}
-								height={logo?.height ?? 82}
-								priority
-							/>
+							<a href="/home">
+								<Image
+									src={logo.mediaItemUrl}
+									alt={logo.altText || "Company Logo"}
+									className="h-10 w-auto ml-4 object-contain"
+									width={logo?.width ?? 206}
+									height={logo?.height ?? 82}
+									priority
+								/>
+							</a>
 						</div>
 					)}
 

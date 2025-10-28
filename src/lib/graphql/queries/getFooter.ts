@@ -5,17 +5,84 @@ export const GET_FOOTER = gql`
     query GetFooter {
         siteOptions {
             siteOptionsFields {
-                siteLogo {
+            siteLogo {
+                node {
+                altText
+                mediaItemUrl
+                }
+            }
+            footer {
+                address
+                officeNumber
+                whatsappNumber
+                socialMedia {
+                url
+                icon {
                     node {
-                        altText
-                        mediaItemUrl
+                    altText
+                    mediaItemUrl
                     }
                 }
-                footer {
-                    address
-                    officeNumber
-                    whatsappNumber
                 }
+            }
+            }
+        }
+        otherLinks: menu(id: "Other Links", idType: NAME) {
+            id
+            name
+            slug
+            menuItems {
+            nodes {
+                id
+                label
+                uri
+                url
+                target
+                parentId
+                order
+                cssClasses
+                connectedObject {
+                ... on Page {
+                    id
+                    title
+                    slug
+                }
+                ... on Post {
+                    id
+                    title
+                    slug
+                }
+                }
+            }
+            }
+        }
+        policiesMenu: menu(id: "Policies Menu", idType: NAME) {
+            id
+            name
+            slug
+            menuItems {
+            nodes {
+                id
+                label
+                uri
+                url
+                target
+                parentId
+                order
+                cssClasses
+                connectedObject {
+                ... on Page {
+                    id
+                    title
+                    slug
+                }
+                ... on Post {
+                    id
+                    title
+                    slug
+                }
+                }
+            }
             }
         }
     }
@@ -27,10 +94,7 @@ export async function getFooter() {
             GET_FOOTER
         );
 
-        return {
-            footer: data.siteOptions?.siteOptionsFields?.footer ?? null,
-            logo: data.siteOptions?.siteOptionsFields?.siteLogo?.node ?? null,
-        };
+        return data;
     } catch (error) {
         console.error("Error fetching primary menu:", error);
         return { menu: null, logo: null };

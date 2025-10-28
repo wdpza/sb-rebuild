@@ -4,6 +4,7 @@ import "./globals.css";
 
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import Copyright from "@/components/layout/Copyright"
 import { getPrimaryMenu } from "@/lib/graphql/queries/getPrimaryMenu";
 import { getFooter } from "@/lib/graphql/queries/getFooter";
 import "slick-carousel/slick/slick.css";
@@ -37,7 +38,7 @@ export default async function RootLayout({
 }>) {
 
   const { menu, logo } = await getPrimaryMenu();
-  const {footer, logo: footerLogo} = await getFooter();
+  const footer = await getFooter();
   
   return (
     <html lang="en">
@@ -46,7 +47,8 @@ export default async function RootLayout({
       >
         <Header menu={menu} logo={logo} />
         {children}
-        <Footer footer={footer} logo={footerLogo} />
+        <Footer footer={footer} />
+        <Copyright footer={footer} />
       </body>
     </html>
   );
