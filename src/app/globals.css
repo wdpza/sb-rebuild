@@ -141,6 +141,18 @@
     font-size: 60px;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+.bg-white {
+    background-color:#FFF;
+}
+
+.case-study img {
+    width:100% !important;
+}
+
 .text-white strong {
     color: #fff !important;
 }

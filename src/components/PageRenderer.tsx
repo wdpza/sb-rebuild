@@ -11,6 +11,7 @@ import CertificationSectionLayout from "./page-components/CertificationSectionLa
 import LeftGallerySectionLayout from "./page-components/LeftGallerySectionLayout"
 import RightImageSectionLayout from "./page-components/RightImageSectionLayout"
 import BlogTabsLayout from "./page-components/BlogTabsLayout"
+import CaseStudiesLayout from "./page-components/CaseStudiesLayout"
 
 export default function PageRenderer({ pageBuilder }: any) {
 	if (!pageBuilder) return null
@@ -45,6 +46,8 @@ export default function PageRenderer({ pageBuilder }: any) {
 						return <RightImageSectionLayout key={index} {...block} />
 					case "PageFieldGroupPageBuilderBlogTabsLayout":
 						return <BlogTabsLayout key={index} {...block} />
+					case "PageFieldGroupPageBuilderCaseStudiesLayout":
+						return <CaseStudiesLayout key={index} {...block} />
 					default:
 						return null
 				}
