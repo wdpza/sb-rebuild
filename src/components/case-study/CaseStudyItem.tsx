@@ -50,7 +50,10 @@ export default function CaseStudyItem({ item }: { item: any }) {
           </section>
         );
       })}
-      <div className="inline-block bg-white rounded-xl p-4 mb-8"><span className="text-gradient-starbright">Fact Checked By: { item?.caseStudies.factCheckedBy }</span></div>
+      {item?.caseStudies.factCheckedB ? (
+        <div className="inline-block bg-white rounded-xl p-4 mb-8"><span className="text-gradient-starbright">Fact Checked By: { item?.caseStudies.factCheckedBy }</span></div>
+      ) : null}
+      {item.caseStudies.clientFeedbackClient ? (
       <section
         className="scroll-mt-28 rounded-xl bg-white/5 p-6 mb-8"
       >
@@ -61,6 +64,7 @@ export default function CaseStudyItem({ item }: { item: any }) {
         />
         <p className="text-gradient-starbright mt-6">{item.caseStudies.clientFeedbackClient}</p>
       </section>  
+      ) : null}
     </article>
   );
 }

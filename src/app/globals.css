@@ -151,6 +151,7 @@ html {
 
 .case-study img {
     width:100% !important;
+    border-radius: 8px;
 }
 
 .text-white strong {
