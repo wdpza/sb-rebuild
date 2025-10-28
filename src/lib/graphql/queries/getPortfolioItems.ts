@@ -44,7 +44,7 @@ export const GET_PORTFOLIO_ITEMS = gql`
     }
 `;
 
-export async function getPortfolioItems(numberOfItems: number = 6) {
+export async function getPortfolioItems(numberOfItems: number = 20) {
     try {
         const data: any = await client.request(GET_PORTFOLIO_ITEMS, {
             numberOfItems,
