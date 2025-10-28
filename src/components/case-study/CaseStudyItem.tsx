@@ -12,8 +12,6 @@ type Section = {
 export default function CaseStudyItem({ item }: { item: any }) {
   const sections: Section[] = item?.caseStudies?.pageSection ?? [];
 
-  console.log(item?.caseStudies);
-
   return (
     <article className="scroll-smooth case-study">
       <div className="inline-block bg-white rounded-xl mb-4 p-4"><span className="text-gradient-starbright">{ item?.caseStudies.howLongRead }</span></div>
@@ -55,7 +53,7 @@ export default function CaseStudyItem({ item }: { item: any }) {
       ) : null}
       {item.caseStudies.clientFeedbackClient ? (
       <section
-        className="scroll-mt-28 rounded-xl bg-white/5 p-6 mb-8"
+        className="scroll-mt-28 rounded-xl bg-white/5 p-6"
       >
         <h2 className="text-[40px] text-gradient-starbright">Client Feedback</h2>
         <div

@@ -38,6 +38,7 @@ export const GET_CASE_STUDY_BY_SLUG = gql`
             }
             }
             title
+            slug
         }
     }
 `;
