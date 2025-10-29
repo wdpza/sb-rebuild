@@ -136,6 +136,9 @@
             var(--color-yellow-regular, #eeb42c) 99.99%
         );       
     }
+    .transition-flex {
+    transition: flex-basis 0.6s ease, flex-grow 0.6s ease;
+    }
 
 	.gradient-border-left {
 		border-left: 2px solid;

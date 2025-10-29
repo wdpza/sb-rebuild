@@ -31,12 +31,16 @@ export default function NavDropdown({
   navRef: React.RefObject<HTMLElement | null>;
 }) {
   const children = (item.children as ChildNode[]) ?? [];
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
   const [panelTop, setPanelTop] = useState(0);
-
   const [activeIndex, setActiveIndex] = useState(0);
-  const isActive = (i: number) => i === activeIndex;
+  const [activeCategory, setActiveCategory] = useState<string | null>(null);
 
-  // Build categories in first-seen order (NO "All")
+  /** --------------------------
+   *  Categories
+   * -------------------------- */
   const categories = useMemo(() => {
     const seen = new Map<string, number>();
     let i = 0;
@@ -45,16 +49,16 @@ export default function NavDropdown({
         if (!seen.has(c.name)) seen.set(c.name, i++);
       }
     }
-    return Array.from(seen.keys()).sort((a, b) => (seen.get(a)! - seen.get(b)!));
+    return Array.from(seen.keys()).sort((a, b) => seen.get(a)! - seen.get(b)!);
   }, [children]);
 
-  // Default to FIRST category when menu opens
-  const [activeCategory, setActiveCategory] = useState<string | null>(null);
   useEffect(() => {
     if (isOpen) setActiveCategory(categories[0] ?? null);
   }, [isOpen, categories]);
 
-  // Position panel full width under header/nav
+  /** --------------------------
+   *  Position under nav
+   * -------------------------- */
   useEffect(() => {
     const calc = () => {
       const el = navRef?.current;
@@ -71,15 +75,14 @@ export default function NavDropdown({
     };
   }, [navRef]);
 
-  // Close on URL change only (path/query/hash)
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
+  /** --------------------------
+   *  Close on URL / hash / scroll
+   * -------------------------- */
   useEffect(() => {
     if (!isOpen) return;
     setOpenIndex(null);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname, searchParams?.toString()]);
-  
+
   useEffect(() => {
     if (!isOpen) return;
     const onHash = () => setOpenIndex(null);
@@ -87,7 +90,41 @@ export default function NavDropdown({
     return () => window.removeEventListener("hashchange", onHash);
   }, [isOpen, setOpenIndex]);
 
-  // Visible children for the active category; if no categories exist, show all
+  // ✅ Close on ANY scroll
+  useEffect(() => {
+    if (!isOpen) return;
+    const onScroll = () => setOpenIndex(null);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [isOpen, setOpenIndex]);
+
+  /** --------------------------
+   *  Animation states
+   * -------------------------- */
+  const [shouldRender, setShouldRender] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    if (isOpen) {
+      // Mount hidden first
+      setShouldRender(true);
+      setIsVisible(false);
+      // Animate in after mount
+      const frame = requestAnimationFrame(() => {
+        requestAnimationFrame(() => setIsVisible(true));
+      });
+      return () => cancelAnimationFrame(frame);
+    } else {
+      // Animate out, then unmount
+      setIsVisible(false);
+      const timeout = setTimeout(() => setShouldRender(false), 400);
+      return () => clearTimeout(timeout);
+    }
+  }, [isOpen]);
+
+  /** --------------------------
+   *  Filtered children
+   * -------------------------- */
   const visibleChildren = useMemo(() => {
     if (!categories.length || !activeCategory) return children;
     return children.filter(c =>
@@ -97,17 +134,18 @@ export default function NavDropdown({
     );
   }, [children, categories.length, activeCategory]);
 
+  /** --------------------------
+   *  Render
+   * -------------------------- */
   return (
     <li className="relative">
-      {/* Trigger — toggle on pointerdown for reliability */}
+      {/* Trigger */}
       <a
         className="cursor-pointer text-neutral-softest text-lg transition inline-flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neutral-300 rounded-md px-1"
         aria-haspopup="menu"
         aria-expanded={isOpen}
         aria-controls={`megamenu-${index}`}
-        onPointerDown={() => {
-          setOpenIndex(prev => (prev === index ? null : index));
-        }}
+        onPointerDown={() => setOpenIndex(prev => (prev === index ? null : index))}
       >
         {item.label ?? "Menu"}
         <svg
@@ -120,23 +158,24 @@ export default function NavDropdown({
         </svg>
       </a>
 
-      {/* Full-width mega panel */}
-      {isOpen && (
+      {/* Animated Mega Menu */}
+      {shouldRender && (
         <MegaMenuPortal top={panelTop}>
           <div
             id={`megamenu-${index}`}
             role="menu"
             aria-label={item.label ?? "Submenu"}
-            className="w-screen bg-[#171717] backdrop-blur-md ring-1 ring-black/5 shadow-2xl z-[60]"
-            // Stop events in BUBBLE phase so child clicks work, but page listeners don't see them
+            className={`w-screen backdrop-blur-md ring-1 ring-black/5 z-[60] transform transition-all duration-500 ease-out origin-top ${
+              isVisible
+                ? "opacity-100 translate-y-0 scale-100"
+                : "opacity-0 -translate-y-4 scale-95 pointer-events-none"
+            }`}
             onPointerDown={e => e.stopPropagation()}
             onClick={e => e.stopPropagation()}
-            onMouseDown={e => e.stopPropagation()}
-            onMouseUp={e => e.stopPropagation()}
           >
-            <div className="mx-auto max-w-[1600px] px-6">
+            <div className="mx-auto max-w-[1600px] px-6 bg-[#171717] shadow-2xl">
               <div className="grid grid-cols-12 gap-8">
-                {/* Left: categories (hide if none) */}
+                {/* Left: categories */}
                 {categories.length > 0 && (
                   <div className="col-span-12 md:col-span-3">
                     <nav aria-label="Service categories" className="mt-6 mb-6">
@@ -145,7 +184,7 @@ export default function NavDropdown({
                           <li key={name}>
                             <button
                               type="button"
-                              className={`cursor-pointer w-full text-left rounded-lg px-3 py-4 transition ${
+                              className={`w-full text-left rounded-lg px-3 py-4 transition ${
                                 activeCategory === name
                                   ? "bg-white text-base"
                                   : "bg-transparent hover:bg-white text-white hover:text-base"
@@ -162,74 +201,70 @@ export default function NavDropdown({
                 )}
 
                 {/* Right: image tiles */}
-                <div className={`gradient-border-left col-span-12 ${categories.length ? "md:col-span-9" : ""}`}>
-                  <ul
-                    className="flex gap-3 h-full sm:h-72 lg:h-full megamenu-navigation"
-                  >
+                <div
+                  className={`gradient-border-left col-span-12 ${
+                    categories.length ? "md:col-span-9" : ""
+                  }`}
+                >
+                  <ul className="flex gap-3 h-full sm:h-72 lg:h-full megamenu-navigation">
                     {visibleChildren.map((child, i) => {
                       const chref = buildHref(child);
                       const external = isExternal(chref);
-                      const img = child?.mainMenuFields?.backgroundImage?.node?.mediaItemUrl;
-                      const alt = child?.mainMenuFields?.backgroundImage?.node?.altText || child?.label || "Image";
-                      const active = isActive(i);
+                      const img =
+                        child?.mainMenuFields?.backgroundImage?.node?.mediaItemUrl;
+                      const alt =
+                        child?.mainMenuFields?.backgroundImage?.node?.altText ||
+                        child?.label ||
+                        "Image";
+                      const active = i === activeIndex;
 
                       return (
                         <li
                           key={child.id ?? chref}
-                          className={[
-                            "relative overflow-hidden shadow-sm h-full transition-all duration-600 max-w-[360px]",
-                            // Expanded tile fills remaining space; others are slim slices
-                            active
-                              ? "flex-[1_1_0%]" // expands to use available width
-                              : "flex-[0_0_5.5rem] sm:flex-[0_0_6.5rem] lg:flex-[0_0_7.5rem]" // collapsed width
-                          ].join(" ")}
-                          // Persist selection until another hover/focus occurs
+                          className={`relative overflow-hidden shadow-sm h-full transition-all duration-600 max-w-[360px]
+                            ${active ? "flex-[1_1_0%]" : "flex-[0_0_6rem]"}`}
                           onMouseEnter={() => setActiveIndex(i)}
                           onFocus={() => setActiveIndex(i)}
                         >
                           <Link
                             href={chref}
-                            {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                            {...(external
+                              ? { target: "_blank", rel: "noopener noreferrer" }
+                              : {})}
                             className="block w-full h-full focus:outline-none"
                           >
-                            {/* Image fits container: no min-w/min-h tricks, no scale */}
-                            <div className="absolute inset-0">
-                              {/* eslint-disable-next-line @next/next/no-img-element */}
-                              {img ? (
-                                <img
-                                  src={img}
-                                  alt={alt}
-                                  className={[
-                                    "absolute inset-0 w-full h-full transition-[object-fit] duration-300",
-                                    active ? "object-contain" : "object-cover"
-                                  ].join(" ")}
-                                  // Make sure it’s always centered
-                                  style={{ objectPosition: "center center" }}
-                                  loading="lazy"
-                                  decoding="async"
-                                />
-                              ) : (
-                                <div className="absolute inset-0 grid place-items-center text-neutral-400">
-                                  <span className="text-sm">No image</span>
-                                </div>
-                              )}
-                            </div>
+                            {img ? (
+                              <img
+                                src={img}
+                                alt={alt}
+                                className={`absolute inset-0 w-full h-full object-cover transition-transform duration-500 ease-out ${
+                                  active ? "scale-105" : "scale-100"
+                                }`}
+                                style={{ objectPosition: "center center" }}
+                                loading="lazy"
+                                decoding="async"
+                              />
+                            ) : (
+                              <div className="absolute inset-0 grid place-items-center text-neutral-400">
+                                <span className="text-sm">No image</span>
+                              </div>
+                            )}
 
                             <div
                               className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent z-[1]"
                               aria-hidden="true"
                             />
-
                             <div
-                              className={[
-                                "absolute bottom-4 left-2 right-2 text-center uppercase font-bold transition-all duration-300 z-[2]",
-                                active ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
-                              ].join(" ")}
+                              className={`absolute bottom-4 left-2 right-2 text-center uppercase font-bold transition-all duration-300 z-[2] ${
+                                active
+                                  ? "opacity-100 translate-y-0"
+                                  : "opacity-0 translate-y-2"
+                              }`}
                             >
-                              <span className="text-white drop-shadow">{child.label ?? "Item"}</span>
+                              <span className="text-white drop-shadow">
+                                {child.label ?? "Item"}
+                              </span>
                             </div>
-
-                            {/* Optional edge gradient hint for collapsed slices */}
                             {!active && (
                               <div className="pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-black/20 to-transparent" />
                             )}
