@@ -10,6 +10,7 @@ import HostingPackages from "@/components/service-components/HostingPackages"
 import TextHeadingBlock from "@/components/service-components/TextHeadingBlock"
 import RightImageSectionVideo from "@/components/service-components/RightImageSectionVideo"
 import GoogleReviewBoosterLayout from "@/components/service-components/GoogleReviewBoosterLayout"
+import ServiceCarouselLayout from "@/components/service-components/ServiceCarouselLayout"
 
 export default function ServiceRenderer({ pageBuilder }: any) {
     if (!pageBuilder) return null
@@ -44,6 +45,8 @@ export default function ServiceRenderer({ pageBuilder }: any) {
                         return <RightImageSectionVideo key={index} {...block} />
                     case "ServicePageFieldsServicePageBuilderGoogleReviewBoosterLayout":
                         return <GoogleReviewBoosterLayout key={index} {...block} />
+                    case "ServicePageFieldsServicePageBuilderServiceGalleryLayout":
+                        return <ServiceCarouselLayout key={index} {...block} />   
                     default:
                         return null
                 }

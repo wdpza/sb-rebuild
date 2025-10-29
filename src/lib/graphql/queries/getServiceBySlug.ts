@@ -171,6 +171,22 @@ export const GET_SERVICE_BY_SLUG = gql`
                         }
                     }
                     }
+                    ... on ServicePageFieldsServicePageBuilderServiceGalleryLayout {
+                    description
+                    employeePhotos {
+                        nodes {
+                        altText
+                        mediaItemUrl
+                        }
+                    }
+                    title
+                    backgroundImage {
+                        node {
+                        altText
+                        mediaItemUrl
+                        }
+                    }
+                    }
                 }
             }
         }
