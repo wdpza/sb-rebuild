@@ -61,7 +61,7 @@ export default function Header({ menu, logo }: { menu: any; logo: any }) {
 	if (!menu) return null;
 
 	return (
-		<header className="absolute top-0 left-0 right-0 z-50 py-12">
+		<header className="absolute top-0 left-0 right-0 z-50 py-4 lg:py-12">
 			<div className="max-w-[1600px] mx-auto flex flex-col justify-between p-4 bg-transparent">
 				<div className="flex items-center justify-between">
 					{/* Logo */}
