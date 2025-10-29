@@ -139,6 +139,10 @@
     .transition-flex {
     transition: flex-basis 0.6s ease, flex-grow 0.6s ease;
     }
+    .aspect-video iframe {
+        width:100% !important;
+        height:538.5px !important;
+    }
 
 	.gradient-border-left {
 		border-left: 2px solid;

@@ -8,6 +8,8 @@ import SocialMediaPlatforms from "@/components/service-components/SocialMediaPla
 import SocialMediaPackages from "@/components/service-components/SocialMediaPackages"
 import HostingPackages from "@/components/service-components/HostingPackages"
 import TextHeadingBlock from "@/components/service-components/TextHeadingBlock"
+import RightImageSectionVideo from "@/components/service-components/RightImageSectionVideo"
+import GoogleReviewBoosterLayout from "@/components/service-components/GoogleReviewBoosterLayout"
 
 export default function ServiceRenderer({ pageBuilder }: any) {
     if (!pageBuilder) return null
@@ -38,6 +40,10 @@ export default function ServiceRenderer({ pageBuilder }: any) {
                         return <HostingPackages key={index} {...block} />
                     case "ServicePageFieldsServicePageBuilderTextHeadingBlockLayout":
                         return <TextHeadingBlock key={index} {...block} />
+                    case "ServicePageFieldsServicePageBuilderRightImageSectionWTextVideoLayout":
+                        return <RightImageSectionVideo key={index} {...block} />
+                    case "ServicePageFieldsServicePageBuilderGoogleReviewBoosterLayout":
+                        return <GoogleReviewBoosterLayout key={index} {...block} />
                     default:
                         return null
                 }

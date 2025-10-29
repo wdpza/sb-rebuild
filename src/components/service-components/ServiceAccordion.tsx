@@ -45,7 +45,9 @@ function NextArrow(props: any) {
   return <ArrowBase onClick={onClick} side="right" />;
 }
 
-export default function ServiceAccordion({ introTitle, item }: any) {
+export default function ServiceAccordion({ introTitle, item, backgroundImage }: any) {
+
+    const bgUrl = backgroundImage?.node?.mediaItemUrl ?? null;
 
     const settings = useMemo(
         () => ({
@@ -67,7 +69,11 @@ export default function ServiceAccordion({ introTitle, item }: any) {
     );
 
 	return (
-		<section className="relative py-12 flex w-full items-center bg-[#28262C] overflow-hidden">
+		<section className="relative py-12 flex w-full items-center bg-[#28262C] overflow-hidden bg-cover bg-center"
+      style={{
+          backgroundImage: bgUrl ? `url(${bgUrl})` : undefined,
+      }}
+    >
             <div className="max-w-[1600px] mx-auto w-full">
                 <h2 className="text-[45px] font-bold mb-8 text-white text-center">{introTitle}</h2>
                 <div className="relative rounded-2xl p-6">

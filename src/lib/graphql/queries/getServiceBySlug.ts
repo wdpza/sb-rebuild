@@ -28,6 +28,12 @@ export const GET_SERVICE_BY_SLUG = gql`
                         title
                         description
                     }
+                    backgroundImage {
+                        node {
+                        altText
+                        mediaItemUrl
+                        }
+                    }
                     }
                     ... on ServicePageFieldsServicePageBuilderWhyWordWithUsSectionLayout {
                     introTitle
@@ -136,6 +142,29 @@ export const GET_SERVICE_BY_SLUG = gql`
                         url
                     }
                     backgroundImage {
+                        node {
+                        altText
+                        mediaItemUrl
+                        }
+                    }
+                    }
+                    ... on ServicePageFieldsServicePageBuilderRightImageSectionWTextVideoLayout {
+                    description
+                    title
+                    video
+                    image {
+                        node {
+                        altText
+                        mediaItemUrl
+                        }
+                    }
+                    }
+                    ... on ServicePageFieldsServicePageBuilderGoogleReviewBoosterLayout {
+                    features {
+                        description
+                        title
+                    }
+                    image {
                         node {
                         altText
                         mediaItemUrl
