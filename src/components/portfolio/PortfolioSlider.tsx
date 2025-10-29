@@ -76,7 +76,7 @@ export default function PortfolioSlider({ items, title, backgroundImage }: any) 
                         >
                             <div className="flex flex-col md:flex-row w-full h-full">
                                 {/* Left side: text + logo */}
-                                <div className="flex flex-col justify-center md:w-2/3 p-12 pt-24 mt-16">
+                                <div className="flex flex-col justify-center md:w-2/3 p-12 pt-24  bg-gradient-vignette">
                                     {logo && (
                                         <Image
                                             src={logo}

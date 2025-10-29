@@ -92,6 +92,24 @@
         ) !important;
     }
 
+    .bg-gradient-vignette {
+        position: relative;
+        z-index: 0;
+
+        &::after {
+            content: '';
+            z-index: -1;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background-image: radial-gradient(circle at center, transparent 0%, var(--foreground) 80%);
+        }
+    }
+
+
 	.gradient-border {
         transition:250ms;
 		border: 2px solid transparent;
