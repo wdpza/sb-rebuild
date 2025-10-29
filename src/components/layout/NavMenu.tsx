@@ -30,7 +30,12 @@ export default function NavMenu({
 
   return (
     <nav ref={navRef} aria-label="Main">
-      <ul className="flex gap-6">
+      <div className='md:hidden w-[35px]'>
+        <div className='border-white border-t-3 mb-2'></div>
+        <div className='border-white border-t-3 mb-2'></div>
+        <div className='border-white border-t-3'></div>
+      </div>
+      <ul className="hidden md:flex gap-6 ">
         {tree.map((item, index) => {
           const href = buildHref(item);
           const hasChildren =

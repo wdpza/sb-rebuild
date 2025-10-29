@@ -14,20 +14,20 @@ export default function HeroLayout({ title, description, subTitle, background, i
 			<div className="h-screen relative z-10 grid w-full max-w-[1600px] mx-auto grid-cols-1 md:grid-cols-24 gap-2 px-12 py-24">
 				{/* Left column: 60% */}
 				<div className="col-span-13 flex flex-col justify-center text-left gap-4">
-					<h1 className="font-archivo uppercase text-[55px]/15 lg:text-[75px]/20 font-black drop-shadow-lg text-gradient-starbright">
+					<h1 className="font-archivo uppercase text-[55px]/15 lg:text-[75px]/20 font-black drop-shadow-lg text-gradient-starbright text-center md:text-left">
 						{title}
 					</h1>
 
 					{/* If subtitle or description fields are added later, leave placeholders */}
 					{subTitle && (
-						<h2 className="font-bold mt-4 text-[35px] lg:text-[45px] text-neutral-softest drop-shadow-md tracking-wide">
+						<h2 className="font-bold mt-4 text-[35px] lg:text-[45px] text-neutral-softest drop-shadow-md tracking-wide text-center md:text-left">
 							{subTitle}
 						</h2>
 					)}
 
 					{description && (
 						<div
-							className="mt-6 text-lg text-gray-100"
+							className="mt-6 text-lg text-gray-100 text-center md:text-left"
 							dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(description) }}
 						/>
 					)}
