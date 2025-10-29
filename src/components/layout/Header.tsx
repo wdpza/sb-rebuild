@@ -3,6 +3,7 @@
 import { useState, useMemo, useRef, useEffect } from "react";
 import Image from "next/image";
 import NavMenu from "./NavMenu";
+import Link from 'next/link';
 
 export type MenuItem = {
 	id?: string | null;
@@ -66,7 +67,7 @@ export default function Header({ menu, logo }: { menu: any; logo: any }) {
 					{/* Logo */}
 					{logo?.mediaItemUrl && (
 						<div className="flex items-start justify-start">
-							<a href="/home">
+							<Link href="/home">
 								<Image
 									src={logo.mediaItemUrl}
 									alt={logo.altText || "Company Logo"}
@@ -75,7 +76,7 @@ export default function Header({ menu, logo }: { menu: any; logo: any }) {
 									height={logo?.height ?? 82}
 									priority
 								/>
-							</a>
+							</Link>
 						</div>
 					)}
 

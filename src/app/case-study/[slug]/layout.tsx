@@ -22,9 +22,10 @@ export default async function CaseStudyLayout({
   params,
 }: {
   children: ReactNode;
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
-  const caseStudy = await getCaseStudyBySlug(params.slug);
+  const { slug } = await params;
+  const caseStudy = await getCaseStudyBySlug(slug);
   const items: CaseStudyItem[] = await getCaseStudyItems(10);
   if (!caseStudy) return notFound();
 

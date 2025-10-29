@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export default function Footer( footer: any) {
 
     return (
@@ -6,11 +8,11 @@ export default function Footer( footer: any) {
                 {/* Column 1: Logo */}
                 <div className="flex flex-col space-y-4 self-center">
                     {footer.footer.siteOptions.siteOptionsFields.siteLogo.node.mediaItemUrl && (
-                        <a href="/home"><img
+                        <Link href="/home"><img
                             src={footer.footer.siteOptions.siteOptionsFields.siteLogo.node.mediaItemUrl}
                             alt={footer.footer.siteOptions.siteOptionsFields.siteLogo.node.altText}
                             className="w-60 h-auto"
-                        /></a>
+                        /></Link>
                     )}
                 </div>
 

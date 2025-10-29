@@ -11,7 +11,7 @@ export default function NavMenu({
   setOpenIndex,
 }: {
   tree: MenuNode[];
-  navRef: React.RefObject<HTMLElement>;
+  navRef: React.RefObject<HTMLElement | null>;
   openIndex: number | null;
   setOpenIndex: React.Dispatch<React.SetStateAction<number | null>>;
 }) {
