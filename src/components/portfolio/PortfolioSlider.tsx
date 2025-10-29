@@ -30,32 +30,41 @@ export default function PortfolioSlider({ items, title, backgroundImage }: any) 
             }}
         >
             {/* Custom controls */}
-            <div className="flex absolute top-8 w-1/2 ml-18 z-9">
-                <div className="flex mx-auto w-full justify-between items-center py-10">
-                    <button
-                        onClick={() => sliderRef.current?.slickPrev()}
-                        className="w-18 h-18 flex items-center justify-center cursor-pointer gradient-border rounded-full transition-transform duration-300 ease-in-out"
-                    >
-                        <img
-                            src="/slider-navigation-right.svg"
-                            alt="Previous slide"
-                        />
-                    </button>
+            {/* <div className="flex absolute top-8 w-1/2 ml-18 z-9"></div> */}
+            <div className='flex absolute md:top-8 z-9 w-full'>
+                <div className='px-14 w-full md:w-2/3'>
+                    <div className="flex mx-auto w-full justify-between items-center py-10">
+                        <button
+                            onClick={() => sliderRef.current?.slickPrev()}
+                            className="w-18 h-18 flex items-center justify-center cursor-pointer gradient-border rounded-full transition-transform duration-300 ease-in-out"
+                        >
+                            <img
+                                src="/slider-navigation-right.svg"
+                                alt="Previous slide"
+                            />
+                        </button>
 
-                    <h2 className="text-4xl font-bold text-gradient-starbright">
-                        {title}
-                    </h2>
+                        <h2 className="text-4xl font-bold text-gradient-starbright">
+                            {title}
+                        </h2>
 
-                    <button
-                        onClick={() => sliderRef.current?.slickNext()}
-                        className="w-18 h-18 flex items-center justify-center cursor-pointer gradient-border rounded-full transition-transform duration-300 ease-in-out"
-                    >
-                        <img
-                            src="/slider-navigation-left.svg"
-                            alt="Next slide"
-                        />
-                    </button>
+                        <button
+                            onClick={() => sliderRef.current?.slickNext()}
+                            className="w-18 h-18 flex items-center justify-center cursor-pointer gradient-border rounded-full transition-transform duration-300 ease-in-out"
+                        >
+                            <img
+                                src="/slider-navigation-left.svg"
+                                alt="Next slide"
+                            />
+                        </button>
+                    </div>                
                 </div>
+                <div className='md:w-1/2'>
+                    {/* Spacer */}
+                </div>
+            </div>
+            <div className="flex md:absolute md:top-8 md:w-2/3 z-9">
+
             </div>
 
             <Slider ref={sliderRef} {...settings}>
@@ -89,7 +98,7 @@ export default function PortfolioSlider({ items, title, backgroundImage }: any) 
                                 </div>
 
                                 {/* Right side: images */}
-                                <div className="flex md:w-1/2 gap-3">
+                                <div className="flex md:w-1/2 gap-3 bg-neutral-strongest md:pl-3">
                                     {/* Main image */}
                                     {mainImage ? (
                                         <div className="flex-1">
