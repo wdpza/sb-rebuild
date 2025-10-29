@@ -18,21 +18,35 @@ export const GET_PRIMARY_MENU = gql`
                     parentId
                     order
                     connectedObject {
-                        ... on Page {
-                            id
-                            slug
-                            title
+                    ... on Page {
+                        id
+                        slug
+                        title
+                    }
+                    ... on Post {
+                        id
+                        slug
+                        title
+                    }
+                    ... on Category {
+                        id
+                        slug
+                        name
+                    }
+                    }
+                    mainMenuFields {
+                    backgroundImage {
+                        node {
+                        altText
+                        mediaItemUrl
                         }
-                        ... on Post {
-                            id
-                            slug
-                            title
+                    }
+                    categoryGrouping {
+                        nodes {
+                        name
+                        databaseId
                         }
-                        ... on Category {
-                            id
-                            slug
-                            name
-                        }
+                    }
                     }
                 }
             }

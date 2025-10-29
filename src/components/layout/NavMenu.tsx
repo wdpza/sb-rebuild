@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { MenuNode } from "./Header";
-import NavDropdown from "./NavDropdown"
+import NavDropdown from "./NavDropdown";
 
 export default function NavMenu({
   tree,
@@ -62,6 +62,7 @@ export default function NavMenu({
               setOpenIndex={setOpenIndex}
               buildHref={buildHref}
               isExternal={isExternal}
+              navRef={navRef}
             />
           );
         })}
