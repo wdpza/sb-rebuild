@@ -28,12 +28,10 @@ export default function NavDropdown({
   setOpenIndex: React.Dispatch<React.SetStateAction<number | null>>;
   buildHref: (item: any) => string;
   isExternal: (url: string) => boolean;
-  navRef: React.RefObject<HTMLElement>;
+  navRef: React.RefObject<HTMLElement | null>;
 }) {
   const children = (item.children as ChildNode[]) ?? [];
   const [panelTop, setPanelTop] = useState(0);
-
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   const [activeIndex, setActiveIndex] = useState(0);
   const isActive = (i: number) => i === activeIndex;
@@ -81,6 +79,7 @@ export default function NavDropdown({
     setOpenIndex(null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname, searchParams?.toString()]);
+  
   useEffect(() => {
     if (!isOpen) return;
     const onHash = () => setOpenIndex(null);

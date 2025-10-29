@@ -23,7 +23,7 @@ export default async function CaseStudiesLayout({
 
   return (
     <div className="w-full bg-[#171717]">
-      <div className="mx-auto max-w-[1600px] py-12 px-6">
+      <div className={`mx-auto max-w-[1600px] py-12 px-6 ${title}`}>
 
         {/* 4 columns on large screens, graceful fallbacks below */}
         <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 text-center">

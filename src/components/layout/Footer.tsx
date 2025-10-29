@@ -10,7 +10,7 @@ export default function Footer( footer: any) {
                     {footer.footer.siteOptions.siteOptionsFields.siteLogo.node.mediaItemUrl && (
                         <Link href="/home"><img
                             src={footer.footer.siteOptions.siteOptionsFields.siteLogo.node.mediaItemUrl}
-                            alt={footer.footer.siteOptions.siteOptionsFields.siteLogo.node.altText}
+                            alt={footer.footer.siteOptions.siteOptionsFields.siteLogo.node.altText ?? ''}
                             className="w-60 h-auto"
                         /></Link>
                     )}
@@ -77,7 +77,7 @@ export default function Footer( footer: any) {
                             >
                                 <img
                                 src={item.icon.node.mediaItemUrl}
-                                alt={item.icon.node.altText}
+                                alt={item.icon.node.altText ?? ''}
                                 className="w-6 h-6 object-contain"
                                 />
                             </a>

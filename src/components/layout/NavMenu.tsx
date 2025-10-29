@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { MenuNode } from "./Header";
 import NavDropdown from "./NavDropdown";
+import { Suspense } from "react";
 
 export default function NavMenu({
   tree,
@@ -54,16 +55,18 @@ export default function NavMenu({
           }
 
           return (
-            <NavDropdown
-              key={item.id ?? index}
-              item={item}
-              index={index}
-              isOpen={openIndex === index}
-              setOpenIndex={setOpenIndex}
-              buildHref={buildHref}
-              isExternal={isExternal}
-              navRef={navRef}
-            />
+            <Suspense key={item.id ?? index} fallback={null}>
+              <NavDropdown
+                key={item.id ?? index}
+                item={item}
+                index={index}
+                isOpen={openIndex === index}
+                setOpenIndex={setOpenIndex}
+                buildHref={buildHref}
+                isExternal={isExternal}
+                navRef={navRef}
+              />
+            </Suspense>
           );
         })}
       </ul>

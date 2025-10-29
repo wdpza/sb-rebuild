@@ -16,16 +16,6 @@ const archivo = Archivo({
   subsets: ["latin"],
 });
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
 export const metadata: Metadata = {
   title: "Crafting Amazing Brands | Partner with Starbright",
   description: "Are you looking for a digital marketing partner? We provide end-to-end solutions to businesses looking to increase their online presence.",
