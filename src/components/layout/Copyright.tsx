@@ -12,7 +12,7 @@ export default function Copyright({ footer }: { footer?: any }) {
                 <div className="flex space-x-3 text-neutral-600">
                     {menuNodes.map((item: any, index: number) => (
                         <React.Fragment key={item?.id ?? index}>
-                        <a href={item?.url ?? '#'} className="text-white">
+                        <a href={item?.uri ?? '#'} className="text-white">
                             {item?.label ?? ''}
                         </a>
                         {index < menuNodes.length - 1 && (

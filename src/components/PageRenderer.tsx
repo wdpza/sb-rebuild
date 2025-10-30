@@ -12,6 +12,7 @@ import LeftGallerySectionLayout from "./page-components/LeftGallerySectionLayout
 import RightImageSectionLayout from "./page-components/RightImageSectionLayout"
 import BlogTabsLayout from "./page-components/BlogTabsLayout"
 import CaseStudiesLayout from "./page-components/CaseStudiesLayout"
+import TextHeadingBlock from "@/components/page-components/TextHeadingBlock"
 import TestWillemLayout from "./page-components/TestWillemLayout"
 
 export default function PageRenderer({ pageBuilder }: any) {
@@ -51,6 +52,8 @@ export default function PageRenderer({ pageBuilder }: any) {
 						return <CaseStudiesLayout key={index} {...block} />
 					case "PageFieldGroupPageBuilderTestWillemLayout":
 						return <TestWillemLayout key={index} {...block} />
+					case "PageFieldGroupPageBuilderTextWHeadingLayoutLayout":
+						return <TextHeadingBlock key={index} {...block} />
 					default:
 						return null
 				}

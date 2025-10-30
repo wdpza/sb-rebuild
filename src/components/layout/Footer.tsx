@@ -47,10 +47,10 @@ export default function Footer( footer: any) {
 
                     <p className="text-neutral-regular whitespace-pre-line">
                         {footer.footer.otherLinks.menuItems.nodes.map(
-                            (item: { url: string; label: string }) => (
+                            (item: { uri: string; label: string }) => (
                             <a
-                                key={item.url}
-                                href={item.url}
+                                key={item.uri}
+                                href={item.uri}
                                 className="block hover:text-neutral-softest transition-colors text-white"
                             >
                                 {item.label}
