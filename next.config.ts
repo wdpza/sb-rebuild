@@ -5,8 +5,8 @@ const nextConfig: NextConfig = {
    images: {
     remotePatterns: [
       { protocol: "https", hostname: "cms.starbright.co.za" },
-    ],
-  },
+    ]
+  }
 };
 
 export default nextConfig;
