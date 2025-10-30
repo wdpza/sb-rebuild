@@ -33,7 +33,6 @@ export default function ServiceRenderer({ pageBuilder }: any) {
                     case "ServicePageFieldsServicePageBuilderFaqSectionLayout":
                         return <FaqLayout key={index} {...block} />
                     case "ServicePageFieldsServicePageBuilderSocialMediaPlatformsLayout":
-                        console.log(block);
                         return <SocialMediaPlatforms key={index} {...block} />
                     case "ServicePageFieldsServicePageBuilderSocialMediaPackagedLayout":
                         return <SocialMediaPackages key={index} {...block} />

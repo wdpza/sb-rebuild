@@ -3,7 +3,7 @@ import React from 'react';
 export default function Copyright({ footer }: { footer?: any }) {
 
     const currentYear = new Date().getFullYear();
-    const menuNodes = footer?.footer?.policiesMenu?.menuItems?.nodes ?? [];
+    const menuNodes = footer?.policiesMenu?.menuItems?.nodes ?? [];
 
     return (
         <div className="bg-[#49474D] w-full">
