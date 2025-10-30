@@ -6,8 +6,6 @@ export default function HeroLayout({ title, description, subTitle, background, i
 	const bgUrl = background?.node?.mediaItemUrl ?? null
 	const imageUrl = image?.node?.mediaItemUrl ?? null
 
-	console.log(showContactForm);
-
 	return (
 		<section
 			className="relative flex min-h-screen w-full items-center bg-cover bg-bottom bg-no-repeat overflow-hidden"
@@ -35,7 +33,7 @@ export default function HeroLayout({ title, description, subTitle, background, i
 							dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(description) }}
 						/>
 					)}
-					{showContactForm.includes("1") && (
+					{showContactForm?.includes("1") && (
 						<div className="text-white mb-4">
 							<ContactForm />
 						</div>
