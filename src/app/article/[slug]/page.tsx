@@ -17,6 +17,7 @@ export default async function ArticleSlugPage(
     }
 
     console.log(post);
+    
     return (
         <div className="article-slug-page">
             <h1>Article Slug Page for {slug}</h1>
