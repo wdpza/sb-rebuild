@@ -68,6 +68,9 @@
 }
 
 @layer utilities {
+    .article-slug-page h3,
+    .article-slug-page h2,
+    .article-slug-page h4,
     .text-gradient-starbright {
         background: linear-gradient(
             99deg,
@@ -180,6 +183,11 @@
 
 .hover\:bg-white:hover {
     background-color:#FFF;
+}
+
+.article-slug-page a {
+    color:#FFF;
+    text-decoration:underline;
 }
 
 .hover\:text-base:hover {

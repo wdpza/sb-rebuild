@@ -1,4 +1,6 @@
 import { getPostBySlug } from "@/lib/graphql/queries/getPostBySlug";
+import BlogInnerHero from "@/components/blog/BlogInnerHero"
+import DOMPurify from 'isomorphic-dompurify';
 
 export default async function ArticleSlugPage(
     { params }: { params: Promise<{ slug: string }> }
@@ -7,6 +9,7 @@ export default async function ArticleSlugPage(
 
     // getPostBySlug
     const post = await getPostBySlug(slug);
+    const sanitizedHtml = DOMPurify.sanitize(post.content || '');
 
     if (!post) {
         return (
@@ -15,12 +18,18 @@ export default async function ArticleSlugPage(
             </div>
         );
     }
-
-    console.log(post);
     
     return (
         <div className="article-slug-page">
-            <h1>Article Slug Page for {slug}</h1>
+            <BlogInnerHero background={post.featuredImage.node.sourceUrl} title={post.title} />
+            <div className="relative z-10 py-12 w-full max-w-[1600px] mx-auto flex flex-col text-white px-6">
+                {sanitizedHtml ? (
+                <div
+                    className="prose w-full text-white mb-8 max-w-none"
+                    dangerouslySetInnerHTML={{ __html: sanitizedHtml }}
+                />
+                ) : null}
+            </div>
         </div>
     );
 }
