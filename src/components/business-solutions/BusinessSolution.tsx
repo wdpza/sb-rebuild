@@ -12,9 +12,9 @@ export default function BusinessSolutions({ items, title }: any) {
 
     return (
         <section className="bg-white">
-            <div className="relative z-10 grid w-full max-w-[1800px] mx-auto grid-cols-1 md:grid-cols-5 gap-36 px-12 py-24">
+            <div className="relative z-10 grid w-full max-w-[1800px] mx-auto grid-cols-1 gap-6 lg:gap-12 xl:gap-36 lg:grid-cols-5 px-12 py-24">
                 {/* LEFT: Info panel */}
-                <div className="col-span-2 flex flex-col justify-center space-y-6">
+                <div className="col-span-1 lg:col-span-2 flex flex-col justify-center space-y-6">
                     <h2 className="text-[40px] font-bold text-gradient-starbright">
                         {title ?? "Business Solutions"}
                     </h2>
@@ -50,39 +50,42 @@ export default function BusinessSolutions({ items, title }: any) {
                 </div>
 
                 {/* RIGHT: Logo grid (2 columns) */}
-                <div className="col-span-3 grid grid-cols-2 gap-8">
-                    {items.map((item: any, index: number) => {
-                        const logo =
-                            item.businessSolutionFields?.logo?.node
-                                ?.mediaItemUrl || "";
+                {/* <div className="col-span-1 lg:col-span-3 grid grid-cols-2 gap-8"></div> */}
+                <div className="col-span-1 lg:col-span-3">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                        {items.map((item: any, index: number) => {
+                            const logo =
+                                item.businessSolutionFields?.logo?.node
+                                    ?.mediaItemUrl || "";
 
-                        return (
-                            <button
-                                key={item.slug || index}
-                                onClick={() => setActiveIndex(index)}
-                                className={`cursor-pointer relative flex items-center justify-center aspect-4/3 w-full rounded-lg transition-all duration-300 ease-in-out ${
-                                    index === activeIndex
-                                        ? "bg-neutral-softest"
-                                        : "bg-neutral-softest hover:bg-neutral-softest opacity-60"
-                                }`}
-                            >
-                                {logo ? (
-                                    <div className="relative w-64 h-64 transform hover:scale-110 transition-transform duration-300 ease-in-out">
-                                        <Image
-                                            src={logo}
-                                            alt={item.slug}
-                                            fill
-                                            className="object-contain"
-                                        />
-                                    </div>
-                                ) : (
-                                    <div className="text-neutral-regular text-sm">
-                                        No logo
-                                    </div>
-                                )}
-                            </button>
-                        );
-                    })}
+                            return (
+                                <button
+                                    key={item.slug || index}
+                                    onClick={() => setActiveIndex(index)}
+                                    className={`cursor-pointer relative flex items-center justify-center aspect-4/3 w-full rounded-lg transition-all duration-300 ease-in-out ${
+                                        index === activeIndex
+                                            ? "bg-neutral-softest"
+                                            : "bg-neutral-softest hover:bg-neutral-softest opacity-60"
+                                    }`}
+                                >
+                                    {logo ? (
+                                        <div className="relative w-64 h-64 transform hover:scale-110 transition-transform duration-300 ease-in-out">
+                                            <Image
+                                                src={logo}
+                                                alt={item.slug}
+                                                fill
+                                                className="p-4 object-contain"
+                                            />
+                                        </div>
+                                    ) : (
+                                        <div className="text-neutral-regular text-sm">
+                                            No logo
+                                        </div>
+                                    )}
+                                </button>
+                            );
+                        })}
+                    </div>
                 </div>
             </div>
         </section>
