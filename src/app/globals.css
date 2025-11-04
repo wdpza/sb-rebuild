@@ -68,6 +68,7 @@
 }
 
 @layer utilities {
+    .article-slug-page h1,
     .article-slug-page h3,
     .article-slug-page h2,
     .article-slug-page h4,
@@ -83,6 +84,16 @@
         -webkit-text-fill-color: transparent;
         background-clip: text;
         color: transparent;
+    }
+
+    .flex-\[0_0_12rem\] {
+        flex: 0 0 12rem;
+    }
+
+    .prose {
+        :where(ol > li):not(:where([class~="not-prose"],[class~="not-prose"] *))::marker {
+            color:#FFF;
+        }
     }
 
     .bg-gradient-starbright {

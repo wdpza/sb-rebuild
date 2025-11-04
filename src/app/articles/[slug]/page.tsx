@@ -28,8 +28,8 @@ export default async function ArticlesSlugPage({
     const { hasNextPage, endCursor } = category.posts?.pageInfo ?? {};
 
     return (
-        <div className="mx-auto px-6 py-8">
-            <h1 className="text-3xl font-bold mb-6">{category.name}</h1>
+        <div className="mx-auto px-6">
+            <h1 className="text-[45px] font-bold mb-8 text-white">{category.name}</h1>
 
             {posts.length === 0 ? (
                 <p className="text-gray-400">No posts found in this category.</p>
@@ -74,7 +74,7 @@ export default async function ArticlesSlugPage({
                                     />
 
                                     <Link
-                                        className="text-sm inline-block gradient-border rounded py-2 px-6"
+                                        className="text-sm inline-block gradient-border rounded py-2 px-6 text-white"
                                         href={post.uri}
                                     >
                                         Read It!

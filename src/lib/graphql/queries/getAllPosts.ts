@@ -7,54 +7,68 @@ export const GET_ALL_POSTS = gql`
             blogOptionsFields {
                 blogHero {
                     backgroundImage {
-                        node {
-                            altText
-                            mediaDetails {
-                                filePath
-                                file
-                            }
+                    node {
+                        altText
+                        mediaDetails {
+                        filePath
+                        file
                         }
+                    }
                     }
                     title
                     subHeading
                     description
                     mainImage {
-                        node {
-                            altText
-                            mediaDetails {
-                                file
-                                filePath
-                            }
+                    node {
+                        altText
+                        mediaDetails {
+                        file
+                        filePath
                         }
                     }
+                    }
                     anchor
+                }
+                exitSection {
+                    backgroundImage {
+                    node {
+                        altText
+                        mediaItemUrl
+                    }
+                    }
+                    ctaLink {
+                    target
+                    title
+                    url
+                    }
+                    title
                 }
             }
         }
         categories {
             nodes {
-                name
-                uri
+            name
+            uri
             }
         }
         posts(first: $first, after: $after) {
             pageInfo {
-                hasNextPage
-                endCursor
+            hasNextPage
+            endCursor
             }
             nodes {
-                id
-                title
-                slug
-                date
-                excerpt
-                uri
-                featuredImage {
-                    node {
-                        sourceUrl
-                        altText
-                    }
+            id
+            title
+            slug
+            date
+            excerpt
+            uri
+            featuredImage {
+                node {
+                sourceUrl
+                altText
                 }
+            }
             }
         }
     }

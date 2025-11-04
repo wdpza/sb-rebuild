@@ -3,7 +3,7 @@ export default function BlogInnerHero({ background, title } : any) {
 
     return (
         <section
-            className="relative flex min-h-screen h-screen w-full items-center bg-cover bg-bottom bg-no-repeat overflow-hidden"
+            className="relative flex h-[400px] w-full items-center bg-cover bg-bottom bg-no-repeat overflow-hidden"
             style={{
                 backgroundImage: background ? `url(${background})` : undefined,
             }}

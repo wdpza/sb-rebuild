@@ -222,7 +222,7 @@ export default function NavDropdown({
                         <li
                           key={child.id ?? chref}
                           className={`relative overflow-hidden shadow-sm h-full transition-all duration-600 max-w-[360px]
-                            ${active ? "flex-[1_1_0%]" : "flex-[0_0_6rem]"}`}
+                            ${active ? "flex-[1_1_0%]" : "flex-[0_0_12rem]"}`}
                           onMouseEnter={() => setActiveIndex(i)}
                           onFocus={() => setActiveIndex(i)}
                         >

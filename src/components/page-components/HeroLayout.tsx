@@ -5,20 +5,23 @@ export default function HeroLayout({ title, description, subTitle, background, i
 	
 	const bgUrl = background?.node?.mediaItemUrl ?? null
 	const imageUrl = image?.node?.mediaItemUrl ?? null
+	const sectionHeight = title ? "min-h-screen" : "h-[160px]";
 
 	return (
 		<section
-			className="relative flex min-h-screen w-full items-center bg-cover bg-bottom bg-no-repeat overflow-hidden"
+			className={`relative flex w-full items-center bg-cover bg-bottom bg-no-repeat overflow-hidden ${sectionHeight}`}
 			style={{
 				backgroundImage: bgUrl ? `url(${bgUrl})` : undefined,
 			}}
 		>
-			<div className="min-h-screen relative z-10 grid w-full max-w-[1600px] mx-auto grid-cols-1 md:grid-cols-24 gap-2 px-12 py-24">
+			<div className={`relative z-10 grid w-full max-w-[1600px] mx-auto grid-cols-1 md:grid-cols-24 gap-2 px-12 py-24 ${title ? "min-h-screen" : "h-[160px]"}`}>
 				{/* Left column: 60% */}
 				<div className="col-span-13 flex flex-col justify-center text-left gap-4 mt-12">
-					<h1 className="font-archivo uppercase text-[55px]/15 lg:text-[75px]/20 font-black drop-shadow-lg text-gradient-starbright text-center md:text-left">
-						{title}
-					</h1>
+					{title && (
+						<h1 className="font-archivo uppercase text-[55px]/15 lg:text-[75px]/20 font-black drop-shadow-lg text-gradient-starbright text-center md:text-left">
+							{title}
+						</h1>
+					)}
 
 					{/* If subtitle or description fields are added later, leave placeholders */}
 					{subTitle && (

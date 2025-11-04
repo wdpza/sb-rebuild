@@ -55,8 +55,8 @@ export default async function BlogPage() {
                                 />
 
                                 <Link
-                                    className="text-sm inline-block gradient-border rounded py-2 px-6"
-                                    href="#"
+                                    className="text-sm inline-block gradient-border rounded py-2 px-6 text-white"
+                                    href={`/article/${post.slug}`}
                                 >
                                     Read It!
                                 </Link>

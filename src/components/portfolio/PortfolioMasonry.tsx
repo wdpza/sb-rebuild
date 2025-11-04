@@ -16,8 +16,6 @@ export default function PortfolioMasonry({ items }: any) {
         setIsOpen(false);
         setCurrentImage(null);
     };
-
-    console.log(items);
     
     return (
             <div>

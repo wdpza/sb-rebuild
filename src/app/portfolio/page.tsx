@@ -1,22 +1,17 @@
-import { getPortfolioOptions } from "@/lib/data/portfolio"
-import OptionsRenderer from "@/components/OptionsRenderer"
+import { getAllPortfolioItems } from "@/lib/graphql/queries/getAllPortfolioItems";
 import { notFound } from "next/navigation"
-
-export const revalidate = 60 // ISR
+import PortfolioMasonry from  "@/components/portfolio/PortfolioMasonry";
 
 export default async function PortfolioPage() {
 
-    const page = await getPortfolioOptions()
+    const page = await getAllPortfolioItems()
 
     if (!page) return notFound()
 
     return (
         <main>
             <h1 className="sr-only">Portfolio</h1>
-            <OptionsRenderer
-                pageBuilder={page.portfolioOptions?.pageFieldGroup?.pageBuilder}
-                categories={page.portfolioCategories?.nodes}
-            />
+            <PortfolioMasonry items={page.portfolio.nodes} />
         </main>
     )
 }
