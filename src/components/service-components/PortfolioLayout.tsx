@@ -42,13 +42,13 @@ export default function PortfolioLayout({ title, portfolioItems }: any) {
 
       {/* Popup Modal */}
       {isOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <div className="relative max-w-4xl w-full p-6 bg-white rounded-lg">
+        <div className="fixed inset-0 bg-popup bg-opacity-50 flex justify-center items-center z-50">
+          <div className="relative p-6 bg-[#171717] rounded-lg">
             <button
               onClick={handleClosePopup}
-              className="absolute top-0 right-0 m-4 text-2xl text-gray-600 hover:text-black cursor-pointer"
+              className="absolute top-0 right-0 m-4 text-2xl text-white hover:text-white cursor-pointer"
             >
-              ×
+              ×  
             </button>
             <img
               src={currentImage ?? ''}
