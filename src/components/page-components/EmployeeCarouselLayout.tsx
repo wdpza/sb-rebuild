@@ -82,7 +82,9 @@ export default function EmployeeCarouselLayout({
     centerMode: true,
     centerPadding: "0px",
     infinite: true,
-    swipeToSlide: true,
+    swipeToSlide: false,
+    swipe: false,
+    draggable: false,
     cssEase: "ease",
     speed: 350,
     arrows: false,
@@ -113,7 +115,7 @@ export default function EmployeeCarouselLayout({
       }}
     >
       <h2 className="text-[60px] font-bold text-white">
-        <span className="bg-gradient-to-r from-[#6EE7F9] via-[#A855F7] to-[#F59E0B] bg-clip-text text-transparent">
+        <span className="text-gradient-starbright bg-clip-text text-transparent">
           {title}
         </span>
       </h2>

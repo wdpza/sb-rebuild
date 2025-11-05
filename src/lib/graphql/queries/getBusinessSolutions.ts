@@ -5,18 +5,23 @@ export const GET_BUSINESS_SOLUTIONS = gql`
     query GetBusinessSolutions($numberOfItems: Int) {
         businessSolutions(first: $numberOfItems) {
             nodes {
-                businessSolutionFields {
-                    logo {
-                        node {
-                            altText
-                            mediaItemUrl
-                        }
-                    }
+            businessSolutionFields {
+                logo {
+                node {
+                    altText
+                    mediaItemUrl
                 }
-                content
-                link
-                slug
-                uri
+                }
+                ctaLink {
+                target
+                title
+                url
+                }
+            }
+            content
+            link
+            slug
+            uri
             }
         }
     }
