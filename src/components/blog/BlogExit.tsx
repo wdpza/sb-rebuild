@@ -5,6 +5,9 @@ export default function BlogExit(blogOptions : any) {
     }
 
     const blogExit = blogOptions.blogOptions.exitSection;
+    const cleanUrl = blogExit.ctaLink?.url
+        ? blogExit.ctaLink?.url.replace(/^https?:\/\/[^/]+/, "")
+        : null;
 
     return (
         <div
@@ -18,7 +21,7 @@ export default function BlogExit(blogOptions : any) {
                 <h2 className="uppercase text-5xl md:text-6xl font-bold mb-8">
                     {blogExit.title ?? null}
                 </h2>
-                <a href={` ${blogExit.ctaLink?.url ?? null} `} target={` ${blogExit.ctaLink?.target ?? null} `} className="inline-flex items-center justify-center rounded-md px-8 py-3 font-semibold text-white gradient-border mt-4">
+                <a href={` ${cleanUrl ?? null} `} target={` ${blogExit.ctaLink?.target ?? null} `} className="inline-flex items-center justify-center rounded-md px-8 py-3 font-semibold text-white gradient-border mt-4">
                     { blogExit.ctaLink?.title ?? null }
                 </a>
             </div>

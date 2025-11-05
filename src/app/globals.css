@@ -161,8 +161,18 @@
         position: relative;
         display: block;
     }
+    .application-image-holder img {
+        margin-left:auto;
+        margin-right:auto;
+        display:block;
+    }
     span.application-title {
         display: block;
+        font-size:20px;
+    }
+
+    .h-\[800px\] {
+        height:800px;
     }
 
     .prose {

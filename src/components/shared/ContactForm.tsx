@@ -42,7 +42,7 @@ export default function ContactForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto"
+      className="grid grid-cols-1 md:grid-cols-2 gap-6"
     >
       <input
         type="text"
@@ -133,7 +133,7 @@ export default function ContactForm() {
 
       <button
         type="submit"
-        className="inline-flex items-center justify-center rounded-md px-8 py-3 font-semibold text-white gradient-border"
+        className="cusror-pointer inline-flex items-center justify-center rounded-md px-8 py-3 font-semibold text-white gradient-border"
       >
         Submit
       </button>

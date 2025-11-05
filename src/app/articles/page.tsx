@@ -68,7 +68,7 @@ export default async function BlogPage() {
 
             {/* Pagination */}
             {posts.pageInfo?.hasNextPage && (
-                <div className="text-center mt-10">
+                <div className="text-center mt-10 hidden">
                     <form action="/posts/load-more" method="GET">
                         <input
                             type="hidden"

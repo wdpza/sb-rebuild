@@ -86,7 +86,7 @@ export default async function ArticlesSlugPage({
 
             {/* Pagination */}
             {hasNextPage && (
-                <div className="text-center mt-10">
+                <div className="text-center mt-10 hidden">
                     <Link
                         href={{
                             pathname: `/articles/${slug}`,
