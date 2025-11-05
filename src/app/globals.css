@@ -127,6 +127,47 @@
         background-color: rgba(0, 0, 0, 0.75);
     }
 
+    .google-blue {
+        color: #4285F4;
+    }
+    .google-red {
+        color: #EA4335;
+    }
+    .google-yello {
+        color: #FBBC04;
+    }
+    .google-green {
+        color: #34A853;
+    }
+    .aplpication-outer-container {
+        display: flex;
+        flex-flow: row wrap;
+        align-items: flex-end;
+        justify-content: space-around;
+        color: #FFF;
+        justify-content: center;
+        align-items: center;
+        max-width:1000px;
+        margin:0 auto;
+        width:100%;
+    }
+    .application-inner-container {
+        text-align: center;
+        padding: 15px 30px;
+    }
+    .application-image-holder {
+        height: 62px;
+        width: 100%;
+        position: relative;
+        display: block;
+    }
+    span.application-title {
+        display: block;
+    }
+
+    .prose {
+        max-width: none !important;
+    }
 
 	.gradient-border {
         transition:250ms;

@@ -36,8 +36,6 @@ export default async function ArticlesSlugPage({
             ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-1 gap-2">
                     {posts.map((post: any) => {
-
-                        console.log(post);
                         return (
                             <div
                                 key={post.id}

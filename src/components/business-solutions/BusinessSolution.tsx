@@ -8,7 +8,8 @@ export default function BusinessSolutions({ items, title }: any) {
 
     const activeItem = items[activeIndex];
     const activeDescription = activeItem?.content || "";
-    const activeLink = activeItem?.uri || "#";
+    const activeLink = activeItem?.businessSolutionFields.ctaLink.url || "#";
+    const activeLinkTarget = activeItem?.businessSolutionFields.ctaLink.target || "";
 
     return (
         <section className="bg-white">
@@ -42,6 +43,7 @@ export default function BusinessSolutions({ items, title }: any) {
                             <a
                                 href={activeLink}
                                 className="inline-flex items-center justify-center rounded-md px-8 py-3 font-semibold text-white gradient-border mt-8"
+                                target={activeLinkTarget}
                             >
                                 View Solution
                             </a>

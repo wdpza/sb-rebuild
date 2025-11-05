@@ -43,7 +43,7 @@ export default function CertificationSectionLayout({
               {/* Text block */}
               <div className="p-4">
                 <h2 className="text-[30px] font-bold">
-                  <span className="bg-gradient-to-r from-[#6EE7F9] via-[#A855F7] to-[#F59E0B] bg-clip-text text-transparent">
+                  <span className="text-gradient-starbright bg-clip-text text-transparent">
                     {certificate.title}
                   </span>
                 </h2>

@@ -3,25 +3,22 @@ import { client } from "@/lib/graphql/client";
 
 export const GET_TEAM_MEMBERS = gql`
     query AllTeamMembers {
-        teamMembers(first: 100) {
+        teamMembers(
+            first: 100
+            where: { orderby: { field: DATE, order: ASC } }
+        ) {
             nodes {
             slug
             title
             content
             teamMemberFields {
-                profileLeftSide {
+                profileNormal {
                 node {
                     altText
                     mediaItemUrl
                 }
                 }
-                profileMiddleSide {
-                node {
-                    altText
-                    mediaItemUrl
-                }
-                }
-                profileRightSide {
+                profileHover {
                 node {
                     altText
                     mediaItemUrl
