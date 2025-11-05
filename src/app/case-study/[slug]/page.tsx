@@ -5,7 +5,7 @@ import CaseStudyItem from "@/components/case-study/CaseStudyItem"
 export default async function Page({ params }: { params: Promise<{ slug: string }>}) {
 
     const { slug } = await params;
-    const caseStudy = await getCaseStudyBySlug(slug)
+    const caseStudy = await getCaseStudyBySlug('article/case-study/' + slug)
     if (!caseStudy) return notFound()
 
     return (

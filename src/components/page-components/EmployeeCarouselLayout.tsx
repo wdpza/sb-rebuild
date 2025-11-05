@@ -146,7 +146,7 @@ export default function EmployeeCarouselLayout({
                   >
                     <div className="rounded-3xl">
                       {/* Fixed-size RELATIVE wrapper so next/image fill works and cards are uniform */}
-                      <div className="relative h-[600px] w-[500px] overflow-hidden rounded-2xl ring-1 ring-white/10">
+                      <div className="relative h-[600px] w-[500px] overflow-hidden rounded-2xl ring-1 ring-white/10 cursor-pointer">
                         <Image
                           src={item.mediaItemUrl}
                           alt={item.altText || item.title || `Employee ${index + 1}`}

@@ -208,7 +208,7 @@ export default function NavDropdown({
                 >
                   <ul className="flex gap-3 h-full sm:h-72 lg:h-full megamenu-navigation">
                     {visibleChildren.map((child, i) => {
-                      const chref = buildHref(child);
+                      const chref = buildHref(child).replace(/^\/article/, "");
                       const external = isExternal(chref);
                       const img =
                         child?.mainMenuFields?.backgroundImage?.node?.mediaItemUrl;
