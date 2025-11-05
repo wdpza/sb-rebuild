@@ -1,7 +1,3 @@
-type Params = {
-	slug: string;
-};
-
 export default async function ArticleLayout({
 	children,
 }: {

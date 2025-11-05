@@ -2,7 +2,6 @@ import { getAllPosts } from "@/lib/graphql/queries/getAllPosts";
 import { notFound } from "next/navigation";
 import BlogHero from "@/components/blog/BlogHero";
 import CategorySidebar from "@/components/shared/CategorySidebar";
-import { constructFromSymbol } from "date-fns/constants";
 import BlogExit from "@/components/blog/BlogExit";
 
 export default async function ArticleLayout({ children }: { children: React.ReactNode }) {

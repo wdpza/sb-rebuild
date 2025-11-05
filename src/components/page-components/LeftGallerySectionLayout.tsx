@@ -35,10 +35,11 @@ export default function LeftGallerySectionLayout({
   backgroundImage,
 }: LeftGallerySectionLayoutProps) {
   // Normalize images from nodes or edges
-  const images: GalleryImage[] =
-    gallery?.nodes ??
-    gallery?.edges?.map((e) => e.node) ??
-    [];
+  const images: GalleryImage[] = useMemo(() => {
+    if (gallery?.nodes) return gallery.nodes;
+    if (gallery?.edges) return gallery.edges.map((e) => e.node);
+    return [];
+  }, [gallery]);
 
   const [current, setCurrent] = useState(0);
   const visibleCount = 3;
@@ -54,7 +55,7 @@ export default function LeftGallerySectionLayout({
       const isVisible = orderWithinWindow < maxVisible;
       return { isVisible, orderWithinWindow: isVisible ? orderWithinWindow : -1 };
     });
-  }, [images.length, current]);
+  }, [images, current]);
 
   // Slick settings (typed)
   const settings: Settings = {

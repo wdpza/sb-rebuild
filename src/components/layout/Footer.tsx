@@ -23,8 +23,8 @@ export default function Footer( footer: any) {
                     </h4>
 
                     <ul className="space-y-2 text-neutral-regular">
-                        <li className="flex text-white gap-2 items-center"><img src="/images/phone-icon.png" /> {footer.footer.siteOptions.siteOptionsFields.footer.officeNumber}</li>
-                        <li className="flex text-white gap-2 items-center"><img src="/images/whatsapp-icon.png" /> {footer.footer.siteOptions.siteOptionsFields.footer.whatsappNumber}</li>
+                        <li className="flex text-white gap-2 items-center"><img src="/images/phone-icon.png" alt="Phone Icon"/> {footer.footer.siteOptions.siteOptionsFields.footer.officeNumber}</li>
+                        <li className="flex text-white gap-2 items-center"><img src="/images/whatsapp-icon.png" alt="Whatsapp Icon" /> {footer.footer.siteOptions.siteOptionsFields.footer.whatsappNumber}</li>
                     </ul>
 
                 </div>

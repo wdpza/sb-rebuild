@@ -20,7 +20,10 @@ export type MenuItem = {
 export type MenuNode = MenuItem & { children: MenuItem[] };
 
 export default function Header({ menu, logo }: { menu: any; logo: any }) {
-	const flatItems: MenuItem[] = menu?.menuItems?.nodes ?? [];
+	const flatItems: MenuItem[] = useMemo(
+		() => menu?.menuItems?.nodes ?? [],
+		[menu]
+	);
 
 	// Build parent–child structure
 	const tree: MenuNode[] = useMemo(() => {

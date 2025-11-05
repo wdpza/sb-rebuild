@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useRef } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import MegaMenuPortal from "./MegaMenuPortal";
 import type { MenuNode } from "./Header";
@@ -30,9 +30,13 @@ export default function NavDropdown({
   isExternal: (url: string) => boolean;
   navRef: React.RefObject<HTMLElement | null>;
 }) {
-  const children = (item.children as ChildNode[]) ?? [];
+  const children: ChildNode[] = useMemo(
+    () => (item.children as ChildNode[]) ?? [],
+    [item.children]
+  );
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const searchKey = searchParams?.toString();
 
   const [panelTop, setPanelTop] = useState(0);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -78,10 +82,29 @@ export default function NavDropdown({
   /** --------------------------
    *  Close on URL / hash / scroll
    * -------------------------- */
-  useEffect(() => {
-    if (!isOpen) return;
+const prevPath = useRef<string | null>(null);
+const prevSearch = useRef<string | null>(null);
+
+useEffect(() => {
+  // Skip the very first render entirely
+  if (prevPath.current === null && prevSearch.current === null) {
+    prevPath.current = pathname;
+    prevSearch.current = searchKey;
+    return;
+  }
+
+  const pathChanged = prevPath.current !== pathname;
+  const searchChanged = prevSearch.current !== searchKey;
+
+  // If the menu is open and the route/search changed → close it
+  if (isOpen && (pathChanged || searchChanged)) {
     setOpenIndex(null);
-  }, [pathname, searchParams?.toString()]);
+  }
+
+  // Update stored values
+  prevPath.current = pathname;
+  prevSearch.current = searchKey;
+}, [isOpen, pathname, searchKey, setOpenIndex]);
 
   useEffect(() => {
     if (!isOpen) return;
