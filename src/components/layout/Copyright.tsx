@@ -7,7 +7,7 @@ export default function Copyright({ footer }: { footer?: any }) {
 
     return (
         <div className="bg-[#49474D] w-full">
-            <div className="max-w-[1600px] mx-auto p-4 flex justify-between">
+            <div className="max-w-[1600px] mx-auto p-4 flex justify-between flex-row flex-wrap">
                 <div className="text-white">Starbright © 2005 - {currentYear}  - All Rights Reserved.</div>
                 <div className="flex space-x-3 text-neutral-600">
                     {menuNodes.map((item: any, index: number) => (
