@@ -24,9 +24,9 @@ export default function PortfolioHero(portfolioOptions : any) {
                 backgroundImage: bgUrl ? `url(${bgUrl})` : undefined,
             }}
         >
-            <div className="h-screen relative z-10 grid w-full max-w-[1600px] mx-auto grid-cols-1 md:grid-cols-24 gap-2 px-12 py-24">
+            <div className="h-screen relative z-10 grid w-full max-w-[1600px] mx-auto grid-cols-1 md:grid-cols-24 gap-2 px-12 py-24 mt-12">
                 <div className="col-span-13 flex flex-col justify-center text-left gap-4">
-                    <h1 className="font-archivo uppercase text-[75px]/20 font-black drop-shadow-lg text-gradient-starbright">
+                    <h1 className="font-archivo uppercase text-5xl sm:text-6xl md:text-7xl font-black drop-shadow-lg text-gradient-starbright">
                         {title}
                     </h1>
 
@@ -38,7 +38,7 @@ export default function PortfolioHero(portfolioOptions : any) {
 
                     {description && (
                         <div
-                            className="mt-6 text-lg text-gray-100 max-w-3xl"
+                            className="mt-4 text-lg text-gray-100 max-w-3xl"
                             dangerouslySetInnerHTML={{
                                 __html: DOMPurify.sanitize(description),
                             }}
@@ -66,7 +66,7 @@ export default function PortfolioHero(portfolioOptions : any) {
                 </div>
 
                 {mainImgUrl && (
-                    <div className="col-span-11 flex justify-center items-center">
+                    <div className={`z-[-1] opacity-60 md:opacity-100 col-span-11 flex justify-center items-center`}>
                         <img
                             src={mainImgUrl}
                             alt={mainImgAlt ?? ""}

@@ -32,11 +32,11 @@ export default function PortfolioSlider({ items, title, backgroundImage }: any) 
             {/* Custom controls */}
             {/* <div className="flex absolute top-8 w-1/2 ml-18 z-9"></div> */}
             <div className='flex absolute md:top-8 z-9 w-full'>
-                <div className='px-14 w-full md:w-2/3'>
+                <div className='px-3 md:px-14 w-full md:w-2/3'>
                     <div className="flex mx-auto w-full justify-between items-center py-10">
                         <button
                             onClick={() => sliderRef.current?.slickPrev()}
-                            className="w-18 h-18 flex items-center justify-center cursor-pointer gradient-border rounded-full transition-transform duration-300 ease-in-out"
+                            className="w-16 h-16 flex items-center justify-center cursor-pointer gradient-border rounded-full transition-transform duration-300 ease-in-out"
                         >
                             <img
                                 src="/slider-navigation-right.svg"
@@ -50,7 +50,7 @@ export default function PortfolioSlider({ items, title, backgroundImage }: any) 
 
                         <button
                             onClick={() => sliderRef.current?.slickNext()}
-                            className="w-18 h-18 flex items-center justify-center cursor-pointer gradient-border rounded-full transition-transform duration-300 ease-in-out"
+                            className="w-16 h-16 flex items-center justify-center cursor-pointer gradient-border rounded-full transition-transform duration-300 ease-in-out"
                         >
                             <img
                                 src="/slider-navigation-left.svg"

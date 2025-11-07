@@ -10,7 +10,7 @@ export default function PortfolioCategories(portfolioOptions : any) {
 
     return (
         <section className="w-full flex justify-center mb-12">
-            <div className="flex justify-center items-center gap-4">
+            <div className="flex flex-wrap justify-center items-center gap-4">
                 {portfolioCategories.nodes.map((category : any) => (
                     <Link
                         key={category.databaseId}
