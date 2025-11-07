@@ -30,11 +30,7 @@ export default function NavMenu({
 
   return (
     <nav ref={navRef} aria-label="Main">
-      <div className='group hover:cursor-pointer md:hidden w-[35px]'>
-        <div className='ml-auto w-full border-white border-t-2 mb-2 transition-[width] duration-400 ease-in-out'></div>
-        <div className='ml-auto w-full group-hover:w-[80%] border-white border-t-2 mb-2 transition-[width] duration-400 ease-in-out'></div>
-        <div className='ml-auto w-full group-hover:w-[50%] border-white border-t-2 transition-[width] duration-400 ease-in-out'></div>
-      </div>
+
       <ul className="hidden md:flex gap-6 ">
         {tree.map((item, index) => {
           const href = buildHref(item);

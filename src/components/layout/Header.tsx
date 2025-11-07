@@ -3,6 +3,7 @@
 import { useState, useMemo, useRef, useEffect } from "react";
 import Image from "next/image";
 import NavMenu from "./NavMenu";
+import NavMenuMobile from "./NavMenuMobile";
 import Link from 'next/link';
 
 export type MenuItem = {
@@ -89,6 +90,9 @@ export default function Header({ menu, logo }: { menu: any; logo: any }) {
 						navRef={navRef}
 						openIndex={openIndex}
 						setOpenIndex={setOpenIndex}
+					/>
+					<NavMenuMobile
+						tree={tree}
 					/>
 				</div>
 			</div>
