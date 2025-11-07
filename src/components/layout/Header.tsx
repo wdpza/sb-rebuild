@@ -93,6 +93,7 @@ export default function Header({ menu, logo }: { menu: any; logo: any }) {
 					/>
 					<NavMenuMobile
 						tree={tree}
+						flatItems={flatItems}
 					/>
 				</div>
 			</div>
