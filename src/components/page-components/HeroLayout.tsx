@@ -10,7 +10,7 @@ export default function HeroLayout({ title, description, subTitle, background, i
 	// Dynamic adjustments
 	const colSpanLeft = hasForm ? "col-span-15" : "col-span-13"
 	const colSpanRight = hasForm ? "col-span-9" : "col-span-11"
-	const subTitleSize = hasForm ? "text-[24px] lg:text-[24px]" : "text-[35px] lg:text-[45px]"
+	const subTitleSize = hasForm ? "font-normal text-[20px] lg:text-[20px]" : "font-bold text-[35px] lg:text-[45px]"
 	const paddingY = hasForm ? "py-32" : "py-24"
 
 	return (
@@ -31,14 +31,14 @@ export default function HeroLayout({ title, description, subTitle, background, i
 					)}
 
 					{subTitle && (
-						<h2 className={`leading-tight font-bold mt-4 ${subTitleSize} text-neutral-softest drop-shadow-md tracking-wide text-center md:text-left`}>
+						<h2 className={`leading-tight mt-4 ${subTitleSize} text-neutral-softest drop-shadow-md tracking-wide text-center md:text-left`}>
 							{subTitle}
 						</h2>
 					)}
 
 					{description && (
 						<div
-							className="mt-6 text-lg text-gray-100 text-center md:text-left"
+							className="mt-6 mb-6 text-lg text-gray-100 text-center md:text-left"
 							dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(description) }}
 						/>
 					)}

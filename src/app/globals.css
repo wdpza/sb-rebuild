@@ -179,12 +179,17 @@
         max-width: none !important;
     }
 
+    .h-20 {
+        height: calc(var(--spacing) * 20);
+    }
+
 	.gradient-border {
         transition:250ms;
 		border: 2px solid transparent;
 		background:
 			linear-gradient(var(--btn-bg, #28262c), var(--btn-bg, #28262c)) padding-box,
 			linear-gradient(98.51deg, #36AEFA 0%, #BD208B 37.5%, #F15D22 87.02%, #EEB42C 99.99%) border-box;
+        transition: 0.6s ease;
 	}
 
 	.gradient-border-top {
@@ -197,14 +202,10 @@
 
     .gradient-border.active,
     .gradient-border:hover {
-         background: linear-gradient(
-            99deg,
-            var(--color-blue-softer, #36aefa) 0%,
-            var(--color-purple-regular, #bd208b) 37.5%,
-            var(--color-orange-regular, #f15d22) 87.02%,
-            var(--color-yellow-regular, #eeb42c) 99.99%
-        );       
-    }
+        background: linear-gradient(99deg, var(--color-blue-softer, #36aefa) 0%, var(--color-purple-regular, #bd208b) 37.5%, var(--color-orange-regular, #f15d22) 87.02%, var(--color-yellow-regular, #eeb42c) 99.99%);
+        background-clip: padding-box, border-box;
+        background-position: 100% 0;
+     }
     .transition-flex {
     transition: flex-basis 0.6s ease, flex-grow 0.6s ease;
     }
@@ -218,6 +219,58 @@
         border-image: linear-gradient(to bottom, #36AEFA, #B32992, #DE464B) 1;
 
 	}
+
+	.gradient-border-bottom {
+		position:relative;
+        overflow: hidden;
+	}
+
+    .gradient-border-bottom::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 4px;
+        width: 100%;
+        background: linear-gradient(to left, #36AEFA, #B32992, #DE464B);
+    }
+
+    .popular-background-gradient {
+        background: linear-gradient(to bottom right, #38363C 40%, #B63387 100%);
+        background-repeat: no-repeat;
+        background-size: cover;
+        position:relative;
+    }
+
+    .popular-background-gradient:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;  
+        background-image:url(/images/popular.png);
+        background-repeat: no-repeat;
+        width:141px;
+        height:140px;
+    }
+
+
+    
+    .pricing-item {
+        position:relative;
+        overflow:hidden;
+    }
+
+    
+
+    .pricing-item:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 4px;
+        width: 100%;
+        background: linear-gradient(to left, #36AEFA, #B32992, #DE464B);
+    }
 
     .bottom-6 {
         bottom: calc(var(--spacing) * 6);

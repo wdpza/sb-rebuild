@@ -14,7 +14,7 @@ export default function GoogleReviewBoosterLayout({ features, image }: any) {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-[1600px] mx-auto w-full items-center px-4 md:px-8">
 
                 {/* --- Column 1: Left Features (Items 1 & 2) --- */}
-                <div className="flex flex-col gap-y-8 lg:text-left">
+                <div className="flex flex-col gap-y-8 lg:text-right">
                     {/* Feature 1 */}
                     <div>
                         <h3 className="text-[30px] font-semibold text-white">{features[0].title}</h3>

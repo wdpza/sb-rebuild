@@ -7,7 +7,7 @@ export const revalidate = 60 // ISR
 export default async function Page({ params }: { params: Promise<{ slug: string }>}) {
 
     const { slug } = await params;
-    const page = await getServiceBySlug('article/service/' + slug);
+    const page = await getServiceBySlug('service/' + slug);
 
     if (!page) return notFound()
 
