@@ -3,34 +3,75 @@ type Item = {
   description: string;
 };
 
-export default function WhyWorkWithUs({ introTitle, item, backgroundImage }: any) {
+export default function WhyWorkWithUs({
+  introTitle,
+  item,
+  backgroundImage,
+}: any) {
+  const bgUrl = backgroundImage?.node?.mediaItemUrl ?? null;
 
-    const bgUrl = backgroundImage?.node?.mediaItemUrl ?? null;
+  return (
+    <div
+      className="relative py-16 md:py-20 bg-cover bg-center bg-no-repeat"
+      style={{
+        backgroundImage: bgUrl ? `url(${bgUrl})` : undefined,
+      }}
+    >
+      {/* Overlay (optional) */}
+      <div className="absolute inset-0 bg-black/40"></div>
 
-    return (
+      <div className="relative z-10 w-full max-w-[1600px] mx-auto flex flex-col items-center justify-center text-center text-white px-4 md:px-6">
+        {/* Title */}
+        {introTitle && (
+          <h2 className="text-3xl md:text-4xl lg:text-[45px] font-bold mb-10 text-white">
+            {introTitle}
+          </h2>
+        )}
+
+        {/* Cards Container */}
         <div
-            className="relative py-20 bg-cover bg-center"
-            style={{
-                backgroundImage: bgUrl ? `url(${bgUrl})` : undefined,
-            }}
+          className="
+            grid 
+            grid-cols-1 
+            sm:grid-cols-2 
+            lg:grid-cols-3 
+            gap-6 
+            md:gap-8 
+            w-full 
+            justify-items-center
+          "
         >
-            <div className="absolute inset-0"></div>
-            <div className="relative z-10 w-full max-w-[1200px] mx-auto flex flex-col items-center justify-center text-center text-white px-6">
-                <h2 className="text-[45px] font-bold mb-8 text-white text-center">
-                    {introTitle ?? null}
-                </h2>
+          {item.map((card: Item, index: number) => (
+            <div
+              key={index}
+              className="
+                bg-[#1B1B1C]/70 
+                p-6 
+                md:p-8 
+                rounded-lg 
+                shadow-lg 
+                flex 
+                flex-col 
+                justify-center 
+                items-center 
+                text-center 
+                w-full 
+                h-full 
+                transition-transform 
+                hover:scale-105 
+                duration-300
+              "
+            >
+              <h3 className="text-lg md:text-xl font-semibold mb-3 text-white">
+                {card.title}
+              </h3>
+              <p className="text-sm md:text-base text-white leading-relaxed">
+                {card.description}
+              </p>
             </div>
-            <div className="flex justify-center gap-6 p-8">
-                {item.map((item: Item, index: number) => (
-                    <div
-                    key={index}
-                    className="bg-[#1B1B1C] bg-opacity-50 p-6 rounded-lg shadow-lg flex flex-col justify-center items-center w-72 h-72"
-                    >
-                        <h3 className="text-white text-xl font-semibold mb-4 text-center">{item.title}</h3>
-                        <p className="text-white text-center">{item.description}</p>
-                    </div>
-                ))}
-            </div>
+          ))}
         </div>
-    );
+      </div>
+    </div>
+  );
 }

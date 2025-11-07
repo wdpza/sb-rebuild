@@ -27,7 +27,7 @@ type Props = {
   backgroundImage?: { node?: MediaNode | null } | null;
 };
 
-export default function ServiceCarouselLayout({
+export default function EmployeeCarouselLayout({
   description,
   employeePhotos,
   title,
@@ -61,7 +61,7 @@ export default function ServiceCarouselLayout({
 
         // visual tuning
         const scale = Math.max(0.64, 1 - d * 0.12);   // 1, .88, .76…
-        const opacity = Math.max(0.45, 1 - d * 0.15);
+        const opacity = 1;
         const z = 100 - d;
 
         return {
@@ -82,7 +82,9 @@ export default function ServiceCarouselLayout({
     centerMode: true,
     centerPadding: "0px",
     infinite: true,
-    swipeToSlide: true,
+    swipeToSlide: false,
+    swipe: false,
+    draggable: false,
     cssEase: "ease",
     speed: 350,
     arrows: false,
@@ -113,7 +115,7 @@ export default function ServiceCarouselLayout({
       }}
     >
       <h2 className="text-[60px] font-bold text-white">
-        <span className="bg-gradient-to-r from-[#6EE7F9] via-[#A855F7] to-[#F59E0B] bg-clip-text text-transparent">
+        <span className="text-gradient-starbright bg-clip-text text-transparent">
           {title}
         </span>
       </h2>
@@ -144,12 +146,12 @@ export default function ServiceCarouselLayout({
                   >
                     <div className="rounded-3xl">
                       {/* Fixed-size RELATIVE wrapper so next/image fill works and cards are uniform */}
-                      <div className="relative h-[600px] w-[500px] overflow-hidden rounded-2xl ring-1 ring-white/10">
+                      <div className="gradient-border relative h-[600px] w-[500px] overflow-hidden rounded-2xl ring-1 ring-white/10 cursor-pointer">
                         <Image
                           src={item.mediaItemUrl}
                           alt={item.altText || item.title || `Employee ${index + 1}`}
                           fill
-                          className="object-cover gradient-border"
+                          className="object-cover"
                           sizes="(max-width: 640px) 90vw, (max-width: 1024px) 60vw, 400px"
                           priority={isCenter}
                         />

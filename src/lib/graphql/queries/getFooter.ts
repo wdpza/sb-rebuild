@@ -5,26 +5,27 @@ export const GET_FOOTER = gql`
     query GetFooter {
         siteOptions {
             siteOptionsFields {
-            siteLogo {
-                node {
-                altText
-                mediaItemUrl
-                }
-            }
-            footer {
-                address
-                officeNumber
-                whatsappNumber
-                socialMedia {
-                url
-                icon {
+                siteLogo {
                     node {
                     altText
                     mediaItemUrl
                     }
                 }
+                footer {
+                    address
+                    officeNumber
+                    whatsappNumber
+                    socialMedia {
+                    url
+                    icon {
+                        node {
+                        altText
+                        mediaItemUrl
+                        }
+                    }
+                    }
+                    googleMapsLink
                 }
-            }
             }
         }
         otherLinks: menu(id: "Other Links", idType: NAME) {
@@ -32,28 +33,28 @@ export const GET_FOOTER = gql`
             name
             slug
             menuItems {
-            nodes {
-                id
-                label
-                uri
-                url
-                target
-                parentId
-                order
-                cssClasses
-                connectedObject {
-                ... on Page {
+                nodes {
                     id
-                    title
-                    slug
+                    label
+                    uri
+                    url
+                    target
+                    parentId
+                    order
+                    cssClasses
+                    connectedObject {
+                    ... on Page {
+                        id
+                        title
+                        slug
+                    }
+                    ... on Post {
+                        id
+                        title
+                        slug
+                    }
+                    }
                 }
-                ... on Post {
-                    id
-                    title
-                    slug
-                }
-                }
-            }
             }
         }
         policiesMenu: menu(id: "Policies Menu", idType: NAME) {
@@ -61,28 +62,28 @@ export const GET_FOOTER = gql`
             name
             slug
             menuItems {
-            nodes {
-                id
-                label
-                uri
-                url
-                target
-                parentId
-                order
-                cssClasses
-                connectedObject {
-                ... on Page {
+                nodes {
                     id
-                    title
-                    slug
+                    label
+                    uri
+                    url
+                    target
+                    parentId
+                    order
+                    cssClasses
+                    connectedObject {
+                    ... on Page {
+                        id
+                        title
+                        slug
+                    }
+                    ... on Post {
+                        id
+                        title
+                        slug
+                    }
+                    }
                 }
-                ... on Post {
-                    id
-                    title
-                    slug
-                }
-                }
-            }
             }
         }
     }

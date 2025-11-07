@@ -35,10 +35,8 @@ export default function Footer( footer: any) {
                     <h4 className="text-lg font-semibold mb-3 text-neutral-softest">
                         Visit Us
                     </h4>
-                    <p 
-                        className="text-neutral-regular whitespace-pre-line text-white"
-                        dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(footer.footer.siteOptions.siteOptionsFields.footer.address) }}
-                    >
+                    <p  className="text-neutral-regular whitespace-pre-line text-white">
+                        <a href={footer.footer.siteOptions.siteOptionsFields.footer.googleMapsLink} target="_blank">{ footer.footer.siteOptions.siteOptionsFields.footer.address }</a>
                     </p>
                 </div>
 

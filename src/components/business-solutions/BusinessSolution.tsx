@@ -67,7 +67,7 @@ export default function BusinessSolutions({ items, title }: any) {
                                     className={`cursor-pointer relative flex items-center justify-center aspect-4/3 w-full rounded-lg transition-all duration-300 ease-in-out ${
                                         index === activeIndex
                                             ? "bg-neutral-softest"
-                                            : "bg-neutral-softest hover:bg-neutral-softest opacity-60"
+                                            : "bg-neutral-softest hover:bg-neutral-softest"
                                     }`}
                                 >
                                     {logo ? (

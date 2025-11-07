@@ -85,7 +85,7 @@ export default function ServiceAccordion({ introTitle, item, backgroundImage }: 
                           <div className="h-70 relative">
                             {/* Title */}
                             <div className="absolute inset-x-0 bottom-0 top-0 px-12 bg-[#38363C]">
-                            <h3 className="text-[30px] text-white text-lg font-semibold h-full w-full flex items-center justify-center">
+                            <h3 className="text-[30px] text-white text-lg font-semibold h-full w-full flex items-center justify-center text-center">
                                 {item.title}
                             </h3>
                             </div>

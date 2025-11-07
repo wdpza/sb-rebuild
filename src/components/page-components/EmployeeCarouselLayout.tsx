@@ -61,7 +61,7 @@ export default function EmployeeCarouselLayout({
 
         // visual tuning
         const scale = Math.max(0.64, 1 - d * 0.12);   // 1, .88, .76…
-        const opacity = Math.max(0.45, 1 - d * 0.15);
+        const opacity = 1;
         const z = 100 - d;
 
         return {
@@ -146,12 +146,12 @@ export default function EmployeeCarouselLayout({
                   >
                     <div className="rounded-3xl">
                       {/* Fixed-size RELATIVE wrapper so next/image fill works and cards are uniform */}
-                      <div className="relative h-[600px] w-[500px] overflow-hidden rounded-2xl ring-1 ring-white/10 cursor-pointer">
+                      <div className="gradient-border relative h-[600px] w-[500px] overflow-hidden rounded-2xl ring-1 ring-white/10 cursor-pointer">
                         <Image
                           src={item.mediaItemUrl}
                           alt={item.altText || item.title || `Employee ${index + 1}`}
                           fill
-                          className="object-cover gradient-border"
+                          className="object-cover"
                           sizes="(max-width: 640px) 90vw, (max-width: 1024px) 60vw, 400px"
                           priority={isCenter}
                         />

@@ -35,12 +35,12 @@ export default function PortfolioTabsLayout({
             backgroundPosition: "bottom right",
         }}
     >
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-[1600px] mx-auto">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-[1600px] ml-auto items-center">
       {/* Left: text */}
       <div>
         {title ? (
-          <h2 className="text-[40px] font-bold">
-            <span className="bg-gradient-to-r from-[#6EE7F9] via-[#A855F7] to-[#F59E0B] bg-clip-text text-transparent">
+          <h2 className="uppercase text-[55px]/15 lg:text-[55px]/20 font-bold">
+            <span className="text-gradient-starbright">
               {title}
             </span>
           </h2>
@@ -55,7 +55,7 @@ export default function PortfolioTabsLayout({
       </div>
 
       {/* Right: image */}
-      <div className="-mr-8 -mb-20">
+      <div className="-mr-8 -mb-25">
         <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden">
           {src ? (
             <Image

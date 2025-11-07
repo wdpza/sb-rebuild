@@ -76,13 +76,13 @@ export default function LeftGallerySectionLayout({
   };
 
   return (
-    <section 
-        className="py-20 bg-[#171717] px-8 bg-cover bg-bottom bg-no-repeat"
-        style={{
-            backgroundImage: bgUrl ? `url(${bgUrl})` : undefined,
-        }}
-    >
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-[1600px] mx-auto">
+  <section
+    className="py-20 bg-[#171717] px-8 bg-cover bg-bottom bg-no-repeat"
+    style={{
+      backgroundImage: bgUrl ? `url(${bgUrl})` : undefined,
+    }}
+  >
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-[1600px] mr-auto items-center">
       {/* Left: gallery */}
       <div className="-ml-8">
         <Slider {...settings} className="!overflow-visible">
@@ -116,14 +116,14 @@ export default function LeftGallerySectionLayout({
                     }}
                     >
                     <div
-                        className={`relative w-full aspect-[4/3] rounded-xl overflow-hidden transition
-                        ${isFocused ? "" : "grayscale"}
-                        `}
-                        style={{
+                      className={`relative w-full aspect-[3/5] rounded-xl overflow-hidden transition
+                      ${isFocused ? "" : "grayscale"}
+                      `}
+                      style={{
                         zIndex,
                         transform: `scale(${scale})`,
                         transition: "transform 200ms ease, filter 200ms ease",
-                        }}
+                      }}
                     >
                         {img.mediaItemUrl ? (
                         <Image
@@ -182,8 +182,8 @@ function RightText({
   return (
     <div>
       {title ? (
-        <h2 className="text-[40px] font-bold">
-          <span className="bg-gradient-to-r from-[#6EE7F9] via-[#A855F7] to-[#F59E0B] bg-clip-text text-transparent">
+        <h2 className="uppercase text-[55px]/15 lg:text-[55px]/20 font-bold">
+          <span className="text-gradient-starbright">
             {title}
           </span>
         </h2>
