@@ -29,7 +29,7 @@ export default function NavMenu({
     );
 
   return (
-    <nav ref={navRef} aria-label="Main">
+    <nav ref={navRef} aria-label="Main" className="ml-auto">
 
       <ul className="hidden md:flex gap-6 ">
         {tree.map((item, index) => {
