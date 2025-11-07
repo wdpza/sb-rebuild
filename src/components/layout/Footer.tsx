@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import DOMPurify from 'isomorphic-dompurify'
 
 export default function Footer( footer: any) {
 
