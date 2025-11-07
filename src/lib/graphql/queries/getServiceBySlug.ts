@@ -118,6 +118,7 @@ export const GET_SERVICE_BY_SLUG = gql`
                         }
                         description
                         title
+                        popular
                     }
                     }
                     ... on ServicePageFieldsServicePageBuilderHostingPackagesLayout {

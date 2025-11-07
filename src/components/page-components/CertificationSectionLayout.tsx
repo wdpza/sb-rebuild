@@ -34,11 +34,13 @@ export default function CertificationSectionLayout({
               className="relative w-full overflow-hidden rounded-xl text-center"
             >
               {/* Image area with a fixed aspect ratio */}
+                <div className="h-20 flex items-center justify-center">
                   <img
-                    className="block mx-auto"
+                    className="max-h-full max-w-full object-contain"
                     src={src}
                     alt={alt}
                   />
+                </div>
 
               {/* Text block */}
               <div className="p-4">

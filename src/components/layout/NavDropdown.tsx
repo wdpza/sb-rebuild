@@ -231,7 +231,7 @@ useEffect(() => {
                 >
                   <ul className="flex gap-3 h-full sm:h-72 lg:h-full megamenu-navigation">
                     {visibleChildren.map((child, i) => {
-                      const chref = buildHref(child).replace(/^\/article/, "");
+                      const chref = buildHref(child);
                       const external = isExternal(chref);
 
                       const img =

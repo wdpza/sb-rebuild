@@ -26,7 +26,7 @@ export default function WhyWorkWithUs({ introTitle, item, backgroundImage }: any
                     key={index}
                     className="bg-[#1B1B1C] bg-opacity-50 p-6 rounded-lg shadow-lg flex flex-col justify-center items-center w-72 h-72"
                     >
-                        <h3 className="text-white text-xl font-semibold mb-4">{item.title}</h3>
+                        <h3 className="text-white text-xl font-semibold mb-4 text-center">{item.title}</h3>
                         <p className="text-white text-center">{item.description}</p>
                     </div>
                 ))}

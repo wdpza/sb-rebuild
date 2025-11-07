@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import DOMPurify from 'isomorphic-dompurify'
 
 export default function Footer( footer: any) {
 
@@ -23,8 +24,8 @@ export default function Footer( footer: any) {
                     </h4>
 
                     <ul className="space-y-2 text-neutral-regular">
-                        <li className="flex text-white gap-2 items-center"><img src="/images/phone-icon.png" alt="Phone Icon"/> {footer.footer.siteOptions.siteOptionsFields.footer.officeNumber}</li>
-                        <li className="flex text-white gap-2 items-center"><img src="/images/whatsapp-icon.png" alt="Whatsapp Icon" /> {footer.footer.siteOptions.siteOptionsFields.footer.whatsappNumber}</li>
+                        <li className="flex text-white gap-2 items-center"><img src="/images/phone-icon.png" alt="Phone Icon"/> <a href={`tel:${footer.footer.siteOptions.siteOptionsFields.footer.officeNumber.replace(/\s+/g, "")}`}>{footer.footer.siteOptions.siteOptionsFields.footer.officeNumber}</a></li>
+                        <li className="flex text-white gap-2 items-center"><img src="/images/whatsapp-icon.png" alt="Whatsapp Icon" /> <a href={`https://wa.me/${footer.footer.siteOptions.siteOptionsFields.footer.whatsappNumber.replace(/\s+/g, "")}`} target="_blank">{footer.footer.siteOptions.siteOptionsFields.footer.whatsappNumber}</a></li>
                     </ul>
 
                 </div>
@@ -34,8 +35,10 @@ export default function Footer( footer: any) {
                     <h4 className="text-lg font-semibold mb-3 text-neutral-softest">
                         Visit Us
                     </h4>
-                    <p className="text-neutral-regular whitespace-pre-line text-white">
-                        {footer.footer.siteOptions.siteOptionsFields.footer.address}
+                    <p 
+                        className="text-neutral-regular whitespace-pre-line text-white"
+                        dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(footer.footer.siteOptions.siteOptionsFields.footer.address) }}
+                    >
                     </p>
                 </div>
 
