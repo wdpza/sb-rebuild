@@ -14,8 +14,8 @@ const shuffleArray = (array: any[]) => {
 export default function CaseStudiesMore({ items, current }: { items: any, current: any }) {
 
   const shuffledItems = shuffleArray(items)
-    .filter((item: any) => item.slug !== current.slug) // Exclude the current case study by slug
-    .slice(0, 5); // Get the first 5 items
+    .filter((item: any) => item.slug !== current.slug)
+    .slice(0, 5); 
 
   return (
     <div className="bg-[#28262C]">
