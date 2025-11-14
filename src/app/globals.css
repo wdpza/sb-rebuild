@@ -257,6 +257,11 @@
         margin-bottom: calc(var(--spacing) * -25);
     }
 
+    .bg-\[\#28262C\]\/60 {
+        background-color: 
+    color-mix(in oklab, #28262C 60%, transparent);
+    }
+
     
     .pricing-item {
         position:relative;

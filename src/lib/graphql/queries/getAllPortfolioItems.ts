@@ -37,6 +37,20 @@ export const GET_ALL_PORTFOLIO_ITEMS = gql`
                 }
                 title
             }
+            portfolioLogoSlider {
+                logo {
+                node {
+                    altText
+                    mediaItemUrl
+                }
+                }
+            }
+            portfolioBackgroundImage {
+                node {
+                altText
+                mediaItemUrl
+                }
+            }
             }
         }
         portfolioCategories {

@@ -38,7 +38,7 @@ export default function HeroLayout({ title, description, subTitle, background, i
 
 					{description && (
 						<div
-							className="mt-6 mb-6 text-lg text-gray-100 text-center md:text-left"
+							className="mt-6 mb-6 text-[24px] text-gray-100 text-center md:text-left"
 							dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(description) }}
 						/>
 					)}

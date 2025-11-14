@@ -38,7 +38,7 @@ export default function PortfolioHero(portfolioOptions : any) {
 
                     {description && (
                         <div
-                            className="mt-4 text-lg text-gray-100 max-w-3xl"
+                            className="mt-4 text-[24px] text-gray-100 max-w-3xl"
                             dangerouslySetInnerHTML={{
                                 __html: DOMPurify.sanitize(description),
                             }}
