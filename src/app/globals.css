@@ -294,6 +294,34 @@
     .megamenu-navigation li:nth-child(even) {
         background-color:#171717;
     }
+
+
+.terms-conditions-single-page-inner ol {
+    list-style-type: none;
+    counter-reset: item;
+    margin: 0;
+    padding: 0;
+}
+.terms-conditions-single-page-inner ol>li {
+    display: table;
+    counter-increment: item;
+    margin-bottom: 15px;
+}
+.terms-conditions-single-page-inner ol {
+    list-style-type: none;
+    counter-reset: item;
+    margin: 0;
+    padding: 0;
+}
+.terms-conditions-single-page-inner ol>li:before {
+    content: counters(item, ".") ". ";
+    display: table-cell;
+    padding-right: .6em;
+}
+.terms-conditions-single-page-inner li ol>li:before {
+    content: counters(item, ".") " ";
+}
+
 }
 
 @media (prefers-color-scheme: dark) {

@@ -114,7 +114,7 @@ export default function EmployeeCarouselLayout({
           backgroundPosition: "bottom right",
       }}
     >
-      <h2 className="text-[60px] font-bold text-white">
+      <h2 className="text-[68px] font-bold text-white">
         <span className="text-gradient-starbright bg-clip-text text-transparent">
           {title}
         </span>

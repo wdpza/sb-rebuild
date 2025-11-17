@@ -30,8 +30,7 @@ export default async function TeamsSectionLayout({ description, subTitle, title,
       className="py-20 bg-[#171717] px-8 text-center"
       style={{
         backgroundImage: bgUrl ? `url(${bgUrl})` : undefined,
-        backgroundSize: "auto 100%",
-        backgroundPosition: "bottom right",
+        backgroundPosition: "center",
       }}
     >
       <h2 className="text-[40px] font-bold text-white">
@@ -47,12 +46,12 @@ export default async function TeamsSectionLayout({ description, subTitle, title,
       )}
 
       {description && (
-        <p className="text-white/90 mt-8 max-w-3xl mx-auto whitespace-pre-line">
+        <p className="text-white/90 mt-8 max-w-3xl text-[20px] mx-auto whitespace-pre-line">
           {description}
         </p>
       )}
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-8 max-w-[1600px] mx-auto">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-12 max-w-[1600px] mx-auto">
         {TeamMember.map((m: TeamMember) => {
           const normalImg = m.teamMemberFields?.profileNormal?.node;
           const hoverImg = m.teamMemberFields?.profileHover?.node;
