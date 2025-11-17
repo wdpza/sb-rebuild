@@ -17,8 +17,6 @@ export default function WhyWorkWithUs({
         backgroundImage: bgUrl ? `url(${bgUrl})` : undefined,
       }}
     >
-      {/* Overlay (optional) */}
-      <div className="absolute inset-0 bg-black/40"></div>
 
       <div className="relative z-10 w-full max-w-[1600px] mx-auto flex flex-col items-center justify-center text-center text-white px-4 md:px-6">
         {/* Title */}

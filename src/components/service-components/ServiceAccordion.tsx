@@ -69,7 +69,7 @@ export default function ServiceAccordion({ introTitle, item, backgroundImage }: 
     );
 
 	return (
-		<section className="relative py-12 flex w-full items-center bg-[#28262C] overflow-hidden bg-cover bg-center"
+		<section className="gradient-border-top gradient-border-bottom relative py-12 flex w-full items-center bg-[#28262C] overflow-hidden bg-cover bg-center"
       style={{
           backgroundImage: bgUrl ? `url(${bgUrl})` : undefined,
       }}
@@ -93,7 +93,7 @@ export default function ServiceAccordion({ introTitle, item, backgroundImage }: 
                             {/* Hover overlay with description */}
                             <div className="absolute inset-0 bg-[#38363C] opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                             <div className="h-full w-full flex items-center justify-center px-12">
-                                <p className="text-white text-sm leading-relaxed text-center">
+                                <p className="text-white text-sm md:text-base leading-relaxed text-center">
                                 {item.description}
                                 </p>
                             </div>

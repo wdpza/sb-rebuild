@@ -1,6 +1,7 @@
 import DOMPurify from 'isomorphic-dompurify';
+import Link from "next/link";
 
-export default function HeroLayout({ title, description, subTitle, backgrounD, image }: any) {
+export default function HeroLayout({ title, ctaLink, description, subTitle, backgrounD, image }: any) {
 	const bgUrl = backgrounD?.node?.mediaItemUrl ?? null
 	const imageUrl = image?.node?.mediaItemUrl ?? null
 
@@ -30,6 +31,25 @@ export default function HeroLayout({ title, description, subTitle, backgrounD, i
 							className="mt-6 text-lg text-gray-100"
 							dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(description) }}
 						/>
+					)}
+
+					{ctaLink && (
+						<div className="mt-8">
+							<Link
+								href={ctaLink.url}
+								className="
+									bg-neutral-strongest
+									gradient-border
+									inline-block px-8 py-3 
+									text-white font-semibold uppercase 
+									rounded-lg shadow-md 
+									transition-all duration-300 
+									hover:bg-gradient-starbright
+								"
+							>
+								{ctaLink.title}
+							</Link>
+						</div>
 					)}
 				</div>
 
