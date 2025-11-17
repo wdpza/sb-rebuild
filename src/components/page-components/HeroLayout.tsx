@@ -8,9 +8,9 @@ export default function HeroLayout({ title, description, subTitle, background, i
 	const sectionHeight = title ? "min-h-screen" : "h-[160px]"
 
 	// Dynamic adjustments
-	const colSpanLeft = hasForm ? "col-span-15" : "col-span-13"
-	const colSpanRight = hasForm ? "col-span-9" : "col-span-11"
-	const subTitleSize = hasForm ? "font-normal text-[20px] lg:text-[20px]" : "font-bold text-[35px] lg:text-[45px]"
+	const colSpanLeft = hasForm ? "col-span-12" : "col-span-13"
+	const colSpanRight = hasForm ? "col-span-12" : "col-span-11"
+	const subTitleSize = hasForm ? "font-normal text-[20px] lg:text-[24px]" : "font-bold text-[35px] lg:text-[45px]"
 	const paddingY = hasForm ? "py-32" : "py-24"
 
 	return (
@@ -56,7 +56,7 @@ export default function HeroLayout({ title, description, subTitle, background, i
 						<img
 							src={imageUrl}
 							alt={title ?? ""}
-							className="absolute max-h-[80vh] object-contain"
+							className="absolute max-h-[100vh] object-contain"
 							style={{ bottom: "2px" }}
 						/>
 					</div>

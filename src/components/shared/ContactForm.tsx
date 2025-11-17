@@ -52,7 +52,7 @@ export default function ContactForm() {
         required
         value={formData.name}
         onChange={handleChange}
-        className="bg-[#1F1F1F] placeholder-white text-white border border-[#353536] p-3 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="bg-[#1F1F1F96] placeholder-white text-white border border-[#353536] p-3 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
 
       <input
@@ -62,7 +62,7 @@ export default function ContactForm() {
         required
         value={formData.surname}
         onChange={handleChange}
-        className="bg-[#1F1F1F] placeholder-white text-white border border-[#353536] p-3 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="bg-[#1F1F1F96] placeholder-white text-white border border-[#353536] p-3 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
 
       <input
@@ -72,7 +72,7 @@ export default function ContactForm() {
         required
         value={formData.email}
         onChange={handleChange}
-        className="bg-[#1F1F1F] placeholder-white text-white border border-[#353536] p-3 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="bg-[#1F1F1F96] placeholder-white text-white border border-[#353536] p-3 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
 
       <input
@@ -82,7 +82,7 @@ export default function ContactForm() {
         required
         value={formData.contactNumber}
         onChange={handleChange}
-        className="bg-[#1F1F1F] placeholder-white text-white border border-[#353536] p-3 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="bg-[#1F1F1F96] placeholder-white text-white border border-[#353536] p-3 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
 
       <input
@@ -92,7 +92,7 @@ export default function ContactForm() {
         required
         value={formData.companyName}
         onChange={handleChange}
-        className="bg-[#1F1F1F] placeholder-white text-white border border-[#353536] p-3 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="bg-[#1F1F1F96] placeholder-white text-white border border-[#353536] p-3 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
 
       {/* --- Service Dropdown --- */}
@@ -102,7 +102,7 @@ export default function ContactForm() {
           required
           value={formData.service}
           onChange={handleChange}
-          className="appearance-none bg-[#1F1F1F] placeholder-white text-white border border-[#353536] p-3 rounded w-full pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="appearance-none bg-[#1F1F1F96] placeholder-white text-white border border-[#353536] p-3 rounded w-full pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           <option value="">Select a Service*</option>
           <option>Studio Hire</option>
@@ -151,7 +151,7 @@ export default function ContactForm() {
             required
             value={formData.how}
             onChange={handleChange}
-            className="appearance-none h-full bg-[#1F1F1F] placeholder-white text-white border border-[#353536] p-3 rounded w-full pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="appearance-none h-full bg-[#1F1F1F96] placeholder-white text-white border border-[#353536] p-3 rounded w-full pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             <option value="">How did you hear about us*</option>
             <option>Google</option>
@@ -182,7 +182,7 @@ export default function ContactForm() {
             required
             value={formData.other}
             onChange={handleChange}
-            className="flex-1 h-full bg-[#1F1F1F] placeholder-white text-white border border-[#353536] p-3 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="flex-1 h-full bg-[#1F1F1F96] placeholder-white text-white border border-[#353536] p-3 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         )}
       </div>
@@ -193,7 +193,7 @@ export default function ContactForm() {
         placeholder="Message"
         value={formData.message}
         onChange={handleChange}
-        className="bg-[#1F1F1F] placeholder-white text-white md:col-span-2 border border-[#353536] p-3 rounded w-full h-32 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="bg-[#1F1F1F96] placeholder-white text-white md:col-span-2 border border-[#353536] p-3 rounded w-full h-32 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
 
       {/* --- Submit Button --- */}
@@ -201,7 +201,7 @@ export default function ContactForm() {
         type="submit"
         className="cursor-pointer inline-flex items-center justify-center rounded-md px-8 py-3 font-semibold text-white gradient-border md:col-span-2 w-auto justify-self-start"
       >
-        Submit
+        Send Enquiry
       </button>
     </form>
   );

@@ -262,6 +262,10 @@
     color-mix(in oklab, #28262C 60%, transparent);
     }
 
+    .max-h-\[100vh\] {
+        max-height:100vh
+    }
+
     
     .pricing-item {
         position:relative;
