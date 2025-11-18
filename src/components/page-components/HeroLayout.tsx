@@ -20,12 +20,12 @@ export default function HeroLayout({ title, description, subTitle, background, i
 				backgroundImage: bgUrl ? `url(${bgUrl})` : undefined,
 			}}
 		>
-			<div className={`relative z-10 grid w-full max-w-[1600px] mx-auto grid-cols-1 md:grid-cols-24 gap-2 px-12 ${paddingY} ${title ? "min-h-screen" : "h-[160px]"}`}>
+			<div className={`relative z-10 grid layout-wrapper grid-cols-1 md:grid-cols-24 gap-2 px-12 ${paddingY} ${title ? "min-h-screen" : "h-[160px]"}`}>
 				
 				{/* Left column (text + form) */}
 				<div className={`${colSpanLeft} flex flex-col justify-center text-left gap-4 mt-12`}>
 					{title && (
-						<h1 className="font-archivo uppercase text-[55px]/15 lg:text-[72px]/20 font-black drop-shadow-lg text-gradient-starbright text-center md:text-left">
+						<h1 className="font-archivo uppercase text-[55px]/15 lg:text-[75px]/20 font-black drop-shadow-lg text-gradient-starbright text-center md:text-left text-balance">
 							{title}
 						</h1>
 					)}

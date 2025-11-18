@@ -68,6 +68,12 @@
 }
 
 @layer utilities {
+
+    .layout-wrapper {
+        @apply container max-w-[1600px] w-full mx-auto;
+        padding-inline: calc(var(--spacing)*4);
+    }
+
     .article-slug-page h1,
     .article-slug-page h3,
     .article-slug-page h2,
@@ -259,7 +265,7 @@
 
     .bg-\[\#28262C\]\/60 {
         background-color: 
-    color-mix(in oklab, #28262C 60%, transparent);
+        color-mix(in oklab, #28262C 60%, transparent);
     }
 
     .max-h-\[100vh\] {
@@ -271,8 +277,6 @@
         position:relative;
         overflow:hidden;
     }
-
-    
 
     .pricing-item:before {
         content: "";
