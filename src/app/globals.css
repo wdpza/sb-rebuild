@@ -74,6 +74,14 @@
         padding-inline: calc(var(--spacing)*4);
     }
 
+    .hero-title {
+        @apply text-[45px]/12 lg:text-[75px]/20;
+    }
+
+    .hero-subtitle {
+        @apply text-[20px]/8 lg:text-[24px]/10;
+    }
+
     .article-slug-page h1,
     .article-slug-page h3,
     .article-slug-page h2,

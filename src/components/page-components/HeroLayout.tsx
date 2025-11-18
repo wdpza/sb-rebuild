@@ -25,7 +25,7 @@ export default function HeroLayout({ title, description, subTitle, background, i
 				{/* Left column (text + form) */}
 				<div className={`${colSpanLeft} flex flex-col justify-center text-left gap-4 mt-12 z-4`}>
 					{title && (
-						<h1 className="font-archivo uppercase text-[55px]/15 lg:text-[75px]/20 font-black drop-shadow-lg text-gradient-starbright text-center md:text-left text-balance">
+						<h1 className="font-archivo uppercase hero-title font-black drop-shadow-lg text-gradient-starbright text-center md:text-left text-balance">
 							{title}
 						</h1>
 					)}
