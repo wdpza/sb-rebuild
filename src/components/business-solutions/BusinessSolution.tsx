@@ -13,7 +13,7 @@ export default function BusinessSolutions({ items, title }: any) {
 
     return (
         <section className="bg-white">
-            <div className="relative z-10 grid w-full max-w-[1800px] mx-auto grid-cols-1 gap-6 lg:gap-12 xl:gap-36 lg:grid-cols-5 px-12 py-24">
+            <div className="relative z-10 grid w-full max-w-[1600px] mx-auto grid-cols-1 gap-6 lg:gap-12 xl:gap-36 lg:grid-cols-5 px-12 py-24">
                 {/* LEFT: Info panel */}
                 <div className="col-span-1 lg:col-span-2 flex flex-col justify-center space-y-6">
                     <h2 className="text-[40px] font-bold text-gradient-starbright">
@@ -64,11 +64,7 @@ export default function BusinessSolutions({ items, title }: any) {
                                 <button
                                     key={item.slug || index}
                                     onClick={() => setActiveIndex(index)}
-                                    className={`cursor-pointer relative flex items-center justify-center aspect-4/3 w-full rounded-lg transition-all duration-300 ease-in-out ${
-                                        index === activeIndex
-                                            ? "bg-neutral-softest"
-                                            : "bg-neutral-softest hover:bg-neutral-softest"
-                                    }`}
+                                    className="bg-[#F8F8F8] cursor-pointer relative flex items-center justify-center aspect-4/3 w-full rounded-lg transition-all duration-300 ease-in-out"
                                 >
                                     {logo ? (
                                         <div className="relative w-64 h-64 transform hover:scale-110 transition-transform duration-300 ease-in-out">
