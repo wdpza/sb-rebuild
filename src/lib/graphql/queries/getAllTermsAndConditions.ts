@@ -49,11 +49,11 @@ export const GET_ALL_TERMS_AND_CONDITIONS = gql`
     }
 `;
 
-export async function getAllTermsAndConditions() {
+export async function getAllTermsAndConditions(numberOfItems: number = 20) {
     try {
-        const data: any = await client.request(
-            GET_ALL_TERMS_AND_CONDITIONS
-        );
+        const data: any = await client.request(GET_ALL_TERMS_AND_CONDITIONS, {
+            numberOfItems,
+        });
 
         return data;
 

@@ -6,7 +6,7 @@ import TermsConditionsExit from "@/components/terms-conditions/TermsConditionsEx
 
 export default async function TermsAndConditionsPage() {
 
-    const page = await getAllTermsAndConditions()
+    const page = await getAllTermsAndConditions(20)
 
     if (!page) return notFound()
 
