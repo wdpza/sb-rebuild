@@ -22,7 +22,7 @@ export default async function CaseStudiesLayout({
   const items: CaseStudyItem[] = await getCaseStudyItems(numberOfItems);
 
   return (
-    <div className="w-full bg-[#171717]">
+    <div className="w-full bg-[#28262C]">
       <div className={`mx-auto max-w-[1600px] py-12 px-6 ${title}`}>
 
         {/* 4 columns on large screens, graceful fallbacks below */}

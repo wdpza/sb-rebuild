@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from "next/link";
 
 export default function Copyright({ footer }: { footer?: any }) {
 
@@ -12,9 +13,9 @@ export default function Copyright({ footer }: { footer?: any }) {
                 <div className="flex space-x-3 text-neutral-600">
                     {menuNodes.map((item: any, index: number) => (
                         <React.Fragment key={item?.id ?? index}>
-                        <a href={item?.uri ?? '#'} className="text-white">
+                        <Link href={item?.uri ?? '#'} className="text-white">
                             {item?.label ?? ''}
-                        </a>
+                        </Link>
                         {index < menuNodes.length - 1 && (
                             <span className="text-white">|</span>
                         )}

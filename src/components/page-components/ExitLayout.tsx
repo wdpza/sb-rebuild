@@ -1,4 +1,4 @@
-export default function ExitLayout({ title, backgroundImage, ctaLink }: any) {
+export default function ExitLayout({ title, backgroundImage, ctaLink, backgroundOverlay }: any) {
   const bgUrl = backgroundImage?.node?.mediaItemUrl ?? null;
 
   const cleanUrl = ctaLink?.url
@@ -12,7 +12,9 @@ export default function ExitLayout({ title, backgroundImage, ctaLink }: any) {
         backgroundImage: bgUrl ? `url(${bgUrl})` : undefined,
       }}
     >
-      <div className="absolute inset-0 bg-[#28262C]/80"></div>
+      {backgroundOverlay && (
+        <div className="absolute inset-0 bg-[#28262C]/80"></div>
+      )}
       <div className="relative z-10 w-full max-w-[1200px] mx-auto flex flex-col items-center justify-center text-center text-white px-6">
         <h2 className="uppercase text-5xl md:text-6xl font-bold mb-8">
           {title ?? null}

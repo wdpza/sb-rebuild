@@ -66,7 +66,7 @@ export default function Header({ menu, logo }: { menu: any; logo: any }) {
 
 	return (
 		<header className="absolute top-0 left-0 right-0 z-50 py-4 lg:py-12">
-			<div className="max-w-[1600px] mx-auto flex flex-col justify-between p-4 bg-transparent">
+			<div className="max-w-[1600px] mx-auto flex flex-col justify-between p-4 bg-transparent px-12">
 				<div className="flex items-center justify-between">
 					{/* Logo */}
 					{logo?.mediaItemUrl && (
@@ -75,9 +75,9 @@ export default function Header({ menu, logo }: { menu: any; logo: any }) {
 								<Image
 									src={logo.mediaItemUrl}
 									alt={logo.altText || "Company Logo"}
-									className="h-10 w-auto ml-4 object-contain"
-									width={logo?.width ?? 206}
-									height={logo?.height ?? 82}
+									className="w-auto object-contain"
+									width={logo?.width ?? 292}
+									height={logo?.height ?? 56}
 									priority
 								/>
 							</Link>
