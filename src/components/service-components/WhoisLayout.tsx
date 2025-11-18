@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { getDomains } from "@/lib/graphql/queries/getDomains"
+//import { getDomains } from "@/lib/graphql/queries/getDomains"
 
 const TLD_LIST = [
     ".com", ".co.za", ".net", ".org", ".org.za", ".info", ".biz",

@@ -13,7 +13,7 @@ export default function HostingPackages({ title, hpackages, ctaLink }: any) {
                 <h2 className="text-[45px] font-bold mb-8 text-white text-center">{title}</h2>
                 <div>
                     <div className="mx-auto">
-                        <div className="overflow-hidden rounded-lg gradient-border-bottom">
+                        <div className="overflow-hidden rounded-lg gradient-border-bottom capitalize">
                         {/* Table Header */}
                         <div className="flex bg-gradient-starbright text-white p-4">
                             <div className="flex-1 font-semibold">Service</div>
