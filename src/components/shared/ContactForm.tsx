@@ -143,7 +143,7 @@ export default function ContactForm() {
       >
         {/* Select */}
         <div
-          className="relative flex-1 h-full"
+          className="relative flex-1 h-full w-full"
           style={{ minWidth: "calc(50% - 15px)" }}
         >
           <select

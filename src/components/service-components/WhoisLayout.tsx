@@ -104,20 +104,20 @@ export default function WhoisLayout() {
                     </button>
                 ) : isTaken ? (
                     <button
-                        className="gradient-border rounded py-2 px-6"
+                        className="gradient-border rounded py-2 px-6 cursor-pointer text-white"
                         onClick={handleLookup}
                         disabled={loading}
                     >
                         Search
                     </button>
                 ) : (
-                    <button className="gradient-border rounded py-2 px-6">
+                    <button className="gradient-border rounded py-2 px-6 cursor-pointer text-white">
                         Register
                     </button>
                 )}
             </div>
 
-            {loading && <p className="text-center mt-4">Loading...</p>}
+            {loading && <p className="text-center mt-4 text-white">Loading...</p>}
 
             {hasSearched && (
                 <>
@@ -143,7 +143,7 @@ export default function WhoisLayout() {
             )}
 
             {result && (
-                <pre className="text-xs whitespace-pre-wrap mt-6">
+                <pre className="text-xs whitespace-pre-wrap mt-6 text-white">
                     {JSON.stringify(result, null, 2)}
                 </pre>
             )}

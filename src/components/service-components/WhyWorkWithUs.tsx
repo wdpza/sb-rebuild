@@ -18,7 +18,7 @@ export default function WhyWorkWithUs({
       }}
     >
 
-      <div className="relative z-10 w-full max-w-[1600px] mx-auto flex flex-col items-center justify-center text-center text-white px-4 md:px-6">
+      <div className="relative z-10 w-full layout-wrapper mx-auto flex flex-col items-center justify-center text-center text-white px-4 md:px-6">
         {/* Title */}
         {introTitle && (
           <h2 className="text-3xl md:text-4xl lg:text-[45px] font-bold mb-10 text-white">

@@ -27,9 +27,9 @@ export default function FaqLayout({ introTitle, image, item, backgroundImage }: 
         backgroundImage: bgUrl ? `url(${bgUrl})` : undefined,
       }}
     >
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-[1200px] mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 layout-wrapper mx-auto">
         {/* Left Column - FAQ Items */}
-        <div className="flex flex-col justify-center">
+        <div className="flex flex-col justify-center z-4">
           <h2 className="text-white text-[45px] font-bold mb-8 leading-snug">{introTitle}</h2>
           <div className="space-y-2">
             {item.map((item: Item, index: number) => (
@@ -69,7 +69,7 @@ export default function FaqLayout({ introTitle, image, item, backgroundImage }: 
           <img
             src={img}
             alt={alt}
-            className="absolute left-0 bottom-0 w-full max-w-[700px] h-auto object-contain"
+            className="absolute left-0 bottom-0 w-full max-w-[700px] max-h-[700px] h-auto object-contain"
           />
         </div>
       </div>

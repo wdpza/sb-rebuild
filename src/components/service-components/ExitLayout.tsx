@@ -12,7 +12,7 @@ export default function ExitLayout({ title, backgroundImage, ctaLink }: any) {
         backgroundImage: bgUrl ? `url(${bgUrl})` : undefined,
       }}
     >
-      <div className="relative z-10 w-full max-w-[1200px] mx-auto flex flex-col items-center justify-center text-center text-white px-6">
+      <div className="relative z-10 w-full layout-wrapper mx-auto flex flex-col items-center justify-center text-center text-white px-6">
         <h2 className="uppercase text-5xl md:text-6xl font-bold mb-8">
           {title ?? null}
         </h2>

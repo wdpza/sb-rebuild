@@ -11,17 +11,19 @@ export default async function ArticleLayout({ children }: { children: React.Reac
 
 	return (
 		<div className="article-layout flex flex-col w-full">
-			<BlogHero blogOptions={blogOptions.blogOptionsFields} />
+		<BlogHero blogOptions={blogOptions.blogOptionsFields} />
 
-			<div className="grid w-full max-w-[1600px] mx-auto grid-cols-8 gap-6 px-12 py-16">
-				<div className="col-span-2">
-					<CategorySidebar categories={categories} />
-				</div>
-
-				<div className="col-span-6">{children}</div>
+		<div className="grid w-full max-w-[1600px] mx-auto grid-cols-1 lg:grid-cols-8 gap-6 px-4 sm:px-8 lg:px-12 py-10 sm:py-16">
+			<div className="lg:col-span-2">
+			<CategorySidebar categories={categories} />
 			</div>
 
-			<BlogExit blogOptions={blogOptions.blogOptionsFields} />
+			<div className="lg:col-span-6">
+			{children}
+			</div>
+		</div>
+
+		<BlogExit blogOptions={blogOptions.blogOptionsFields} />
 		</div>
 	);
 }

@@ -2,7 +2,7 @@ export default function SocialMediaPackages({ introTitle, spackages }: any) {
 
   return (
     <div className="bg-[#28262C] relative py-20 bg-cover bg-center">
-      <div className="max-w-[1600px] mx-auto w-full">
+      <div className="layout-wrapper mx-auto w-full">
         {introTitle && (
           <h2 className="text-[45px] font-bold mb-12 text-gradient-starbright text-center">
             {introTitle}

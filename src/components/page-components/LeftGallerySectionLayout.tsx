@@ -77,14 +77,14 @@ export default function LeftGallerySectionLayout({
 
   return (
   <section
-    className="py-20 bg-[#171717] px-8 bg-cover bg-bottom bg-no-repeat"
+    className="py-20 bg-[#171717] px-8 bg-cover bg-bottom bg-no-repeat pb-0 sm:pb-20"
     style={{
       backgroundImage: bgUrl ? `url(${bgUrl})` : undefined,
     }}
   >
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-[1600px] mr-auto items-center">
       {/* Left: gallery */}
-      <div className="-ml-8">
+      <div className="-ml-8 hidden sm:block">
         <Slider {...settings} className="!overflow-visible">
             {images.map((img, i) => {
                 const place = windowPlacement[i];

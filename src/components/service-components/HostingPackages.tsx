@@ -9,7 +9,7 @@ export default function HostingPackages({ title, hpackages, ctaLink }: any) {
 
     return (
         <div className="bg-[#28262C] relative py-24 bg-cover bg-center">
-            <div className="max-w-[1600px] mx-auto w-full">
+            <div className="layout-wrapper mx-auto w-full">
                 <h2 className="text-[45px] font-bold mb-8 text-white text-center">{title}</h2>
                 <div>
                     <div className="mx-auto">

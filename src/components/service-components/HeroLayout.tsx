@@ -16,7 +16,7 @@ export default function HeroLayout({ title, ctaLink, description, subTitle, back
 				backgroundImage: bgUrl ? `url(${bgUrl})` : undefined,
 			}}
 		>
-			<div className="h-screen relative z-10 grid w-full max-w-[1600px] mx-auto grid-cols-1 md:grid-cols-24 gap-2 px-12 py-24">
+			<div className="h-screen relative z-10 grid w-full layout-wrapper mx-auto grid-cols-1 md:grid-cols-24 gap-2 py-24">
 				{/* Left column: 60% */}
 				<div className="col-span-24 flex flex-col justify-center text-center gap-4">
 					<h1 className="font-archivo uppercase text-[75px]/20 font-black drop-shadow-lg text-gradient-starbright">

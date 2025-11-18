@@ -18,13 +18,13 @@ export default function PortfolioLayout({ title, portfolioItems }: any) {
 
   return (
     <div className="relative py-20 bg-cover bg-center bg-[#28262C]">
-      <div className="max-w-[1600px] mx-auto w-full">
+      <div className="layout-wrapper mx-auto w-full">
       <h2 className="text-[45px] font-bold mb-12 text-white text-center">
         {title ?? null}
       </h2>
 
       {/* Masonry-like layout using CSS columns */}
-      <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-6 px-8">
+      <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-6">
         {portfolioItems?.nodes?.map((item: any, index: number) => (
           <div
             key={index}

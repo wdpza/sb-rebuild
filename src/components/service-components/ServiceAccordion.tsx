@@ -99,7 +99,7 @@ export default function ServiceAccordion({ introTitle, item, backgroundImage }: 
           backgroundImage: bgUrl ? `url(${bgUrl})` : undefined,
       }}
     >
-            <div className="max-w-[1600px] mx-auto w-full">
+            <div className="layout-wrapper mx-auto w-full">
                 {introTitle && (
                   <h2 className="text-[45px] font-bold mb-8 text-white text-center">{introTitle}</h2>
                 )}
@@ -132,7 +132,7 @@ export default function ServiceAccordion({ introTitle, item, backgroundImage }: 
                         </div>
                     ))}
                     </Slider>
-                </div>		
+                </div>
             </div>
 		</section>
 	)

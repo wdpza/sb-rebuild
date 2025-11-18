@@ -62,10 +62,10 @@ export default function Footer( footer: any) {
 
                 {/* Column 5: Socials */}
                 <div>
-                    <h4 className="text-lg font-semibold mb-3 text-neutral-softest text-right">
+                    <h4 className="text-lg font-semibold mb-3 text-neutral-softest text-left md:text-right">
                         Connect With Us
                     </h4>
-                    <div className="flex items-center gap-3 justify-end">
+                    <div className="flex items-center gap-3 justify-start md:justify-end">
                         {footer.footer.siteOptions.siteOptionsFields.footer.socialMedia.map(
                             (item: {  icon: any;url: string }, index: number) => (
                             <a
