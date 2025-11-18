@@ -2,7 +2,7 @@
 
 import { useState, useMemo, useRef, useEffect } from "react";
 import Image from "next/image";
-import NavMenu from "./NavMenu.tsx";
+import NavMenu from "./NavMenu";
 import NavMenuMobile from "./NavMenuMobile";
 import Link from 'next/link';
 

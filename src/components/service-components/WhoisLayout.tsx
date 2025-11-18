@@ -82,9 +82,9 @@ export default function WhoisLayout() {
     return (
         <div className="flex flex-col justify-center max-w-[1600px] mx-auto w-full">
 
-            <div className="input-wrapper flex justify-between max-w-xl mx-auto w-full border border-neutral-stronger px-4 py-2 mt-16 rounded gap-4">
+            <div className="input-wrapper flex justify-between max-w-xl mx-auto w-full border border-[#353536] px-4 py-2 mt-16 rounded gap-4 bg-[#1F1F1F96]">
                 <input
-                    className="outline-hidden w-full"
+                    className="outline-hidden w-full text-white"
                     value={domain}
                     onChange={handleChange}
                     placeholder="example.com"
@@ -92,7 +92,7 @@ export default function WhoisLayout() {
 
                 {!hasSearched ? (
                     <button
-                        className="gradient-border rounded py-2 px-6"
+                        className="gradient-border rounded py-2 px-6 cursor-pointer text-white"
                         onClick={handleLookup}
                         disabled={loading}
                     >

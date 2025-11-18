@@ -1,7 +1,7 @@
 "use client";
 
 import Slider from "react-slick";
-import { useMemo } from "react";
+import { useMemo, useEffect, useState } from "react";
 
 type Item = {
   title: string;
@@ -49,6 +49,27 @@ export default function ServiceAccordion({ introTitle, item, backgroundImage }: 
 
     const bgUrl = backgroundImage?.node?.mediaItemUrl ?? null;
 
+    const [slidesToShowCurrent, setSlidesToShowCurrent] = useState(3);
+
+    useEffect(() => {
+      const updateSlidesToShow = () => {
+        const width = window.innerWidth;
+        let value = 3;
+        if (width < 640) {
+          value = 1;
+        } else if (width < 1024) {
+          value = 2;
+        } else {
+          value = 3;
+        }
+        setSlidesToShowCurrent(value);
+      };
+
+      updateSlidesToShow();
+      window.addEventListener("resize", updateSlidesToShow);
+      return () => window.removeEventListener("resize", updateSlidesToShow);
+    }, []);
+
     const settings = useMemo(
         () => ({
         dots: false,
@@ -68,6 +89,10 @@ export default function ServiceAccordion({ introTitle, item, backgroundImage }: 
         []
     );
 
+  const itemsCount = Array.isArray(item) ? item.length : 0;
+  const isCarouselScrollable = itemsCount > slidesToShowCurrent;
+  const showRightGradient = isCarouselScrollable && slidesToShowCurrent > 1 && itemsCount > 0;
+
 	return (
 		<section className="gradient-border-top gradient-border-bottom relative py-12 flex w-full items-center bg-[#28262C] overflow-hidden bg-cover bg-center"
       style={{
@@ -77,7 +102,9 @@ export default function ServiceAccordion({ introTitle, item, backgroundImage }: 
             <div className="max-w-[1600px] mx-auto w-full">
                 <h2 className="text-[45px] font-bold mb-8 text-white text-center">{introTitle}</h2>
                 <div className="relative rounded-2xl p-6">
-                    <div className="absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-[#28262C] to-transparent z-10" />
+                    {showRightGradient && (
+                      <div className="absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-[#28262C] to-transparent z-10" />
+                    )}
                     <Slider {...settings}>
                     {item.map((item: Item, idx: number) => (
                         <div key={idx} className="px-3">
