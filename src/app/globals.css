@@ -226,6 +226,10 @@
 
 	}
 
+    .pt-60 {
+        padding-top: calc(var(--spacing) * 60);
+    }
+
 	.gradient-border-bottom {
 		position:relative;
         overflow: hidden;

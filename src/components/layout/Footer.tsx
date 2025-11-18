@@ -4,7 +4,7 @@ export default function Footer( footer: any) {
 
     return (
         <footer className="bg-neutral-strongest w-full gradient-border-top">
-            <div className="max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-5 gap-12 py-8 px-6">
+            <div className="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-5 gap-12 py-8 px-6">
                 {/* Column 1: Logo */}
                 <div className="flex flex-col space-y-4 self-center">
                     {footer.footer.siteOptions.siteOptionsFields.siteLogo.node.mediaItemUrl && (
@@ -62,10 +62,10 @@ export default function Footer( footer: any) {
 
                 {/* Column 5: Socials */}
                 <div>
-                    <h4 className="text-lg font-semibold mb-3 text-neutral-softest">
+                    <h4 className="text-lg font-semibold mb-3 text-neutral-softest text-right">
                         Connect With Us
                     </h4>
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-3 justify-end">
                         {footer.footer.siteOptions.siteOptionsFields.footer.socialMedia.map(
                             (item: {  icon: any;url: string }, index: number) => (
                             <a

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { getDomains } from "@/lib/graphql/queries/getDomains"
 
 const TLD_LIST = [
     ".com", ".co.za", ".net", ".org", ".org.za", ".info", ".biz",
@@ -16,6 +17,9 @@ export default function WhoisLayout() {
     const [availableDomains, setAvailableDomains] = useState<string[]>([]);
     const [loading, setLoading] = useState(false);
     const hasSearched = result !== null;
+
+    //const domains = getDomains()
+    //console.log(domains)
 
     async function handleLookup() {
         if (!domain.trim()) return;

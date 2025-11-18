@@ -5,190 +5,213 @@ export const GET_SERVICE_BY_SLUG = gql`
         service(id: $slug, idType: URI) {
             title
             servicePageFields {
-                servicePageBuilder {
-                    __typename
-                    ... on ServicePageFieldsServicePageBuilderHeroLayout {
-                    subTitle
+            servicePageBuilder {
+                __typename
+                ... on ServicePageFieldsServicePageBuilderHeroLayout {
+                subTitle
+                title
+                ctaLink {
+                    url
                     title
-                    ctaLink {
-                        url
-                        title
-                        target
+                    target
+                }
+                backgrounD {
+                    node {
+                    altText
+                    mediaItemUrl
                     }
-                    backgrounD {
-                        node {
-                        altText
-                        mediaItemUrl
-                        }
-                    }
-                    }
-                    ... on ServicePageFieldsServicePageBuilderServiceCarouselLayout {
-                    introTitle
-                    item {
-                        title
-                        description
-                    }
-                    backgroundImage {
-                        node {
-                        altText
-                        mediaItemUrl
-                        }
-                    }
-                    }
-                    ... on ServicePageFieldsServicePageBuilderWhyWordWithUsSectionLayout {
-                    introTitle
-                    item {
-                        description
-                        title
-                    }
-                    backgroundImage {
-                        node {
-                        altText
-                        mediaItemUrl
-                        }
-                    }
-                    }
-                    ... on ServicePageFieldsServicePageBuilderFaqSectionLayout {
-                    introTitle
-                    image {
-                        node {
-                        altText
-                        mediaItemUrl
-                        }
-                    }
-                    item {
-                        description
-                        title
-                    }
-                    backgroundImage {
-                        node {
-                        altText
-                        mediaItemUrl
-                        }
-                    }
-                    }
-                    ... on ServicePageFieldsServicePageBuilderExitSectionLayout {
+                }
+                }
+                ... on ServicePageFieldsServicePageBuilderServiceCarouselLayout {
+                introTitle
+                item {
                     title
-                    backgroundImage {
-                        node {
-                        altText
-                        mediaItemUrl
-                        }
+                    description
+                }
+                backgroundImage {
+                    node {
+                    altText
+                    mediaItemUrl
                     }
-                    ctaLink {
-                        target
-                        title
-                        url
-                    }
-                    }
-                    ... on ServicePageFieldsServicePageBuilderPortfolioSectionLayout {
-                    title
-                    portfolioItems {
-                        nodes {
-                        altText
-                        mediaItemUrl
-                        }
-                    }
-                    }
-                    ... on ServicePageFieldsServicePageBuilderSocialMediaPlatformsLayout {
-                    introTitle
-                    backgroundImage {
-                        node {
-                        altText
-                        mediaItemUrl
-                        }
-                    }
-                    platform {
-                        platformLink
-                        platformImage {
-                        node {
-                            altText
-                            mediaItemUrl
-                        }
-                        }
-                    }
-                    }
-                    ... on ServicePageFieldsServicePageBuilderSocialMediaPackagedLayout {
-                    introTitle
-                    spackages {
-                        ctaLink {
-                        title
-                        url
-                        target
-                        }
-                        description
-                        title
-                        popular
-                    }
-                    }
-                    ... on ServicePageFieldsServicePageBuilderHostingPackagesLayout {
-                    title
-                    hpackages {
-                        service
-                        notes
-                        fee
-                    }
-                    ctaLink {
-                        target
-                        title
-                        url
-                    }
-                    }
-                    ... on ServicePageFieldsServicePageBuilderTextHeadingBlockLayout {
+                }
+                }
+                ... on ServicePageFieldsServicePageBuilderWhyWordWithUsSectionLayout {
+                introTitle
+                item {
                     description
                     title
-                    ctaLink {
-                        target
-                        title
-                        url
+                }
+                backgroundImage {
+                    node {
+                    altText
+                    mediaItemUrl
                     }
-                    backgroundImage {
-                        node {
-                        altText
-                        mediaItemUrl
-                        }
+                }
+                }
+                ... on ServicePageFieldsServicePageBuilderFaqSectionLayout {
+                introTitle
+                image {
+                    node {
+                    altText
+                    mediaItemUrl
                     }
-                    }
-                    ... on ServicePageFieldsServicePageBuilderRightImageSectionWTextVideoLayout {
+                }
+                item {
                     description
                     title
-                    video
-                    image {
-                        node {
-                        altText
-                        mediaItemUrl
-                        }
+                }
+                backgroundImage {
+                    node {
+                    altText
+                    mediaItemUrl
                     }
+                }
+                }
+                ... on ServicePageFieldsServicePageBuilderExitSectionLayout {
+                title
+                backgroundImage {
+                    node {
+                    altText
+                    mediaItemUrl
                     }
-                    ... on ServicePageFieldsServicePageBuilderGoogleReviewBoosterLayout {
-                    features {
-                        description
-                        title
-                    }
-                    image {
-                        node {
-                        altText
-                        mediaItemUrl
-                        }
-                    }
-                    }
-                    ... on ServicePageFieldsServicePageBuilderServiceGalleryLayout {
-                    description
-                    employeePhotos {
-                        nodes {
-                        altText
-                        mediaItemUrl
-                        }
-                    }
+                }
+                ctaLink {
+                    target
                     title
-                    backgroundImage {
-                        node {
+                    url
+                }
+                }
+                ... on ServicePageFieldsServicePageBuilderPortfolioSectionLayout {
+                title
+                portfolioItems {
+                    nodes {
+                    altText
+                    mediaItemUrl
+                    }
+                }
+                }
+                ... on ServicePageFieldsServicePageBuilderSocialMediaPlatformsLayout {
+                introTitle
+                backgroundImage {
+                    node {
+                    altText
+                    mediaItemUrl
+                    }
+                }
+                platform {
+                    platformLink
+                    platformImage {
+                    node {
                         altText
                         mediaItemUrl
-                        }
                     }
                     }
                 }
+                }
+                ... on ServicePageFieldsServicePageBuilderSocialMediaPackagedLayout {
+                introTitle
+                spackages {
+                    ctaLink {
+                    title
+                    url
+                    target
+                    }
+                    description
+                    title
+                    popular
+                }
+                }
+                ... on ServicePageFieldsServicePageBuilderHostingPackagesLayout {
+                title
+                hpackages {
+                    service
+                    notes
+                    fee
+                }
+                ctaLink {
+                    target
+                    title
+                    url
+                }
+                }
+                ... on ServicePageFieldsServicePageBuilderTextHeadingBlockLayout {
+                description
+                title
+                ctaLink {
+                    target
+                    title
+                    url
+                }
+                backgroundImage {
+                    node {
+                    altText
+                    mediaItemUrl
+                    }
+                }
+                }
+                ... on ServicePageFieldsServicePageBuilderRightImageSectionWTextVideoLayout {
+                description
+                title
+                video
+                image {
+                    node {
+                    altText
+                    mediaItemUrl
+                    }
+                }
+                }
+                ... on ServicePageFieldsServicePageBuilderGoogleReviewBoosterLayout {
+                features {
+                    description
+                    title
+                }
+                image {
+                    node {
+                    altText
+                    mediaItemUrl
+                    }
+                }
+                }
+                ... on ServicePageFieldsServicePageBuilderServiceGalleryLayout {
+                description
+                employeePhotos {
+                    nodes {
+                    altText
+                    mediaItemUrl
+                    }
+                }
+                title
+                backgroundImage {
+                    node {
+                    altText
+                    mediaItemUrl
+                    }
+                }
+                }
+                ... on ServicePageFieldsServicePageBuilderHostingPageHeroLayout {
+                hostingPageHero {
+                    background {
+                    node {
+                        altText
+                        mediaItemUrl
+                    }
+                    }
+                    ctaLink {
+                    target
+                    title
+                    url
+                    }
+                    subTitle
+                    title
+                }
+                hostingPageServices {
+                    item {
+                    description
+                    title
+                    }
+                }
+                }
+            }
             }
         }
     }

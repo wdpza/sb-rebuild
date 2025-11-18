@@ -11,15 +11,10 @@ import TextHeadingBlock from "@/components/service-components/TextHeadingBlock"
 import RightImageSectionVideo from "@/components/service-components/RightImageSectionVideo"
 import GoogleReviewBoosterLayout from "@/components/service-components/GoogleReviewBoosterLayout"
 import ServiceCarouselLayout from "@/components/service-components/ServiceCarouselLayout"
-import WhoisLayout from "./service-components/WhoisLayout"
-import { getDomains } from "@/lib/graphql/queries/getDomains"
+import HostingHeroLayout from "./service-components/HostingHeroLayout"
 
 export default async function ServiceRenderer({ pageBuilder }: any) {
     if (!pageBuilder) return null
-
-    const domains = await getDomains()
-
-    console.log(domains)
 
     return (
         <>
@@ -52,8 +47,8 @@ export default async function ServiceRenderer({ pageBuilder }: any) {
                         return <GoogleReviewBoosterLayout key={index} {...block} />
                     case "ServicePageFieldsServicePageBuilderServiceGalleryLayout":
                         return <ServiceCarouselLayout key={index} {...block} />
-                    case "ServicePageFieldsServicePageBuilderWhoisLayout":
-                        return <WhoisLayout key={index} />
+                    case "ServicePageFieldsServicePageBuilderHostingPageHeroLayout":
+                        return <HostingHeroLayout key={index} {...block} />
                     default:
                         return null
                 }
