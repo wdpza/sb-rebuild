@@ -2,8 +2,6 @@ import { getServiceBySlug } from "@/lib/data/services"
 import ServiceRenderer from "@/components/ServiceRenderer"
 import { notFound } from "next/navigation"
 
-export const revalidate = 60 // ISR
-
 export default async function Page({ params }: { params: Promise<{ slug: string }>}) {
 
     const { slug } = await params;

@@ -5,6 +5,10 @@ export default function HeroLayout({ title, ctaLink, description, subTitle, back
 	const bgUrl = backgrounD?.node?.mediaItemUrl ?? null
 	const imageUrl = image?.node?.mediaItemUrl ?? null
 
+  const cleanUrl = ctaLink?.url
+    ? ctaLink.url.replace(/^https?:\/\/[^/]+/, "")
+    : null;
+
 	return (
 		<section
 			className="relative flex min-h-screen h-screen w-full items-center bg-cover bg-bottom bg-no-repeat overflow-hidden"
@@ -36,7 +40,7 @@ export default function HeroLayout({ title, ctaLink, description, subTitle, back
 					{ctaLink && (
 						<div className="mt-8">
 							<Link
-								href={ctaLink.url}
+								href={cleanUrl}
 								className="
 									bg-neutral-strongest
 									gradient-border
