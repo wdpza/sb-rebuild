@@ -2,6 +2,7 @@
 
 import { useState, Dispatch, SetStateAction } from "react";
 import MegaMenu, { type MenuNode } from "./MegaMenu";
+import { AnimatePresence, motion } from "framer-motion";
 
 type NavDropdownProps = {
   item: MenuNode;
@@ -44,14 +45,23 @@ export default function NavDropdown({
       </button>
 
       {/* Dropdown */}
-      {isOpen && (
-        <div className="absolute right-0 w-4xl mt-4 z-50 bg-[#171717] p-10 shadow-xl rounded-xl">
-          <MegaMenu
-            item={item}
-            onClose={() => setOpenIndex(null)} // close menu after click / scroll
-          />
-        </div>
-      )}
+		<AnimatePresence>
+			{isOpen && (
+			<motion.div
+				key="mega-menu"
+				initial={{ opacity: 0, y: 8, scale: 0.98 }}
+				animate={{ opacity: 1, y: 0, scale: 1 }}
+				exit={{ opacity: 0, y: 4, scale: 0.98 }}
+				transition={{ duration: 0.18, ease: "easeOut" }}
+				className="absolute right-0 w-4xl mt-4 z-50 bg-[#171717] p-10 shadow-xl rounded-xl"
+			>
+				<MegaMenu
+				item={item}
+				onClose={() => setOpenIndex(null)} // close menu after click / scroll
+				/>
+			</motion.div>
+			)}
+		</AnimatePresence>
     </li>
   );
 }
