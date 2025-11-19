@@ -42,7 +42,7 @@ export default function ContactForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="grid grid-cols-1 md:grid-cols-2 gap-6"
+      className="flex grid grid-cols-1 md:grid-cols-2 gap-6"
     >
       {/* --- Basic Fields --- */}
       <input

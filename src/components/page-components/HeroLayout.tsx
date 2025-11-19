@@ -65,6 +65,7 @@ export default function HeroLayout({ title, description, subTitle, background, i
 
 					{hasForm && (
 						<div className="text-neutral-softest mb-4">
+							<p className='text-lg font-light mt-6 mb-6 text-neutral-softest text-center md:text-left md:pr-12 mb-12'>Please fill out our contact form. Once you hit submit, our team will be in touch faster than you can say “strategy”.</p>
 							<ContactForm />
 						</div>
 					)}
