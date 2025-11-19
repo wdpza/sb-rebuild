@@ -13,7 +13,7 @@ export default function ExitLayout({ title, backgroundImage, ctaLink }: any) {
       }}
     >
       <div className="relative z-10 w-full layout-wrapper mx-auto flex flex-col items-center justify-center text-center text-neutral-softest px-6">
-        <h2 className="uppercase text-5xl md:text-6xl font-bold mb-8">
+        <h2 className="uppercase exit-title font-bold mb-8">
           {title ?? null}
         </h2>
         {cleanUrl && (

@@ -70,24 +70,19 @@ export default function ServiceAccordion({ introTitle, item, backgroundImage }: 
       return () => window.removeEventListener("resize", updateSlidesToShow);
     }, []);
 
-    const settings = useMemo(
-        () => ({
-        dots: false,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 3,
-        slidesToScroll: 1,
-        arrows: true,
-        prevArrow: <PrevArrow />,
-        nextArrow: <NextArrow />,
-        responsive: [
-            { breakpoint: 1280, settings: { slidesToShow: 3 } },
-            { breakpoint: 1024, settings: { slidesToShow: 2 } },
-            { breakpoint: 640, settings: { slidesToShow: 1 } },
-        ],
-        }),
-        []
-    );
+  const settings = useMemo(
+    () => ({
+      dots: false,
+      infinite: true,
+      speed: 500,
+      slidesToShow: slidesToShowCurrent,
+      slidesToScroll: 1,
+      arrows: true,
+      prevArrow: <PrevArrow />,
+      nextArrow: <NextArrow />,
+    }),
+    [slidesToShowCurrent]
+  );
 
   const itemsCount = Array.isArray(item) ? item.length : 0;
   const isCarouselScrollable = itemsCount > slidesToShowCurrent;
@@ -107,7 +102,7 @@ export default function ServiceAccordion({ introTitle, item, backgroundImage }: 
                     {showRightGradient && (
                       <div className="absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-[#28262C] to-transparent z-10" />
                     )}
-                    <Slider {...settings}>
+                    <Slider key={slidesToShowCurrent} {...settings}>
                     {item.map((item: Item, idx: number) => (
                         <div key={idx} className="px-3">
                         <div className="rounded group relative h-70 bg-[#38363C] overflow-hidden">
