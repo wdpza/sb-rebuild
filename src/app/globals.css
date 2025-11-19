@@ -83,6 +83,10 @@
     }
 
     .subtitle {
+        @apply text-3xl md:text-5xl;
+    }
+
+    .inner-subtitle {
         @apply text-2xl md:text-4xl;
     }
 

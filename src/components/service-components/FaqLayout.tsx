@@ -30,7 +30,7 @@ export default function FaqLayout({ introTitle, image, item, backgroundImage }: 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 layout-wrapper mx-auto">
         {/* Left Column - FAQ Items */}
         <div className="flex flex-col justify-center z-4">
-          <h2 className="text-neutral-softest text-[45px] font-bold mb-8 leading-snug">{introTitle}</h2>
+          <h2 className="text-neutral-softest subtitle font-bold mb-8 leading-snug text-center md:text-left">{introTitle}</h2>
           <div className="space-y-2">
             {item.map((item: Item, index: number) => (
               <div key={index} className="rounded space-y-2">

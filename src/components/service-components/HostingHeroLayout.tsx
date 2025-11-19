@@ -113,12 +113,12 @@ export default function HostingHeroLayout({ hostingPageHero, hostingPageServices
 		>
 			<div className="relative z-10 grid w-full max-w-[1600px] mx-auto grid-cols-1 md:grid-cols-24 gap-2 px-12 py-24 pt-60">
 				<div className="col-span-24 flex flex-col justify-center text-center gap-4">
-					<h1 className="font-archivo uppercase text-[75px]/20 font-black drop-shadow-lg text-gradient-starbright">
+					<h1 className="font-archivo uppercase hero-title font-black drop-shadow-lg text-gradient-starbright">
 						{hostingPageHero.title}
 					</h1>
 
 					{hostingPageHero.subTitle && (
-						<h2 className="leading-snug font-bold mt-4 text-[45px] text-neutral-softest drop-shadow-md tracking-wide">
+						<h2 className="leading-snug font-bold mt-4 hero-subtitle text-neutral-softest drop-shadow-md tracking-wide">
 							{hostingPageHero.subTitle}
 						</h2>
 					)}

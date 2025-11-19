@@ -46,7 +46,7 @@ export default function TextHeadingBlock({
 
       <div className="relative z-10 w-full max-w-[1600px] mx-auto flex flex-col text-neutral-softest px-6">
         {title ? (
-          <h2 className="text-[45px] font-bold mb-12 text-gradient-starbright">
+          <h2 className="subtitle font-bold mb-12 text-gradient-starbright">
             {title}
           </h2>
         ) : null}

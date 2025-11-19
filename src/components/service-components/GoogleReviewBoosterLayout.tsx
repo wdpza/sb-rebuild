@@ -17,12 +17,12 @@ export default function GoogleReviewBoosterLayout({ features, image }: any) {
                 <div className="flex flex-col gap-y-8 lg:text-right">
                     {/* Feature 1 */}
                     <div>
-                        <h3 className="text-[30px] font-semibold text-neutral-softest">{features[0].title}</h3>
+                        <h3 className="inner-subtitle font-semibold text-neutral-softest">{features[0].title}</h3>
                         <p className="mt-1 text-gray-300 mb-4">{features[0].description}</p>
                     </div>
                     {/* Feature 2 */}
                     <div>
-                        <h3 className="text-[30px] font-semibold text-neutral-softest mt-4">{features[1].title}</h3>
+                        <h3 className="inner-subtitle font-semibold text-neutral-softest mt-4">{features[1].title}</h3>
                         <p className="mt-1 text-gray-300">{features[1].description}</p>
                     </div>
                 </div>
@@ -40,12 +40,12 @@ export default function GoogleReviewBoosterLayout({ features, image }: any) {
                 <div className="flex flex-col gap-y-8 lg:text-left">
                     {/* Feature 3 */}
                     <div>
-                        <h3 className="text-[30px] font-semibold text-neutral-softest">{features[2].title}</h3>
+                        <h3 className="inner-subtitle font-semibold text-neutral-softest">{features[2].title}</h3>
                         <p className="mt-1 text-gray-300 mb-4">{features[2].description}</p>
                     </div>
                     {/* Feature 4 */}
                     <div>
-                        <h3 className="text-[30px] font-semibold text-neutral-softest mt-4">{features[3].title}</h3>
+                        <h3 className="inner-subtitle font-semibold text-neutral-softest mt-4">{features[3].title}</h3>
                         <p className="mt-1 text-gray-300">{features[3].description}</p>
                     </div>
                 </div>

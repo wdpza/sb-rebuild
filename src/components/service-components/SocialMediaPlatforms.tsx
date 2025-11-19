@@ -10,7 +10,7 @@ export default function SocialMediaPlatforms({ introTitle, platform, backgroundI
             }}
         >
             <div className="layout-wrapper mx-auto w-full">
-                <h2 className="text-[45px] font-bold mb-12 text-neutral-softest text-center">{introTitle}</h2>
+                <h2 className="subtitle font-bold mb-12 text-neutral-softest text-center">{introTitle}</h2>
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 max-w-[1200px] mx-auto">
                     {platform.map((platform: any, index: number) => (
                     <a

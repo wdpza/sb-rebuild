@@ -40,7 +40,7 @@ useEffect(() => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-[1600px] mx-auto w-full items-center">
         {/* Left Section */}
         <div className="flex flex-col justify-center items-center lg:items-start text-center lg:text-left px-6">
-          <h2 className="text-[40px] font-bold text-neutral-softest mb-4">{title}</h2>
+          <h2 className="subtitle font-bold text-neutral-softest mb-4">{title}</h2>
           <div className="whitespace-pre-wrap text-neutral-softest">{description}</div>
         </div>
 

@@ -19,7 +19,7 @@ export default function PortfolioLayout({ title, portfolioItems }: any) {
   return (
     <div className="relative py-20 bg-cover bg-center bg-[#28262C]">
       <div className="layout-wrapper mx-auto w-full">
-      <h2 className="text-[45px] font-bold mb-12 text-neutral-softest text-center">
+      <h2 className="subtitle font-bold mb-12 text-neutral-softest text-center">
         {title ?? null}
       </h2>
 
