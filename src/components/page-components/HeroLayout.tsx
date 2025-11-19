@@ -8,8 +8,6 @@ export default function HeroLayout({ title, description, subTitle, background, i
 	const hasForm = showContactForm?.includes("1")
 	const sectionHeight = title ? "md:min-h-screen" : "md:h-[160px]"
 
-	console.log("HeroLayout props:", { title, description, subTitle, background, image, ctaLink, showContactForm })
-
 	// Dynamic adjustments
 	const colSpanLeft = hasForm ? "col-span-12" : "col-span-13"
 	const colSpanRight = hasForm ? "col-span-12" : "col-span-11"
@@ -23,7 +21,7 @@ export default function HeroLayout({ title, description, subTitle, background, i
 				backgroundImage: bgUrl ? `url(${bgUrl})` : undefined,
 			}}
 		>
-			<div className={`relative z-10 grid layout-wrapper grid-cols-1 md:grid-cols-24 gap-2 px-12 ${paddingY} ${title ? "min-h-screen" : "h-[160px]"}`}>
+			<div className={`relative z-10 grid layout-wrapper grid-cols-1 md:grid-cols-24 gap-2 ${paddingY} ${title ? "min-h-screen" : "h-[160px]"}`}>
 				
 				{/* Left column (text + form) */}
 				<div className={`${colSpanLeft} flex flex-col justify-center text-left gap-8 md:gap-4 mt-12 z-4`}>
@@ -41,7 +39,7 @@ export default function HeroLayout({ title, description, subTitle, background, i
 
 					{description && (
 						<div
-							className="mt-6 mb-6 text-[24px] text-gray-100 text-center md:text-left"
+							className="hero-description mt-6 mb-6 text-neutral-softest text-center md:text-left"
 							dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(description) }}
 						/>
 					)}
