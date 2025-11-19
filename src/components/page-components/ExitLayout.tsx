@@ -15,7 +15,10 @@ export default function ExitLayout({ title, backgroundImage, ctaLink, background
       }}
     >
       {backgroundOverlay && (
-        <div className="absolute inset-0 bg-[#28262C]/80"></div>
+        <>
+          <div className="absolute backdrop-grayscale w-full h-full left-0 top-0"></div>
+          <div className="absolute inset-0 bg-[#28262C]/80"></div>
+        </>
       )}
       <div className="relative z-10 layout-wrapper flex flex-col items-center justify-center text-center text-neutral-softest">
         <h2 className="exit-title uppercase font-bold mb-8 text-balance">
