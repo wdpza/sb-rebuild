@@ -79,11 +79,7 @@
     }
 
     .hero-subtitle {
-        @apply text-[30px]/8 lg:text-[24px]/10 font-bold text-balance;
-    }
-
-    .hero-description {
-        @apply text-lg md:text-[24px] text-balance;
+        @apply text-[30px]/8 lg:text-[35px]/10 font-bold;
     }
 
     .subtitle {
@@ -91,8 +87,7 @@
     }
 
     .inner-subtitle {
-        @apply text-2xl md:text-4xl;
-        @apply text-2xl md:text-4xl text-balance;
+        @apply text-2xl md:text-3xl;
     }
 
     .exit-title {
