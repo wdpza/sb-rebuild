@@ -42,7 +42,7 @@ export default function BlogblogHero({ blogOptions }: any) {
 
                     {description && (
                         <div
-                            className="mt-6 text-lg text-gray-100 max-w-3xl"
+                            className="mt-6 text-lg text-gray-100 max-w-3xl text-center md:text-left"
                             dangerouslySetInnerHTML={{
                                 __html: DOMPurify.sanitize(description),
                             }}
@@ -50,7 +50,7 @@ export default function BlogblogHero({ blogOptions }: any) {
                     )}
 
                     {anchor && (
-                        <div className="mt-10">
+                        <div className="mt-10 text-center md:text-left">
                             <Link
                                 href={anchor}
                                 className="
