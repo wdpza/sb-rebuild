@@ -18,7 +18,7 @@ export default function ExitLayout({ title, backgroundImage, ctaLink, background
         <div className="absolute inset-0 bg-[#28262C]/80"></div>
       )}
       <div className="relative z-10 layout-wrapper flex flex-col items-center justify-center text-center text-neutral-softest">
-        <h2 className="exit-title uppercase font-bold mb-8">
+        <h2 className="exit-title uppercase font-bold mb-8 text-balance">
           {title ?? null}
         </h2>
         {cleanUrl && (
