@@ -10,12 +10,12 @@ export default function HostingPackages({ title, hpackages, ctaLink }: any) {
     return (
         <div className="bg-[#28262C] relative py-24 bg-cover bg-center">
             <div className="layout-wrapper mx-auto w-full">
-                <h2 className="text-[45px] font-bold mb-8 text-white text-center">{title}</h2>
+                <h2 className="text-[45px] font-bold mb-8 text-neutral-softest text-center">{title}</h2>
                 <div>
                     <div className="mx-auto">
                         <div className="overflow-hidden rounded-lg gradient-border-bottom capitalize">
                         {/* Table Header */}
-                        <div className="flex bg-gradient-starbright text-white p-4">
+                        <div className="flex bg-gradient-starbright text-neutral-softest p-4">
                             <div className="flex-1 font-semibold">Service</div>
                             <div className="flex-1 font-semibold">Fee</div>
                             <div className="flex-1 font-semibold">Note</div>
@@ -27,9 +27,9 @@ export default function HostingPackages({ title, hpackages, ctaLink }: any) {
                             key={index}
                             className={`flex p-4 ${index % 2 === 0 ? 'bg-[#28262C]' : 'bg-[#49474D]'}`}
                             >
-                            <div className="flex-1 text-sm text-white">{pkg.service}</div>
-                            <div className="flex-1 text-sm text-white">{pkg.fee}</div>
-                            <div className="flex-1 text-sm text-white">{pkg.notes}</div>
+                            <div className="flex-1 text-sm text-neutral-softest">{pkg.service}</div>
+                            <div className="flex-1 text-sm text-neutral-softest">{pkg.fee}</div>
+                            <div className="flex-1 text-sm text-neutral-softest">{pkg.notes}</div>
                             </div>
                         ))}
                         </div>
@@ -40,7 +40,7 @@ export default function HostingPackages({ title, hpackages, ctaLink }: any) {
                     href={cleanUrl}
                     target={ctaLink.target}
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center rounded-md px-8 py-3 font-semibold text-white gradient-border mt-4"
+                    className="inline-flex items-center justify-center rounded-md px-8 py-3 font-semibold text-neutral-softest gradient-border mt-4"
                 >
                     {he.decode(ctaLink.title)}
                 </Link>

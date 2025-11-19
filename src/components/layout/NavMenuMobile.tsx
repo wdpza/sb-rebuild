@@ -141,7 +141,7 @@ export default function NavMenuMobile({ tree: _tree, flatItems }: NavMenuMobileP
         {/* Close / Back button */}
         <div className="flex-shrink-0 py-8">
           <button
-            className="mb-0 text-white"
+            className="mb-0 text-neutral-softest"
             onClick={isAtRootLevel ? handleCloseMenu : handleNavigateBack}
           >
             {isAtRootLevel ? (
@@ -171,14 +171,14 @@ export default function NavMenuMobile({ tree: _tree, flatItems }: NavMenuMobileP
                         <li className="mb-3" key={`ungrouped-${index}`}>
                           {hasChildren ? (
                             <button
-                              className="block w-full text-center text-white text-2xl"
+                              className="block w-full text-center text-neutral-softest text-2xl"
                               onClick={() => handleNavigateToSubmenu(item)}
                             >
                               {item.label ?? "Item"}
                             </button>
                           ) : (
                             <Link
-                              className="block text-white text-2xl"
+                              className="block text-neutral-softest text-2xl"
                               href={href}
                               onClick={handleCloseMenu}
                             >
@@ -194,7 +194,7 @@ export default function NavMenuMobile({ tree: _tree, flatItems }: NavMenuMobileP
                 {/* Grouped items */}
                 {Object.entries(grouped).map(([groupName, groupItems]) => (
                   <div key={groupName} className="mb-6">
-                    <h3 className="text-white text-lg font-bold mb-3 border-b border-white/20 pb-2">
+                    <h3 className="text-neutral-softest text-lg font-bold mb-3 border-b border-white/20 pb-2">
                       {groupName}
                     </h3>
                     <ul>
@@ -210,14 +210,14 @@ export default function NavMenuMobile({ tree: _tree, flatItems }: NavMenuMobileP
                           >
                             {hasChildren ? (
                               <button
-                                className="block w-full text-center text-white text-2xl"
+                                className="block w-full text-center text-neutral-softest text-2xl"
                                 onClick={() => handleNavigateToSubmenu(item)}
                               >
                                 {item.label ?? "Item"}
                               </button>
                             ) : (
                               <Link
-                                className="block text-white text-2xl"
+                                className="block text-neutral-softest text-2xl"
                                 href={href}
                                 onClick={handleCloseMenu}
                               >

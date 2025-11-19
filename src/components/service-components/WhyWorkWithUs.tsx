@@ -18,10 +18,10 @@ export default function WhyWorkWithUs({
       }}
     >
 
-      <div className="relative z-10 w-full layout-wrapper mx-auto flex flex-col items-center justify-center text-center text-white px-4 md:px-6">
+      <div className="relative z-10 w-full layout-wrapper mx-auto flex flex-col items-center justify-center text-center text-neutral-softest px-4 md:px-6">
         {/* Title */}
         {introTitle && (
-          <h2 className="text-3xl md:text-4xl lg:text-[45px] font-bold mb-10 text-white">
+          <h2 className="text-3xl md:text-4xl lg:text-[45px] font-bold mb-10 text-neutral-softest">
             {introTitle}
           </h2>
         )}
@@ -60,10 +60,10 @@ export default function WhyWorkWithUs({
                 duration-300
               "
             >
-              <h3 className="text-lg md:text-xl font-semibold mb-3 text-white">
+              <h3 className="text-lg md:text-xl font-semibold mb-3 text-neutral-softest">
                 {card.title}
               </h3>
-              <p className="text-sm md:text-base text-white leading-relaxed">
+              <p className="text-sm md:text-base text-neutral-softest leading-relaxed">
                 {card.description}
               </p>
             </div>

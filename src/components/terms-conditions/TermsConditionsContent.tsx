@@ -37,8 +37,8 @@ export default function TermsConditionsContent({ options }: TermsConditionsProps
                   className={`cursor-pointer text-center w-full inline-block px-8 py-3 rounded-lg shadow-md font-semibold transition-all duration-300 
                     ${
                       selected.id === item.id
-                        ? "bg-gradient-starbright text-white"
-                        : "bg-neutral-strongest gradient-border text-white hover:bg-gradient-starbright"
+                        ? "bg-gradient-starbright text-neutral-softest"
+                        : "bg-neutral-strongest gradient-border text-neutral-softest hover:bg-gradient-starbright"
                     }
                   `}
                 >
@@ -52,12 +52,12 @@ export default function TermsConditionsContent({ options }: TermsConditionsProps
 
       {/* Content Area */}
       <div className="lg:col-span-6 prose max-w-none">
-        <h2 className="mb-4 font-bold text-2xl sm:text-3xl text-white">
+        <h2 className="mb-4 font-bold text-2xl sm:text-3xl text-neutral-softest">
           {selected.title}
         </h2>
 
         <div
-          className="text-white terms-conditions-single-page-inner text-base"
+          className="text-neutral-softest terms-conditions-single-page-inner text-base"
           dangerouslySetInnerHTML={{ __html: selected.content }}
         />
       </div>

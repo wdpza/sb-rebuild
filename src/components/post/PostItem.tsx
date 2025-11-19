@@ -34,15 +34,15 @@ export default function PostItem({ item }: PostItemProps) {
       {/* Right Column: 7/12 */}
       <div className="w-full md:w-8/12 px-8 py-20 flex flex-col justify-between">
         <div>
-          <p className="text-white text-sm mb-2">{formattedDate}</p>
+          <p className="text-neutral-softest text-sm mb-2">{formattedDate}</p>
           <h2 className="text-[30px] font-bold text-gradient-starbright">{item.title}</h2>
-          <p className="text-white mb-4">{trimmedContent}</p>
+          <p className="text-neutral-softest mb-4">{trimmedContent}</p>
         </div>
 
         <div>
           <Link
             href={`/blog/${item.slug}`}
-            className="inline-flex items-center justify-center rounded-md px-8 py-3 font-semibold text-white gradient-border mt-4"
+            className="inline-flex items-center justify-center rounded-md px-8 py-3 font-semibold text-neutral-softest gradient-border mt-4"
           >
             Read More →
           </Link>

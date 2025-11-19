@@ -57,14 +57,14 @@ export default async function CaseStudiesLayout({
                       className="h-auto w-auto max-h-20 object-contain"
                     />
                   ) : (
-                    <div className="flex h-20 w-52 items-center justify-center rounded-lg bg-white/5 text-white/60">
+                    <div className="flex h-20 w-52 items-center justify-center rounded-lg bg-white/5 text-neutral-softest/60">
                       <span className="px-2 text-sm">{item.title}</span>
                     </div>
                   )}
                 </div>
 
                 {/* Categories */}
-                <p className="mb-8 text-sm font-medium tracking-wide text-white">
+                <p className="mb-8 text-sm font-medium tracking-wide text-neutral-softest">
                   {categories}
                 </p>
 
@@ -72,7 +72,7 @@ export default async function CaseStudiesLayout({
                 <Link
                   href={`/case-study/${item.slug}`}
                   aria-label={`View case study: ${item.title}`}
-                  className="inline-flex items-center justify-center rounded-md px-8 py-3 font-semibold text-white gradient-border mt-0"
+                  className="inline-flex items-center justify-center rounded-md px-8 py-3 font-semibold text-neutral-softest gradient-border mt-0"
                 >
                   View Case Study
                 </Link>

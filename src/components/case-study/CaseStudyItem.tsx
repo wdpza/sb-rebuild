@@ -40,7 +40,7 @@ export default function CaseStudyItem({ item }: { item: any }) {
                 href={s.sectionCtaLink.url}
                 target={s.sectionCtaLink.target || "_blank"}
                 rel="noopener"
-                className="inline-flex items-center justify-center rounded-md px-8 py-3 font-semibold text-white gradient-border mt-8"
+                className="inline-flex items-center justify-center rounded-md px-8 py-3 font-semibold text-neutral-softest gradient-border mt-8"
               >
                 {s.sectionCtaLink.title || "Learn more"}
               </Link>
@@ -57,7 +57,7 @@ export default function CaseStudyItem({ item }: { item: any }) {
       >
         <h2 className="text-[40px] text-gradient-starbright">Client Feedback</h2>
         <div
-          className="mt-6 text-white"
+          className="mt-6 text-neutral-softest"
           dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(item.caseStudies.clientFeedback) }}
         />
         <p className="text-gradient-starbright mt-6">{item.caseStudies.clientFeedbackClient}</p>

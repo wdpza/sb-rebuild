@@ -20,7 +20,7 @@ export default function CaseStudiesMore({ items, current }: { items: any, curren
   return (
     <div className="bg-[#28262C]">
         <div className="w-full max-w-[1600px] mx-auto px-12 py-16">
-            <h2 className="text-[32px] text-white mb-4">More Case Studies</h2>
+            <h2 className="text-[32px] text-neutral-softest mb-4">More Case Studies</h2>
             <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 text-center">
             {shuffledItems?.map((item) => {
                 const logoUrl = item.caseStudies?.headerLogo?.node?.mediaItemUrl ?? item.caseStudies?.headerImage?.node?.mediaItemUrl;

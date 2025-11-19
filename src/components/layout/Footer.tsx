@@ -3,88 +3,95 @@ import Link from 'next/link';
 export default function Footer( footer: any) {
 
     return (
-        <footer className="bg-neutral-strongest w-full gradient-border-top">
-            <div className="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-5 gap-12 py-8 px-6">
-                {/* Column 1: Logo */}
-                <div className="flex flex-col space-y-4 self-center">
-                    {footer.footer.siteOptions.siteOptionsFields.siteLogo.node.mediaItemUrl && (
-                        <Link href="/home"><img
-                            src={footer.footer.siteOptions.siteOptionsFields.siteLogo.node.mediaItemUrl}
-                            alt={footer.footer.siteOptions.siteOptionsFields.siteLogo.node.altText ?? ''}
-                            className="w-60 h-auto"
-                        /></Link>
-                    )}
-                </div>
-
-                {/* Column 2: Address */}
-                <div>
-                    <h4 className="text-lg font-semibold mb-3 text-neutral-softest">
-                        Contact Us
-                    </h4>
-
-                    <ul className="space-y-2 text-neutral-regular">
-                        <li className="flex text-white gap-2 items-center"><img src="/images/phone-icon.png" alt="Phone Icon"/> <a href={`tel:${footer.footer.siteOptions.siteOptionsFields.footer.officeNumber.replace(/\s+/g, "")}`}>{footer.footer.siteOptions.siteOptionsFields.footer.officeNumber}</a></li>
-                        <li className="flex text-white gap-2 items-center"><img src="/images/whatsapp-icon.png" alt="Whatsapp Icon" /> <a href={`https://wa.me/${footer.footer.siteOptions.siteOptionsFields.footer.whatsappNumber.replace(/\s+/g, "")}`} target="_blank">{footer.footer.siteOptions.siteOptionsFields.footer.whatsappNumber}</a></li>
-                    </ul>
-
-                </div>
-
-                {/* Column 3: Contact */}
-                <div>
-                    <h4 className="text-lg font-semibold mb-3 text-neutral-softest">
-                        Visit Us
-                    </h4>
-                    <p  className="text-neutral-regular whitespace-pre-line text-white">
-                        <a href={footer.footer.siteOptions.siteOptionsFields.footer.googleMapsLink} target="_blank">{ footer.footer.siteOptions.siteOptionsFields.footer.address }</a>
-                    </p>
-                </div>
-
-                {/* Column 4: Quick Links */}
-                <div>
-                    <h4 className="text-lg font-semibold mb-3 text-neutral-softest">
-                        Other Links
-                    </h4>
-
-                    <p className="text-neutral-regular whitespace-pre-line">
-                        {footer.footer.otherLinks.menuItems.nodes.map(
-                            (item: { uri: string; label: string }) => (
-                            <Link
-                                key={item.uri}
-                                href={item.uri}
-                                className="block hover:text-neutral-softest transition-colors text-white"
-                            >
-                                {item.label}
-                            </Link>
-                            )
-                        )}
-                    </p>
-                </div>
-
-                {/* Column 5: Socials */}
-                <div>
-                    <h4 className="text-lg font-semibold mb-3 text-neutral-softest text-left md:text-right">
-                        Connect With Us
-                    </h4>
-                    <div className="flex items-center gap-3 justify-start md:justify-end">
-                        {footer.footer.siteOptions.siteOptionsFields.footer.socialMedia.map(
-                            (item: {  icon: any;url: string }, index: number) => (
-                            <a
-                                key={index}
-                                href={item.url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="transition-transform hover:scale-105"
+        <footer className="bg-neutral-strongest w-full gradient-border-top text-center md:text-left">
+            <div className="layout-wrapper">
+                <div className="grid grid-cols-1 md:grid-cols-5 gap-12 py-8">
+                    {/* Column 1: Logo */}
+                    <div className="flex flex-col space-y-4 self-center">
+                        {footer.footer.siteOptions.siteOptionsFields.siteLogo.node.mediaItemUrl && (
+                            <Link 
+                                href="/home"
+                                className='flex justify-center'
                             >
                                 <img
-                                src={item.icon.node.mediaItemUrl}
-                                alt={item.icon.node.altText ?? ''}
-                                className="w-6 h-6 object-contain"
+                                    src={footer.footer.siteOptions.siteOptionsFields.siteLogo.node.mediaItemUrl}
+                                    alt={footer.footer.siteOptions.siteOptionsFields.siteLogo.node.altText ?? ''}
+                                    className="w-60 h-auto"
                                 />
-                            </a>
-                            )
+                            </Link>
                         )}
                     </div>
 
+                    {/* Column 2: Address */}
+                    <div>
+                        <h4 className="text-lg font-semibold mb-3 text-neutral-softest">
+                            Contact Us
+                        </h4>
+
+                        <ul className="space-y-2 text-neutral-regular flex flex-col justify-center md:justify-start">
+                            <li className="flex text-neutral-softest gap-2 items-center self-center md:self-start"><img src="/images/phone-icon.png" alt="Phone Icon"/> <a href={`tel:${footer.footer.siteOptions.siteOptionsFields.footer.officeNumber.replace(/\s+/g, "")}`}>{footer.footer.siteOptions.siteOptionsFields.footer.officeNumber}</a></li>
+                            <li className="flex text-neutral-softest gap-2 items-center self-center md:self-start"><img src="/images/whatsapp-icon.png" alt="Whatsapp Icon" /> <a href={`https://wa.me/${footer.footer.siteOptions.siteOptionsFields.footer.whatsappNumber.replace(/\s+/g, "")}`} target="_blank">{footer.footer.siteOptions.siteOptionsFields.footer.whatsappNumber}</a></li>
+                        </ul>
+
+                    </div>
+
+                    {/* Column 3: Contact */}
+                    <div>
+                        <h4 className="text-lg font-semibold mb-3 text-neutral-softest">
+                            Visit Us
+                        </h4>
+                        <p  className="text-neutral-regular whitespace-pre-line text-neutral-softest">
+                            <a href={footer.footer.siteOptions.siteOptionsFields.footer.googleMapsLink} target="_blank">{ footer.footer.siteOptions.siteOptionsFields.footer.address }</a>
+                        </p>
+                    </div>
+
+                    {/* Column 4: Quick Links */}
+                    <div>
+                        <h4 className="text-lg font-semibold mb-3 text-neutral-softest">
+                            Other Links
+                        </h4>
+
+                        <p className="text-neutral-regular whitespace-pre-line">
+                            {footer.footer.otherLinks.menuItems.nodes.map(
+                                (item: { uri: string; label: string }) => (
+                                <Link
+                                    key={item.uri}
+                                    href={item.uri}
+                                    className="block hover:text-neutral-softest transition-colors text-neutral-softest"
+                                >
+                                    {item.label}
+                                </Link>
+                                )
+                            )}
+                        </p>
+                    </div>
+
+                    {/* Column 5: Socials */}
+                    <div className='flex flex-col'>
+                        <h4 className="text-lg font-semibold self-center md:self-end mb-3 text-neutral-softest text-left md:text-right">
+                            Connect With Us
+                        </h4>
+                        <div className="flex items-center self-center  md:self-end gap-3 justify-start md:justify-end">
+                            {footer.footer.siteOptions.siteOptionsFields.footer.socialMedia.map(
+                                (item: {  icon: any;url: string }, index: number) => (
+                                <a
+                                    key={index}
+                                    href={item.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="transition-transform hover:scale-105"
+                                >
+                                    <img
+                                        src={item.icon.node.mediaItemUrl}
+                                        alt={item.icon.node.altText ?? ''}
+                                        className="w-6 h-6 object-contain"
+                                    />
+                                </a>
+                                )
+                            )}
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </footer>

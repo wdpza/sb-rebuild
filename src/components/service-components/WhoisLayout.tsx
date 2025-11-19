@@ -88,7 +88,7 @@ export default function WhoisLayout() {
 
             <div className="input-wrapper flex justify-between max-w-xl mx-auto w-full border border-[#353536] px-4 py-2 mt-16 rounded gap-4 bg-[#1F1F1F96]">
                 <input
-                    className="outline-hidden w-full text-white"
+                    className="outline-hidden w-full text-neutral-softest"
                     value={domain}
                     onChange={handleChange}
                     placeholder="example.com"
@@ -96,7 +96,7 @@ export default function WhoisLayout() {
 
                 {!hasSearched ? (
                     <button
-                        className="gradient-border rounded py-2 px-6 cursor-pointer text-white"
+                        className="gradient-border rounded py-2 px-6 cursor-pointer text-neutral-softest"
                         onClick={handleLookup}
                         disabled={loading}
                     >
@@ -104,20 +104,20 @@ export default function WhoisLayout() {
                     </button>
                 ) : isTaken ? (
                     <button
-                        className="gradient-border rounded py-2 px-6 cursor-pointer text-white"
+                        className="gradient-border rounded py-2 px-6 cursor-pointer text-neutral-softest"
                         onClick={handleLookup}
                         disabled={loading}
                     >
                         Search
                     </button>
                 ) : (
-                    <button className="gradient-border rounded py-2 px-6 cursor-pointer text-white">
+                    <button className="gradient-border rounded py-2 px-6 cursor-pointer text-neutral-softest">
                         Register
                     </button>
                 )}
             </div>
 
-            {loading && <p className="text-center mt-4 text-white">Loading...</p>}
+            {loading && <p className="text-center mt-4 text-neutral-softest">Loading...</p>}
 
             {hasSearched && (
                 <>
@@ -143,7 +143,7 @@ export default function WhoisLayout() {
             )}
 
             {result && (
-                <pre className="text-xs whitespace-pre-wrap mt-6 text-white">
+                <pre className="text-xs whitespace-pre-wrap mt-6 text-neutral-softest">
                     {JSON.stringify(result, null, 2)}
                 </pre>
             )}

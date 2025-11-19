@@ -30,18 +30,18 @@ export default function FaqLayout({ introTitle, image, item, backgroundImage }: 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 layout-wrapper mx-auto">
         {/* Left Column - FAQ Items */}
         <div className="flex flex-col justify-center z-4">
-          <h2 className="text-white text-[45px] font-bold mb-8 leading-snug">{introTitle}</h2>
+          <h2 className="text-neutral-softest text-[45px] font-bold mb-8 leading-snug">{introTitle}</h2>
           <div className="space-y-2">
             {item.map((item: Item, index: number) => (
               <div key={index} className="rounded space-y-2">
                 <button
                     className={`cursor-pointer bg-[#252328] text-[#5F5F5F] w-full text-left px-6 py-4 text-lg font-semibold rounded focus:outline-none focus:ring-2 focus:ring-blue-500 flex justify-between items-center ${
-                        activeIndex === index ? "text-white-important" : ""
+                        activeIndex === index ? "text-neutral-softest-important" : ""
                     }`}
                     onClick={() => toggleItem(index)}
                 >
                   <span>{item.title}</span>
-                  <span className="text-xl text-white">
+                  <span className="text-xl text-neutral-softest">
                     {activeIndex === index ? (
                       <ChevronUp size={20} />
                     ) : (
@@ -55,7 +55,7 @@ export default function FaqLayout({ introTitle, image, item, backgroundImage }: 
                     activeIndex === index ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"
                   }`}
                 >
-                  <div className="px-6 py-4 text-white bg-[#49474D] rounded">
+                  <div className="px-6 py-4 text-neutral-softest bg-[#49474D] rounded">
                     {item.description}
                   </div>
                 </div>

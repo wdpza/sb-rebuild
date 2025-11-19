@@ -18,7 +18,7 @@ export default function CaseStudySidebar({ item }: { item: any }) {
             <li key={id} className="mb-4">
               <Link
                 href={`#${id}`}
-                className="text-white/50 hover:text-white transition"
+                className="text-neutral-softest/50 hover:text-neutral-softest transition"
               >
                 {s.sectionTitle || `Section ${i + 1}`}
               </Link>

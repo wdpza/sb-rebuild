@@ -57,7 +57,7 @@ export default function PortfolioMasonry({ items }: any) {
           >
             <button
               onClick={handleClosePopup}
-              className="absolute top-2 right-4 text-3xl text-white hover:text-white z-10 cursor-pointer"
+              className="absolute top-2 right-4 text-3xl text-neutral-softest hover:text-neutral-softest z-10 cursor-pointer"
             >
               ×
             </button>

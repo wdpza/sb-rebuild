@@ -11,12 +11,12 @@ export default function HeroLayout({ title, ctaLink, description, subTitle, back
 
 	return (
 		<section
-			className="relative flex min-h-screen h-screen w-full items-center bg-cover bg-bottom bg-no-repeat overflow-hidden"
+			className="relative flex md:min-h-screen md:h-screen w-full items-center bg-cover bg-bottom bg-no-repeat overflow-hidden"
 			style={{
 				backgroundImage: bgUrl ? `url(${bgUrl})` : undefined,
 			}}
 		>
-			<div className="h-screen relative z-10 grid w-full layout-wrapper mx-auto grid-cols-1 md:grid-cols-24 gap-2 py-24">
+			<div className="md:h-screen relative z-10 grid w-full layout-wrapper mx-auto grid-cols-1 md:grid-cols-24 gap-2 py-24">
 				{/* Left column: 60% */}
 				<div className="col-span-24 flex flex-col justify-center text-center gap-4">
 					<h1 className="font-archivo uppercase text-[75px]/20 font-black drop-shadow-lg text-gradient-starbright">
@@ -45,7 +45,7 @@ export default function HeroLayout({ title, ctaLink, description, subTitle, back
 									bg-neutral-strongest
 									gradient-border
 									inline-block px-8 py-3 
-									text-white font-semibold uppercase 
+									text-neutral-softest font-semibold uppercase 
 									rounded-lg shadow-md 
 									transition-all duration-300 
 									hover:bg-gradient-starbright

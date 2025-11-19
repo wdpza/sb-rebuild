@@ -36,7 +36,7 @@ export default function PortfolioSlider({ items, title, backgroundImage }: any) 
                     <div className="flex mx-auto w-full justify-between items-center py-10">
                         <button
                             onClick={() => sliderRef.current?.slickPrev()}
-                            className="w-16 h-16 flex items-center justify-center cursor-pointer gradient-border rounded-full transition-transform duration-300 ease-in-out"
+                            className="slider-custom-nav gradient-border"
                         >
                             <img
                                 src="/slider-navigation-right.svg"
@@ -44,13 +44,13 @@ export default function PortfolioSlider({ items, title, backgroundImage }: any) 
                             />
                         </button>
 
-                        <h2 className="text-4xl font-bold text-gradient-starbright">
+                        <h2 className="subtitle font-bold text-gradient-starbright">
                             {title}
                         </h2>
 
                         <button
                             onClick={() => sliderRef.current?.slickNext()}
-                            className="w-16 h-16 flex items-center justify-center cursor-pointer gradient-border rounded-full transition-transform duration-300 ease-in-out"
+                            className="slider-custom-nav gradient-border"
                         >
                             <img
                                 src="/slider-navigation-left.svg"

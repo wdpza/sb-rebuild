@@ -56,7 +56,7 @@ export default async function BlogPage() {
                     />
 
                     <Link
-                    className="text-sm inline-block gradient-border rounded py-2 px-6 text-white"
+                    className="text-sm inline-block gradient-border rounded py-2 px-6 text-neutral-softest"
                     href={`/article/${post.slug}`}
                     >
                     Read It!
@@ -78,7 +78,7 @@ export default async function BlogPage() {
                 />
                 <button
                 type="submit"
-                className="px-6 py-2 bg-accent-strong text-white rounded hover:bg-accent-strong/90"
+                className="px-6 py-2 bg-accent-strong text-neutral-softest rounded hover:bg-accent-strong/90"
                 >
                 Load More
                 </button>

@@ -114,13 +114,13 @@ export default function EmployeeCarouselLayout({
           backgroundPosition: "bottom right",
       }}
     >
-      <h2 className="text-[68px] font-bold text-white">
+      <h2 className="text-[68px] font-bold text-neutral-softest">
         <span className="text-gradient-starbright bg-clip-text text-transparent">
           {title}
         </span>
       </h2>
       {description ? (
-        <p className="text-white/90 mt-8 max-w-3xl mx-auto whitespace-pre-line">{description}</p>
+        <p className="text-neutral-softest/90 mt-8 max-w-3xl mx-auto whitespace-pre-line">{description}</p>
       ) : null}
 
       <div className="relative flex-1 flex items-center justify-center overflow-visible mt-12 -mx-8">

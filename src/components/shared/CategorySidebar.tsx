@@ -17,7 +17,7 @@ export default function CategorySidebar({ categories }: any) {
                 bg-neutral-strongest
                 gradient-border
                 inline-block px-8 py-3 
-                text-white font-semibold 
+                text-neutral-softest font-semibold 
                 rounded-lg shadow-md 
                 transition-all duration-300 
                 hover:bg-gradient-starbright

@@ -101,7 +101,7 @@ export default function ServiceAccordion({ introTitle, item, backgroundImage }: 
     >
             <div className="layout-wrapper mx-auto w-full">
                 {introTitle && (
-                  <h2 className="text-[45px] font-bold mb-8 text-white text-center">{introTitle}</h2>
+                  <h2 className="text-[45px] font-bold mb-8 text-neutral-softest text-center">{introTitle}</h2>
                 )}
                 <div className="relative rounded-2xl p-6">
                     {showRightGradient && (
@@ -114,7 +114,7 @@ export default function ServiceAccordion({ introTitle, item, backgroundImage }: 
                           <div className="h-70 relative">
                             {/* Title */}
                             <div className="absolute inset-x-0 bottom-0 top-0 px-12 bg-[#38363C]">
-                            <h3 className="text-[30px] text-white text-lg font-semibold h-full w-full flex items-center justify-center text-center">
+                            <h3 className="text-[30px] text-neutral-softest text-lg font-semibold h-full w-full flex items-center justify-center text-center">
                                 {item.title}
                             </h3>
                             </div>
@@ -122,7 +122,7 @@ export default function ServiceAccordion({ introTitle, item, backgroundImage }: 
                             {/* Hover overlay with description */}
                             <div className="absolute inset-0 bg-[#38363C] opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                             <div className="h-full w-full flex items-center justify-center px-12">
-                                <p className="text-white text-sm md:text-base leading-relaxed text-center">
+                                <p className="text-neutral-softest text-sm md:text-base leading-relaxed text-center">
                                 {item.description}
                                 </p>
                             </div>

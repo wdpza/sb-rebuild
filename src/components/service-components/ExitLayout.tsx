@@ -12,7 +12,7 @@ export default function ExitLayout({ title, backgroundImage, ctaLink }: any) {
         backgroundImage: bgUrl ? `url(${bgUrl})` : undefined,
       }}
     >
-      <div className="relative z-10 w-full layout-wrapper mx-auto flex flex-col items-center justify-center text-center text-white px-6">
+      <div className="relative z-10 w-full layout-wrapper mx-auto flex flex-col items-center justify-center text-center text-neutral-softest px-6">
         <h2 className="uppercase text-5xl md:text-6xl font-bold mb-8">
           {title ?? null}
         </h2>
@@ -20,7 +20,7 @@ export default function ExitLayout({ title, backgroundImage, ctaLink }: any) {
           <a
             href={cleanUrl}
             target={ctaLink?.target ?? "_self"}
-            className="inline-flex items-center justify-center rounded-md px-8 py-3 font-semibold text-white gradient-border mt-4"
+            className="inline-flex items-center justify-center rounded-md px-8 py-3 font-semibold text-neutral-softest gradient-border mt-4"
           >
             {ctaLink?.title ?? "Learn More"}
           </a>

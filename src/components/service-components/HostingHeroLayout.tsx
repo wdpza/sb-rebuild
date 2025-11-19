@@ -138,7 +138,7 @@ export default function HostingHeroLayout({ hostingPageHero, hostingPageServices
 									bg-neutral-strongest
 									gradient-border
 									inline-block px-8 py-3 
-									text-white font-semibold uppercase 
+									text-neutral-softest font-semibold uppercase 
 									rounded-lg shadow-md 
 									transition-all duration-300 
 									hover:bg-gradient-starbright
@@ -162,7 +162,7 @@ export default function HostingHeroLayout({ hostingPageHero, hostingPageServices
                             <div className="h-70 relative">
                                 {/* Title */}
                                 <div className="absolute inset-x-0 bottom-0 top-0 px-12 bg-[#38363C]">
-                                <h3 className="text-[30px] text-white text-lg font-semibold h-full w-full flex items-center justify-center text-center">
+                                <h3 className="text-[30px] text-neutral-softest text-lg font-semibold h-full w-full flex items-center justify-center text-center">
                                     {item.title}
                                 </h3>
                                 </div>
@@ -170,7 +170,7 @@ export default function HostingHeroLayout({ hostingPageHero, hostingPageServices
                                 {/* Hover overlay with description */}
                                 <div className="absolute inset-0 bg-[#38363C] opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                                 <div className="h-full w-full flex items-center justify-center px-12">
-                                    <p className="text-white text-sm md:text-base leading-relaxed text-center">
+                                    <p className="text-neutral-softest text-sm md:text-base leading-relaxed text-center">
                                     {item.description}
                                     </p>
                                 </div>

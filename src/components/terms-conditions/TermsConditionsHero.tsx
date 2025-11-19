@@ -48,7 +48,7 @@ export default function TermsConditionsHero({ options }: any) {
                                     bg-neutral-strongest
                                     gradient-border
                                     inline-block px-8 py-3 
-                                    text-white font-semibold uppercase 
+                                    text-neutral-softest font-semibold uppercase 
                                     rounded-lg shadow-md 
                                     transition-all duration-300 
                                     hover:bg-gradient-starbright

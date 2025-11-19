@@ -19,7 +19,7 @@ export default function PortfolioLayout({ title, portfolioItems }: any) {
   return (
     <div className="relative py-20 bg-cover bg-center bg-[#28262C]">
       <div className="layout-wrapper mx-auto w-full">
-      <h2 className="text-[45px] font-bold mb-12 text-white text-center">
+      <h2 className="text-[45px] font-bold mb-12 text-neutral-softest text-center">
         {title ?? null}
       </h2>
 
@@ -46,7 +46,7 @@ export default function PortfolioLayout({ title, portfolioItems }: any) {
           <div className="relative p-6 bg-[#171717] rounded-lg">
             <button
               onClick={handleClosePopup}
-              className="absolute top-0 right-0 m-4 text-2xl text-white hover:text-white cursor-pointer"
+              className="absolute top-0 right-0 m-4 text-2xl text-neutral-softest hover:text-neutral-softest cursor-pointer"
             >
               ×  
             </button>

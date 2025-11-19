@@ -208,7 +208,7 @@ export default function NavDropdown({
 															type="button"
 															className={`w-full text-left rounded-lg px-3 py-4 transition ${activeCategory === name
 																	? "bg-white text-base"
-																	: "bg-transparent hover:bg-white text-white hover:text-base"
+																	: "bg-transparent hover:bg-white text-neutral-softest hover:text-base"
 																}`}
 															onClick={() => setActiveCategory(name)}
 														>
@@ -280,7 +280,7 @@ export default function NavDropdown({
 																	: "opacity-0 translate-y-2"
 																}`}
 														>
-															<span className="text-white drop-shadow">
+															<span className="text-neutral-softest drop-shadow">
 																{child.label ?? "Item"}
 															</span>
 														</div>

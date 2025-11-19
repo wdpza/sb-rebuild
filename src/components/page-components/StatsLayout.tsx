@@ -11,7 +11,7 @@ export default function StatsLayout({
                     className="flex flex-col items-center justify-center p-12 bg-cover bg-center rounded-2xl"
                     style={{ backgroundImage: "url('/stats-pattern.png')" }}
                 >
-                    <h3 className="text-4xl font-bold text-white">{statsFirst}</h3>
+                    <h3 className="text-4xl font-bold text-neutral-softest">{statsFirst}</h3>
                 </div>
 
                 {/* Stat 2 */}
@@ -19,7 +19,7 @@ export default function StatsLayout({
                     className="flex flex-col items-center justify-center p-12 bg-cover bg-center rounded-2xl"
                     style={{ backgroundImage: "url('/stats-pattern.png')" }}
                 >
-                    <h3 className="text-4xl font-bold text-white">{statsSecond}</h3>
+                    <h3 className="text-4xl font-bold text-neutral-softest">{statsSecond}</h3>
                 </div>
 
                 {/* Stat 3 */}
@@ -27,7 +27,7 @@ export default function StatsLayout({
                     className="flex flex-col items-center justify-center p-12 bg-cover bg-center rounded-2xl"
                     style={{ backgroundImage: "url('/stats-pattern.png')" }}
                 >
-                    <h3 className="text-4xl font-bold text-white">{statsThird}</h3>
+                    <h3 className="text-4xl font-bold text-neutral-softest">{statsThird}</h3>
                 </div>
             </div>
         </div>

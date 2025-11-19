@@ -29,7 +29,7 @@ export default async function ArticlesSlugPage({
 
     return (
         <div className="mx-auto px-6">
-            <h1 className="text-[45px] font-bold mb-8 text-white">{category.name}</h1>
+            <h1 className="text-[45px] font-bold mb-8 text-neutral-softest">{category.name}</h1>
 
             {posts.length === 0 ? (
                 <p className="text-gray-400">No posts found in this category.</p>
@@ -72,7 +72,7 @@ export default async function ArticlesSlugPage({
                                     />
 
                                     <Link
-                                        className="text-sm inline-block gradient-border rounded py-2 px-6 text-white"
+                                        className="text-sm inline-block gradient-border rounded py-2 px-6 text-neutral-softest"
                                         href={post.uri}
                                     >
                                         Read It!
@@ -92,7 +92,7 @@ export default async function ArticlesSlugPage({
                             pathname: `/articles/${slug}`,
                             query: { after: endCursor },
                         }}
-                        className="inline-block px-6 py-3 bg-accent-strong text-white font-semibold rounded hover:bg-accent-strong/90 transition-all duration-300"
+                        className="inline-block px-6 py-3 bg-accent-strong text-neutral-softest font-semibold rounded hover:bg-accent-strong/90 transition-all duration-300"
                     >
                         Next Page →
                     </Link>

@@ -33,20 +33,20 @@ export default async function TeamsSectionLayout({ description, subTitle, title,
         backgroundPosition: "center",
       }}
     >
-      <h2 className="text-[40px] font-bold text-white">
+      <h2 className="text-[40px] font-bold text-neutral-softest">
         <span className="text-gradient-starbright bg-clip-text text-transparent">
           {title}
         </span>
       </h2>
 
       {subTitle && (
-        <p className="bold text-[30px] text-white/90 max-w-3xl mx-auto whitespace-pre-line">
+        <p className="bold text-[30px] text-neutral-softest/90 max-w-3xl mx-auto whitespace-pre-line">
           {subTitle}
         </p>
       )}
 
       {description && (
-        <p className="text-white/90 mt-8 max-w-3xl text-[20px] mx-auto whitespace-pre-line">
+        <p className="text-neutral-softest/90 mt-8 max-w-3xl text-[20px] mx-auto whitespace-pre-line">
           {description}
         </p>
       )}
@@ -107,7 +107,7 @@ export default async function TeamsSectionLayout({ description, subTitle, title,
                   className="
                     w-full p-8 pt-24 text-left
                     bg-gradient-to-t from-black/90 via-black/80
-                    text-white
+                    text-neutral-softest
                   "
                 >
                   <h3 className="text-[30px] font-semibold leading-tight">{m.title}</h3>

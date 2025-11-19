@@ -43,7 +43,7 @@ export default function SocialMediaPackages({ introTitle, spackages }: any) {
                 `}
               >
                 {/* Title */}
-                <h3 className="text-2xl font-semibold mb-8 text-center text-white">
+                <h3 className="text-2xl font-semibold mb-8 text-center text-neutral-softest">
                   {pkg.title}
                 </h3>
 
@@ -51,7 +51,7 @@ export default function SocialMediaPackages({ introTitle, spackages }: any) {
                 <hr className="border-t border-white mb-8" />
 
                 {/* Description */}
-                <p className="text-sm text-white mb-4 flex-1 text-center whitespace-pre-line leading-loose">
+                <p className="text-sm text-neutral-softest mb-4 flex-1 text-center whitespace-pre-line leading-loose">
                   {pkg.description}
                 </p>
 
@@ -61,7 +61,7 @@ export default function SocialMediaPackages({ introTitle, spackages }: any) {
                     href={pkg.ctaLink.url}
                     target={pkg.ctaLink.target ? pkg.ctaLink.target : "_blank"}
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center rounded-md px-8 py-3 font-semibold text-white gradient-border mt-4"
+                    className="inline-flex items-center justify-center rounded-md px-8 py-3 font-semibold text-neutral-softest gradient-border mt-4"
                   >
                     {pkg.ctaLink.title}
                   </a>

@@ -1,16 +1,19 @@
 import DOMPurify from 'isomorphic-dompurify'
 import ContactForm from "@/components/shared/ContactForm"
+import Link from "next/link"
 
-export default function HeroLayout({ title, description, subTitle, background, image, showContactForm }: any) {
+export default function HeroLayout({ title, description, subTitle, background, image, ctaLink, showContactForm }: any) {
 	const bgUrl = background?.node?.mediaItemUrl ?? null
 	const imageUrl = image?.node?.mediaItemUrl ?? null
 	const hasForm = showContactForm?.includes("1")
-	const sectionHeight = title ? "min-h-screen" : "h-[160px]"
+	const sectionHeight = title ? "md:min-h-screen" : "md:h-[160px]"
+
+	console.log("HeroLayout props:", { title, description, subTitle, background, image, ctaLink, showContactForm })
 
 	// Dynamic adjustments
 	const colSpanLeft = hasForm ? "col-span-12" : "col-span-13"
 	const colSpanRight = hasForm ? "col-span-12" : "col-span-11"
-	const subTitleSize = hasForm ? "font-normal text-[20px] lg:text-[24px]" : "font-bold text-[35px] lg:text-[45px]"
+	const subTitleSize = hasForm ? "font-normal text-[20px] lg:text-[24px]" : "hero-subtitle"
 	const paddingY = hasForm ? "py-32" : "py-24"
 
 	return (
@@ -23,7 +26,7 @@ export default function HeroLayout({ title, description, subTitle, background, i
 			<div className={`relative z-10 grid layout-wrapper grid-cols-1 md:grid-cols-24 gap-2 px-12 ${paddingY} ${title ? "min-h-screen" : "h-[160px]"}`}>
 				
 				{/* Left column (text + form) */}
-				<div className={`${colSpanLeft} flex flex-col justify-center text-left gap-4 mt-12 z-4`}>
+				<div className={`${colSpanLeft} flex flex-col justify-center text-left gap-8 md:gap-4 mt-12 z-4`}>
 					{title && (
 						<h1 className="font-archivo uppercase hero-title font-black drop-shadow-lg text-gradient-starbright text-center md:text-left text-balance">
 							{title}
@@ -43,8 +46,27 @@ export default function HeroLayout({ title, description, subTitle, background, i
 						/>
 					)}
 
+					{ctaLink && (
+						<div className="mt-8 flex justify-center md:justify-start">
+							<Link
+								href={ctaLink.url}
+								className="
+									bg-neutral-strongest
+									gradient-border
+									inline-block px-8 py-3 
+									text-neutral-softest font-semibold uppercase 
+									rounded-lg shadow-md 
+									transition-all duration-300 
+									hover:bg-gradient-starbright
+								"
+							>
+								{ctaLink.title}
+							</Link>
+						</div>
+					)}
+
 					{hasForm && (
-						<div className="text-white mb-4">
+						<div className="text-neutral-softest mb-4">
 							<ContactForm />
 						</div>
 					)}
@@ -52,7 +74,7 @@ export default function HeroLayout({ title, description, subTitle, background, i
 
 				{/* Right column (image) */}
 				{imageUrl && (
-					<div className={`z-[-1] opacity-60 md:opacity-100 ${colSpanRight} flex justify-center items-center`}>
+					<div className={`z-[-1] opacity-60 md:opacity-100 ${colSpanRight} justify-center items-center hidden md:flex`}>
 						<img
 							src={imageUrl}
 							alt={title ?? ""}

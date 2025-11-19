@@ -135,7 +135,7 @@ export default function LeftGallerySectionLayout({
                             priority={false}
                         />
                         ) : (
-                        <div className="absolute inset-0 flex items-center justify-center text-white/60 text-sm bg-black/20">
+                        <div className="absolute inset-0 flex items-center justify-center text-neutral-softest/60 text-sm bg-black/20">
                             No image
                         </div>
                         )}
@@ -189,7 +189,7 @@ function RightText({
         </h2>
       ) : null}
       <div
-        className="mt-6 text-lg text-white prose prose-invert max-w-none right-text-section"
+        className="mt-6 text-lg text-neutral-softest prose prose-invert max-w-none right-text-section"
         dangerouslySetInnerHTML={{
           __html: DOMPurify.sanitize(description ?? ""),
         }}

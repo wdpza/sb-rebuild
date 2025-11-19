@@ -15,7 +15,7 @@ export default function PortfolioCategories(portfolioOptions : any) {
                     <Link
                         key={category.databaseId}
                         href={`/portfolio/${category.slug}`}
-                        className="inline-flex items-center justify-center rounded-md px-8 py-3 font-semibold text-white gradient-border"
+                        className="inline-flex items-center justify-center rounded-md px-8 py-3 font-semibold text-neutral-softest gradient-border"
                     >
                         {category.name}
                     </Link>

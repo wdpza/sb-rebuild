@@ -44,7 +44,7 @@ export default function TextHeadingBlock({
       {/* Optional overlay if you plan to add one later */}
       {/* <div className="absolute inset-0 bg-black/40" /> */}
 
-      <div className="relative z-10 w-full max-w-[1600px] mx-auto flex flex-col text-white px-6">
+      <div className="relative z-10 w-full max-w-[1600px] mx-auto flex flex-col text-neutral-softest px-6">
         {title ? (
           <h2 className="text-[45px] font-bold mb-12 text-gradient-starbright">
             {title}
@@ -53,7 +53,7 @@ export default function TextHeadingBlock({
 
         {sanitizedHtml ? (
           <div
-            className="prose w-full text-white mb-8 max-w-none"
+            className="prose w-full text-neutral-softest mb-8 max-w-none"
             dangerouslySetInnerHTML={{ __html: sanitizedHtml }}
           />
         ) : null}
@@ -64,7 +64,7 @@ export default function TextHeadingBlock({
                 href={ctaLink.url}
                 target={target}
                 rel={rel}
-                className="inline-flex items-center justify-center rounded-md px-8 py-3 font-semibold text-white gradient-border mt-4"
+                className="inline-flex items-center justify-center rounded-md px-8 py-3 font-semibold text-neutral-softest gradient-border mt-4"
             >
                 {ctaLink.title}
             </a>
