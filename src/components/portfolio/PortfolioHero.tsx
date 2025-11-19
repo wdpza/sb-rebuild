@@ -26,19 +26,19 @@ export default function PortfolioHero(portfolioOptions : any) {
         >
             <div className="h-screen relative z-10 grid w-full max-w-[1600px] mx-auto grid-cols-1 md:grid-cols-24 gap-2 px-12 py-24 mt-12">
                 <div className="col-span-13 flex flex-col justify-center text-left gap-4">
-                    <h1 className="font-archivo uppercase text-5xl sm:text-6xl md:text-7xl font-black drop-shadow-lg text-gradient-starbright">
+                    <h1 className="font-archivo uppercase hero-title text-center md:text-left font-black drop-shadow-lg text-gradient-starbright">
                         {title}
                     </h1>
 
                     {subHeading && (
-                        <h2 className="font-bold mt-4 text-[45px] text-neutral-softest drop-shadow-md tracking-wide">
+                        <h2 className="font-bold mt-4 hero-subtitle text-center md:text-left text-neutral-softest drop-shadow-md tracking-wide">
                             {subHeading}
                         </h2>
                     )}
 
                     {description && (
                         <div
-                            className="mt-4 text-[24px] text-gray-100 max-w-3xl"
+                            className="mt-4 text-[24px] text-gray-100 max-w-3xl text-center md:text-left"
                             dangerouslySetInnerHTML={{
                                 __html: DOMPurify.sanitize(description),
                             }}
@@ -46,7 +46,7 @@ export default function PortfolioHero(portfolioOptions : any) {
                     )}
 
                     {anchor && (
-                        <div className="mt-10">
+                        <div className="mt-10 text-center md:text-left">
                             <Link
                                 href={anchor}
                                 className="

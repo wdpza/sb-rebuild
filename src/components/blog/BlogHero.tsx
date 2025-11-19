@@ -30,12 +30,12 @@ export default function BlogblogHero({ blogOptions }: any) {
             <div className="h-screen relative z-10 grid w-full max-w-[1600px] mx-auto grid-cols-1 md:grid-cols-24 gap-2 px-12 py-24">
                 {/* Left column: title, subtitle, description, anchor */}
                 <div className="col-span-13 flex flex-col justify-center text-left gap-4 z-4">
-                    <h1 className="font-archivo uppercase text-[75px]/20 font-black drop-shadow-lg text-gradient-starbright">
+                    <h1 className="font-archivo uppercase hero-title font-black drop-shadow-lg text-gradient-starbright text-center md:text-left">
                         {title}
                     </h1>
 
                     {subHeading && (
-                        <h2 className="font-bold mt-4 text-[45px] text-neutral-softest drop-shadow-md tracking-wide">
+                        <h2 className="font-bold mt-4 hero-subtitle text-neutral-softest drop-shadow-md tracking-wide text-center md:text-left">
                             {subHeading}
                         </h2>
                     )}
