@@ -89,7 +89,7 @@ export default function ServiceAccordion({ introTitle, item, backgroundImage }: 
   const showRightGradient = isCarouselScrollable && slidesToShowCurrent > 1 && itemsCount > 0;
 
 	return (
-		<section className="gradient-border-bottom relative py-12 flex w-full items-center bg-[#28262C] overflow-hidden bg-cover bg-center"
+		<section className="gradient-border-bottom gradient-border-top relative py-12 flex w-full items-center bg-[#28262C] overflow-hidden bg-cover bg-center"
       style={{
           backgroundImage: bgUrl ? `url(${bgUrl})` : undefined,
       }}

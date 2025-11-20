@@ -30,10 +30,10 @@ export default function CaseStudyHero({ item }: { item: CaseStudy }) {
       <div className="h-screen relative z-10 grid w-full max-w-[1600px] mx-auto grid-cols-1 md:grid-cols-24 gap-2 px-12 py-24">
         {/* Left Column */}
         <div className="col-span-13 flex flex-col justify-center text-left gap-4">
-          <h1 className="font-archivo uppercase text-[75px]/[1.2] font-black drop-shadow-lg text-gradient-starbright">
+          <h1 className="font-archivo uppercase hero-title font-black drop-shadow-lg text-gradient-starbright text-center md:text-left">
             {logoImg ? (
               <Image
-                className="mb-8 h-auto w-auto max-h-20 object-contain"
+                className="mb-8 h-auto w-auto max-h-20 object-contain ml-auto mr-auto md:ml-0"
                 src={logoImg}
                 alt={logoAlt}
                 width={320}

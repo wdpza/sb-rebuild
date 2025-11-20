@@ -17,7 +17,8 @@ export default function PortfolioExit(portfolioOptions : any) {
                 backgroundImage: portfolioExit.backgroundImage.node.mediaItemUrl ? `url(${portfolioExit.backgroundImage.node.mediaItemUrl})` : undefined,
             }}
         >
-            <div className="absolute inset-0 bg-[#28262C]"></div>
+            <div className="absolute backdrop-grayscale w-full h-full left-0 top-0"></div>
+            <div className="absolute inset-0 bg-[#28262C]/80"></div>
             <div className="relative z-10 w-full max-w-[1200px] mx-auto flex flex-col items-center justify-center text-center text-neutral-softest px-6">
                 <h2 className="uppercase exit-title font-bold mb-8">
                     {portfolioExit.title ?? null}

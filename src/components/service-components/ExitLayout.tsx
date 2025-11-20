@@ -7,7 +7,7 @@ export default function ExitLayout({ title, backgroundImage, ctaLink }: any) {
 
   return (
     <div
-      className="relative py-24 bg-cover bg-center"
+      className="relative py-24 bg-cover bg-center bg-[#28262C]"
       style={{
         backgroundImage: bgUrl ? `url(${bgUrl})` : undefined,
       }}

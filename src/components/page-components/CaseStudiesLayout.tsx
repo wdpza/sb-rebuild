@@ -47,7 +47,7 @@ export default async function CaseStudiesLayout({
                 className="relative flex min-h-[500px] flex-col items-center justify-center rounded-2xl bg-[#1D1D1D] p-8 shadow-sm transition hover:shadow-md"
               >
                 {/* Logo */}
-                <div className="mb-6 flex items-center justify-center">
+                <div className="mb-6 flex items-center justify-center h-20">
                   {logoUrl ? (
                     <Image
                       src={logoUrl}

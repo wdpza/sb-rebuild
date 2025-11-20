@@ -11,7 +11,7 @@ export default async function ArticleLayout({ children }: { children: React.Reac
 
     if (!getAllPortfolioItems) return notFound();
 
-    const bgUrl = portfolioOptions.portfolioOptions.portfolioOptionsFields.portfolioBackgroundImage.node.mediaItemUrl
+    const bgUrl = portfolioOptions?.portfolioOptions?.portfolioOptionsFields?.portfolioBackgroundImage?.node?.mediaItemUrl
 
     return (
         <div className="article-layout flex flex-col w-full">

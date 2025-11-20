@@ -25,6 +25,10 @@ export default function SocialMediaPackages({ introTitle, spackages }: any) {
             // Check if package is marked as popular
             const isPopular = Array.isArray(pkg.popular) && pkg.popular.length > 0;
 
+          const cleanUrl = pkg?.ctaLink?.url
+            ? pkg?.ctaLink?.url.replace(/^https?:\/\/[^/]+/, "")
+            : null;
+
             return (
               <div
                 key={index}
@@ -57,14 +61,16 @@ export default function SocialMediaPackages({ introTitle, spackages }: any) {
 
                 {/* Button with Link */}
                 {pkg.ctaLink && typeof pkg.ctaLink === "object" && (
-                  <a
-                    href={pkg.ctaLink.url}
-                    target={pkg.ctaLink.target ? pkg.ctaLink.target : "_blank"}
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center rounded-md px-8 py-3 font-semibold text-neutral-softest gradient-border mt-4"
-                  >
-                    {pkg.ctaLink.title}
-                  </a>
+                  <div className="flex justify-center w-full mt-4">
+                    <a
+                      href={cleanUrl}
+                      target={pkg.ctaLink.target ? pkg.ctaLink.target : "_blank"}
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center rounded-md px-8 py-3 font-semibold text-neutral-softest gradient-border"
+                    >
+                      {pkg.ctaLink.title}
+                    </a>
+                  </div>
                 )}
               </div>
             );

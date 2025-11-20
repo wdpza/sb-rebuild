@@ -25,7 +25,7 @@ export default function CaseStudyItem({ item }: { item: any }) {
             className="scroll-mt-28 rounded-xl mb-8"
           >
             {s.sectionTitle ? (
-              <h2 className="text-[40px] text-gradient-starbright">{s.sectionTitle}</h2>
+              <h2 className="subtitle text-gradient-starbright">{s.sectionTitle}</h2>
             ) : null}
 
             {s.sectionDescription ? (
