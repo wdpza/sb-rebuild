@@ -57,7 +57,7 @@ export default function NavMenu({
               <li key={item.id ?? index} className="relative">
                 <Link
                   href={href}
-                  className="hover:underline text-neutral-softest text-lg transition"
+                  className="hover:underline text-neutral-softest text-xl transition font-extralight"
                   scroll
                   {...(external
                     ? { target: "_blank", rel: "noopener noreferrer" }

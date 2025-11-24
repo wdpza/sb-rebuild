@@ -23,7 +23,7 @@ export default function NavDropdown({
       {/* Trigger */}
       <button
         type="button"
-        className="cursor-pointer text-neutral-softest text-lg transition inline-flex items-center gap-2 px-1"
+        className="cursor-pointer text-neutral-softest text-xl transition inline-flex items-center gap-2 px-1 font-extralight"
         onClick={() =>
           setOpenIndex(prev => (prev === index ? null : index))
         }

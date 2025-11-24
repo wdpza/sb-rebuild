@@ -8,16 +8,16 @@ export default function Copyright({ footer }: { footer?: any }) {
 
     return (
         <div className="bg-[#49474D] w-full">
-            <div className="layout-wrapper py-4 flex justify-center md:justify-between flex-row flex-wrap text-center gap-2">
-                <div className="text-neutral-softest text-sm md:text-base font-light">Starbright © 2005 - {currentYear}  - All Rights Reserved.</div>
-                <div className="flex space-x-3 text-neutral-600 text-sm md:text-base font-light">
+            <div className="footer-wrapper font-extralight text-neutral-softest py-4 flex justify-center md:justify-between flex-row flex-wrap text-center gap-2">
+                <div className=" text-sm md:text-base">Starbright © 2005 - {currentYear}  - All Rights Reserved.</div>
+                <div className="flex space-x-3 text-sm md:text-base">
                     {menuNodes.map((item: any, index: number) => (
                         <React.Fragment key={item?.id ?? index}>
-                        <Link href={item?.uri ?? '#'} className="text-neutral-softest">
+                        <Link href={item?.uri ?? '#'}>
                             {item?.label ?? ''}
                         </Link>
                         {index < menuNodes.length - 1 && (
-                            <span className="text-neutral-softest">|</span>
+                            <span>|</span>
                         )}
                         </React.Fragment>
                     ))}
