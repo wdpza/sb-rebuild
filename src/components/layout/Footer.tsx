@@ -79,7 +79,7 @@ export default function Footer( footer: any) {
                         </h4>
                         <div className="flex items-center self-center  md:self-end gap-3 justify-start md:justify-end">
                             {footer.footer.siteOptions.siteOptionsFields.footer.socialMedia.map(
-                                (item: {  icon: any;url: string }, index: number) => (
+                                (item: {  icon: any; url: string }, index: number) => (
                                 <a
                                     key={index}
                                     href={item.url}
