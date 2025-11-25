@@ -45,13 +45,13 @@ export default function CertificationSectionLayout({
 
 								{/* Text block */}
 								<div className="p-4">
-									<h2 className="subtitle font-bold">
+									<h2 className="inner-subtitle font-bold text-balance mb-6">
 										<span className="text-gradient-starbright bg-clip-text text-transparent">
 											{certificate.title}
 										</span>
 									</h2>
 									{certificate.description ? (
-										<p className="mt-2 text-neutral-700 text-sm">
+										<p className="mt-2 text-neutral-strongest text-sm">
 											{certificate.description}
 										</p>
 									) : null}

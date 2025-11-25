@@ -10,12 +10,12 @@ export default function CaseStudySidebar({ item }: { item: any }) {
   const sections: Section[] = item?.caseStudies?.pageSection ?? [];
 
   return (
-    <aside className="category-sidebar">
-      <ul className="space-y-3">
+    <aside className="category-sidebar sticky top-10">
+      <ul className="space-y-3 text-xl font-light">
         {sections.map((s, i) => {
           const id = makeSectionId(s.sectionTitle, i);
           return (
-            <li key={id} className="mb-4">
+            <li key={id} className="mb-6">
               <Link
                 href={`#${id}`}
                 className="text-neutral-softest/50 hover:text-neutral-softest transition"
