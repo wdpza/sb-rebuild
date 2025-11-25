@@ -48,10 +48,6 @@ export default async function CaseStudiesLayout({
 							? `${baseUrl}${item.caseStudies?.cardBg?.node?.filePath}`
 							: null;
 
-						console.log(item.caseStudies?.cardBg?.node?.filePath);
-
-						console.log('BG', item.caseStudies?.cardBg?.filePath, item.title);
-
 						return (
 							<article
 								key={item.slug}
