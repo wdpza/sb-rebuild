@@ -28,8 +28,8 @@ export default function Footer( footer: any) {
 
                     <div className="flex flex-col md:flex-row justify-between col-span-3">
                         {/* Column 2: Address */}
-                        <div className="mb-4 md:mb-0">
-                            <h4 className="text-base font-semibold mb-3 text-neutral-softest">
+                        <div className="mb-6 md:mb-0">
+                            <h4 className="text-lg font-semibold mb-3 text-neutral-softest mb-5">
                                 Contact Us
                             </h4>
 
@@ -41,8 +41,8 @@ export default function Footer( footer: any) {
                         </div>
 
                         {/* Column 3: Contact */}
-                        <div className='mb-4 md:mb-0'>
-                            <h4 className="text-lg font-semibold mb-3 text-neutral-softest">
+                        <div className='mb-6 md:mb-0'>
+                            <h4 className="text-lg font-semibold mb-3 text-neutral-softest mb-5">
                                 Visit Us
                             </h4>
                             <p  className="text-neutral-regular whitespace-pre-line text-neutral-softest">
@@ -51,8 +51,8 @@ export default function Footer( footer: any) {
                         </div>
 
                         {/* Column 4: Quick Links */}
-                        <div className='mb-4 md:mb-0'>
-                            <h4 className="text-lg font-semibold mb-3 text-neutral-softest">
+                        <div className='mb-6 md:mb-0'>
+                            <h4 className="text-lg font-semibold mb-3 text-neutral-softest mb-5">
                                 Other Links
                             </h4>
 
@@ -74,7 +74,7 @@ export default function Footer( footer: any) {
 
                     {/* Column 5: Socials */}
                     <div className='col-span-1 flex flex-col'>
-                        <h4 className="text-lg font-semibold self-center md:self-end mb-3 text-neutral-softest text-left md:text-right">
+                        <h4 className="text-lg font-semibold self-center md:self-end mb-5 text-neutral-softest text-left md:text-right">
                             Connect With Us
                         </h4>
                         <div className="flex items-center self-center  md:self-end gap-3 justify-start md:justify-end">
