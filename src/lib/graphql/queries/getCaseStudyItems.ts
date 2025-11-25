@@ -32,13 +32,19 @@ export const GET_CASE_STUDY_ITEMS = gql`
                 }
                 }
                 pageSection {
-                sectionCtaLink {
-                    target
-                    title
-                    url
+                    sectionCtaLink {
+                        target
+                        title
+                        url
+                    }
+                    sectionDescription
+                    sectionTitle
                 }
-                sectionDescription
-                sectionTitle
+                cardBg {
+                    node {
+                        altText
+                        filePath
+                    }
                 }
             }
             terms {
