@@ -4,7 +4,7 @@ export default function StatsLayout({
     statsThird,
 }: any) {
     return (
-        <div className="bg-neutral-strongest w-full">
+        <div id="stats" className="bg-neutral-strongest w-full">
             <div className="max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 py-8 px-6 text-center">
                 {/* Stat 1 */}
                 <div

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+
 import { getCaseStudyItems } from "@/lib/graphql/queries/getCaseStudyItems";
 
 type CaseStudyItem = {
@@ -8,6 +8,7 @@ type CaseStudyItem = {
 	caseStudies?: {
 		headerLogo?: { node?: { altText?: string; mediaItemUrl: string } } | null;
 		headerImage?: { node?: { altText?: string; mediaItemUrl: string } } | null;
+		cardBg?: any;
 	};
 	terms?: { nodes?: { name: string; id: string }[] };
 };
@@ -41,10 +42,23 @@ export default async function CaseStudiesLayout({
 							item.terms?.nodes?.map((n) => n.name).join(" | ") ||
 							"Uncategorised";
 
+						const baseUrl = process.env.NEXT_PUBLIC_WP_URL;
+						
+						const bg = item.caseStudies?.cardBg?.node?.filePath
+							? `${baseUrl}${item.caseStudies?.cardBg?.node?.filePath}`
+							: null;
+
+						console.log(item.caseStudies?.cardBg?.node?.filePath);
+
+						console.log('BG', item.caseStudies?.cardBg?.filePath, item.title);
+
 						return (
 							<article
 								key={item.slug}
 								className="relative flex min-h-[500px] flex-col items-center justify-center rounded-2xl bg-[#1D1D1D] p-8 shadow-sm transition hover:shadow-md"
+								style={{
+									backgroundImage: bg ? `url(${bg})` : undefined
+								}}
 							>
 								{/* Logo */}
 								<div className="mb-6 flex items-center justify-center h-20">
