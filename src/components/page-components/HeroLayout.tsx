@@ -77,7 +77,7 @@ export default function HeroLayout({ title, description, subTitle, background, i
 						<img
 							src={imageUrl}
 							alt={title ?? ""}
-							className="absolute max-h-[100vh] object-contain"
+							className="absolute max-h-[80vh] object-contain"
 							style={{ bottom: "2px" }}
 						/>
 					</div>
