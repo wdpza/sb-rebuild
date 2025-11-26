@@ -164,10 +164,6 @@ export const GET_PAGE_BY_SLUG = gql`
                         numberOfItems
                         title
                     }
-                    ... on PageFieldGroupPageBuilderTestWillemLayout {
-                        description
-                        title
-                    }
                     ... on PageFieldGroupPageBuilderTextWHeadingLayoutLayout {
                         description
                         title
@@ -182,6 +178,33 @@ export const GET_PAGE_BY_SLUG = gql`
                                 mediaItemUrl
                             }
                         }
+                    }
+                    ... on PageFieldGroupPageBuilderPortfolioTabsLayout {
+                        fieldGroupName
+                        categories {
+                            nodes {
+                                name
+                                ... on PortfolioCategory {
+                                    id
+                                    name
+                                    portfolioCategoryFields {
+                                        categoryImages {
+                                            image {
+                                                node {
+                                                    altText
+                                                    filePath
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+						backgroundImage {
+							node {
+								filePath
+							}
+						}
                     }
                 }
             }
