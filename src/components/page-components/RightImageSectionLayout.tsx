@@ -9,20 +9,20 @@ type MediaNode = {
 };
 
 interface RightImageSectionLayoutProps {
-  title?: string | null;
-  description?: string | null; // may contain HTML
-  image?: { node?: MediaNode | null } | null;
-  backgroundImage?: { node?: MediaNode | null } | null;
+	title?: string | null;
+	description?: string | null; // may contain HTML
+	image?: { node?: MediaNode | null } | null;
+	backgroundImage?: { node?: MediaNode | null } | null;
 }
 
 export default function RightImageSectionLayout({
-  description,
-  image,
-  title,
-  backgroundImage,
+	description,
+	image,
+	title,
+	backgroundImage,
 }: RightImageSectionLayoutProps) {
-  const src = image?.node?.mediaItemUrl ?? "";
-  const alt = image?.node?.altText ?? title ?? "Image";
+	const src = image?.node?.mediaItemUrl ?? "";
+	const alt = image?.node?.altText ?? title ?? "Image";
 
 	const bgUrl = backgroundImage?.node?.mediaItemUrl ?? "";
 
