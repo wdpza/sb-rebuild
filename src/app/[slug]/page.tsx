@@ -2,6 +2,7 @@ import { getPageBySlug } from "@/lib/data/pages"
 import PageRenderer from "@/components/PageRenderer"
 import { notFound } from "next/navigation"
 
+export const dynamic = 'force-dynamic'
 export const revalidate = 60
 
 export default async function Page({ params }: any) {
