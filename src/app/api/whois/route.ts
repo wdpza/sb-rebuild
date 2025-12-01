@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
         const data = await whois(cleaned, { timeout: 5000 });
 
         return NextResponse.json({ success: true, data });
-    } catch (error) {
+    } catch (_error) {
         return NextResponse.json(
             { success: false, error: "Lookup failed" },
             { status: 500 }
