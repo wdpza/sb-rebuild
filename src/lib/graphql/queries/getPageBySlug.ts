@@ -211,6 +211,17 @@ export const GET_PAGE_BY_SLUG = gql`
 							}
 						}
                     }
+                    ... on PageFieldGroupPageBuilderFormLayout {
+                        fieldGroupName
+                        formId
+                        title
+                        backgroundImage {
+                            node {
+                                altText
+                                filePath
+                            }
+                        }
+                    }
                 }
             }
         }

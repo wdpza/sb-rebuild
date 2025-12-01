@@ -1,5 +1,7 @@
 "use client";
 
+import { useState, useRef } from "react";
+
 type GFChoice = {
 	text: string;
 	value: string;
@@ -51,6 +53,44 @@ type GravityForm = {
 
 export default function Forms({ form, formId }: { form: GravityForm, formId: number }) {
 	if (!form) return null;
+
+	const formRef = useRef<HTMLFormElement>(null);
+	const [isSubmitting, setIsSubmitting] = useState(false);
+	const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+
+	async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+		e.preventDefault();
+		setIsSubmitting(true);
+		setSubmitStatus("idle");
+
+		const formData = new FormData(e.currentTarget);
+		const data = Object.fromEntries(formData.entries());
+
+		try {
+			const response = await fetch("/api/submit-form", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					formId,
+					data,
+				}),
+			});
+
+			if (response.ok) {
+				setSubmitStatus("success");
+				formRef.current?.reset();
+			} else {
+				setSubmitStatus("error");
+			}
+		} catch (error) {
+			console.error("Form submission error:", error);
+			setSubmitStatus("error");
+		} finally {
+			setIsSubmitting(false);
+		}
+	}
 
     const colSpanMap: Record<number, string> = {
         1: "col-span-1",
@@ -153,7 +193,7 @@ export default function Forms({ form, formId }: { form: GravityForm, formId: num
 							required={field.isRequired}
 							className="mt-1"
 						/>
-						<span>{field.checkboxLabel || field.label}</span>
+						<span className="text-neutral-soft">{field.checkboxLabel || field.label}</span>
 					</label>
 				);
 
@@ -218,7 +258,7 @@ export default function Forms({ form, formId }: { form: GravityForm, formId: num
 	}
 
 	return (
-		<div className="mt-10 w-full">
+		<form ref={formRef} onSubmit={handleSubmit} className="mt-10 w-full">
 			{/* Description */}
 			{form.description && (
 				<div
@@ -231,6 +271,29 @@ export default function Forms({ form, formId }: { form: GravityForm, formId: num
 			<div className="grid grid-cols-12 gap-6">
 				{form.fields.map((field) => renderField(field))}
 			</div>
-		</div>
+
+			{/* Submit Button */}
+			<div className="mt-8">
+				<button
+					type="submit"
+					disabled={isSubmitting}
+					className="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-500 disabled:cursor-not-allowed text-white font-semibold py-3 px-8 rounded transition-colors duration-200"
+				>
+					{isSubmitting ? "Submitting..." : "Submit"}
+				</button>
+			</div>
+
+			{/* Status Messages */}
+			{submitStatus === "success" && (
+				<div className="mt-4 p-4 bg-green-600/20 border border-green-600 rounded text-green-400">
+					Thank you! Your form has been submitted successfully.
+				</div>
+			)}
+			{submitStatus === "error" && (
+				<div className="mt-4 p-4 bg-red-600/20 border border-red-600 rounded text-red-400">
+					There was an error submitting your form. Please try again.
+				</div>
+			)}
+		</form>
 	);
 }

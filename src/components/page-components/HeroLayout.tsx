@@ -1,31 +1,6 @@
 import DOMPurify from "isomorphic-dompurify";
-import Forms from "../shared/Forms";
 import Link from "next/link";
 import ContactForm from "../shared/ContactForm";
-
-async function getGravityForm(id: number) {
-	if (!id) return null;
-
-	const auth = Buffer.from(
-		`${process.env.GF_API_KEY}:${process.env.GF_API_SECRET}`
-	).toString("base64");
-
-	const url = `${process.env.NEXT_PUBLIC_WP_BASE_URL}/wp-json/gf/v2/forms/${id}`;
-
-	const res = await fetch(url, {
-		cache: "no-store",
-		headers: {
-			Authorization: `Basic ${auth}`,
-		},
-	});
-
-	if (!res.ok) {
-		console.error("Gravity Forms fetch failed:", await res.text());
-		return null;
-	}
-
-	return res.json();
-}
 
 export default async function HeroLayout({
 	title,
@@ -41,11 +16,7 @@ export default async function HeroLayout({
 	const imageUrl = image?.node?.mediaItemUrl ?? null;
 
 	const showForm = forms?.showForm === true;
-	const formId = forms?.gravityFormId ?? null;
-	const form = formId ? await getGravityForm(formId) : null;
 	const hasForm = showContactForm?.includes("1")
-
-	console.log("Hero form:", form);
 
 	const sectionHeight = title ? "md:min-h-screen" : "md:h-[160px]";
 
@@ -109,17 +80,6 @@ export default async function HeroLayout({
 						<div className="text-neutral-softest mb-4">
 							<p className='text-lg font-light mt-6 mb-6 text-neutral-softest text-center md:text-left md:pr-12 mb-12'>Please fill out our contact form. Once you hit submit, our team will be in touch faster than you can say “strategy”.</p>
 							<ContactForm />
-						</div>
-					)}
-					
-					{showForm && form && (
-						<div className="text-neutral-softest mb-4">
-							<p className="text-lg font-light mt-6 mb-6 text-neutral-softest text-center md:text-left md:pr-12 mb-12">
-								Please fill out our contact form. Once you hit submit, our team will be in
-								touch faster than you can say “strategy”.
-							</p>
-
-							<Forms form={form} formId={formId} />
 						</div>
 					)}
 					
