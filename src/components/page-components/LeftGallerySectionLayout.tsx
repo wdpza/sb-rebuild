@@ -67,7 +67,7 @@ export default function LeftGallerySectionLayout({
 		dots: false,
 		swipe: true,
 		autoplay: true,
-		autoplaySpeed: 5000,
+		autoplaySpeed: 3000,
 		beforeChange: (_old: number, next: number) => setCurrent(next),
 		responsive: [
 			{ breakpoint: 1024, settings: { slidesToShow: Math.min(2, images.length || 1) } },

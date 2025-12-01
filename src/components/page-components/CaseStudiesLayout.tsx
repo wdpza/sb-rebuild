@@ -42,7 +42,7 @@ export default async function CaseStudiesLayout({
 							item.terms?.nodes?.map((n) => n.name).join(" | ") ||
 							"Uncategorised";
 
-						const baseUrl = process.env.NEXT_PUBLIC_WP_URL;
+						const baseUrl = process.env.NEXT_PUBLIC_WP_BASE_URL;
 						
 						const bg = item.caseStudies?.cardBg?.node?.filePath
 							? `${baseUrl}${item.caseStudies?.cardBg?.node?.filePath}`
@@ -53,7 +53,9 @@ export default async function CaseStudiesLayout({
 								key={item.slug}
 								className="relative flex min-h-[500px] flex-col items-center justify-center rounded-2xl bg-[#1D1D1D] p-8 shadow-sm transition hover:shadow-md"
 								style={{
-									backgroundImage: bg ? `url(${bg})` : undefined
+									backgroundImage: bg ? `url(${bg})` : undefined,
+									backgroundRepeat: 'no-repeat',
+									
 								}}
 							>
 								{/* Logo */}

@@ -29,6 +29,11 @@ export const GET_PAGE_BY_SLUG = gql`
                             title
                         }
                         showContactForm
+						forms {
+							showForm
+							fieldGroupName
+							gravityFormId
+						}
                     }
                     ... on PageFieldGroupPageBuilderServicesAccordionLayout {
                         content {
@@ -205,6 +210,17 @@ export const GET_PAGE_BY_SLUG = gql`
 								filePath
 							}
 						}
+                    }
+                    ... on PageFieldGroupPageBuilderFormLayout {
+                        fieldGroupName
+                        formId
+                        title
+                        backgroundImage {
+                            node {
+                                altText
+                                filePath
+                            }
+                        }
                     }
                 }
             }

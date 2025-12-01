@@ -5,7 +5,7 @@ export default function Footer( footer: any) {
 
     return (
         <footer className="bg-neutral-strongest w-full gradient-border-top text-center md:text-left">
-            <div className="footer-wrapper">
+            <div className="layout-wrapper">
                 <div className="grid grid-cols-1 md:grid-cols-6 md:gap-12 py-8 font-extralight">
                     {/* Column 1: Logo */}
                     <div className="flex flex-col col-span-2 self-center mb-8 md:mb-0">
@@ -15,7 +15,7 @@ export default function Footer( footer: any) {
                                 className='flex justify-center md:justify-start'
                             >
                                 <Image
-                                    src={'/logo.svg'}
+                                    src={'/logo.png'}
                                     alt={"Starbright"}
                                     className=""
                                     width={290}

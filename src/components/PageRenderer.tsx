@@ -14,6 +14,7 @@ import BlogTabsLayout from "./page-components/BlogTabsLayout"
 import CaseStudiesLayout from "./page-components/CaseStudiesLayout"
 import TextHeadingBlock from "@/components/page-components/TextHeadingBlock"
 import PortfolioTabsLayout from "./page-components/PortfolioTabsLayout"
+import FormLayout from "./page-components/FormLayout"
 
 export default function PageRenderer({ pageBuilder }: any) {
 	if (!pageBuilder) return null
@@ -54,6 +55,8 @@ export default function PageRenderer({ pageBuilder }: any) {
 						return <TextHeadingBlock key={index} {...block} />
 					case "PageFieldGroupPageBuilderPortfolioTabsLayout":
 						return <PortfolioTabsLayout key={index} {...block} />;
+					case "PageFieldGroupPageBuilderFormLayout":
+						return <FormLayout key={index} {...block} />;
 					default:
 						return null
 				}

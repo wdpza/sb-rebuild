@@ -55,7 +55,7 @@ export default function PortfolioTabsLayout({ categories, backgroundImage }: any
                             <button
                                 key={cat.id}
                                 onClick={() => setActive(cat.id)}
-                                className={`px-8 py-3 font-semibold text-neutral-softest transition-colors gradient-border rounded
+                                className={`px-8 py-3 font-semibold text-neutral-softest transition-colors gradient-border rounded-md
                                     ${isActive ? "active" : ""}`}
                             >
                                 {cat.name}
