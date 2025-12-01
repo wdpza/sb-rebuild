@@ -90,9 +90,9 @@ export default function Header({ menu, logo }: HeaderProps) {
 						<div className="flex items-start justify-start">
 							<Link href="/home">
 								<Image
-									src={'/logo.svg'}
+									src={'/logo.png'}
 									alt={logo.altText || "Starbright"}
-									className="w-auto object-contain"
+									className="h-10 w-auto md:h-14 object-contain"
 									width={320}
 									height={62}
 									priority
