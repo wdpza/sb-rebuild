@@ -62,16 +62,15 @@ export default function CaseStudiesCard({ item }: { item: CaseStudyItem }) {
 				{categories}
 			</p>
 
-			{/* Button */}
-			<Link
-				href={`/case-study/${item.slug}`}
-				aria-label={`View case study: ${item.title}`}
-				className="inline-flex items-center justify-center rounded-md px-8 py-3 font-semibold text-neutral-softest gradient-border mt-0"
-			>
-				View Case Study
-			</Link>
-
-			{/* Subtle frame accent */}
+		{/* Button */}
+		<Link
+			href={`/case-study/${item.slug}`}
+			aria-label={`View case study: ${item.title}`}
+			className="inline-flex items-center justify-center rounded-md px-8 py-3 font-semibold text-neutral-softest gradient-border mt-0"
+			scroll={true}
+		>
+			View Case Study
+		</Link>			{/* Subtle frame accent */}
 			<div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/5" />
 		</article>
 	);

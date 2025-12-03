@@ -6,6 +6,7 @@ import CaseStudyHero from "@/components/case-study/CaseStudyHero";
 import CaseStudySidebar from "@/components/case-study/CaseStudySidebar";
 import { getCaseStudyItems } from "@/lib/graphql/queries/getCaseStudyItems";
 import CaseStudiesMore from "@/components/case-study/CaseStudiesMore";
+import ScrollToTop from "@/components/case-study/ScrollToTop";
 
 type CaseStudyItem = {
 	title: string;
@@ -31,6 +32,7 @@ export default async function CaseStudyLayout({
 
 	return (
 		<div className="article-layout flex flex-col w-full bg-[#161616]">
+			<ScrollToTop />
 			<CaseStudyHero item={caseStudy} />
 
 			<div className="w-full bg-center bg-[url(/bg.svg)]">
