@@ -78,12 +78,9 @@
   }
 
   .hero-subtitle {
-    @apply text-[30px]/8 lg:text-[24px]/10 font-bold text-balance;
+    @apply text-[30px]/8 lg:text-[35px]/10 font-bold text-balance;
   }
 
-  .hero-subtitle {
-    @apply text-[30px]/8 lg:text-[35px]/10 font-bold;
-  }
   .hero-description {
     @apply text-lg md:text-[24px] text-balance;
   }

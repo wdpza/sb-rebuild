@@ -1,5 +1,6 @@
 import DOMPurify from 'isomorphic-dompurify';
 import Link from "next/link";
+import Image from "next/image";
 
 export default function HeroLayout({ title, ctaLink, description, subTitle, backgrounD, image }: any) {
 	const bgUrl = backgrounD?.node?.mediaItemUrl ?? null
@@ -60,11 +61,14 @@ export default function HeroLayout({ title, ctaLink, description, subTitle, back
 				{/* Right column: hero image */}
 				{imageUrl && (
 					<div className="col-span-11 flex justify-center items-center">
-						<img
+						<Image
 							src={imageUrl}
-							alt={title ?? ""}
+							alt={title ?? "Hero image"}
+							width={800}
+							height={600}
 							className="absolute max-h-[80vh] object-contain"
 							style={{ bottom: "2px" }}
+							priority
 						/>
 					</div>
 				)}

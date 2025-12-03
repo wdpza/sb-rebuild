@@ -10,7 +10,7 @@ async function getGravityForm(id: number) {
 	const url = `${process.env.NEXT_PUBLIC_WP_BASE_URL}/wp-json/gf/v2/forms/${id}`;
 
 	const res = await fetch(url, {
-		cache: "no-store",
+		next: { revalidate: 3600 }, // Cache for 1 hour instead of no-store
 		headers: {
 			Authorization: `Basic ${auth}`,
 		},

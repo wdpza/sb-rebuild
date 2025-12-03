@@ -93,18 +93,18 @@ export default function Forms({ form, formId }: { form: GravityForm, formId: num
     }
 
     const colSpanMap: Record<number, string> = {
-        1: "col-span-1",
-        2: "col-span-2",
-        3: "col-span-3",
-        4: "col-span-4",
-        5: "col-span-5",
-        6: "col-span-6",
-        7: "col-span-7",
-        8: "col-span-8",
-        9: "col-span-9",
-        10: "col-span-10",
-        11: "col-span-11",
-        12: "col-span-12",
+        1: "col-span-12 md:col-span-1",
+        2: "col-span-12 md:col-span-2",
+        3: "col-span-12 md:col-span-3",
+        4: "col-span-12 md:col-span-4",
+        5: "col-span-12 md:col-span-5",
+        6: "col-span-12 md:col-span-6",
+        7: "col-span-12 md:col-span-7",
+        8: "col-span-12 md:col-span-8",
+        9: "col-span-12 md:col-span-9",
+        10: "col-span-12 md:col-span-10",
+        11: "col-span-12 md:col-span-11",
+        12: "col-span-12 md:col-span-12",
     };
 
     function colClass(field: GFField) {
@@ -268,7 +268,7 @@ export default function Forms({ form, formId }: { form: GravityForm, formId: num
             )}
 
             {/* GRID LAYOUT */}
-            <div className="grid grid-cols-12 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
                 {form.fields.map((field) => renderField(field))}
             </div>
 
@@ -277,7 +277,7 @@ export default function Forms({ form, formId }: { form: GravityForm, formId: num
                 <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-500 disabled:cursor-not-allowed text-white font-semibold py-3 px-8 rounded transition-colors duration-200"
+                    className="inline-flex items-center justify-center rounded-md px-8 py-3 font-semibold text-neutral-softest gradient-border mt-4"
                 >
                     {isSubmitting ? "Submitting..." : "Submit"}
                 </button>

@@ -1,3 +1,4 @@
+import Image from "next/image";
 
 type MediaNode = {
 	altText?: string | null;
@@ -35,11 +36,14 @@ export default function CertificationSectionLayout({
 								className="relative w-full overflow-hidden rounded-xl text-center"
 							>
 								{/* Image area with a fixed aspect ratio */}
-								<div className="h-20 flex items-center justify-center">
-									<img
+								<div className="h-20 flex items-center justify-center relative">
+									<Image
 										className="max-h-full max-w-full object-contain"
 										src={src}
 										alt={alt}
+										width={200}
+										height={80}
+										loading="lazy"
 									/>
 								</div>
 

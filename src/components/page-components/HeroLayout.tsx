@@ -1,5 +1,6 @@
 import DOMPurify from "isomorphic-dompurify";
 import Link from "next/link";
+import Image from "next/image";
 import ContactForm from "../shared/ContactForm";
 
 export default async function HeroLayout({
@@ -88,11 +89,14 @@ export default async function HeroLayout({
 				{/* Right column */}
 				{imageUrl && (
 					<div className={`z-[-1] opacity-60 md:opacity-100 ${colSpanRight} justify-center items-center hidden md:flex`}>
-						<img
+						<Image
 							src={imageUrl}
-							alt={title ?? ""}
+							alt={title ?? "Hero image"}
+							width={800}
+							height={600}
 							className="absolute max-h-[80vh] object-contain"
 							style={{ bottom: "2px" }}
+							priority
 						/>
 					</div>
 				)}

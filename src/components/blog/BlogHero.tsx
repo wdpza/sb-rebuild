@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import DOMPurify from "isomorphic-dompurify";
 
 export default function BlogblogHero({ blogOptions }: any) {
@@ -72,11 +73,14 @@ export default function BlogblogHero({ blogOptions }: any) {
                 {/* Right column: hero image */}
                 {mainImgUrl && (
                     <div className="col-span-11 flex justify-center items-center">
-                        <img
+                        <Image
                             src={mainImgUrl}
-                            alt={title ?? ""}
+                            alt={title ?? "Blog hero image"}
+                            width={800}
+                            height={600}
                             className="absolute max-h-[80vh] object-contain"
                             style={{ bottom: "2px" }}
+                            priority
                         />
                     </div>
                 )}

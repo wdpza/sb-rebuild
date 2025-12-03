@@ -25,7 +25,7 @@ export default function CaseStudyItem({ item }: { item: any }) {
 						className="scroll-mt-6 rounded-xl mb-8"
 					>
 						{s.sectionTitle ? (
-							<h2 className="subtitle text-gradient-starbright">{s.sectionTitle}</h2>
+							<h2 className="subtitle font-bold mb-8 text-neutral-softest">{s.sectionTitle}</h2>
 						) : null}
 
 						{s.sectionDescription ? (
@@ -55,7 +55,7 @@ export default function CaseStudyItem({ item }: { item: any }) {
 				<section
 					className="scroll-mt-6 rounded-xl bg-white/5 p-6"
 				>
-					<h2 className="subtitle text-gradient-starbright">Client Feedback</h2>
+					<h2 className="subtitle font-bold mb-8 text-neutral-softest">Client Feedback</h2>
 					<div
 						className="mt-6 text-neutral-softest"
 						dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(item.caseStudies.clientFeedback) }}

@@ -2,6 +2,7 @@
 
 import Slider from "react-slick";
 import { useMemo, useEffect, useState } from "react";
+import Image from "next/image";
 
 type Item = {
   title: string;
@@ -30,7 +31,7 @@ const iconSrc = isLeft
         side === "left" ? "hidden" : "right-3"
       }`}
     >
-      <img src={iconSrc} alt={label} />
+      <Image src={iconSrc} alt={label} width={24} height={24} />
     </button>
   );
 }

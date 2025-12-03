@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import DOMPurify from "isomorphic-dompurify";
 
 export default function PortfolioHero(portfolioOptions : any) {
@@ -67,11 +68,14 @@ export default function PortfolioHero(portfolioOptions : any) {
 
                 {mainImgUrl && (
                     <div className={`z-[-1] opacity-60 md:opacity-100 col-span-11 flex justify-center items-center`}>
-                        <img
+                        <Image
                             src={mainImgUrl}
-                            alt={mainImgAlt ?? ""}
+                            alt={mainImgAlt ?? "Portfolio hero image"}
+                            width={800}
+                            height={600}
                             className="absolute max-h-[80vh] object-contain"
                             style={{ bottom: "2px" }}
+                            priority
                         />
                     </div>
                 )}
