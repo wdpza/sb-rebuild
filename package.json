@@ -27,13 +27,14 @@
     "react-icons": "^5.5.0",
     "react-slick": "^0.31.0",
     "slick-carousel": "^1.8.1",
+    "@tailwindcss/postcss": "^4",
+    "@tailwindcss/typography": "^0.5.19",
+    "tailwindcss": "^4",
     "typescript": "^5",
     "whois-json": "^2.0.4"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
-    "@tailwindcss/postcss": "^4",
-    "@tailwindcss/typography": "^0.5.19",
     "@types/he": "^1.2.3",
     "@types/node": "^20",
     "@types/nodemailer": "^7.0.4",
@@ -41,7 +42,6 @@
     "@types/react-dom": "^19",
     "@types/whois-json": "^2.0.4",
     "eslint": "^9",
-    "eslint-config-next": "15.5.4",
-    "tailwindcss": "^4"
+    "eslint-config-next": "15.5.4"
   }
 }
