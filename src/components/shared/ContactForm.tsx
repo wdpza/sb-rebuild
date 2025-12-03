@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 
 export default function ContactForm() {
 	const [submitted, setSubmitted] = useState(false);
@@ -150,7 +151,7 @@ export default function ContactForm() {
 
 
 				<span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2">
-					<img
+					<Image
 						src="/images/select-down.png"
 						alt="Dropdown arrow"
 						width={20}
@@ -187,7 +188,7 @@ export default function ContactForm() {
 						<option>Other</option>
 					</select>
 					<span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2">
-						<img
+						<Image
 							src="/images/select-down.png"
 							alt="Dropdown arrow"
 							width={20}

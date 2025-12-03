@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from "next/image";
 
 export default function GoogleReviewBoosterLayout({ features, image }: any) {
 
@@ -29,10 +30,13 @@ export default function GoogleReviewBoosterLayout({ features, image }: any) {
 
                 {/* --- Column 2: Middle Image --- */}
                 <div className="flex justify-center py-8 lg:py-0"> {/* Added padding for stacked mobile view */}
-                    <img
+                    <Image
                         src={image.node.mediaItemUrl}
                         alt={image.node.altText || 'Google Review Booster Feature'}
+                        width={400}
+                        height={400}
                         className="w-full max-w-xs md:max-w-sm h-auto object-contain" // Constrained image size
+                        loading="lazy"
                     />
                 </div>
 

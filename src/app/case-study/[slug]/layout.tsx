@@ -33,12 +33,14 @@ export default async function CaseStudyLayout({
 		<div className="article-layout flex flex-col w-full bg-[#161616]">
 			<CaseStudyHero item={caseStudy} />
 
-			<div className="grid w-full layout-wrapper mx-auto grid-cols-1 lg:grid-cols-8 gap-6 px-4 sm:px-8 lg:px-12 py-10 sm:py-16">
-				<div className="lg:col-span-2">
-					<CaseStudySidebar item={caseStudy} />
-				</div>
-				<div className="lg:col-span-6">
-					{children}
+			<div className="w-full bg-center bg-[url(/bg.svg)]">
+				<div className="grid w-full layout-wrapper mx-auto grid-cols-1 lg:grid-cols-8 gap-6 px-4 sm:px-8 lg:px-12 py-10 sm:py-16">
+					<div className="lg:col-span-2">
+						<CaseStudySidebar item={caseStudy} />
+					</div>
+					<div className="lg:col-span-6">
+						{children}
+					</div>
 				</div>
 			</div>
 

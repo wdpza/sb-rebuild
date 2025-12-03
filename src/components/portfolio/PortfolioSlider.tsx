@@ -38,9 +38,11 @@ export default function PortfolioSlider({ items, title, backgroundImage }: any) 
                             onClick={() => sliderRef.current?.slickPrev()}
                             className="slider-custom-nav gradient-border"
                         >
-                            <img
+                            <Image
                                 src="/slider-navigation-right.svg"
                                 alt="Previous slide"
+                                width={24}
+                                height={24}
                             />
                         </button>
 
@@ -52,9 +54,11 @@ export default function PortfolioSlider({ items, title, backgroundImage }: any) 
                             onClick={() => sliderRef.current?.slickNext()}
                             className="slider-custom-nav gradient-border"
                         >
-                            <img
+                            <Image
                                 src="/slider-navigation-left.svg"
                                 alt="Next slide"
+                                width={24}
+                                height={24}
                             />
                         </button>
                     </div>                

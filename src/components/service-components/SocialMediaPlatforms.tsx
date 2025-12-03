@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function SocialMediaPlatforms({ introTitle, platform, backgroundImage }: any) {
 
     const bgUrl = backgroundImage?.node?.mediaItemUrl ?? null;
@@ -20,10 +22,13 @@ export default function SocialMediaPlatforms({ introTitle, platform, backgroundI
                         rel="noopener noreferrer"
                         className="flex justify-center items-center bg-[#1B1B1C] p-8 rounded-lg shadow-lg transition-transform duration-300 ease-in-out hover:scale-105"
                     >
-                        <img
+                        <Image
                         src={platform.platformImage.node.mediaItemUrl}
                         alt={platform.platformImage.node.altText || `Platform ${index + 1}`}
+                        width={200}
+                        height={200}
                         className="w-full mx-200"
+                        loading="lazy"
                         />
                     </a>
                     ))}

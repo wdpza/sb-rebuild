@@ -33,12 +33,16 @@ export default function Footer( footer: any) {
                                 Contact Us
                             </h4>
 
-                            <ul className="space-y-2 text-neutral-regular flex flex-col justify-center md:justify-start">
-                                <li className="flex text-neutral-softest gap-2 items-center self-center md:self-start"><img src="/images/phone-icon.png" alt="Phone Icon"/> <a href={`tel:${footer.footer.siteOptions.siteOptionsFields.footer.officeNumber.replace(/\s+/g, "")}`}>{footer.footer.siteOptions.siteOptionsFields.footer.officeNumber}</a></li>
-                                <li className="flex text-neutral-softest gap-2 items-center self-center md:self-start"><img src="/images/whatsapp-icon.png" alt="Whatsapp Icon" /> <a href={`https://wa.me/${footer.footer.siteOptions.siteOptionsFields.footer.whatsappNumber.replace(/\s+/g, "")}`} target="_blank">{footer.footer.siteOptions.siteOptionsFields.footer.whatsappNumber}</a></li>
-                            </ul>
-
-                        </div>
+							<ul className="space-y-2 text-neutral-regular flex flex-col justify-center md:justify-start">
+								<li className="flex text-neutral-softest gap-2 items-center self-center md:self-start">
+									<Image src="/images/phone-icon.png" alt="Phone Icon" width={20} height={20} />
+									<a href={`tel:${footer.footer.siteOptions.siteOptionsFields.footer.officeNumber.replace(/\s+/g, "")}`}>{footer.footer.siteOptions.siteOptionsFields.footer.officeNumber}</a>
+								</li>
+								<li className="flex text-neutral-softest gap-2 items-center self-center md:self-start">
+									<Image src="/images/whatsapp-icon.png" alt="Whatsapp Icon" width={20} height={20} />
+									<a href={`https://wa.me/${footer.footer.siteOptions.siteOptionsFields.footer.whatsappNumber.replace(/\s+/g, "")}`} target="_blank">{footer.footer.siteOptions.siteOptionsFields.footer.whatsappNumber}</a>
+								</li>
+							</ul>                        </div>
 
                         {/* Column 3: Contact */}
                         <div className='mb-6 md:mb-0'>
@@ -87,9 +91,11 @@ export default function Footer( footer: any) {
                                     rel="noopener noreferrer"
                                     className="transition-transform hover:scale-105"
                                 >
-                                    <img
+                                    <Image
                                         src={item.icon.node.mediaItemUrl}
-                                        alt={item.icon.node.altText ?? ''}
+                                        alt={item.icon.node.altText ?? 'Social media icon'}
+                                        width={24}
+                                        height={24}
                                         className="w-6 h-6 object-contain"
                                     />
                                 </a>

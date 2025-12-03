@@ -27,13 +27,16 @@ export default function PortfolioMasonry({ items }: any) {
             className="relative group mb-6 cursor-pointer"
             onClick={() => handleImageClick(item)}
           >
-            <img
+            <Image
               src={item.portfolioFields.sliderImageMain.node.mediaItemUrl}
               alt={
                 item.portfolioFields.sliderImageMain.node.altText ||
                 `Portfolio Item ${index + 1}`
               }
+              width={600}
+              height={400}
               className="w-full h-auto object-cover rounded-lg shadow-lg transition-transform duration-300 ease-in-out transform group-hover:scale-105"
+              loading="lazy"
             />
           </div>
         ))}

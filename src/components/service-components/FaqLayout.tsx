@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { ChevronDown, ChevronUp } from "lucide-react"; // Importing Lucide React icons
 
 type Item = {
@@ -66,10 +67,13 @@ export default function FaqLayout({ introTitle, image, item, backgroundImage }: 
 
         {/* Right Column - Image */}
         <div className="relative flex justify-center items-end min-h-[380px] -mb-24">
-          <img
+          <Image
             src={img}
             alt={alt}
+            width={700}
+            height={700}
             className="absolute left-0 bottom-0 w-full max-w-[700px] max-h-[700px] h-auto object-contain"
+            loading="lazy"
           />
         </div>
       </div>

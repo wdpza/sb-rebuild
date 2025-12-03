@@ -2,6 +2,7 @@
 
 import DOMPurify from 'isomorphic-dompurify';
 import Link from "next/link";
+import Image from "next/image";
 import WhoisLayout from "./WhoisLayout"
 import Slider from "react-slick";
 import { useMemo, useEffect, useState } from "react";
@@ -28,7 +29,7 @@ const iconSrc = isLeft
         side === "left" ? "hidden" : "right-3"
       }`}
     >
-      <img src={iconSrc} alt={label} />
+      <Image src={iconSrc} alt={label} width={24} height={24} />
     </button>
   );
 }
@@ -185,11 +186,14 @@ export default function HostingHeroLayout({ hostingPageHero, hostingPageServices
 
 				{imageUrl && (
 					<div className="col-span-11 flex justify-center items-center">
-						<img
+						<Image
 							src={imageUrl}
-							alt={hostingPageHero.title ?? ""}
+							alt={hostingPageHero.title ?? "Hosting hero image"}
+							width={800}
+							height={600}
 							className="absolute max-h-[80vh] object-contain"
 							style={{ bottom: "2px" }}
+							priority
 						/>
 					</div>
 				)}
