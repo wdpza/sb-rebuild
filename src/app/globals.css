@@ -16,6 +16,7 @@
   --color-neutral-soft: #adabaf;
   --color-neutral-softer: #cecdcf;
   --color-neutral-softest: #efeef0;
+  --color-sb-black: #171717;
 
   /* Purple */
   --color-purple-strongest: #ad0a37;
@@ -244,6 +245,21 @@
   .gradient-border-top {
     transition: 250ms;
     border-top: 2px solid transparent;
+    background: linear-gradient(var(--btn-bg, #28262c), var(--btn-bg, #28262c))
+        padding-box,
+      linear-gradient(
+          98.51deg,
+          #36aefa 0%,
+          #bd208b 37.5%,
+          #f15d22 87.02%,
+          #eeb42c 99.99%
+        )
+        border-box;
+  }
+
+  .gradient-border-bottom {
+    transition: 250ms;
+    border-bottom: 2px solid transparent;
     background: linear-gradient(var(--btn-bg, #28262c), var(--btn-bg, #28262c))
         padding-box,
       linear-gradient(
