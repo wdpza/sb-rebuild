@@ -1,34 +1,20 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import type { Settings } from "react-slick";
 import Image from "next/image";
+import { useState } from "react";
 
 const Slider = dynamic(() => import("react-slick"), { ssr: false });
 
 export default function ServicesSlider({ slide }: any) {
-
+    const [sliderInstance, setSliderInstance] = useState<any>(null);
     const base_url = process.env.NEXT_PUBLIC_WP_BASE_URL || '';
 
-    /*
-    [
-        {
-            clientName: 'PG Bison',
-            service: 'Social Media Designs',
-            image: { node: [Object] }
-        },
-        {
-            clientName: 'Demo Client',
-            service: 'Marketing Posters',
-            image: { node: [Object] }
-        },
-        {
-            clientName: 'Hyper Auto',
-            service: 'Email Marketing Designs',
-            image: { node: [Object] }
+    const handleSlideClick = (index: number) => {
+        if (sliderInstance) {
+            sliderInstance.slickGoTo(index);
         }
-    ]
-    */
+    };
 
     return (
         <div className="services-slider my-12 py-6">
@@ -44,6 +30,7 @@ export default function ServicesSlider({ slide }: any) {
                     transition: all 300ms ease;
                     opacity: 0.5;
                     transform: scale(0.95);
+                    cursor: pointer;
                 }
                 .services-slider .slick-slide .slide-content {
                     opacity:0;
@@ -52,6 +39,7 @@ export default function ServicesSlider({ slide }: any) {
                     opacity: 1;
                     transform: scale(1);
                     z-index: 10;
+                    cursor: default;
                 }
                 .services-slider .slick-slide.slick-center .slide-content {
                     opacity:1;
@@ -85,35 +73,41 @@ export default function ServicesSlider({ slide }: any) {
                 }
             `}</style>
             <Slider
-                dots={true}
-                infinite={true}
-                speed={500}
-                centerMode={true}
-                centerPadding="25%"
-                slidesToShow={1}
-                slidesToScroll={1}
-                responsive={[
-                    {
-                        breakpoint: 1024,
-                        settings: {
-                            slidesToShow: 1,
-                            centerPadding: "20%",
+                {...{
+                    ref: (slider: any) => setSliderInstance(slider),
+                    dots: true,
+                    infinite: true,
+                    speed: 500,
+                    autoplay: true,
+                    autoplaySpeed: 5000,
+                    pauseOnHover: true,
+                    centerMode: true,
+                    centerPadding: "25%",
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    responsive: [
+                        {
+                            breakpoint: 1024,
+                            settings: {
+                                slidesToShow: 1,
+                                centerPadding: "20%",
+                            }
+                        },
+                        {
+                            breakpoint: 600,
+                            settings: {
+                                slidesToShow: 1,
+                                centerMode: false,
+                                centerPadding: "0px",
+                            }
                         }
-                    },
-                    {
-                        breakpoint: 600,
-                        settings: {
-                            slidesToShow: 1,
-                            centerMode: false,
-                            centerPadding: "0px",
-                        }
-                    }
-                ]}
+                    ]
+                } as any}
             >
                 {slide.map((item: any, index: number) => {
 
                     return (
-                        <div key={index} className="px-4 sm:px-0">
+                        <div key={index} className="px-4 sm:px-0" onClick={() => handleSlideClick(index)}>
                             <div className="overflow-hidden">
                                 <Image
                                     src={item.image?.node?.filePath ? `${base_url}${item.image.node.filePath}` : '/placeholder.png'}
