@@ -12,7 +12,7 @@ export default function WhyWorkWithUs({
 
   return (
     <div
-      className="relative py-16 md:py-20 bg-cover bg-center bg-no-repeat"
+      className="relative py-16 md:py-32 bg-cover bg-center bg-no-repeat"
       style={{
         backgroundImage: bgUrl ? `url(${bgUrl})` : undefined,
       }}

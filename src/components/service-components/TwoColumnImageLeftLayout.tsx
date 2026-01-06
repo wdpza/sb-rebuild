@@ -3,15 +3,8 @@ import Image from "next/image";
 export default function TwoColumnImageLeftLayout({image, rightColumn, backgroundImage}: any) {
 
     const base_url = process.env.NEXT_PUBLIC_WP_BASE_URL || '';
-    console.log(backgroundImage)
     const backgroundUrl = backgroundImage?.node?.filePath || null;
-    /*
-    {
-    "node": {
-        "filePath": "/wp-content/uploads/2025/10/bg.jpg"
-    }
-}
-    */
+
     return (
         <div className="bg-sb-black" style={{
             backgroundImage: backgroundUrl ? `url(${base_url}${backgroundUrl})` : undefined,
