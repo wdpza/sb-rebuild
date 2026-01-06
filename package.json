@@ -19,7 +19,7 @@
     "he": "^1.2.0",
     "isomorphic-dompurify": "^2.29.0",
     "lucide-react": "^0.546.0",
-    "next": "15.5.7",
+    "next": "15.5.9",
     "nodemailer": "^7.0.11",
     "react": "19.1.2",
     "react-dom": "19.1.2",
