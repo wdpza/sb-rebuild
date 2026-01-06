@@ -1,11 +1,23 @@
 import Image from "next/image";
 
-export default function TwoColumnImageLeftLayout({image, rightColumn}: any) {
+export default function TwoColumnImageLeftLayout({image, rightColumn, backgroundImage}: any) {
 
     const base_url = process.env.NEXT_PUBLIC_WP_BASE_URL || '';
-
+    console.log(backgroundImage)
+    const backgroundUrl = backgroundImage?.node?.filePath || null;
+    /*
+    {
+    "node": {
+        "filePath": "/wp-content/uploads/2025/10/bg.jpg"
+    }
+}
+    */
     return (
-        <div className="bg-sb-black">
+        <div className="bg-sb-black" style={{
+            backgroundImage: backgroundUrl ? `url(${base_url}${backgroundUrl})` : undefined,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+        }}>
             <div className="layout-wrapper">
                 {/* Two column image left layout */}
                 <div className="grid grid-cols-1 md:grid-cols-16 gap-6 md:gap-12 py-12 md:py-24 items-center">

@@ -1,11 +1,16 @@
 import Image from "next/image";
 
-export default function TwoColumnImageRightLayout({image, leftColumn}: any) {
-
+export default function TwoColumnImageRightLayout({image, leftColumn, backgroundImage}: any) {
+    
     const base_url = process.env.NEXT_PUBLIC_WP_BASE_URL || '';
+    const backgroundUrl = backgroundImage?.node?.filePath || null;
 
     return (
-        <div className="bg-sb-black">
+        <div className="bg-sb-black" style={{
+            backgroundImage: backgroundUrl ? `url(${base_url}${backgroundUrl})` : undefined,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+        }}>
             <div className="layout-wrapper">
 
                 <div className="grid grid-cols-1 md:grid-cols-16 gap-6 md:gap-12 py-12 md:py-24 items-center">

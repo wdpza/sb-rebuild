@@ -29,7 +29,6 @@ export default async function FormLayout({ title, formId, backgroundImage }: any
     const base_url  = process.env.NEXT_PUBLIC_WP_BASE_URL;
     const backgroundImageUrl = backgroundImage?.node?.filePath ? `${base_url}${backgroundImage.node.filePath}` : null;
 
-    console.log(backgroundImageUrl);
     const form = formId ? await getGravityForm(formId) : null;
 
     return (

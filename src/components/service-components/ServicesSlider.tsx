@@ -8,8 +8,6 @@ const Slider = dynamic(() => import("react-slick"), { ssr: false });
 
 export default function ServicesSlider({ slide }: any) {
 
-    console.log(slide)
-
     const base_url = process.env.NEXT_PUBLIC_WP_BASE_URL || '';
 
     /*

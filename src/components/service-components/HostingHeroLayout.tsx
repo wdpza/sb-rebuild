@@ -51,9 +51,6 @@ type Item = {
 
 export default function HostingHeroLayout({ hostingPageHero, hostingPageServices }: any) {
 
-    console.log(hostingPageHero);
-    console.log(hostingPageServices);
-
 	const bgUrl = hostingPageHero.background?.node?.mediaItemUrl ?? null
 	const imageUrl = hostingPageHero.image?.node?.mediaItemUrl ?? null
 

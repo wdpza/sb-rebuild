@@ -19,8 +19,6 @@ export default function PortfolioTabsLayout({ categories, backgroundImage }: any
 
     const baseUrl = process.env.NEXT_PUBLIC_WP_BASE_URL;
 
-    console.log(baseUrl + backgroundImageUrl);
-
     // ----------------------------
     // OVERLAY STATE
     // ----------------------------

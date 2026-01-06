@@ -43,9 +43,10 @@ export default function WhyWorkWithUs({
             <div
               key={index}
               className="
-                bg-[#1B1B1C]/70 
-                p-6 
+                bg-neutral-stronger
+                p-6
                 md:p-8 
+                md:py-12
                 rounded-lg 
                 shadow-lg 
                 flex 
@@ -60,10 +61,10 @@ export default function WhyWorkWithUs({
                 duration-300
               "
             >
-              <h3 className="text-lg md:text-xl font-semibold mb-3 text-neutral-softest">
+              <h3 className="text-lg md:text-2xl font-semibold mb-3 text-neutral-softest">
                 {card.title}
               </h3>
-              <p className="text-sm md:text-base text-neutral-softest leading-relaxed">
+              <p className="font-extralight text-sm md:text-base text-neutral-softest leading-relaxed">
                 {card.description}
               </p>
             </div>

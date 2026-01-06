@@ -223,6 +223,11 @@ export const GET_SERVICE_BY_SLUG = gql`
                             heading
                             subHeading
                         }
+                        backgroundImage {
+                            node {
+                                filePath
+                            }
+                        }
                     }
                     ... on ServicePageFieldsServicePageBuilderTwoColumnImageRightLayout {
                         image {
@@ -235,6 +240,11 @@ export const GET_SERVICE_BY_SLUG = gql`
                             content
                             heading
                             subHeading
+                        }
+                        backgroundImage {
+                            node {
+                                filePath
+                            }
                         }
                     }
                     ... on ServicePageFieldsServicePageBuilderLogoSliderLayout {
