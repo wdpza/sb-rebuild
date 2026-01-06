@@ -1,6 +1,6 @@
 import HeroLayout from "@/components/page-components/HeroLayout"
 import ServicesAccordionLayout from "@/components/page-components/ServicesAccordionLayout"
-import LogoSliderLayout from "./page-components/LogoSliderLayout"
+import LogoSliderLayout from "./shared/LogoSliderLayout"
 import PortfolioSliderLayout from "./page-components/PortfolioSliderLayout"
 import BusinessSolutionsLayout from "./page-components/BusinessSolutionsLayout"
 import ExitLayout from "./page-components/ExitLayout"

@@ -237,6 +237,32 @@ export const GET_SERVICE_BY_SLUG = gql`
                             subHeading
                         }
                     }
+                    ... on ServicePageFieldsServicePageBuilderLogoSliderLayout {
+                        fieldGroupName
+                        logos {
+                            logo {
+                                node {
+                                    altText
+                                    mediaItemUrl
+                                    sizes
+                                    sourceUrl
+                                    srcSet
+                                }
+                            }
+                        }
+                    }
+                    ... on ServicePageFieldsServicePageBuilderServicesSliderLayout {
+                        slide {
+                            clientName
+                            service
+                            image {
+                                node {
+                                    altText
+                                    filePath
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }

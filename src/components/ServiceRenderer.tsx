@@ -14,6 +14,8 @@ import ServiceCarouselLayout from "@/components/service-components/ServiceCarous
 import HostingHeroLayout from "./service-components/HostingHeroLayout"
 import TwoColumnImageLeftLayout from "./service-components/TwoColumnImageLeftLayout"
 import TwoColumnImageRightLayout from "./service-components/TwoColumnImageRightLayout"
+import LogoSliderLayout from "./shared/LogoSliderLayout"
+import ServicesSlider from "./service-components/ServicesSlider"
 
 export default async function ServiceRenderer({ pageBuilder }: any) {
     if (!pageBuilder) return null
@@ -55,6 +57,10 @@ export default async function ServiceRenderer({ pageBuilder }: any) {
                         return <TwoColumnImageLeftLayout key={index} {...block} />
                     case "ServicePageFieldsServicePageBuilderTwoColumnImageRightLayout":
                         return <TwoColumnImageRightLayout key={index} {...block} />
+                    case "ServicePageFieldsServicePageBuilderLogoSliderLayout":
+                        return <LogoSliderLayout key={index} {...block} />
+                    case "ServicePageFieldsServicePageBuilderServicesSliderLayout":
+                        return <ServicesSlider key={index} {...block} />
                     default:
                         return null
                 }
