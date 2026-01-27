@@ -69,6 +69,7 @@ export const GET_SERVICE_BY_SLUG = gql`
                                 }
                             }
                         }
+                        style     
                     }
                     ... on ServicePageFieldsServicePageBuilderFaqSectionLayout {
                         introTitle
