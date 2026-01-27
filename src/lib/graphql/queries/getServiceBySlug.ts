@@ -59,6 +59,16 @@ export const GET_SERVICE_BY_SLUG = gql`
                                 mediaItemUrl
                             }
                         }
+                        ctaButtonGroup {
+                            buttonLabel
+                            ctaButtonUrl {
+                                nodes {
+                                    uri
+                                    slug
+                                    link
+                                }
+                            }
+                        }
                     }
                     ... on ServicePageFieldsServicePageBuilderFaqSectionLayout {
                         introTitle
@@ -78,6 +88,7 @@ export const GET_SERVICE_BY_SLUG = gql`
                                 mediaItemUrl
                             }
                         }
+                        layout  
                     }
                     ... on ServicePageFieldsServicePageBuilderExitSectionLayout {
                         title

@@ -6,6 +6,7 @@ const nextConfig: NextConfig = {
         remotePatterns: [
             { protocol: "https", hostname: "cms.starbright.co.za" },
         ],
+        formats: ['image/webp'],
     },
 };
 

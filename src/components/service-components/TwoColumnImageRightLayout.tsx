@@ -15,9 +15,9 @@ export default function TwoColumnImageRightLayout({image, leftColumn, background
 
                 <div className="grid grid-cols-1 md:grid-cols-16 gap-6 md:gap-12 py-12 md:py-24 items-center">
 
-                    <div className="col-span-1 md:col-span-7 space-y-6">
+                    <div className="col-span-1 md:col-span-7 space-y-6 order-2 md:order-1">
                         {leftColumn?.heading && (
-                            <h2 className="text-4xl font-bold text-neutral-softest">
+                            <h2 className="subtitle font-bold text-neutral-softest">
                                 {leftColumn.heading}
                             </h2>
                         )}
@@ -36,7 +36,7 @@ export default function TwoColumnImageRightLayout({image, leftColumn, background
                         )}
                     </div>
 
-                    <div className="col-span-1 md:col-span-9">
+                    <div className="col-span-1 md:col-span-9 order-1 md:order-2">
                         {image?.node?.filePath && (
                             <Image
                                 src={`${base_url}${image.node.filePath}`}

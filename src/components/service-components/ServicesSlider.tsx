@@ -2,13 +2,26 @@
 
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Slider = dynamic(() => import("react-slick"), { ssr: false });
 
 export default function ServicesSlider({ slide }: any) {
     const [sliderInstance, setSliderInstance] = useState<any>(null);
+    const [isMobile, setIsMobile] = useState(false);
     const base_url = process.env.NEXT_PUBLIC_WP_BASE_URL || '';
+
+    useEffect(() => {
+        // Detect mobile on mount
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth <= 600);
+        };
+        
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
 
     const handleSlideClick = (index: number) => {
         if (sliderInstance) {
@@ -81,8 +94,8 @@ export default function ServicesSlider({ slide }: any) {
                     autoplay: true,
                     autoplaySpeed: 3000,
                     pauseOnHover: false,
-                    centerMode: true,
-                    centerPadding: "25%",
+                    centerMode: !isMobile,
+                    centerPadding: isMobile ? "0px" : "25%",
                     slidesToShow: 1,
                     slidesToScroll: 1,
                     responsive: [
@@ -90,6 +103,7 @@ export default function ServicesSlider({ slide }: any) {
                             breakpoint: 1024,
                             settings: {
                                 slidesToShow: 1,
+                                centerMode: true,
                                 centerPadding: "20%",
                             }
                         },

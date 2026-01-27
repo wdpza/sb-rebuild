@@ -30,7 +30,7 @@ export default function TwoColumnImageLeftLayout({image, rightColumn, background
                     {/* Right: Text Content */}
                     <div className="col-span-1 md:col-span-7 space-y-6">
                         {rightColumn?.heading && (
-                            <h2 className="text-4xl font-bold text-neutral-softest">
+                            <h2 className="subtitle font-bold text-neutral-softest">
                                 {rightColumn.heading}
                             </h2>
                         )}
@@ -43,7 +43,7 @@ export default function TwoColumnImageLeftLayout({image, rightColumn, background
 
                         {rightColumn?.content && (
                             <div
-                                className="text-neutral-softest"
+                                className="text-neutral-softer"
                                 dangerouslySetInnerHTML={{ __html: rightColumn.content }}
                             />
                         )}

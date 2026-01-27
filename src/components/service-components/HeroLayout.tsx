@@ -25,7 +25,7 @@ export default function HeroLayout({ title, ctaLink, description, subTitle, back
 			<div className="absolute inset-0 bg-linear-to-r from-black/75 to-black/60 backdrop-grayscale z-0"></div>
 			<div className="relative z-10 grid w-full layout-wrapper mx-auto grid-cols-1 md:grid-cols-24 gap-2">
 
-				<div className="col-span-12 flex flex-col justify-center text-left gap-4">
+				<div className="col-span-18 flex flex-col justify-center text-left gap-4">
 					<h1 className="font-archivo uppercase hero-title font-black drop-shadow-lg text-gradient-starbright">
 						{title}
 					</h1>
