@@ -8,7 +8,7 @@ export default function LogoSliderLayout({ logo, logos }: any) {
     if (!logosData || !Array.isArray(logosData) || logosData.length === 0) return null
 
     return (
-        <section id="logo-slider" className="bg-gradient-starbright py-12">
+        <section id="logo-slider" className="bg-gradient-starbright py-6">
             <Marquee gradient={false} speed={100} autoFill={true}>
                 {logosData.map((item: any, index: number) => {
                     const node = item.logo?.node

@@ -1,25 +1,31 @@
 import DOMPurify from 'isomorphic-dompurify';
 import Link from "next/link";
 import Image from "next/image";
+import LogoSliderLayout from '../shared/LogoSliderLayout';
 
-export default function HeroLayout({ title, ctaLink, description, subTitle, backgrounD, image }: any) {
-	const bgUrl = backgrounD?.node?.mediaItemUrl ?? null
-	const imageUrl = image?.node?.mediaItemUrl ?? null
+export default function HeroLayout({ title, ctaLink, description, subTitle, backgrounD, image, logoSlider }: any) {
+	const bgUrl = backgrounD?.node?.mediaItemUrl ?? null;
+	const imageUrl = image?.node?.mediaItemUrl ?? null;
 
-  const cleanUrl = ctaLink?.url
-    ? ctaLink.url.replace(/^https?:\/\/[^/]+/, "")
-    : null;
+	const { logos, show } = logoSlider || {};
+
+	const cleanUrl = ctaLink?.url
+		? ctaLink.url.replace(/^https?:\/\/[^/]+/, "")
+		: null;
 
 	return (
 		<section
-			className="relative flex min-h-[70vh] w-full items-end bg-cover bg-bottom bg-no-repeat overflow-hidden gradient-border-bottom pb-32"
+			className="relative flex min-h-[100vh] w-full items-center bg-cover bg-bottom bg-no-repeat overflow-hidden gradient-border-bottom"
 			style={{
 				backgroundImage: bgUrl ? `url(${bgUrl})` : undefined,
+				backgroundSize: "cover",
+				backgroundPosition: "bottom center",
 			}}
 		>
+			<div className="absolute inset-0 bg-linear-to-r from-black/75 to-black/60 backdrop-grayscale z-0"></div>
 			<div className="relative z-10 grid w-full layout-wrapper mx-auto grid-cols-1 md:grid-cols-24 gap-2">
 
-				<div className="col-span-24 flex flex-col justify-center text-center gap-4">
+				<div className="col-span-12 flex flex-col justify-center text-left gap-4">
 					<h1 className="font-archivo uppercase hero-title font-black drop-shadow-lg text-gradient-starbright">
 						{title}
 					</h1>
@@ -72,6 +78,13 @@ export default function HeroLayout({ title, ctaLink, description, subTitle, back
 					</div>
 				)}
 			</div>
+
+			{show && show[0] === 'Yes' && logos && logos.length > 0 && (
+				<div className="absolute bottom-0 w-full">
+					<LogoSliderLayout logos={logos} />
+				</div>
+			)}
+
 		</section>
 	)
 }

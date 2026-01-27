@@ -35,10 +35,11 @@ export default function PortfolioLayout({ title, portfolioItems }: any) {
             <Image
               src={item.mediaItemUrl}
               alt={item.altText || `Portfolio Item ${index + 1}`}
-              width={600}
-              height={400}
+              width={800}
+              height={1000}
               className="w-full h-auto object-cover rounded-lg shadow-lg transition-transform duration-300 ease-in-out transform group-hover:scale-105"
               loading="lazy"
+              quality={90}
             />
           </div>
         ))}

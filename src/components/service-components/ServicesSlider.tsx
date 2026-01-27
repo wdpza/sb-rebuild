@@ -79,8 +79,8 @@ export default function ServicesSlider({ slide }: any) {
                     infinite: true,
                     speed: 500,
                     autoplay: true,
-                    autoplaySpeed: 5000,
-                    pauseOnHover: true,
+                    autoplaySpeed: 3000,
+                    pauseOnHover: false,
                     centerMode: true,
                     centerPadding: "25%",
                     slidesToShow: 1,
@@ -105,10 +105,13 @@ export default function ServicesSlider({ slide }: any) {
                 } as any}
             >
                 {slide.map((item: any, index: number) => {
-
                     return (
                         <div key={index} className="px-4 sm:px-0" onClick={() => handleSlideClick(index)}>
                             <div className="overflow-hidden">
+                                <div className="p-4 pt-0 text-center slide-content">
+                                    <h3 className="text-xl md:text-3xl font-bold mb-2 text-neutral-softest">{item.clientName}</h3>
+                                    <p className="text-lg md:text-2xl text-gray-600 font-regular text-neutral-softer">{item.service}</p>
+                                </div>
                                 <Image
                                     src={item.image?.node?.filePath ? `${base_url}${item.image.node.filePath}` : '/placeholder.png'}
                                     alt={item.image?.node?.altText || item.clientName || 'Service Image'}
@@ -116,10 +119,6 @@ export default function ServicesSlider({ slide }: any) {
                                     height={768}
                                     className="w-full h-auto object-cover rounded"
                                 />
-                                <div className="p-4 text-center slide-content">
-                                    <h3 className="text-xl md:text-3xl font-bold mb-2 text-neutral-softest">{item.clientName}</h3>
-                                    <p className="text-lg md:text-2xl text-gray-600 font-regular text-neutral-softer">{item.service}</p>
-                                </div>
                             </div>
                         </div>
                     )

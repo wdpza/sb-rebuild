@@ -21,6 +21,18 @@ export const GET_SERVICE_BY_SLUG = gql`
                                 mediaItemUrl
                             }
                         }
+                        logoSlider {
+                            show
+                            logos {
+                                logo {
+                                    node {
+                                        altText
+                                        filePath
+                                        mediaItemUrl
+                                    }
+                                }
+                            }
+                        }
                     }
                     ... on ServicePageFieldsServicePageBuilderServiceCarouselLayout {
                         introTitle
