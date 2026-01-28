@@ -69,7 +69,7 @@ export const GET_SERVICE_BY_SLUG = gql`
                                 }
                             }
                         }
-                        style     
+                        style
                     }
                     ... on ServicePageFieldsServicePageBuilderFaqSectionLayout {
                         introTitle
@@ -89,7 +89,7 @@ export const GET_SERVICE_BY_SLUG = gql`
                                 mediaItemUrl
                             }
                         }
-                        layout  
+                        layout
                     }
                     ... on ServicePageFieldsServicePageBuilderExitSectionLayout {
                         title
@@ -291,6 +291,28 @@ export const GET_SERVICE_BY_SLUG = gql`
                             service
                             image {
                                 node {
+                                    altText
+                                    filePath
+                                }
+                            }
+                        }
+                    }
+                    ... on ServicePageFieldsServicePageBuilderCtaBlockLayout {
+                        heading
+                        buttonGroup {
+                            ctaLabel
+                            ctaLink {
+                                nodes {
+                                    uri
+                                }
+                            }
+                        }
+                    }
+                    ... on ServicePageFieldsServicePageBuilderPhotoSliderLayout {
+                        slide {
+                            image {
+                                node {
+                                    mediaItemUrl
                                     altText
                                     filePath
                                 }

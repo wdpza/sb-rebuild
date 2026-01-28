@@ -62,8 +62,8 @@ export default function WhyWorkWithUsDivider({
 					))}
 				</div>
 
-				<div className="mt-8">
-					{buttonLabel && ctaButtonUrl?.nodes && ctaButtonUrl.nodes.length > 0 && (
+				{buttonLabel && ctaButtonUrl?.nodes && ctaButtonUrl.nodes.length > 0 && (
+					<div className="mt-8">
 						<a
 							href={ctaButtonUrl.nodes[0].uri || '#'}
 							className="
@@ -73,8 +73,9 @@ export default function WhyWorkWithUsDivider({
 						>
 							{buttonLabel}
 						</a>
-					)}
-				</div>
+					</div>
+				)}
+				
 			</div>
 		</div>
 	);

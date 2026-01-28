@@ -29,8 +29,8 @@ export default function FaqLayout({ introTitle, image, item, backgroundImage, la
 				backgroundImage: bgUrl ? `url(${bgUrl})` : undefined,
 			}}
 		>
-			<div className={`grid grid-cols-1 gap-12 layout-wrapper mx-auto ${layoutType === "center" ? "justify-center" : "md:grid-cols-2"}`}>
-				{/* FAQ Items */}
+			<div className={`grid grid-cols-1 gap-12 layout-wrapper pt-12 mx-auto ${layoutType === "center" ? "justify-center" : "md:grid-cols-2"}`}>
+
 				<div className={`flex flex-col justify-center py-20 ${layoutType === "center" ? "items-center text-center" : "items-start text-left"}`}>
 					
 					<h2 className="text-neutral-softest subtitle font-bold mb-8 leading-snug text-center md:text-left">{introTitle}</h2>
@@ -52,7 +52,7 @@ export default function FaqLayout({ introTitle, image, item, backgroundImage, la
 										)}
 									</span>
 								</button>
-								{/* Smooth Transition for Description */}
+
 								<div
 									className={`overflow-hidden transition-all duration-300 ease-in-out ${activeIndex === index ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"
 										}`}
@@ -66,7 +66,6 @@ export default function FaqLayout({ introTitle, image, item, backgroundImage, la
 					</div>
 				</div>
 
-				{/* Right Column - Image */}
 				{layoutType === "left" && img && (
 					<div className="relative">
 						<div className={`hidden md:block absolute right-[60px] bottom-0 z-0 ${layoutType === "center" ? "hidden" : ""}`}>

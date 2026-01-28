@@ -105,6 +105,10 @@
     @apply w-12 h-12 md:w-16 md:h-16 flex items-center justify-center cursor-pointer rounded-full transition-transform duration-300 ease-in-out;
   }
 
+  .slick-dots {
+    bottom:-45px !important;
+  }
+
   .article-slug-page h1,
   .article-slug-page h3,
   .article-slug-page h2,

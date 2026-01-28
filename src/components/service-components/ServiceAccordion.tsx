@@ -1,135 +1,36 @@
 "use client";
 
-import Slider from "react-slick";
-import { useMemo, useEffect, useState } from "react";
-import Image from "next/image";
-
 type Item = {
   title: string;
   description: string;
 };
 
-function ArrowBase({
-  onClick,
-  side,
-}: {
-  onClick?: () => void;
-  side: "left" | "right";
-}) {
-
-const isLeft = side === "left";
-const label = isLeft ? "Previous" : "Next";
-const iconSrc = isLeft
-  ? "/slider-navigation-right.svg"
-  : "/slider-navigation-left.svg";
+export default function ServiceAccordion({ introTitle, item, backgroundImage }: any) {
+  const bgUrl = backgroundImage?.node?.mediaItemUrl ?? null;
 
   return (
-    <button
-      aria-label={side === "left" ? "Previous" : "Next"}
-      onClick={onClick}
-      className={`absolute top-1/2 -translate-y-1/2 z-20 cursor-pointer w-18 h-18 flex items-center justify-center cursor-pointer gradient-border rounded-full ${
-        side === "left" ? "hidden" : "right-3"
-      }`}
-    >
-      <Image src={iconSrc} alt={label} width={24} height={24} />
-    </button>
-  );
-}
-
-function PrevArrow(props: any) {
-  const { onClick } = props;
-  return <ArrowBase onClick={onClick} side="left" />;
-}
-
-function NextArrow(props: any) {
-  const { onClick } = props;
-  return <ArrowBase onClick={onClick} side="right" />;
-}
-
-export default function ServiceAccordion({ introTitle, item, backgroundImage }: any) {
-
-    const bgUrl = backgroundImage?.node?.mediaItemUrl ?? null;
-
-    const [slidesToShowCurrent, setSlidesToShowCurrent] = useState(3);
-
-    useEffect(() => {
-      const updateSlidesToShow = () => {
-        const width = window.innerWidth;
-        let value = 3;
-        if (width < 640) {
-          value = 1;
-        } else if (width < 1024) {
-          value = 2;
-        } else {
-          value = 3;
-        }
-        setSlidesToShowCurrent(value);
-      };
-
-      updateSlidesToShow();
-      window.addEventListener("resize", updateSlidesToShow);
-      return () => window.removeEventListener("resize", updateSlidesToShow);
-    }, []);
-
-  const settings = useMemo(
-    () => ({
-      dots: false,
-      infinite: true,
-      speed: 500,
-      slidesToShow: slidesToShowCurrent,
-      slidesToScroll: 1,
-      arrows: true,
-      prevArrow: <PrevArrow />,
-      nextArrow: <NextArrow />,
-    }),
-    [slidesToShowCurrent]
-  );
-
-  const itemsCount = Array.isArray(item) ? item.length : 0;
-  const isCarouselScrollable = itemsCount > slidesToShowCurrent;
-  const showRightGradient = isCarouselScrollable && slidesToShowCurrent > 1 && itemsCount > 0;
-
-	return (
-		<section className="gradient-border-bottom gradient-border-top relative py-12 flex w-full items-center bg-[#28262C] overflow-hidden bg-cover bg-center"
+    <section className="relative flex w-full items-center bg-[#28262C] overflow-hidden bg-cover bg-center"
       style={{
-          backgroundImage: bgUrl ? `url(${bgUrl})` : undefined,
+        backgroundImage: bgUrl ? `url(${bgUrl})` : undefined,
       }}
     >
-            <div className="layout-wrapper mx-auto w-full">
-                {introTitle && (
-                  <h2 className="subtitle font-bold mb-8 text-neutral-softest text-center">{introTitle}</h2>
-                )}
-                <div className="relative rounded-2xl p-6">
-                    {showRightGradient && (
-                      <div className="absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-[#28262C] to-transparent z-10" />
-                    )}
-                    <Slider key={slidesToShowCurrent} {...settings}>
-                    {item.map((item: Item, idx: number) => (
-                        <div key={idx} className="px-3">
-                        <div className="rounded group relative h-70 bg-[#38363C] overflow-hidden">
-                          <div className="h-70 relative">
-                            {/* Title */}
-                            <div className="absolute inset-x-0 bottom-0 top-0 px-12 bg-[#38363C]">
-                            <h3 className="inner-subtitle text-neutral-softest text-lg font-semibold h-full w-full flex items-center justify-center text-center">
-                                {item.title}
-                            </h3>
-                            </div>
-
-                            {/* Hover overlay with description */}
-                            <div className="absolute inset-0 bg-[#38363C] opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                            <div className="h-full w-full flex items-center justify-center px-12">
-                                <p className="text-neutral-softest text-sm md:text-base leading-relaxed text-center">
-                                {item.description}
-                                </p>
-                            </div>
-                            </div>
-                          </div>
-                        </div>
-                        </div>
-                    ))}
-                    </Slider>
-                </div>
+      <div className="mx-auto w-full">
+        {introTitle && (
+          <h2 className="subtitle font-bold mb-8 text-neutral-softest text-center">{introTitle}</h2>
+        )}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+          {item.map((item: Item, idx: number) => (
+            <div key={idx} className={`h-120 overflow-hidden px-12 py-8 flex flex-col items-start justify-center ${idx % 2 === 0 ? 'bg-neutral-strongest' : 'bg-neutral-stronger'}`}>
+              <h3 className="inner-subtitle text-neutral-softest text-lg font-semibold mb-4">
+                {item.title}
+              </h3>
+              <p className="text-neutral-softer text-sm md:text-base leading-relaxed">
+                {item.description}
+              </p>
             </div>
-		</section>
-	)
+          ))}
+        </div>
+      </div>
+    </section>
+  )
 }
