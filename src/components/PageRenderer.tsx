@@ -15,6 +15,7 @@ import CaseStudiesLayout from "./page-components/CaseStudiesLayout"
 import TextHeadingBlock from "@/components/page-components/TextHeadingBlock"
 import PortfolioTabsLayout from "./page-components/PortfolioTabsLayout"
 import FormLayout from "./page-components/FormLayout"
+import WhyWorkWithUs from "./service-components/WhyWorkWithUs"
 
 export default function PageRenderer({ pageBuilder }: any) {
 	if (!pageBuilder) return null
@@ -57,6 +58,8 @@ export default function PageRenderer({ pageBuilder }: any) {
 						return <PortfolioTabsLayout key={index} {...block} />;
 					case "PageFieldGroupPageBuilderFormLayout":
 						return <FormLayout key={index} {...block} />;
+					case "PageFieldGroupPageBuilderWhyWorkWithUsSectionLayout":
+						return <WhyWorkWithUs key={index} {...block} />;
 					default:
 						return null
 				}

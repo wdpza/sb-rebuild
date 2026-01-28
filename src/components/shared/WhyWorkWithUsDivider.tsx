@@ -1,4 +1,8 @@
+"use client";
+
 import React from 'react';
+import Link from 'next/link';
+import { motion } from 'motion/react';
 
 type Item = {
 	title: string;
@@ -30,7 +34,15 @@ export default function WhyWorkWithUsDivider({
 				<div className="w-full flex flex-col md:flex-row">
 					{item.map((card: Item, index: number) => (
 						<React.Fragment key={index}>
-							<div
+							<motion.div
+								initial={{ opacity: 0, y: 50 }}
+								whileInView={{ opacity: 1, y: 0 }}
+								transition={{ 
+									duration: 0.3, 
+									delay: index * 0.5,
+									ease: "linear"
+								}}
+								viewport={{ once: false, amount: 0.2 }}
 								className="
 									p-6
 									md:p-8 
@@ -39,8 +51,8 @@ export default function WhyWorkWithUsDivider({
 									flex-col 
 									flex-1
 									transition-transform 
-									hover:scale-105 
-									duration-300
+									hover:scale-105
+									duration-600
 								"
 							>
 								<h3 className="text-2xl md:text-3xl font-semibold mb-3 text-white">
@@ -49,7 +61,7 @@ export default function WhyWorkWithUsDivider({
 								<p className="font-extralight text-sm md:text-base text-neutral-softer leading-relaxed">
 									{card.description}
 								</p>
-							</div>
+							</motion.div>
 							{index < item.length - 1 && (
 								<div 
 									className="hidden md:block w-px self-stretch" 
@@ -64,7 +76,7 @@ export default function WhyWorkWithUsDivider({
 
 				{buttonLabel && ctaButtonUrl?.nodes && ctaButtonUrl.nodes.length > 0 && (
 					<div className="mt-8">
-						<a
+						<Link
 							href={ctaButtonUrl.nodes[0].uri || '#'}
 							className="
 								inline-flex items-center justify-center rounded-md px-8 py-3 font-semibold text-neutral-softest gradient-border
@@ -72,7 +84,7 @@ export default function WhyWorkWithUsDivider({
 							"
 						>
 							{buttonLabel}
-						</a>
+						</Link>
 					</div>
 				)}
 				

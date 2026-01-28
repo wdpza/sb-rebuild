@@ -29,8 +29,10 @@ export default function ServicesSliderPhoto({ slide }: any) {
         }
     };
 
+    console.log('photo');
+
     return (
-        <div className="services-slider bg-sb-black py-18 md:pb-18">
+        <div className="services-slider my-12 py-6">
             <style jsx global>{`
                 .services-slider .slick-list {
                     overflow: hidden;
@@ -65,9 +67,6 @@ export default function ServicesSliderPhoto({ slide }: any) {
                     .services-slider .slick-slide .slide-content {
                         opacity: 1;
                     }
-                    .services-slider .slick-dots {
-                        display: none !important;
-                    }
                 }
                 .services-slider .slick-dots li button:before {
                     width: 12px !important;
@@ -101,7 +100,6 @@ export default function ServicesSliderPhoto({ slide }: any) {
                     centerPadding: isMobile ? "0px" : "15%",
                     slidesToShow: isMobile ? 1 : 3,
                     slidesToScroll: 1,
-                    arrows:false,
                     responsive: [
                         {
                             breakpoint: 1024,
@@ -126,12 +124,16 @@ export default function ServicesSliderPhoto({ slide }: any) {
                     return (
                         <div key={index} className="px-4 sm:px-0" onClick={() => handleSlideClick(index)}>
                             <div className="overflow-hidden">
+                                <div className="p-4 pt-0 text-center slide-content">
+                                    <h3 className="text-xl md:text-3xl font-bold mb-2 text-neutral-softest">{item.clientName}</h3>
+                                    <p className="text-lg md:text-2xl text-gray-600 font-regular text-neutral-softer">{item.service}</p>
+                                </div>
                                 <Image
                                     src={item.image?.node?.filePath ? `${base_url}${item.image.node.filePath}` : '/placeholder.png'}
                                     alt={item.image?.node?.altText || item.clientName || 'Service Image'}
                                     width={447}
                                     height={580}
-                                    className="w-full h-[380px] md:h-[580px] object-cover rounded"
+                                    className="w-full h-[300px] md:h-[580px] object-cover rounded"
                                 />
                             </div>
                         </div>

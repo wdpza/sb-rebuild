@@ -222,6 +222,30 @@ export const GET_PAGE_BY_SLUG = gql`
                             }
                         }
                     }
+                    ... on PageFieldGroupPageBuilderWhyWorkWithUsSectionLayout {
+                        introTitle
+                        item {
+                            description
+                            title
+                        }
+                        backgroundImage {
+                            node {
+                                altText
+                                mediaItemUrl
+                            }
+                        }
+                        ctaButtonGroup {
+                            buttonLabel
+                            ctaButtonUrl {
+                                nodes {
+                                    uri
+                                    slug
+                                    link
+                                }
+                            }
+                        }
+                        style
+                    }
                 }
             }
         }

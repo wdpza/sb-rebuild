@@ -319,6 +319,13 @@ export const GET_SERVICE_BY_SLUG = gql`
                                 }
                             }
                         }
+                        backgroundImage {
+                            node {
+                                altText
+                                filePath
+                                mediaItemUrl
+                            }
+                        }
                     }
                 }
             }

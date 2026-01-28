@@ -1,5 +1,5 @@
-import WhyWorkWithUsBreath from "./WhyWorkWithUsBreath";
-import WhyWorkWithUsDivider from "./WhyWorkWithUsDivider";
+import WhyWorkWithUsBreath from "../shared/WhyWorkWithUsBreath";
+import WhyWorkWithUsDivider from "../shared/WhyWorkWithUsDivider";
 
 type Item = {
 	title: string;
