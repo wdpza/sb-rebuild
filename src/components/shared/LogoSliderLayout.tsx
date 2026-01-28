@@ -3,12 +3,16 @@
 import Marquee from "react-fast-marquee"
 import Image from "next/image"
 
-export default function LogoSliderLayout({ logo, logos }: any) {
+export default function LogoSliderLayout({ logo, logos, style }: any) {
     const logosData = logos || logo
     if (!logosData || !Array.isArray(logosData) || logosData.length === 0) return null
 
+    const sectionClassName = style && style[0] === "style_2"
+        ? "bg-sb-black py-6 md:py-10"
+        : "bg-gradient-starbright py-6 md:py-10"
+
     return (
-        <section id="logo-slider" className="bg-gradient-starbright py-6">
+        <section id="logo-slider" className={sectionClassName}>
             <Marquee gradient={false} speed={100} autoFill={true}>
                 {logosData.map((item: any, index: number) => {
                     const node = item.logo?.node
