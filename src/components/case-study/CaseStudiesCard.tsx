@@ -34,43 +34,50 @@ export default function CaseStudiesCard({ item }: { item: CaseStudyItem }) {
 
 	return (
 		<article
-			className="relative flex min-h-[500px] flex-col items-center justify-center rounded-2xl bg-[#1D1D1D] p-8 shadow-sm transition hover:shadow-md"
+			className="relative flex min-h-[500px] border border-neutral-strong flex-col items-center justify-center rounded-2xl bg-[#1D1D1D] p-8 shadow-lg transition hover:shadow-lg"
 			style={{
 				backgroundImage: bg ? `url(${bg})` : undefined,
 				backgroundRepeat: 'no-repeat',
+				backgroundSize: 'cover',
+				backgroundPosition: 'center',
 			}}
 		>
+			{/* Grayscale Backdrop Filter Overlay */}
+			<div className="absolute inset-0 z-0 rounded-2xl bg-neutral-strongest/50 backdrop-grayscale" />
+
 			{/* Logo */}
-			<div className="mb-6 flex items-center justify-center h-20">
-				{logoUrl ? (
-					<Image
-						src={logoUrl}
-						alt={logoAlt}
-						width={220}
-						height={80}
-						className="h-auto w-auto max-h-20 object-contain"
-					/>
-				) : (
-					<div className="flex h-20 w-52 items-center justify-center rounded-lg bg-white/5 text-neutral-softest/60">
-						<span className="px-2 text-sm">{item.title}</span>
-					</div>
-				)}
+			<div className="z-10">
+				<div className="mb-6 flex items-center justify-center h-20">
+					{logoUrl ? (
+						<Image
+							src={logoUrl}
+							alt={logoAlt}
+							width={220}
+							height={80}
+							className="h-auto w-auto max-h-20 object-contain"
+						/>
+					) : (
+						<div className="flex h-20 w-52 items-center justify-center rounded-lg bg-white/5 text-neutral-softest/60">
+							<span className="px-2 text-sm">{item.title}</span>
+						</div>
+					)}
+				</div>
+
+				{/* Categories */}
+				<p className="mb-8 text-sm font-medium tracking-wide text-neutral-softest">
+					{categories}
+				</p>
+
+				{/* Button */}
+				<Link
+					href={`/case-study/${item.slug}`}
+					aria-label={`View case study: ${item.title}`}
+					className="inline-flex items-center justify-center rounded-md px-8 py-3 font-semibold text-neutral-softest gradient-border mt-0"
+					scroll={true}
+				>
+					View Case Study
+				</Link>
 			</div>
-
-			{/* Categories */}
-			<p className="mb-8 text-sm font-medium tracking-wide text-neutral-softest">
-				{categories}
-			</p>
-
-		{/* Button */}
-		<Link
-			href={`/case-study/${item.slug}`}
-			aria-label={`View case study: ${item.title}`}
-			className="inline-flex items-center justify-center rounded-md px-8 py-3 font-semibold text-neutral-softest gradient-border mt-0"
-			scroll={true}
-		>
-			View Case Study
-		</Link>			{/* Subtle frame accent */}
 			<div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/5" />
 		</article>
 	);

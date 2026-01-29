@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function SocialMediaPackages({ introTitle, spackages }: any) {
 
   return (
@@ -63,14 +65,12 @@ export default function SocialMediaPackages({ introTitle, spackages }: any) {
                 {/* Button with Link */}
                 {pkg.ctaLink && typeof pkg.ctaLink === "object" && (
                   <div className="flex justify-center w-full mt-4">
-                    <a
+                    <Link
                       href={cleanUrl}
-                      target={pkg.ctaLink.target ? pkg.ctaLink.target : "_blank"}
-                      rel="noopener noreferrer"
                       className="inline-flex items-center justify-center rounded-md px-8 py-3 font-semibold text-neutral-softest gradient-border"
                     >
                       {pkg.ctaLink.title}
-                    </a>
+                    </Link>
                   </div>
                 )}
               </div>
