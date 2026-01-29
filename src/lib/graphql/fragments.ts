@@ -5,9 +5,25 @@ export const MEDIA_NODE_FRAGMENT = gql`
   fragment MediaNode on MediaItem {
     altText
     mediaItemUrl
-    mediaDetails {
-      file
+  }
+`;
+
+// Background image fragment
+export const BACKGROUND_IMAGE_FRAGMENT = gql`
+  fragment BackgroundImage on ACF_MediaItemConnectionEdge {
+    node {
+      altText
+      mediaItemUrl
     }
+  }
+`;
+
+// CTA Link fragment
+export const CTA_LINK_FRAGMENT = gql`
+  fragment CtaLink on AcfLink {
+    url
+    title
+    target
   }
 `;
 

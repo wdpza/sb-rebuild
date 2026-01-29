@@ -16,13 +16,14 @@ import TextHeadingBlock from "@/components/page-components/TextHeadingBlock"
 import PortfolioTabsLayout from "./page-components/PortfolioTabsLayout"
 import FormLayout from "./page-components/FormLayout"
 import WhyWorkWithUs from "./service-components/WhyWorkWithUs"
+import type { PageRendererProps, PageBuilderBlock } from "@/types/common"
 
-export default function PageRenderer({ pageBuilder }: any) {
+export default function PageRenderer({ pageBuilder }: PageRendererProps) {
 	if (!pageBuilder) return null
 
 	return (
 		<>
-			{pageBuilder.map((block: any, index: number) => {
+			{pageBuilder.map((block: PageBuilderBlock, index: number) => {
 				switch (block.__typename) {
 					case "PageFieldGroupPageBuilderHeroLayout":
 						return <HeroLayout key={index} {...block} />

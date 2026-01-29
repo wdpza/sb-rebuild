@@ -1,3 +1,9 @@
+"use client";
+
+import React from 'react';
+import Link from 'next/link';
+import { motion } from 'motion/react';
+
 type Item = {
 	title: string;
 	description: string;
@@ -39,9 +45,17 @@ export default function WhyWorkWithUsBreath({
           "
 				>
 					{item.map((card: Item, index: number) => (
-						<div
-							key={index}
-							className="
+					<motion.div
+						key={index}
+						initial={{ opacity: 0, y: 50 }}
+						whileInView={{ opacity: 1, y: 0 }}
+						transition={{ 
+							duration: 0.3, 
+							delay: index * 0.5,
+							ease: "linear"
+						}}
+						viewport={{ once: false, amount: 0.2 }}
+						className="
                 p-6
                 md:p-8 
                 md:py-12
@@ -56,23 +70,22 @@ export default function WhyWorkWithUsBreath({
                 hover:scale-105 
                 duration-300
               "
-						>
-							<h3 className="text-2xl md:text-3xl font-semibold mb-3 text-gradient-starbright">
-								{card.title}
-							</h3>
-							<p className="font-extralight text-sm md:text-base text-neutral-softer leading-relaxed">
-								{card.description}
-							</p>
-						</div>
-					))}
-
+					>
+						<h3 className="text-2xl md:text-3xl font-semibold mb-3 text-gradient-starbright">
+							{card.title}
+						</h3>
+						<p className="font-extralight text-sm md:text-base text-neutral-softer leading-relaxed">
+							{card.description}
+						</p>
+					</motion.div>
+				))}
 
 				</div>
 
 				{/* CTA Button */}
 				<div className="mt-8">
 					{buttonLabel && ctaButtonUrl?.nodes && ctaButtonUrl.nodes.length > 0 && (
-						<a
+						<Link
 							href={ctaButtonUrl.nodes[0].uri || '#'}
 							className="
 								inline-flex items-center justify-center rounded-md px-8 py-3 font-semibold text-neutral-softest gradient-border
@@ -80,7 +93,7 @@ export default function WhyWorkWithUsBreath({
 							"
 						>
 							{buttonLabel}
-						</a>
+						</Link>
 					)}
 				</div>
 			</div>

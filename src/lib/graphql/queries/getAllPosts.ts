@@ -7,25 +7,19 @@ export const GET_ALL_POSTS = gql`
             blogOptionsFields {
                 blogHero {
                     backgroundImage {
-                    node {
-                        altText
-                        mediaDetails {
-                        filePath
-                        file
+                        node {
+                            altText
+                            mediaItemUrl
                         }
-                    }
                     }
                     title
                     subHeading
                     description
                     mainImage {
-                    node {
-                        altText
-                        mediaDetails {
-                        file
-                        filePath
+                        node {
+                            altText
+                            mediaItemUrl
                         }
-                    }
                     }
                     anchor
                 }

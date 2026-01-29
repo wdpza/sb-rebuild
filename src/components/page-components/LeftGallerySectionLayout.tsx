@@ -1,9 +1,12 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import Slider, { Settings } from "react-slick";
+import dynamic from "next/dynamic";
+import type { Settings } from "react-slick";
 import Image from "next/image";
 import DOMPurify from "isomorphic-dompurify";
+
+const Slider = dynamic(() => import("react-slick"), { ssr: false });
 
 type GalleryImage = {
 	id?: string | number;

@@ -1,6 +1,11 @@
-import Link from "next/link";
+'use client'
 
-export default function ExitLayout({ title, backgroundImage, ctaLink, backgroundOverlay }: any) {
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { ANIMATION_PRESETS } from "@/lib/constants/animations";
+import type { ExitLayoutProps } from "@/types/common";
+
+export default function ExitLayout({ title, backgroundImage, ctaLink, backgroundOverlay }: ExitLayoutProps) {
   const bgUrl = backgroundImage?.node?.mediaItemUrl ?? null;
 
   const cleanUrl = ctaLink?.url
@@ -21,9 +26,13 @@ export default function ExitLayout({ title, backgroundImage, ctaLink, background
         </>
       )}
       <div className="relative z-10 layout-wrapper flex flex-col items-center justify-center text-center text-neutral-softest">
-        <h2 className="exit-title uppercase font-bold mb-8 text-balance">
+        <motion.h2
+          className="exit-title uppercase font-bold mb-8 text-balance"
+          {...ANIMATION_PRESETS.fadeInUp}
+          viewport={{ once: false, amount: 0.2 }}
+        >
           {title ?? null}
-        </h2>
+        </motion.h2>
         {cleanUrl && (
           <Link
             href={cleanUrl}

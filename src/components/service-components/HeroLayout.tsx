@@ -1,7 +1,11 @@
+'use client'
+
 import DOMPurify from 'isomorphic-dompurify';
 import Link from "next/link";
 import Image from "next/image";
+import { motion } from "framer-motion";
 import LogoSliderLayout from '../shared/LogoSliderLayout';
+import { ANIMATION_DURATIONS, ANIMATION_DELAYS, ANIMATION_EASINGS, ANIMATION_DISTANCES } from "@/lib/constants/animations";
 
 export default function HeroLayout({ title, ctaLink, description, subTitle, backgrounD, image, logoSlider }: any) {
 	const bgUrl = backgrounD?.node?.mediaItemUrl ?? null;
@@ -26,25 +30,43 @@ export default function HeroLayout({ title, ctaLink, description, subTitle, back
 			<div className="relative z-10 grid w-full layout-wrapper mx-auto grid-cols-1 md:grid-cols-24 gap-2">
 
 				<div className="col-span-18 flex flex-col justify-center text-left gap-4">
-					<h1 className="font-archivo uppercase hero-title font-black drop-shadow-lg text-gradient-starbright">
+					<motion.h1
+						className="font-archivo uppercase hero-title font-black drop-shadow-lg text-gradient-starbright"
+						initial={{ opacity: 0, x: -ANIMATION_DISTANCES.medium }}
+						animate={{ opacity: 1, x: 0 }}
+						transition={{ duration: ANIMATION_DURATIONS.slow, ease: ANIMATION_EASINGS.easeOut, delay: ANIMATION_DELAYS.short }}
+					>
 						{title}
-					</h1>
+					</motion.h1>
 
 					{subTitle && (
-						<h2 className="leading-snug font-bold mt-4 hero-subtitle text-neutral-softest drop-shadow-md tracking-wide">
+						<motion.h2
+							className="leading-snug font-bold mt-4 hero-subtitle text-neutral-softest drop-shadow-md tracking-wide"
+							initial={{ opacity: 0, x: -ANIMATION_DISTANCES.medium }}
+							animate={{ opacity: 1, x: 0 }}
+							transition={{ duration: ANIMATION_DURATIONS.slow, ease: ANIMATION_EASINGS.easeOut, delay: ANIMATION_DELAYS.medium }}
+						>
 							{subTitle}
-						</h2>
+						</motion.h2>
 					)}
 
 					{description && (
-						<div
+						<motion.div
 							className="mt-6 text-lg text-gray-100"
 							dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(description) }}
+							initial={{ opacity: 0, x: -ANIMATION_DISTANCES.medium }}
+							animate={{ opacity: 1, x: 0 }}
+							transition={{ duration: ANIMATION_DURATIONS.slow, ease: ANIMATION_EASINGS.easeOut, delay: ANIMATION_DELAYS.long }}
 						/>
 					)}
 
 					{ctaLink && (
-						<div className="mt-8">
+						<motion.div
+							className="mt-8"
+							initial={{ opacity: 0, x: -ANIMATION_DISTANCES.medium }}
+							animate={{ opacity: 1, x: 0 }}
+							transition={{ duration: ANIMATION_DURATIONS.slow, ease: ANIMATION_EASINGS.easeOut, delay: ANIMATION_DELAYS.long }}
+						>
 							<Link
 								href={cleanUrl}
 								className="
@@ -59,7 +81,7 @@ export default function HeroLayout({ title, ctaLink, description, subTitle, back
 							>
 								{ctaLink.title}
 							</Link>
-						</div>
+						</motion.div>
 					)}
 				</div>
 

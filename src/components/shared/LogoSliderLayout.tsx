@@ -8,8 +8,8 @@ export default function LogoSliderLayout({ logo, logos, style }: any) {
     if (!logosData || !Array.isArray(logosData) || logosData.length === 0) return null
 
     const sectionClassName = style && style[0] === "style_2"
-        ? "bg-sb-black py-6 md:py-10"
-        : "bg-gradient-starbright py-6 md:py-10"
+        ? "bg-sb-black py-6 md:py-4"
+        : "bg-gradient-starbright py-6 md:py-4"
 
     return (
         <section id="logo-slider" className={sectionClassName}>

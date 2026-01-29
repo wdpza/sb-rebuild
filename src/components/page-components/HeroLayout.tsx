@@ -1,18 +1,23 @@
-import DOMPurify from "isomorphic-dompurify";
+'use client'
+
 import Link from "next/link";
 import Image from "next/image";
 import ContactForm from "../shared/ContactForm";
+import { motion } from "framer-motion";
+import { createSafeHtml } from "@/lib/utils/sanitize";
+import { ANIMATION_DURATIONS, ANIMATION_DELAYS, ANIMATION_EASINGS, ANIMATION_DISTANCES } from "@/lib/constants/animations";
+import type { HeroLayoutProps } from "@/types/common";
 
-export default async function HeroLayout({
-	title,
-	description,
-	subTitle,
-	background,
-	image,
-	ctaLink,
-	showContactForm,
-	forms
-}: any) {
+export default function HeroLayout({
+title,
+description,
+subTitle,
+background,
+image,
+ctaLink,
+showContactForm,
+forms
+}: HeroLayoutProps) {
 	const bgUrl = background?.node?.mediaItemUrl ?? null;
 	const imageUrl = image?.node?.mediaItemUrl ?? null;
 
@@ -28,33 +33,46 @@ export default async function HeroLayout({
 	const paddingY = showForm ? "py-32" : "py-24";
 
 	return (
-		<section
+<section
 			className={`relative flex w-full items-center bg-cover bg-bottom bg-no-repeat overflow-hidden ${sectionHeight}`}
 			style={{
 				backgroundImage: bgUrl ? `url(${bgUrl})` : undefined,
 			}}
 		>
 			<div className={`relative z-10 grid layout-wrapper grid-cols-1 md:grid-cols-24 gap-2 ${paddingY} ${title ? "min-h-screen" : "h-[160px]"}`}>
-				
+
 				{/* Left column */}
 				<div className={`${colSpanLeft} flex flex-col justify-center text-left gap-8 md:gap-4 mt-12 z-4`}>
 
 					{title && (
-						<h1 className="font-archivo uppercase hero-title font-black drop-shadow-lg text-gradient-starbright text-center md:text-left text-balance">
+						<motion.h1
+							className="font-archivo uppercase hero-title font-black drop-shadow-lg text-gradient-starbright text-center md:text-left text-balance"
+							initial={{ opacity: 0, x: -ANIMATION_DISTANCES.medium }}
+							animate={{ opacity: 1, x: 0 }}
+							transition={{ duration: ANIMATION_DURATIONS.slow, ease: ANIMATION_EASINGS.easeOut, delay: ANIMATION_DELAYS.short }}
+						>
 							{title}
-						</h1>
+						</motion.h1>
 					)}
 
 					{subTitle && (
-						<h2 className={`leading-tight mt-4 ${subTitleSize} text-neutral-softest drop-shadow-md tracking-wide text-center md:text-left`}>
+						<motion.h2
+							className={`leading-tight mt-4 ${subTitleSize} text-neutral-softest drop-shadow-md tracking-wide text-center md:text-left`}
+							initial={{ opacity: 0, x: -ANIMATION_DISTANCES.medium }}
+							animate={{ opacity: 1, x: 0 }}
+							transition={{ duration: ANIMATION_DURATIONS.slow, ease: ANIMATION_EASINGS.easeOut, delay: ANIMATION_DELAYS.medium }}
+						>
 							{subTitle}
-						</h2>
+						</motion.h2>
 					)}
 
 					{description && (
-						<div
+						<motion.div
 							className="hero-description mt-6 mb-6 text-neutral-softest text-center md:text-left"
-							dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(description) }}
+							dangerouslySetInnerHTML={createSafeHtml(description)}
+							initial={{ opacity: 0, x: -ANIMATION_DISTANCES.medium }}
+							animate={{ opacity: 1, x: 0 }}
+							transition={{ duration: ANIMATION_DURATIONS.slow, ease: ANIMATION_EASINGS.easeOut, delay: ANIMATION_DELAYS.long }}
 						/>
 					)}
 
@@ -79,12 +97,12 @@ export default async function HeroLayout({
 
 					{hasForm && (
 						<div className="text-neutral-softest mb-4">
-							<p className='text-lg font-light mt-6 mb-6 text-neutral-softest text-center md:text-left md:pr-12 mb-12'>Please fill out our contact form. Once you hit submit, our team will be in touch faster than you can say “strategy”.</p>
-							<ContactForm />
-						</div>
-					)}
-					
-				</div>
+						<p className='text-lg font-light mt-6 mb-6 text-neutral-softest text-center md:text-left md:pr-12 mb-12'>Please fill out our contact form. Once you hit submit, our team will be in touch faster than you can say &ldquo;strategy&rdquo;.</p>
+						<ContactForm />
+					</div>
+				)}
+
+			</div>
 
 				{/* Right column */}
 				{imageUrl && (

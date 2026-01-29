@@ -40,7 +40,7 @@ export default function ServicesPhotosMasonry({ slide, backgroundImage }: any) {
                 @media (min-width: 1024px) {
                     .masonry-grid {
                         column-count: 5;
-                        column-gap: 2rem;
+                        column-gap: 1rem;
                     }
                 }
                 .masonry-item {
@@ -55,7 +55,7 @@ export default function ServicesPhotosMasonry({ slide, backgroundImage }: any) {
                 }
                 @media (min-width: 1024px) {
                     .masonry-item {
-                        margin-bottom: 2rem;
+                        margin-bottom: 1rem;
                     }
                 }
             `}</style>

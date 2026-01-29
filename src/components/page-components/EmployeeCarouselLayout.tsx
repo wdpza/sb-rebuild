@@ -19,9 +19,9 @@ type EmployeePhoto = {
 };
 
 type Props = {
-	title: string;
+	title?: string;
 	description?: string;
-	employeePhotos: { nodes: EmployeePhoto[] };
+	employeePhotos?: { nodes: EmployeePhoto[] };
 	/** number of visible cards; must be odd; default 5 */
 	visible?: 5 | 7 | 9;
 	backgroundImage?: { node?: MediaNode | null } | null;

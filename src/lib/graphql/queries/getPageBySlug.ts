@@ -14,9 +14,6 @@ export const GET_PAGE_BY_SLUG = gql`
                         background {
                             node {
                                 mediaItemUrl
-                                mediaDetails {
-                                    file
-                                }
                             }
                         }
                         image {
@@ -47,9 +44,6 @@ export const GET_PAGE_BY_SLUG = gql`
                                 node {
                                     altText
                                     mediaItemUrl
-                                    sizes
-                                    sourceUrl
-                                    srcSet
                                 }
                             }
                         }
@@ -79,9 +73,6 @@ export const GET_PAGE_BY_SLUG = gql`
                             node {
                                 altText
                                 mediaItemUrl
-                                mediaDetails {
-                                    file
-                                }
                             }
                         }
                         ctaLink {

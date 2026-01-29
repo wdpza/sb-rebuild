@@ -1,15 +1,18 @@
 "use client";
 
-import Slider from "react-slick";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useRef } from "react";
+import type { Settings } from "react-slick";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
+const Slider = dynamic(() => import("react-slick"), { ssr: false }) as any;
+
 export default function PortfolioSlider({ items, title, backgroundImage }: any) {
 
-    const sliderRef = useRef<Slider | null>(null);
+    const sliderRef = useRef<any>(null);
     const bgUrl = backgroundImage?.node?.mediaItemUrl ?? null;
 
     const settings = {
