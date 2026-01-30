@@ -56,7 +56,18 @@ export default function Header({ menu, logo }: HeaderProps) {
 	}, [flatItems]);
 
 	const [openIndex, setOpenIndex] = useState<number | null>(null);
+	const [isScrolled, setIsScrolled] = useState(false);
 	const navRef = useRef<HTMLElement | null>(null);
+
+	// Scroll detection
+	useEffect(() => {
+		const handleScroll = () => {
+			setIsScrolled(window.scrollY > 0);
+		};
+
+		window.addEventListener("scroll", handleScroll);
+		return () => window.removeEventListener("scroll", handleScroll);
+	}, []);
 
 	// Global event listeners for closing dropdowns
 	useEffect(() => {
@@ -83,7 +94,7 @@ export default function Header({ menu, logo }: HeaderProps) {
 	if (!menu) return null;
 
 	return (
-		<header className="absolute top-0 left-0 right-0 z-50 py-4 lg:py-12">
+		<header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'py-4 lg:py-6 bg-sb-black/80 backdrop-blur-sm gradient-border-top' : 'py-4 lg:py-12'}`}>
 			<div className="layout-wrapper bg-transparent">
 				<div className="flex items-center justify-between">
 					{logo?.mediaItemUrl && (
@@ -92,7 +103,7 @@ export default function Header({ menu, logo }: HeaderProps) {
 								<Image
 									src={'/logo.png'}
 									alt={logo.altText || "Starbright"}
-									className="h-10 w-auto md:h-14 object-contain"
+									className={`h-10 w-auto object-contain transition-all duration-300 ${isScrolled ? "md:h-8" : "md:h-11"}`}
 									width={320}
 									height={62}
 									priority
