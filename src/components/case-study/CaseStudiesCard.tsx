@@ -43,7 +43,7 @@ export default function CaseStudiesCard({ item }: { item: CaseStudyItem }) {
 			}}
 		>
 			{/* Grayscale Backdrop Filter Overlay */}
-			<div className="absolute inset-0 z-0 rounded-2xl bg-neutral-strongest/50 backdrop-grayscale" />
+			<div className="absolute inset-0 z-0 rounded-2xl bg-neutral-strongest/90 backdrop-grayscale" />
 
 			{/* Logo */}
 			<div className="z-10">
