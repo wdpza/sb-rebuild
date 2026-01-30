@@ -5,6 +5,8 @@ import { useState, useEffect } from "react";
 
 export default function PortfolioTabsLayout({ categories, backgroundImage }: any) {
 
+    console.log(categories)
+
     const backgroundImageUrl = backgroundImage?.node?.filePath || null;
 
     const items = Array.isArray(categories)
