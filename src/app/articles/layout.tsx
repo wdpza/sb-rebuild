@@ -13,7 +13,7 @@ export default async function ArticleLayout({ children }: { children: React.Reac
 		<div className="article-layout flex flex-col w-full">
 		<BlogHero blogOptions={blogOptions.blogOptionsFields} />
 
-		<div className="grid w-full max-w-[1600px] mx-auto grid-cols-1 lg:grid-cols-8 gap-6 px-4 sm:px-8 lg:px-12 py-10 sm:py-16">
+		<div className="layout-wrapper grid mx-auto grid-cols-1 lg:grid-cols-8 gap-6 px-4 sm:px-8 lg:px-12 py-10 sm:py-16">
 			<div className="lg:col-span-2">
 			<CategorySidebar categories={categories} />
 			</div>

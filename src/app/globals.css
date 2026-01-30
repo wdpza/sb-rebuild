@@ -428,11 +428,6 @@
   background-color: #fff;
 }
 
-.article-slug-page a {
-  color: #fff;
-  text-decoration: underline;
-}
-
 .hover\:text-base:hover {
   color: var(--foreground);
 }

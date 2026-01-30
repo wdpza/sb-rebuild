@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function BlogInnerHero({ background, title } : any) {
 
@@ -10,15 +11,31 @@ export default function BlogInnerHero({ background, title } : any) {
             "url('https://cms.starbright.co.za/wp-content/uploads/2025/10/hero.png')",
         }}
     >
-      <div className="h-screen relative z-10 grid w-full max-w-[1600px] mx-auto grid-cols-1 md:grid-cols-24 gap-2 px-12 py-24">
+      <div className="layout-wrapper flex flex-col justify-center items-center h-screen relative z-10">
         {/* Left Column */}
-        <div className="col-span-13 flex flex-col justify-center text-left gap-4 z-4">
-          <h1 className="font-archivo uppercase hero-title font-black drop-shadow-lg text-gradient-starbright text-center md:text-left">
+        <div className="col-span-24 flex flex-col justify-center gap-4 z-4 text-center">
+          <h1 className="font-archivo uppercase hero-title font-black drop-shadow-lg text-gradient-starbright mb-12">
             {title}
           </h1>
         </div>
 
-        {/* Right Column */}
+        <Link
+            href={`#article`}
+            className="
+                bg-neutral-strongest
+                gradient-border
+                inline-block px-8 py-3 
+                text-neutral-softest font-semibold 
+                rounded-lg shadow-md 
+                transition-all duration-300 
+                hover:bg-gradient-starbright
+                no-underline
+            "
+        >
+            Read Article
+        </Link>
+
+        {/* Right Column
         <div className="col-span-11 relative flex items-center justify-center -mb-24">
           {background ? (
             <Image
@@ -32,6 +49,7 @@ export default function BlogInnerHero({ background, title } : any) {
             />
           ) : null}
         </div>
+        */}
       </div>
     </section>
   );

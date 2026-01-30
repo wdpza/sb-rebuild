@@ -5,21 +5,32 @@ import DOMPurify from "isomorphic-dompurify";
 export default function BlogblogHero({ blogOptions }: any) {
     const { blogHero } = blogOptions ?? {};
 
+    //console.log(blogHero);
+
     const background =
+        blogHero?.backgroundImage?.node?.mediaItemUrl ?? 
         blogHero?.backgroundImage?.node?.mediaDetails?.filePath ?? null;
-    const mainImg = blogHero?.mainImage?.node?.mediaDetails?.filePath ?? null;
+    const mainImg = 
+        blogHero?.mainImage?.node?.mediaItemUrl ?? 
+        blogHero?.mainImage?.node?.mediaDetails?.filePath ?? null;
     const title = blogHero?.title ?? "Our Blog";
     const subHeading = blogHero?.subHeading ?? "";
     const description = blogHero?.description ?? "";
     const anchor = blogHero?.anchor ?? "";
 
-    const bgUrl = background
+    const bgUrl = background?.startsWith('http')
+        ? background
+        : background
         ? `${process.env.NEXT_PUBLIC_WP_BASE_URL}${background}`
         : undefined;
 
-    const mainImgUrl = mainImg
+    const mainImgUrl = mainImg?.startsWith('http')
+        ? mainImg
+        : mainImg
         ? `${process.env.NEXT_PUBLIC_WP_BASE_URL}${mainImg}`
         : undefined;
+
+    console.log(mainImgUrl)
 
     return (
         <section
@@ -28,10 +39,10 @@ export default function BlogblogHero({ blogOptions }: any) {
                 backgroundImage: bgUrl ? `url(${bgUrl})` : undefined,
             }}
         >
-            <div className="h-screen relative z-10 grid w-full max-w-[1600px] mx-auto grid-cols-1 md:grid-cols-24 gap-2 px-12 py-24">
+            <div className="layout-wrapper h-screen flex relative z-10">
                 {/* Left column: title, subtitle, description, anchor */}
-                <div className="col-span-13 flex flex-col justify-center text-left gap-4 z-4">
-                    <h1 className="font-archivo uppercase hero-title font-black drop-shadow-lg text-gradient-starbright text-center md:text-left">
+                <div className="col-span-8 flex flex-col justify-center text-left gap-4 z-40">
+                    <h1 className="w-full md:w-3/4 font-archivo uppercase hero-title font-black drop-shadow-lg text-gradient-starbright text-center md:text-left">
                         {title}
                     </h1>
 
@@ -72,13 +83,13 @@ export default function BlogblogHero({ blogOptions }: any) {
 
                 {/* Right column: hero image */}
                 {mainImgUrl && (
-                    <div className="col-span-11 flex justify-center items-center">
+                    <div className="flex justify-center items-center">
                         <Image
                             src={mainImgUrl}
                             alt={title ?? "Blog hero image"}
                             width={800}
                             height={600}
-                            className="absolute max-h-[80vh] object-contain"
+                            className="absolute max-h-[80vh] object-contain right-[-10px]"
                             style={{ bottom: "2px" }}
                             priority
                         />
