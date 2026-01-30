@@ -8,11 +8,11 @@ export default function LogoSliderLayout({ logo, logos, style }: any) {
     if (!logosData || !Array.isArray(logosData) || logosData.length === 0) return null
 
     const sectionClassName = style && style[0] === "style_2"
-        ? "bg-sb-black py-6 md:py-4"
-        : "bg-gradient-starbright py-6 md:py-4"
+        ? "bg-sb-black"
+        : "bg-gradient-starbright"
 
     return (
-        <section id="logo-slider" className={sectionClassName}>
+        <section id="logo-slider" className={`py-6 md:py-2 ${sectionClassName}`}>
             <Marquee gradient={false} speed={100} autoFill={true}>
                 {logosData.map((item: any, index: number) => {
                     const node = item.logo?.node
@@ -29,7 +29,7 @@ export default function LogoSliderLayout({ logo, logos, style }: any) {
                                 alt={node.altText?.trim() || `Logo ${index + 1}`}
                                 width={120}
                                 height={60}
-                                className="object-contain max-h-[80px] w-auto"
+                                className="object-contain max-h-[50px] h-auto w-auto max-w-[150px] w-auto hover:scale-115 transition-transform duration-300 ease-in-out"
                                 priority={false}
                             />
                         </div>

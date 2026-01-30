@@ -123,7 +123,7 @@ export default function ServicesSlider({ slide }: any) {
                         <div key={index} className="px-4 sm:px-0" onClick={() => handleSlideClick(index)}>
                             <div className="overflow-hidden">
                                 <div className="p-4 pt-0 text-center slide-content">
-                                    <h3 className="text-xl md:text-3xl font-bold mb-2 text-neutral-softest">{item.clientName}</h3>
+                                    <h3 className="text-xl md:text-3xl font-bold mb-2 text-neutral-strong">{item.clientName}</h3>
                                     <p className="text-lg md:text-2xl text-gray-600 font-regular text-neutral-softer">{item.service}</p>
                                 </div>
                                 <Image

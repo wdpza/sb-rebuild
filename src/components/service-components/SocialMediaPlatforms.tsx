@@ -7,14 +7,14 @@ export default function SocialMediaPlatforms({ introTitle, platform, backgroundI
 
     return (
         <div
-            className="relative py-20 bg-cover bg-center"
+            className="relative bg-cover bg-center shadow"
             style={{
                 backgroundImage: bgUrl ? `url(${bgUrl})` : undefined,
             }}
         >
             <div className="layout-wrapper mx-auto w-full">
-                <h2 className="subtitle font-bold mb-12 text-neutral-softest text-center">{introTitle}</h2>
-                <div className="flex justify-center items-center gap-16 max-w-[1200px] mx-auto">
+                {introTitle && <h2 className="subtitle font-bold mb-12 text-neutral-softest text-center">{introTitle}</h2>}
+                <div className="flex justify-between items-center gap-16">
                     {platform.map((platform: any, index: number) => {
                         const imageElement = (
                             <Image
@@ -22,7 +22,7 @@ export default function SocialMediaPlatforms({ introTitle, platform, backgroundI
                                 alt={platform.platformImage.node.altText || `Platform ${index + 1}`}
                                 width={200}
                                 height={200}
-                                className="max-w-[200px] h-auto"
+                                className="w-auto max-w-[200px] h-auto max-h-[60px] hover:scale-110 transition-transform duration-300 ease-in-out"
                                 loading="lazy"
                             />
                         );
@@ -40,7 +40,7 @@ export default function SocialMediaPlatforms({ introTitle, platform, backgroundI
                         ) : (
                             <div
                                 key={index}
-                                className="flex justify-center items-center flex-shrink-0"
+                                className="flex justify-center py-12 items-center flex-shrink-0"
                             >
                                 {imageElement}
                             </div>

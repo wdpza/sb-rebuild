@@ -305,21 +305,6 @@
     padding-top: calc(var(--spacing) * 60);
   }
 
-  .gradient-border-bottom {
-    position: relative;
-    overflow: hidden;
-  }
-
-  .gradient-border-bottom::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    height: 2px;
-    width: 100%;
-    background: linear-gradient(to left, #36aefa, #b32992, #de464b);
-  }
-
   .popular-background-gradient {
     background: linear-gradient(to bottom right, #38363c 40%, #b63387 100%);
     background-repeat: no-repeat;
