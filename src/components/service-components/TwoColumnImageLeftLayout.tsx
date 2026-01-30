@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 export default function TwoColumnImageLeftLayout({image, rightColumn, backgroundImage}: any) {
 
@@ -15,7 +18,13 @@ export default function TwoColumnImageLeftLayout({image, rightColumn, background
                 {/* Two column image left layout */}
                 <div className="grid grid-cols-1 md:grid-cols-16 gap-6 md:gap-12 py-12 md:py-24 items-center">
                     {/* Left: Image */}
-                    <div className="col-span-1 md:col-span-9">
+                    <motion.div 
+                        className="col-span-1 md:col-span-9"
+                        initial={{ opacity: 0, x: -100 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true, amount: 0.3 }}
+                        transition={{ duration: 0.8, ease: "easeOut" }}
+                    >
                         {image?.node?.filePath && (
                             <Image
                                 src={`${base_url}${image.node.filePath}`}
@@ -25,7 +34,7 @@ export default function TwoColumnImageLeftLayout({image, rightColumn, background
                                 className="w-full h-auto rounded-lg object-cover"
                             />
                         )}
-                    </div>
+                    </motion.div>
 
                     {/* Right: Text Content */}
                     <div className="col-span-1 md:col-span-7 space-y-6">

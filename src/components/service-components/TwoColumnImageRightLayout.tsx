@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 export default function TwoColumnImageRightLayout({image, leftColumn, backgroundImage}: any) {
     
@@ -36,7 +39,13 @@ export default function TwoColumnImageRightLayout({image, leftColumn, background
                         )}
                     </div>
 
-                    <div className="col-span-1 md:col-span-9 order-1 md:order-2">
+                    <motion.div 
+                        className="col-span-1 md:col-span-9 order-1 md:order-2"
+                        initial={{ opacity: 0, x: 100 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true, amount: 0.3 }}
+                        transition={{ duration: 0.8, ease: "easeOut" }}
+                    >
                         {image?.node?.filePath && (
                             <Image
                                 src={`${base_url}${image.node.filePath}`}
@@ -46,7 +55,7 @@ export default function TwoColumnImageRightLayout({image, leftColumn, background
                                 className="w-full h-auto rounded-lg object-cover"
                             />
                         )}
-                    </div>
+                    </motion.div>
                 </div>
 
             </div>
