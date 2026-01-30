@@ -53,7 +53,7 @@ export default function NavDropdown({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 4, scale: 0.98 }}
             transition={{ duration: 0.18, ease: "easeOut" }}
-            className="absolute right-0 mt-4 z-50 bg-[#171717] p-10 shadow-xl rounded-xl w-4xl"
+            className="absolute right-0 mt-4 z-50 bg-[#171717] p-10 shadow-xl rounded-xl w-6xl"
           >
             <MegaMenu
               item={item}

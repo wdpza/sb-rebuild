@@ -51,9 +51,9 @@ export default function MegaMenu({ item, onClose }: MegaMenuProps) {
   });
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-5xl">
-      {Object.values(columns).map(col => (
-        <div key={col.name} className="flex flex-col space-y-4">
+    <div className="flex flex-wrap gap-8 max-w-8xl">
+      {Object.values(columns).map((col, index) => (
+        <div key={col.name} className="flex flex-col space-y-4 px-5">
           <h3 className="text-gradient-starbright text-lg font-bold text-neutral-soft">
             {col.name}
           </h3>
@@ -71,6 +71,12 @@ export default function MegaMenu({ item, onClose }: MegaMenuProps) {
               </li>
             ))}
           </ul>
+
+          {/*
+          {index < Object.values(columns).length - 1 && (
+            <div className="mx-8 hidden md:block absolute right-0 top-0 bottom-0 w-px bg-neutral-soft/10" />
+          )}
+            */}
         </div>
       ))}
     </div>
