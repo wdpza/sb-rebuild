@@ -16,12 +16,6 @@ export default function WhyWorkWithUs({
 
 	const layoutStyle = style[0] || "style_2";
 
-	console.log(layoutStyle)
-	/*
-	If style = style_1 return <WhyWorkWithUsBreath ... />
-	Otherwise, return null
-	*/
-
 	if (layoutStyle === "style_1") {
 		return <WhyWorkWithUsBreath
 			introTitle={introTitle}

@@ -14,6 +14,35 @@ export const GET_POST_BY_SLUG = gql`
                     altText
                 }
             }
+            seo {
+                title
+                description
+                canonicalUrl
+                focusKeywords
+                robots
+                openGraph {
+                    title
+                    description
+                    url
+                    type
+                    locale
+                    siteName
+                    image {
+                        url
+                        width
+                        height
+                        type
+                    }
+                    twitterMeta {
+                        card
+                        site
+                        creator
+                        title
+                        description
+                        image
+                    }
+                }
+            }
         }
     }
 `;

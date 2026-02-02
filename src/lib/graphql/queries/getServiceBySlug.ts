@@ -4,6 +4,35 @@ export const GET_SERVICE_BY_SLUG = gql`
     query GetServiceBySlug($slug: ID!) {
         service(id: $slug, idType: URI) {
             title
+            seo {
+                title
+                description
+                canonicalUrl
+                focusKeywords
+                robots
+                openGraph {
+                    title
+                    description
+                    url
+                    type
+                    locale
+                    siteName
+                    image {
+                        url
+                        width
+                        height
+                        type
+                    }
+                    twitterMeta {
+                        card
+                        site
+                        creator
+                        title
+                        description
+                        image
+                    }
+                }
+            }
             servicePageFields {
                 servicePageBuilder {
                     __typename
