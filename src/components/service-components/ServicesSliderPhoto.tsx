@@ -29,8 +29,6 @@ export default function ServicesSliderPhoto({ slide }: any) {
         }
     };
 
-    console.log('photo');
-
     return (
         <div className="services-slider my-12 py-6">
             <style jsx global>{`

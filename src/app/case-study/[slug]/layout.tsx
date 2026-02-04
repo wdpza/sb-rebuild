@@ -8,6 +8,9 @@ import { getCaseStudyItems } from "@/lib/graphql/queries/getCaseStudyItems";
 import CaseStudiesMore from "@/components/case-study/CaseStudiesMore";
 import ScrollToTop from "@/components/case-study/ScrollToTop";
 
+// Revalidate every hour (3600 seconds)
+export const revalidate = 3600;
+
 type CaseStudyItem = {
 	title: string;
 	slug: string;

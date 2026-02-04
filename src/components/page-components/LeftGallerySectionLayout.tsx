@@ -79,13 +79,19 @@ export default function LeftGallerySectionLayout({
 	};
 
 	return (
-		<section
-			className="bg-[#171717] bg-cover bg-bottom bg-no-repeat pb-0 pt-12"
-			style={{
-				backgroundImage: bgUrl ? `url(${bgUrl})` : undefined,
-			}}
-		>
-			<div className="layout-wrapper">
+		<section className="relative bg-[#171717] pb-0 pt-12">
+			{/* Optimized background image using Next.js Image */}
+			{bgUrl && (
+				<Image
+					src={bgUrl}
+					alt="Background"
+					fill
+					className="object-cover object-bottom"
+					quality={100}
+					sizes="100vw"
+				/>
+			)}
+			<div className="relative z-10 layout-wrapper">
 				<div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-[1600px] mr-auto items-center">
 					{/* Left: gallery */}
 					<div className="-ml-8 hidden sm:block">
@@ -134,8 +140,9 @@ export default function LeftGallerySectionLayout({
 														src={img.mediaItemUrl}
 														alt={img.altText ?? ""}
 														fill
-														sizes="(min-width:1024px) 40vw, 90vw"
+														sizes="(min-width:1024px) 30vw, 80vw"
 														className="object-cover"
+														quality={100}
 														priority={false}
 													/>
 												) : (

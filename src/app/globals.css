@@ -69,6 +69,12 @@
 }
 
 @layer utilities {
+
+  div > ol > li > strong {
+    display:block;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+  }
   .layout-wrapper {
     @apply container max-w-[1600px] w-full mx-auto;
     padding-inline: calc(var(--spacing) * 4);
@@ -231,6 +237,22 @@
   }
 
   .gradient-border {
+    transition: 250ms;
+    border: 2px solid transparent;
+    background: linear-gradient(var(--btn-bg, #28262c), var(--btn-bg, #28262c))
+        padding-box,
+      linear-gradient(
+          98.51deg,
+          #36aefa 0%,
+          #bd208b 37.5%,
+          #f15d22 87.02%,
+          #eeb42c 99.99%
+        )
+        border-box;
+    transition: 0.6s ease;
+  }
+
+  .gradient-border-set {
     transition: 250ms;
     border: 2px solid transparent;
     background: linear-gradient(var(--btn-bg, #28262c), var(--btn-bg, #28262c))

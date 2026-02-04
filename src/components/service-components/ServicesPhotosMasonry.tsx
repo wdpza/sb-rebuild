@@ -6,7 +6,6 @@ export default function ServicesPhotosMasonry({ slide, backgroundImage }: any) {
     const base_url = process.env.NEXT_PUBLIC_WP_BASE_URL || '';
 
     const backgroundImageUrl = backgroundImage?.node?.mediaItemUrl || '';
-    console.log(backgroundImage)
 
     /*
     {

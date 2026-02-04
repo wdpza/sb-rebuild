@@ -29,6 +29,7 @@ export default function LogoSliderLayout({ logo, logos, style }: any) {
                                 alt={node.altText?.trim() || `Logo ${index + 1}`}
                                 width={120}
                                 height={60}
+                                quality={100}
                                 className="object-contain max-h-[50px] h-auto w-auto max-w-[150px] w-auto hover:scale-115 transition-transform duration-300 ease-in-out"
                                 priority={false}
                             />

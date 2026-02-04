@@ -26,14 +26,19 @@ export default async function TeamsSectionLayout({ description, subTitle, title,
 	const bgUrl = backgroundImage?.node?.mediaItemUrl ?? "";
 
 	return (
-		<section
-			className="py-20 bg-[#171717] text-center"
-			style={{
-				backgroundImage: bgUrl ? `url(${bgUrl})` : undefined,
-				backgroundPosition: "center",
-			}}
-		>
-			<div className="layout-wrapper">
+		<section className="relative py-20 bg-[#171717] text-center">
+			{/* Optimized background image using Next.js Image */}
+			{bgUrl && (
+				<Image
+					src={bgUrl}
+					alt="Background"
+					fill
+					className="object-cover object-center"
+					quality={100}
+					sizes="100vw"
+				/>
+			)}
+			<div className="relative z-10 layout-wrapper">
 				<h2 className="hero-title font-bold text-neutral-softest mb-8 md:mb-0">
 					<span className="text-gradient-starbright bg-clip-text text-transparent">
 						{title}

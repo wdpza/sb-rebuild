@@ -94,16 +94,16 @@ export default function Header({ menu, logo }: HeaderProps) {
 	if (!menu) return null;
 
 	return (
-		<header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'py-4 lg:py-6 gradient-border-top bg-sb-black/80 shadow' : 'py-4 lg:py-12'}`}>
+		<header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 max-w-[100vw] ${isScrolled ? 'py-4 lg:py-6 gradient-border-top bg-sb-black/90 shadow-lg' : 'py-4 lg:py-12 bg-transparent'}`}>
 			<div className="layout-wrapper bg-transparent">
-				<div className="flex items-center justify-between">
+				<div className="flex items-center justify-between gap-4">
 					{logo?.mediaItemUrl && (
 						<div className="flex items-start justify-start">
 							<Link href="/home">
 								<Image
 									src={'/logo.png'}
 									alt={logo.altText || "Starbright"}
-									className={`h-10 w-auto object-contain transition-all duration-300 ${isScrolled ? "md:h-8" : "md:h-11"}`}
+									className={`h-8 md:h-10 w-auto object-contain transition-all duration-300 ${isScrolled ? "md:h-8" : "md:h-11"}`}
 									width={320}
 									height={62}
 									priority

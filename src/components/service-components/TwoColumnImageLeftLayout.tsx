@@ -16,7 +16,8 @@ export default function TwoColumnImageLeftLayout({image, rightColumn, background
         }}>
             <div className="layout-wrapper">
                 {/* Two column image left layout */}
-                <div className="grid grid-cols-1 md:grid-cols-16 gap-6 md:gap-12 py-12 md:py-24 items-center">
+                <div className="overflow-hidden">
+                    <div className="grid grid-cols-1 md:grid-cols-16 gap-6 md:gap-12 py-12 md:py-24 items-center">
                     {/* Left: Image */}
                     <motion.div 
                         className="col-span-1 md:col-span-9"
@@ -56,6 +57,7 @@ export default function TwoColumnImageLeftLayout({image, rightColumn, background
                                 dangerouslySetInnerHTML={{ __html: rightColumn.content }}
                             />
                         )}
+                    </div>
                     </div>
                 </div>
 

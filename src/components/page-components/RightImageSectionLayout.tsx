@@ -27,15 +27,20 @@ export default function RightImageSectionLayout({
 	const bgUrl = backgroundImage?.node?.mediaItemUrl ?? "";
 
 	return (
-		<section
-			className="py-20 bg-[#171717] bg-no-repeat relative"
-			style={{
-				backgroundImage: bgUrl ? `url(${bgUrl})` : undefined,
-				backgroundSize: "auto 100%",
-				backgroundPosition: "bottom right",
-			}}
-		>
-			<div className="grid grid-cols-1 lg:grid-cols-2 gap-6 layout-wrapper ml-auto items-center">
+		<section className="relative py-20 bg-[#171717]">
+			{/* Optimized background image using Next.js Image */}
+			{bgUrl && (
+				<Image
+					src={bgUrl}
+					alt="Background"
+					fill
+					className="object-none object-bottom-right"
+					quality={100}
+					sizes="50vw"
+					style={{ objectPosition: 'bottom right' }}
+				/>
+			)}
+			<div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-6 layout-wrapper ml-auto items-center">
 				{/* Left: text */}
 				<div>
 					{title ? (

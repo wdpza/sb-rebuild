@@ -1,4 +1,5 @@
-export const dynamic = "force-dynamic";
+// Revalidate every hour (3600 seconds)
+export const revalidate = 3600;
 
 import { getCategoryBySlug } from "@/lib/graphql/queries/getCategoryBySlug";
 import Image from "next/image";

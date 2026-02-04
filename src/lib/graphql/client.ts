@@ -12,4 +12,10 @@ export const client = new GraphQLClient(WP_GRAPHQL_URL, {
     "Content-Type": "application/json",
     "Authorization": authHeader,
   },
+  fetch: (url: RequestInfo | URL, options: RequestInit = {}) => {
+    return fetch(url, {
+      ...options,
+      next: { revalidate: 3600 }, // Cache for 1 hour
+    });
+  },
 });

@@ -99,7 +99,7 @@ export default function PortfolioSlider({ items, title, backgroundImage }: any) 
                                             alt={`${altText}`}
                                             width={300}
                                             height={80}
-                                            className="object-contain mb-6 self-center py-8"
+                                            className="mb-6 self-center py-8 w-[150px] md:w-[300px] h-auto"
                                         />
                                     )}
                                 </div>

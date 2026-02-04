@@ -1,7 +1,18 @@
 import { getPostBySlug } from "@/lib/graphql/queries/getPostBySlug";
+import { getAllArticles } from "@/lib/graphql/queries/getAllArticles";
 import BlogInnerHero from "@/components/blog/BlogInnerHero"
 import DOMPurify from 'isomorphic-dompurify';
 import type { Metadata } from "next";
+
+// Revalidate every hour (3600 seconds)
+export const revalidate = 3600;
+
+export async function generateStaticParams() {
+    const articles = await getAllArticles(100);
+    return articles.map((article: any) => ({
+        slug: article.slug,
+    }));
+}
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
     const { slug } = await params;

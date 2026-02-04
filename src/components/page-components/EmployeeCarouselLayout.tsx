@@ -51,7 +51,7 @@ export default function EmployeeCarouselLayout({
 		return Math.min(diff, total - diff);
 	};
 
-	const CARD_H = 600;
+	const CARD_H = 300;
 	const CAPTION_H = 26;
 	const STAGE_H = CARD_H + CAPTION_H + 16;
 
@@ -107,7 +107,7 @@ export default function EmployeeCarouselLayout({
 
 	return (
 		<section
-			className="py-20 bg-[#171717] px-8 text-center"
+			className="py-20 bg-sb-black px-8 text-center"
 			style={{
 				backgroundImage: bgUrl ? `url(${bgUrl})` : undefined,
 				backgroundSize: "auto 100%",
@@ -123,7 +123,7 @@ export default function EmployeeCarouselLayout({
 				<p className="text-neutral-softest/90 mt-8 max-w-3xl mx-auto whitespace-pre-line">{description}</p>
 			) : null}
 
-			<div className="hidden md:flex relative flex-1 items-center justify-center overflow-visible mt-12 -mx-8">
+			<div className="flex relative flex-1 items-center justify-center overflow-visible mt-12 -mx-8">
 				<div className="w-full mx-auto overflow-visible stacked-slick">
 					<Slider {...settings}>
 						{images.map((item, index) => {
@@ -132,12 +132,7 @@ export default function EmployeeCarouselLayout({
 								<div key={index}>
 									{/* negative/overlap handled via CSS class 'stacked-slick' below */}
 									<div
-										className="mx-auto"
-										style={{
-											height: STAGE_H,
-											display: "grid",
-											placeItems: "center",
-										}}
+										className="mx-auto h-[342px] md:h-[642px] grid place-items-center"
 									>
 										<div
 											className="mx-auto flex flex-col items-center justify-center"
@@ -146,7 +141,7 @@ export default function EmployeeCarouselLayout({
 										>
 											<div className="rounded-3xl">
 												{/* Fixed-size RELATIVE wrapper so next/image fill works and cards are uniform */}
-												<div className="gradient-border relative h-[600px] w-[500px] overflow-hidden rounded-2xl ring-1 ring-white/10 cursor-pointer">
+												<div className="gradient-border-set relative h-[300px] w-[180px] sm:w-[280px] md:h-[600px] md:w-[500px] overflow-hidden rounded-2xl ring-1 ring-white/10 cursor-pointer">
 													<Image
 														src={item.mediaItemUrl}
 														alt={item.altText || item.title || `Employee ${index + 1}`}
@@ -176,7 +171,13 @@ export default function EmployeeCarouselLayout({
 						display: flex;
 						justify-content: center;
 						align-items: center; /* vertical centering */
-						margin: 0 -140px;
+						margin: 0 -50px;
+					}
+
+					@media (min-width: 768px) {
+						.stacked-slick .slick-slide > div {
+							margin: 0 -140px;
+						}
 					}
 
 					.stacked-slick .slick-slide {

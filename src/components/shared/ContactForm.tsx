@@ -3,8 +3,11 @@
 import { useState } from "react";
 import Image from "next/image";
 
-export default function ContactForm() {
-	const [submitted, setSubmitted] = useState(false);
+interface ContactFormProps {
+	onSubmitSuccess?: () => void;
+}
+
+export default function ContactForm({ onSubmitSuccess }: ContactFormProps) {
 	const [formData, setFormData] = useState({
 		name: "",
 		surname: "",
@@ -16,6 +19,8 @@ export default function ContactForm() {
 		other: "",
 		message: "",
 	});
+	const [isSubmitting, setIsSubmitting] = useState(false);
+	const [error, setError] = useState<string | null>(null);
 
 	const handleChange = (
 		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -24,18 +29,39 @@ export default function ContactForm() {
 		setFormData((prev) => ({ ...prev, [name]: value }));
 	};
 
-	const handleSubmit = (e: React.FormEvent) => {
+	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
-		setSubmitted(true);
-	};
+		setIsSubmitting(true);
+		setError(null);
 
-	if (submitted) {
-		return (
-			<div className="text-center py-10 text-lg font-semibold text-green-600">
-				Thank you for your submission!
-			</div>
-		);
-	}
+		try {
+			const response = await fetch("/api/submit-form", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					formId: "contact-form",
+					data: formData,
+				}),
+			});
+
+			if (!response.ok) {
+				throw new Error("Failed to submit form");
+			}
+
+			const result = await response.json();
+
+			if (result.success && onSubmitSuccess) {
+				onSubmitSuccess();
+			}
+		} catch (err) {
+			console.error("Error submitting form:", err);
+			setError("There was an error submitting your form. Please try again.");
+		} finally {
+			setIsSubmitting(false);
+		}
+	};
 
 	const isOtherSelected = formData.how === "Other";
 
@@ -44,6 +70,12 @@ export default function ContactForm() {
 			onSubmit={handleSubmit}
 			className="flex grid grid-cols-1 md:grid-cols-2 gap-6"
 		>
+			{error && (
+				<div className="md:col-span-2 bg-red-500/10 border border-red-500 text-red-500 p-4 rounded">
+					{error}
+				</div>
+			)}
+
 			{/* --- Basic Fields --- */}
 			<input
 				type="text"
@@ -119,26 +151,13 @@ export default function ContactForm() {
 						<option value="hosting-services">Hosting Services</option>
 					</optgroup>
 
-					{/* Content Creation */}
-					<optgroup label="Content Creation">
-						<option value="website-copywriting">Website Copywriting</option>
-						<option value="article-copywriting">Article Copywriting</option>
-						<option value="conversion-copywriting">Conversion Copywriting</option>
-						<option value="audio-video-copywriting">Audio &amp; Video Copywriting</option>
-					</optgroup>
-
 					{/* Digital Marketing */}
 					<optgroup label="Digital Marketing">
 						<option value="google-ads">Google Ads</option>
-						<option value="social-media">Organic Social Media</option>
-						<option value="paid-social-media">Paid Social Media</option>
 						<option value="search-engine-optimisation">Search Engine Optimisation</option>
-					</optgroup>
-
-					{/* Direct Marketing */}
-					<optgroup label="Direct Marketing">
+						<option value="social-media">Social Media</option>
+						<option value="copywriting">Copywriting</option>
 						<option value="email-marketing">Email Marketing</option>
-						<option value="sms-marketing">SMS Marketing</option>
 					</optgroup>
 
 					{/* Photography */}
@@ -146,8 +165,13 @@ export default function ContactForm() {
 						<option value="studio-photography">Studio Photography</option>
 						<option value="studio-hire">Studio Hire</option>
 					</optgroup>
-				</select>
 
+					{/* Business Solutions */}
+					<optgroup label="Business Solutions">
+						<option value="google-workspace">Google Workspace</option>
+						<option value="google-review-booster">Google Review Booster</option>
+					</optgroup>
+				</select>
 
 				<span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2">
 					<Image
@@ -222,9 +246,10 @@ export default function ContactForm() {
 			{/* --- Submit Button --- */}
 			<button
 				type="submit"
-				className="cursor-pointer inline-flex items-center justify-center rounded-md px-8 py-3 font-semibold text-neutral-softest gradient-border md:col-span-2 w-auto justify-self-start"
+				disabled={isSubmitting}
+				className="cursor-pointer inline-flex items-center justify-center rounded-md px-8 py-3 font-semibold text-neutral-softest gradient-border md:col-span-2 w-auto justify-self-start disabled:opacity-50 disabled:cursor-not-allowed"
 			>
-				Send Enquiry
+				{isSubmitting ? "Sending..." : "Send Enquiry"}
 			</button>
 		</form>
 	);

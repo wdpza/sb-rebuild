@@ -1,7 +1,18 @@
 import { getServiceBySlug } from "@/lib/data/services"
+import { getAllServices } from "@/lib/graphql/queries/getAllServices"
 import ServiceRenderer from "@/components/ServiceRenderer"
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
+
+// Revalidate every hour (3600 seconds)
+export const revalidate = 3600;
+
+export async function generateStaticParams() {
+    const services = await getAllServices(100);
+    return services.map((service: any) => ({
+        slug: service.slug,
+    }));
+}
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
     const { slug } = await params;
@@ -61,8 +72,4 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
             <ServiceRenderer pageBuilder={page.servicePageFields?.servicePageBuilder} />
         </main>
     )
-}
-
-export async function generateStaticParams() {
-    return [{ slug: "home" }]
 }

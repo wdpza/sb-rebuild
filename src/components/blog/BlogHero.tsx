@@ -5,8 +5,6 @@ import DOMPurify from "isomorphic-dompurify";
 export default function BlogblogHero({ blogOptions }: any) {
     const { blogHero } = blogOptions ?? {};
 
-    //console.log(blogHero);
-
     const background =
         blogHero?.backgroundImage?.node?.mediaItemUrl ?? 
         blogHero?.backgroundImage?.node?.mediaDetails?.filePath ?? null;
@@ -29,8 +27,6 @@ export default function BlogblogHero({ blogOptions }: any) {
         : mainImg
         ? `${process.env.NEXT_PUBLIC_WP_BASE_URL}${mainImg}`
         : undefined;
-
-    console.log(mainImgUrl)
 
     return (
         <section

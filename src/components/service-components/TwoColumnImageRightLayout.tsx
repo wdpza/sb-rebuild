@@ -15,8 +15,8 @@ export default function TwoColumnImageRightLayout({image, leftColumn, background
             backgroundPosition: 'center',
         }}>
             <div className="layout-wrapper">
-
-                <div className="grid grid-cols-1 md:grid-cols-16 gap-6 md:gap-12 py-12 md:py-24 items-center">
+                <div className="overflow-hidden">
+                    <div className="grid grid-cols-1 md:grid-cols-16 gap-6 md:gap-12 py-12 md:py-24 items-center">
 
                     <div className="col-span-1 md:col-span-7 space-y-6 order-2 md:order-1">
                         {leftColumn?.heading && (
@@ -56,6 +56,7 @@ export default function TwoColumnImageRightLayout({image, leftColumn, background
                             />
                         )}
                     </motion.div>
+                    </div>
                 </div>
 
             </div>

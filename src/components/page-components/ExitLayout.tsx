@@ -1,6 +1,7 @@
 'use client'
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { ANIMATION_PRESETS } from "@/lib/constants/animations";
 import type { ExitLayoutProps } from "@/types/common";
@@ -13,12 +14,18 @@ export default function ExitLayout({ title, backgroundImage, ctaLink, background
     : null;
 
   return (
-    <div
-      className="relative py-24 bg-cover bg-center"
-      style={{
-        backgroundImage: bgUrl ? `url(${bgUrl})` : undefined,
-      }}
-    >
+    <div className="relative py-24">
+      {/* Optimized background image using Next.js Image */}
+      {bgUrl && (
+        <Image
+          src={bgUrl}
+          alt="Background"
+          fill
+          className="object-cover object-center"
+          quality={90}
+          sizes="100vw"
+        />
+      )}
       {backgroundOverlay && (
         <>
           <div className="absolute backdrop-grayscale w-full h-full left-0 top-0"></div>

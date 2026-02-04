@@ -6,6 +6,7 @@ import type { MenuItem, MenuNode, MegaMenuChild } from "../../types/menuTypes";
 
 import { IoCloseOutline } from "react-icons/io5";
 import { TbArrowBackUp } from "react-icons/tb";
+import { RxHamburgerMenu } from "react-icons/rx";
 
 // Local recursive node used just for the mobile menu
 type LocalMenuNode = MegaMenuChild & {
@@ -22,26 +23,6 @@ export default function NavMenuMobile({ tree: _tree, flatItems }: NavMenuMobileP
 		if (item?.connectedObject?.slug) return `/${item.connectedObject.slug}`;
 		if (item?.uri) return item.uri ?? "#";
 		return item?.url ?? "#";
-	};
-
-	// Group items by mainMenuFields.categoryGrouping.nodes[0].name
-	const groupItemsByCategory = (items: LocalMenuNode[]) => {
-		const grouped: Record<string, LocalMenuNode[]> = {};
-		const ungrouped: LocalMenuNode[] = [];
-
-		items.forEach(item => {
-			const groupName =
-				item.mainMenuFields?.categoryGrouping?.nodes?.[0]?.name;
-
-			if (groupName) {
-				if (!grouped[groupName]) grouped[groupName] = [];
-				grouped[groupName].push(item);
-			} else {
-				ungrouped.push(item);
-			}
-		});
-
-		return { grouped, ungrouped };
 	};
 
 	// Build a nested tree from flat items
@@ -123,61 +104,107 @@ export default function NavMenuMobile({ tree: _tree, flatItems }: NavMenuMobileP
 	return (
 		<div>
 			{/* Hamburger button */}
-			<div
-				className="mobile-open-btn group hover:cursor-pointer md:hidden w-[35px]"
-				onMouseDown={() => setOpenstate(prev => !prev)}
+			<button
+				className="mobile-open-btn group hover:cursor-pointer md:hidden py-2 rounded-lg hover:bg-white/10 transition-all duration-300 text-white hover:text-neutral-softest hover:scale-110 active:scale-95"
+				onClick={() => setOpenstate(prev => !prev)}
+				aria-label="Toggle menu"
 			>
-				<div className="ml-auto w-full border-white border-t-2 mb-2 transition-[width] duration-400 ease-in-out"></div>
-				<div className="ml-auto w-full group-hover:w-[80%] border-white border-t-2 mb-2 transition-[width] duration-400 ease-in-out"></div>
-				<div className="ml-auto w-full group-hover:w-[50%] border-white border-t-2 transition-[width] duration-400 ease-in-out"></div>
-			</div>
+				<RxHamburgerMenu size={28} />
+			</button>
+
+			{/* Backdrop overlay */}
+			<div
+				className={`fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300 z-40 ${
+					openstate ? "opacity-100" : "opacity-0 pointer-events-none"
+				}`}
+				onClick={handleCloseMenu}
+			/>
 
 			{/* Mobile nav overlay */}
 			<nav
-				className={`fixed top-0 left-0 w-full h-screen bg-neutral-strongest text-center flex flex-col ${openstate ? "block" : "hidden"
-					}`}
+				className={`fixed top-0 right-0 w-full sm:w-[400px] h-screen bg-gradient-to-br from-neutral-strongest via-neutral-strongest to-neutral-strongest/95 flex flex-col shadow-2xl transition-transform duration-300 ease-out z-50 ${
+					openstate ? "translate-x-0" : "translate-x-full"
+				}`}
 			>
 				{/* Close / Back button */}
-				<div className="flex-shrink-0 py-8">
+				<div className="layout-wrapper relative flex justify-center z-[99] gradient-border-bottom flex-shrink-0 py-3 border-b border-white/10 bg-white/5">
 					<button
-						className="mb-0 text-neutral-softest"
+						className="mb-0 text-neutral-softest hover:text-white transition-all duration-200 hover:scale-110 active:scale-95 rounded-full hover:bg-white/10"
 						onClick={isAtRootLevel ? handleCloseMenu : handleNavigateBack}
+						aria-label={isAtRootLevel ? "Close menu" : "Go back"}
 					>
 						{isAtRootLevel ? (
-							<IoCloseOutline size={30} />
+							<IoCloseOutline size={32} />
 						) : (
-							<TbArrowBackUp size={30} />
+							<TbArrowBackUp size={32} />
 						)}
 					</button>
 				</div>
 
 				{/* Scrollable content */}
-				<div className="flex-1 overflow-y-auto px-4 pb-8">
+				<div className="flex-1 layout-wrapper overflow-y-auto pb-8">
 					{(() => {
-						const { grouped, ungrouped } = groupItemsByCategory(currentItems);
+						// Group items by databaseId (same logic as desktop MegaMenu)
+						type GroupedItems = {
+							databaseId: number;
+							name: string;
+							items: LocalMenuNode[];
+						};
+
+						const groupsMap: Record<number, GroupedItems> = {};
+						const ungroupedItems: LocalMenuNode[] = [];
+
+						currentItems.forEach(item => {
+							const groups = item.mainMenuFields?.categoryGrouping?.nodes ?? [];
+							
+							if (groups.length > 0) {
+								groups.forEach(group => {
+									const id = group.databaseId;
+									if (!groupsMap[id]) {
+										groupsMap[id] = {
+											databaseId: id,
+											name: group.name,
+											items: [],
+										};
+									}
+									groupsMap[id].items.push(item);
+								});
+							} else {
+								ungroupedItems.push(item);
+							}
+						});
+
+						// Convert to array and sort by databaseId for consistent ordering
+						const orderedGroups = Object.values(groupsMap).sort(
+							(a, b) => a.databaseId - b.databaseId
+						);
 
 						return (
-							<div>
-								{/* Ungrouped items */}
-								{ungrouped.length > 0 && (
-									<ul className="mb-6">
-										{ungrouped.map((item, index) => {
+							<div className="space-y-6 pt-6">
+								{/* Ungrouped items first */}
+								{ungroupedItems.length > 0 && (
+									<ul className="space-y-2">
+										{ungroupedItems.map((item, index) => {
 											const href = buildHref(item);
-											const hasChildren =
-												item.children && item.children.length > 0;
+											const hasChildren = item.children && item.children.length > 0;
 
 											return (
-												<li className="mb-3" key={`ungrouped-${index}`}>
+												<li key={`ungrouped-${index}`}>
 													{hasChildren ? (
 														<button
-															className="block w-full text-center text-neutral-softest text-2xl"
+															className="group block w-full text-left py-3 text-neutral-softest text-lg font-medium rounded-lg hover:bg-white/10 transition-all duration-200 hover:translate-x-1 active:scale-[0.98] border border-transparent hover:border-white/20"
 															onClick={() => handleNavigateToSubmenu(item)}
 														>
-															{item.label ?? "Item"}
+															<span className="flex items-center justify-between">
+																<span>{item.label ?? "Item"}</span>
+																<svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+																	<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+																</svg>
+															</span>
 														</button>
 													) : (
 														<Link
-															className="block text-neutral-softest text-2xl"
+															className="block py-3 text-neutral-softest text-lg font-medium rounded-lg hover:bg-white/10 transition-all duration-200 hover:translate-x-1 active:scale-[0.98] border border-transparent hover:border-white/20"
 															href={href}
 															onClick={handleCloseMenu}
 														>
@@ -190,33 +217,34 @@ export default function NavMenuMobile({ tree: _tree, flatItems }: NavMenuMobileP
 									</ul>
 								)}
 
-								{/* Grouped items */}
-								{Object.entries(grouped).map(([groupName, groupItems]) => (
-									<div key={groupName} className="mb-6">
-										<h3 className="text-neutral-softest text-lg font-bold mb-3 border-b border-white/20 pb-2">
-											{groupName}
+								{/* Grouped items ordered by databaseId */}
+								{orderedGroups.map((group) => (
+									<div key={group.databaseId} className="space-y-3">
+										<h3 className="text-gradient-starbright text-lg font-bold pb-2 uppercase tracking-wider">
+											{group.name}
 										</h3>
-										<ul>
-											{groupItems.map((item, index) => {
+										<ul className="space-y-2">
+											{group.items.map((item, index) => {
 												const href = buildHref(item);
-												const hasChildren =
-													item.children && item.children.length > 0;
+												const hasChildren = item.children && item.children.length > 0;
 
 												return (
-													<li
-														className="mb-3"
-														key={`${groupName}-${index}`}
-													>
+													<li key={`${group.databaseId}-${index}`}>
 														{hasChildren ? (
 															<button
-																className="block w-full text-center text-neutral-softest text-2xl"
+																className="group block w-full text-left py-3 text-neutral-softest text-lg font-medium rounded-lg hover:bg-white/10 transition-all duration-200 hover:translate-x-1 active:scale-[0.98] border border-transparent hover:border-white/20"
 																onClick={() => handleNavigateToSubmenu(item)}
 															>
-																{item.label ?? "Item"}
+																<span className="flex items-center justify-between">
+																	<span>{item.label ?? "Item"}</span>
+																	<svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+																		<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+																	</svg>
+																</span>
 															</button>
 														) : (
 															<Link
-																className="block text-neutral-softest text-2xl"
+																className="block py-1 text-neutral-softest font-regular rounded-lg hover:bg-white/10 transition-all duration-200 hover:translate-x-1 active:scale-[0.98] border border-transparent hover:border-white/20"
 																href={href}
 																onClick={handleCloseMenu}
 															>

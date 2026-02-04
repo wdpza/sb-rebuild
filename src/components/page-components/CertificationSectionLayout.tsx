@@ -43,6 +43,7 @@ export default function CertificationSectionLayout({
 										alt={alt}
 										width={200}
 										height={80}
+										quality={100}
 										loading="lazy"
 									/>
 								</div>
