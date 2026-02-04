@@ -39,7 +39,7 @@ export default function FaqLayout({ introTitle, image, item, backgroundImage, la
 						{item.map((item: Item, index: number) => (
 							<div key={index} className="rounded space-y-2">
 								<button
-									className={`cursor-pointer bg-[#252328] text-[#5F5F5F] w-full text-left px-6 py-4 text-lg font-semibold rounded focus:outline-none focus:ring-2 focus:ring-blue-500 flex justify-between items-center ${activeIndex === index ? "text-neutral-softest-important" : ""
+									className={`text-neutral-softer cursor-pointer bg-[#252328] w-full text-left px-6 py-4 text-lg font-semibold rounded focus:outline-none focus:ring-2 focus:ring-blue-500 flex justify-between items-center ${activeIndex === index ? "text-neutral-softest-important" : ""
 										}`}
 									onClick={() => toggleItem(index)}
 								>

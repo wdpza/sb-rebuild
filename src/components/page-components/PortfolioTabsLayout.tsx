@@ -45,7 +45,7 @@ export default function PortfolioTabsLayout({ categories, backgroundImage }: any
             <div className="layout-wrapper py-24">
 
                 {/* TAB BUTTONS */}
-                <div className="flex gap-8 justify-center mb-24">
+                <div className="hidden md:flex gap-8 justify-center mb-24">
                     {items.map((cat: any) => {
                         const isActive = active === cat.id;
 
@@ -71,7 +71,7 @@ export default function PortfolioTabsLayout({ categories, backgroundImage }: any
                     )}
 
                     {images?.length > 0 && (
-                        <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                             {images.map((item: any, index: number) => {
                                 const node = item?.image?.node;
                                 if (!node) return null;
@@ -82,7 +82,7 @@ export default function PortfolioTabsLayout({ categories, backgroundImage }: any
                                 return (
                                     <div
                                         key={index}
-                                        className="break-inside-avoid-column cursor-pointer"
+                                        className="cursor-pointer aspect-video overflow-hidden rounded-lg shadow-sm"
                                         onClick={() => setLightboxSrc(src)}
                                     >
                                         <Image
@@ -90,7 +90,7 @@ export default function PortfolioTabsLayout({ categories, backgroundImage }: any
                                             alt={alt}
                                             width={800}
                                             height={800}
-                                            className="w-full h-auto rounded-lg shadow-sm"
+                                            className="w-full h-full object-cover"
                                         />
                                     </div>
                                 );

@@ -14,7 +14,7 @@ export default function ServiceAccordion({ introTitle, item, backgroundImage }: 
         backgroundImage: bgUrl ? `url(${bgUrl})` : undefined,
       }}
     >
-      <div className="mx-auto w-full">
+      <div id="service-accordion" className="mx-auto w-full">
         {introTitle && (
           <h2 className="subtitle font-bold mb-8 text-neutral-softest text-center">{introTitle}</h2>
         )}

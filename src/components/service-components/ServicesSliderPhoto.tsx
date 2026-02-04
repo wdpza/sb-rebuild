@@ -30,7 +30,7 @@ export default function ServicesSliderPhoto({ slide }: any) {
     };
 
     return (
-        <div className="services-slider my-12 py-6">
+        <div id="services-slider" className="services-slider my-12 py-6">
             <style jsx global>{`
                 .services-slider .slick-list {
                     overflow: hidden;

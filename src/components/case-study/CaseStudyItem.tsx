@@ -22,7 +22,7 @@ export default function CaseStudyItem({ item }: { item: any }) {
 					<section
 						id={id}
 						key={id}
-						className="scroll-mt-6 rounded-xl mb-8"
+						className="scroll-mt-6 rounded-xl mb-14"
 					>
 						{s.sectionTitle ? (
 							<h2 className="subtitle font-bold mb-8 text-neutral-softest">{s.sectionTitle}</h2>
@@ -30,7 +30,7 @@ export default function CaseStudyItem({ item }: { item: any }) {
 
 						{s.sectionDescription ? (
 							<div
-								className="text-lg prose prose-invert max-w-none mb-16"
+								className="text-lg prose prose-invert max-w-none mb-6"
 								dangerouslySetInnerHTML={{ __html: s.sectionDescription }}
 							/>
 						) : null}
@@ -38,9 +38,9 @@ export default function CaseStudyItem({ item }: { item: any }) {
 						{s.sectionCtaLink?.url ? (
 							<Link
 								href={s.sectionCtaLink.url}
-								target={s.sectionCtaLink.target || "_blank"}
+								target={s.sectionCtaLink.target || ""}
 								rel="noopener"
-								className="inline-flex items-center justify-center rounded-md px-8 py-3 font-semibold text-neutral-softest gradient-border mt-8"
+								className="inline-flex items-center justify-center rounded-md px-8 py-3 font-semibold text-neutral-softest gradient-border"
 							>
 								{s.sectionCtaLink.title || "Learn more"}
 							</Link>

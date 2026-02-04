@@ -35,8 +35,8 @@ export default function CaseStudyHero({ item }: { item: CaseStudy }) {
 							className="self-center mb-16"
 							src={logoImg}
 							alt={logoAlt}
-							width={320}
-							height={80}
+							width={420}
+							height={120}
 							priority
 						/>
 					) : null}

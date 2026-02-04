@@ -43,7 +43,7 @@ export default function NavMenu({
 
 	return (
 		<nav ref={navRef} aria-label="Main" className="ml-auto">
-			<ul className="hidden md:flex gap-6 relative">
+			<ul className="hidden md:flex gap-3 relative">
 				{(tree ?? []).map((item, index) => {
 					const href = buildHref(item);
 					const hasChildren =
@@ -57,7 +57,7 @@ export default function NavMenu({
 							<li key={item.id ?? index} className="relative">
 								<Link
 									href={href}
-									className="hover:underline text-neutral-softest text-xl transition font-light"
+									className="text-neutral-softest text-xl transition font-light hover:bg-white/5 rounded py-2 px-4"
 									scroll
 									{...(external
 										? { target: "_blank", rel: "noopener noreferrer" }

@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function SocialMediaPackages({ introTitle, spackages }: any) {
 
   return (
-    <div className="gradient-border-top bg-[#28262C] relative py-24 bg-cover bg-center">
+    <div id="social-media-packages" className="gradient-border-top relative py-24 bg-cover bg-center">
       <div className="layout-wrapper mx-auto w-full">
         {introTitle && (
           <h2 className="subtitle font-bold mb-12 text-gradient-starbright text-center">

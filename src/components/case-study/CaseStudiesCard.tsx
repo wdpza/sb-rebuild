@@ -64,7 +64,7 @@ export default function CaseStudiesCard({ item }: { item: CaseStudyItem }) {
 				</div>
 
 				{/* Categories */}
-				<p className="mb-8 text-sm font-medium tracking-wide text-neutral-softest">
+				<p className="mb-8 text-sm font-medium tracking-wide text-neutral-softest text-balance">
 					{categories}
 				</p>
 
