@@ -61,7 +61,7 @@ export default async function Page({ params }: any) {
   return (
     <main>
       <h1 className="sr-only">{page.title}</h1>
-      <PageRenderer pageBuilder={page.pageFieldGroup?.pageBuilder} />
+      <PageRenderer pageBuilder={page.pageFieldGroup?.pageBuilder} slug={page.slug} />
     </main>
   )
 }

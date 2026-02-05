@@ -44,6 +44,7 @@ export interface HeroLayoutProps {
   ctaLink?: CtaLink;
   showContactForm?: string[];
   forms?: FormFields;
+  slug?: string;
 }
 
 export interface ExitLayoutProps {

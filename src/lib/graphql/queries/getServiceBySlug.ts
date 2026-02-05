@@ -4,6 +4,7 @@ export const GET_SERVICE_BY_SLUG = gql`
     query GetServiceBySlug($slug: ID!) {
         service(id: $slug, idType: URI) {
             title
+            slug
             seo {
                 title
                 description

@@ -7,7 +7,9 @@ import { motion } from "framer-motion";
 import LogoSliderLayout from '../shared/LogoSliderLayout';
 import { ANIMATION_DURATIONS, ANIMATION_DELAYS, ANIMATION_EASINGS, ANIMATION_DISTANCES } from "@/lib/constants/animations";
 
-export default function HeroLayout({ title, ctaLink, description, subTitle, backgrounD, image, logoSlider }: any) {
+export default function HeroLayout({ title, ctaLink, description, subTitle, backgrounD, image, logoSlider, slug }: any) {
+	console.log(slug);
+	
 	const bgUrl = backgrounD?.node?.mediaItemUrl ?? null;
 	const imageUrl = image?.node?.mediaItemUrl ?? null;
 
@@ -68,7 +70,7 @@ export default function HeroLayout({ title, ctaLink, description, subTitle, back
 							transition={{ duration: ANIMATION_DURATIONS.slow, ease: ANIMATION_EASINGS.easeOut, delay: ANIMATION_DELAYS.long }}
 						>
 							<Link
-								href={cleanUrl}
+								href={`${cleanUrl}${cleanUrl?.includes('/contact') && slug ? `?service=${slug}` : ''}`}
 								className="
 									bg-neutral-strongest
 									gradient-border

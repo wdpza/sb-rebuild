@@ -11,7 +11,8 @@ export default function WhyWorkWithUs({
 	item,
 	backgroundImage,
 	ctaButtonGroup,
-	style
+	style,
+	slug
 }: any) {
 
 	const layoutStyle = style[0] || "style_2";
@@ -22,6 +23,7 @@ export default function WhyWorkWithUs({
 			item={item}
 			backgroundImage={backgroundImage}
 			ctaButtonGroup={ctaButtonGroup}
+			slug={slug}
 		/>
 	}
 
@@ -31,6 +33,7 @@ export default function WhyWorkWithUs({
 			item={item}
 			backgroundImage={backgroundImage}
 			ctaButtonGroup={ctaButtonGroup}
+			slug={slug}
 		/>
 	}
 

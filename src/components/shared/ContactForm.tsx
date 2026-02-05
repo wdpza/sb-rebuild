@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
+import { useSearchParams } from "next/navigation";
 
 interface ContactFormProps {
 	onSubmitSuccess?: () => void;
@@ -21,6 +22,14 @@ export default function ContactForm({ onSubmitSuccess }: ContactFormProps) {
 	});
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [error, setError] = useState<string | null>(null);
+	const searchParams = useSearchParams();
+
+	useEffect(() => {
+		const serviceParam = searchParams.get('service');
+		if (serviceParam) {
+			setFormData((prev) => ({ ...prev, service: serviceParam }));
+		}
+	}, [searchParams]);
 
 	const handleChange = (
 		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>

@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export default function CTABlock({heading, buttonGroup}: any) {
+export default function CTABlock({heading, buttonGroup, slug}: any) {
     const {ctaLabel, ctaLink} = buttonGroup || {};
     
     return (
@@ -14,7 +14,7 @@ export default function CTABlock({heading, buttonGroup}: any) {
 
                 {ctaLink && ctaLink.nodes && ctaLink.nodes.length > 0 && (
                     <Link
-                        href={ctaLink.nodes[0].uri}
+                        href={`${ctaLink.nodes[0].uri}${slug ? `?service=${slug}` : ''}`}
                         className="
                             bg-neutral-strongest
                             gradient-border

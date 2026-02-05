@@ -17,7 +17,8 @@ background,
 image,
 ctaLink,
 showContactForm,
-forms
+forms,
+slug
 }: HeroLayoutProps) {
 	const [submitted, setSubmitted] = useState(false);
 	const bgUrl = background?.node?.mediaItemUrl ?? null;
@@ -39,7 +40,7 @@ forms
 	};
 
 	return (
-<section
+		<section
 			className={`relative flex w-full items-center overflow-hidden ${sectionHeight}`}
 		>
 			{/* Optimized background image using Next.js Image */}
@@ -98,7 +99,7 @@ forms
 					{ctaLink && (
 						<div className="mt-8 flex justify-center md:justify-start">
 							<Link
-								href={ctaLink.url}
+								href={`${ctaLink.url}${ctaLink.url.includes('/contact') && slug ? `?service=${slug}` : ''}`}
 								className="
 									bg-neutral-strongest
 									gradient-border

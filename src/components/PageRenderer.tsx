@@ -18,7 +18,7 @@ import FormLayout from "./page-components/FormLayout"
 import WhyWorkWithUs from "./service-components/WhyWorkWithUs"
 import type { PageRendererProps, PageBuilderBlock } from "@/types/common"
 
-export default function PageRenderer({ pageBuilder }: PageRendererProps) {
+export default function PageRenderer({ pageBuilder, slug }: PageRendererProps & { slug?: string }) {
 	if (!pageBuilder) return null
 
 	return (
@@ -26,7 +26,7 @@ export default function PageRenderer({ pageBuilder }: PageRendererProps) {
 			{pageBuilder.map((block: PageBuilderBlock, index: number) => {
 				switch (block.__typename) {
 					case "PageFieldGroupPageBuilderHeroLayout":
-						return <HeroLayout key={index} {...block} />
+						return <HeroLayout key={index} {...block} slug={slug} />
 					case "PageFieldGroupPageBuilderServicesAccordionLayout":
 						return <ServicesAccordionLayout key={index} {...block} />
 					case "PageFieldGroupPageBuilderLogoSliderLayout":
@@ -60,7 +60,7 @@ export default function PageRenderer({ pageBuilder }: PageRendererProps) {
 					case "PageFieldGroupPageBuilderFormLayout":
 						return <FormLayout key={index} {...block} />;
 					case "PageFieldGroupPageBuilderWhyWorkWithUsSectionLayout":
-						return <WhyWorkWithUs key={index} {...block} />;
+						return <WhyWorkWithUs key={index} {...block} slug={slug} />;
 					default:
 						return null
 				}

@@ -69,7 +69,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
     return (
         <main>
             <h1 className="sr-only">{page.title}</h1>
-            <ServiceRenderer pageBuilder={page.servicePageFields?.servicePageBuilder} />
+            <ServiceRenderer pageBuilder={page.servicePageFields?.servicePageBuilder} slug={page.slug} />
         </main>
     )
 }

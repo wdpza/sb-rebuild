@@ -13,7 +13,8 @@ export default function WhyWorkWithUsBreath({
 	introTitle,
 	item,
 	backgroundImage,
-	ctaButtonGroup
+	ctaButtonGroup,
+	slug
 }: any) {
 	const bgUrl = backgroundImage?.node?.mediaItemUrl ?? null;
 	const { buttonLabel, ctaButtonUrl } = ctaButtonGroup || {};
@@ -86,7 +87,7 @@ export default function WhyWorkWithUsBreath({
 				<div className="mt-8">
 					{buttonLabel && ctaButtonUrl?.nodes && ctaButtonUrl.nodes.length > 0 && (
 						<Link
-							href={ctaButtonUrl.nodes[0].uri || '#'}
+							href={`${ctaButtonUrl.nodes[0].uri || '#'}${slug ? `?service=${slug}` : ''}`}
 							className="
 								inline-flex items-center justify-center rounded-md px-8 py-3 font-semibold text-neutral-softest gradient-border
 								hover:bg-gradient-starbright
