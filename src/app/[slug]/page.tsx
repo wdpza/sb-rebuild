@@ -2,6 +2,7 @@ import { getPageBySlug } from "@/lib/data/pages"
 import PageRenderer from "@/components/PageRenderer"
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
+import { getServicesForForm } from "@/lib/graphql/queries/getServicesForForm"
 
 // Remove force-dynamic to allow static generation where possible
 // export const dynamic = 'force-dynamic'
@@ -58,9 +59,15 @@ export default async function Page({ params }: any) {
 
   if (!page) notFound()
 
+  // Fetch services for contact page form
+  const services = slug === 'contact' ? await getServicesForForm() : []
+
   return (
     <main>
-      <PageRenderer pageBuilder={page.pageFieldGroup?.pageBuilder} />
+      <PageRenderer 
+        pageBuilder={page.pageFieldGroup?.pageBuilder} 
+        services={services}
+      />
     </main>
   )
 }

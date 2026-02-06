@@ -17,8 +17,9 @@ import PortfolioTabsLayout from "./page-components/PortfolioTabsLayout"
 import FormLayout from "./page-components/FormLayout"
 import WhyWorkWithUs from "./service-components/WhyWorkWithUs"
 import type { PageRendererProps, PageBuilderBlock } from "@/types/common"
+import type { ServiceOption } from "@/lib/graphql/queries/getServicesForForm"
 
-export default function PageRenderer({ pageBuilder }: PageRendererProps) {
+export default function PageRenderer({ pageBuilder, services }: PageRendererProps & { services?: ServiceOption[] }) {
 	if (!pageBuilder) return null
 
 	return (
@@ -26,7 +27,7 @@ export default function PageRenderer({ pageBuilder }: PageRendererProps) {
 			{pageBuilder.map((block: PageBuilderBlock, index: number) => {
 				switch (block.__typename) {
 					case "PageFieldGroupPageBuilderHeroLayout":
-						return <HeroLayout key={index} {...block} />
+						return <HeroLayout key={index} {...block} services={services} />
 					case "PageFieldGroupPageBuilderServicesAccordionLayout":
 						return <ServicesAccordionLayout key={index} {...block} />
 					case "PageFieldGroupPageBuilderLogoSliderLayout":
