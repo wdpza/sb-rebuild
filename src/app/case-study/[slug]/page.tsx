@@ -67,7 +67,6 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
 
     return (
         <main>
-            <h1 className="sr-only">{caseStudy.title}</h1>
             <CaseStudyItem item={caseStudy} />
         </main>
     )
