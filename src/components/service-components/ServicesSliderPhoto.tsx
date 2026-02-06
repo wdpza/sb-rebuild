@@ -30,7 +30,7 @@ export default function ServicesSliderPhoto({ slide }: any) {
     };
 
     return (
-        <div id="services-slider" className="services-slider my-12 py-6">
+        <div id="services-slider" className="services-slider py-12 md:py-24 bg-sb-black">
             <style jsx global>{`
                 .services-slider .slick-list {
                     overflow: hidden;
@@ -84,6 +84,11 @@ export default function ServicesSliderPhoto({ slide }: any) {
                     ) !important;
                     opacity: 1 !important;
                 }
+                @media (max-width: 600px) {
+                    .services-slider .slick-dots {
+                        display: none !important;
+                    }
+                }
             `}</style>
             <Slider
                 {...{
@@ -98,6 +103,7 @@ export default function ServicesSliderPhoto({ slide }: any) {
                     centerPadding: isMobile ? "0px" : "15%",
                     slidesToShow: isMobile ? 1 : 3,
                     slidesToScroll: 1,
+                    arrows:false,
                     responsive: [
                         {
                             breakpoint: 1024,
@@ -110,6 +116,7 @@ export default function ServicesSliderPhoto({ slide }: any) {
                         {
                             breakpoint: 600,
                             settings: {
+                                dots:false,
                                 slidesToShow: 1,
                                 centerMode: false,
                                 centerPadding: "0px",
@@ -122,10 +129,6 @@ export default function ServicesSliderPhoto({ slide }: any) {
                     return (
                         <div key={index} className="px-4 sm:px-0" onClick={() => handleSlideClick(index)}>
                             <div className="overflow-hidden">
-                                <div className="p-4 pt-0 text-center slide-content">
-                                    <h3 className="text-xl md:text-3xl font-bold mb-2 text-neutral-softest">{item.clientName}</h3>
-                                    <p className="text-lg md:text-2xl text-gray-600 font-regular text-neutral-softer">{item.service}</p>
-                                </div>
                                 <Image
                                     src={item.image?.node?.filePath ? `${base_url}${item.image.node.filePath}` : '/placeholder.png'}
                                     alt={item.image?.node?.altText || item.clientName || 'Service Image'}

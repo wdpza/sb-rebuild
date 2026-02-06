@@ -17,8 +17,7 @@ import TwoColumnImageRightLayout from "./service-components/TwoColumnImageRightL
 import LogoSliderLayout from "./shared/LogoSliderLayout"
 import ServicesSlider from "./service-components/ServicesSlider"
 import CTABlock from "./service-components/CTABlock"
-import ServicesSliderPhoto from "./service-components/ServicesSliderPhoto"
-import ServicesPhotosMasonry from "./service-components/ServicesPhotosMasonry"
+import PhotoGalleryLayout from "./service-components/PhotoGalleryLayout"
 
 export default async function ServiceRenderer({ pageBuilder}: any) {
     if (!pageBuilder) return null
@@ -67,7 +66,7 @@ export default async function ServiceRenderer({ pageBuilder}: any) {
                     case "ServicePageFieldsServicePageBuilderCtaBlockLayout":
                         return <CTABlock key={index} {...block} />
                     case "ServicePageFieldsServicePageBuilderPhotoSliderLayout":
-                        return <ServicesPhotosMasonry key={index} {...block} />
+                        return <PhotoGalleryLayout key={index} {...block} />
                     default:
                         return null
                 }
