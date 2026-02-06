@@ -1,6 +1,11 @@
-import Link from "next/link";
+'use client';
 
-export default function CTABlock({heading, buttonGroup, slug}: any) {
+import Link from "next/link";
+import { useParams } from "next/navigation";
+
+export default function CTABlock({heading, buttonGroup}: any) {
+    const params = useParams<{ slug: string; }>()
+    const {slug} = params;
     const {ctaLabel, ctaLink} = buttonGroup || {};
     
     return (

@@ -1,14 +1,16 @@
 'use client'
 
 import DOMPurify from 'isomorphic-dompurify';
+import { useParams } from 'next/navigation'
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import LogoSliderLayout from '../shared/LogoSliderLayout';
 import { ANIMATION_DURATIONS, ANIMATION_DELAYS, ANIMATION_EASINGS, ANIMATION_DISTANCES } from "@/lib/constants/animations";
 
-export default function HeroLayout({ title, ctaLink, description, subTitle, backgrounD, image, logoSlider, slug }: any) {
-	console.log(slug);
+export default function HeroLayout({ title, ctaLink, description, subTitle, backgrounD, image, logoSlider }: any) {
+	const params = useParams<{ slug: string; }>()
+	const {slug} = params;
 	
 	const bgUrl = backgrounD?.node?.mediaItemUrl ?? null;
 	const imageUrl = image?.node?.mediaItemUrl ?? null;

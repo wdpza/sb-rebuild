@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from "react";
+import { useParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import ContactForm from "../shared/ContactForm";
@@ -17,9 +18,11 @@ background,
 image,
 ctaLink,
 showContactForm,
-forms,
-slug
+forms
 }: HeroLayoutProps) {
+	const params = useParams<{ slug: string; }>()
+	const {slug} = params;
+	
 	const [submitted, setSubmitted] = useState(false);
 	const bgUrl = background?.node?.mediaItemUrl ?? null;
 	const imageUrl = image?.node?.mediaItemUrl ?? null;

@@ -1,3 +1,7 @@
+'use client';
+
+import { useParams } from "next/navigation";
+
 import WhyWorkWithUsBreath from "../shared/WhyWorkWithUsBreath";
 import WhyWorkWithUsDivider from "../shared/WhyWorkWithUsDivider";
 
@@ -11,9 +15,11 @@ export default function WhyWorkWithUs({
 	item,
 	backgroundImage,
 	ctaButtonGroup,
-	style,
-	slug
+	style
 }: any) {
+
+	const params = useParams<{ slug: string; }>()
+	const {slug} = params;
 
 	const layoutStyle = style[0] || "style_2";
 

@@ -20,7 +20,7 @@ import CTABlock from "./service-components/CTABlock"
 import ServicesSliderPhoto from "./service-components/ServicesSliderPhoto"
 import ServicesPhotosMasonry from "./service-components/ServicesPhotosMasonry"
 
-export default async function ServiceRenderer({ pageBuilder, slug }: any) {
+export default async function ServiceRenderer({ pageBuilder}: any) {
     if (!pageBuilder) return null
 
     return (
@@ -29,13 +29,13 @@ export default async function ServiceRenderer({ pageBuilder, slug }: any) {
                 switch (block.__typename) {
 
                     case "ServicePageFieldsServicePageBuilderHeroLayout":
-                        return <HeroLayout key={index} {...block} slug={slug} />
+                        return <HeroLayout key={index} {...block} />
                     case "ServicePageFieldsServicePageBuilderExitSectionLayout":
                         return <ExitLayout key={index} {...block} />
                     case "ServicePageFieldsServicePageBuilderServiceCarouselLayout":
                         return <ServiceAccordion key={index} {...block} />
                     case "ServicePageFieldsServicePageBuilderWhyWordWithUsSectionLayout":
-                        return <WhyWorkWithUs key={index} {...block} slug={slug} />
+                        return <WhyWorkWithUs key={index} {...block} />
                     case "ServicePageFieldsServicePageBuilderPortfolioSectionLayout":
                         return <PortfolioLayout key={index} {...block} />
                     case "ServicePageFieldsServicePageBuilderFaqSectionLayout":
@@ -65,7 +65,7 @@ export default async function ServiceRenderer({ pageBuilder, slug }: any) {
                     case "ServicePageFieldsServicePageBuilderServicesSliderLayout":
                         return <ServicesSlider key={index} {...block} />
                     case "ServicePageFieldsServicePageBuilderCtaBlockLayout":
-                        return <CTABlock key={index} {...block} slug={slug} />
+                        return <CTABlock key={index} {...block} />
                     case "ServicePageFieldsServicePageBuilderPhotoSliderLayout":
                         return <ServicesPhotosMasonry key={index} {...block} />
                     default:
