@@ -50,7 +50,7 @@ export default function ContactForm({ onSubmitSuccess }: ContactFormProps) {
 					"Content-Type": "application/json",
 				},
 				body: JSON.stringify({
-					formId: "contact-form",
+					formId: 2,
 					data: formData,
 				}),
 			});

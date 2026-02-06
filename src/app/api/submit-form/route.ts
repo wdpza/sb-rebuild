@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import nodemailer from "nodemailer";
+import { createLeadtrekkerInstance } from "@/lib/services/leadtrekker";
 
 export async function POST(request: NextRequest) {
 	try {
@@ -37,6 +38,136 @@ export async function POST(request: NextRequest) {
 				${formFields}
 			`,
 		});
+
+		// Create Gravity Forms entry via REST API v2
+		if (process.env.GF_ENDPOINT && 
+		    process.env.GF_API_KEY && 
+		    process.env.GF_API_SECRET) {
+			
+			try {
+				// Map form field names to Gravity Forms field IDs
+				const fieldMapping: Record<string, string> = {
+					name: "1",
+					surname: "3",
+					email: "4",
+					contactNumber: "5",
+					companyName: "7",
+					service: "8",
+					how: "9",
+					other: "10",
+					message: "11"
+				};
+
+				// Convert form data to Gravity Forms format
+				const gravityFieldsData: Record<string, any> = {};
+				Object.entries(data).forEach(([key, value]) => {
+					const fieldId = fieldMapping[key];
+					if (fieldId) {
+						gravityFieldsData[fieldId] = value;
+					}
+				});
+
+				// Prepare entry data with form_id and field data
+				const entryData = {
+					form_id: typeof formId === 'string' ? parseInt(formId, 10) : formId,
+					...gravityFieldsData,
+					// Optional: Add additional metadata
+					source_url: request.headers.get("referer") || "",
+					ip: request.headers.get("x-forwarded-for") || 
+					    request.headers.get("x-real-ip") || 
+					    "127.0.0.1",
+					user_agent: request.headers.get("user-agent") || "",
+					date_created: new Date().toISOString(),
+				};
+
+				// Create Basic Auth header
+				const auth = Buffer.from(
+					`${process.env.GF_API_KEY}:${process.env.GF_API_SECRET}`
+				).toString("base64");
+
+				// Make POST request to Gravity Forms REST API
+				const gravityResponse = await fetch(
+					`${process.env.GF_ENDPOINT}/entries`,
+					{
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+							"Authorization": `Basic ${auth}`,
+						},
+						body: JSON.stringify(entryData),
+					}
+				);
+
+				if (!gravityResponse.ok) {
+					const errorData = await gravityResponse.json();
+					console.error("Gravity Forms API error:", errorData);
+					// Continue execution even if Gravity Forms fails
+				} else {
+					const gravityData = await gravityResponse.json();
+					console.log("Gravity Forms entry created:", gravityData.id);
+				}
+			} catch (gravityError) {
+				console.error("Failed to create Gravity Forms entry:", gravityError);
+				// Continue execution even if Gravity Forms fails
+			}
+		}
+
+		// Submit to Leadtrekker (Form ID 2 - Contact Form)
+		if (formId === 2) {
+			const leadtrekker = createLeadtrekkerInstance();
+			
+			if (leadtrekker) {
+				try {
+					const fullName = `${data.name || ''} ${data.surname || ''}`.trim();
+					const mobile = data.contactNumber?.replace(/[\s\(\)\-]/g, '') || '';
+					
+					// Check if lead is not spam
+					const isValidLead = await leadtrekker.checkLead(data.email, fullName);
+					
+					if (isValidLead) {
+						// Prepare lead data
+						const leadData = {
+							name: fullName,
+							email: data.email,
+							number: mobile,
+							company: data.companyName || '',
+							sourceid: '8877',
+							custom_fields: {
+								'Service': data.service || '',
+								'How Did You Hear About Us': data.how || '',
+								'Message': data.message || '',
+								'IP': request.headers.get("x-forwarded-for") || 
+								     request.headers.get("x-real-ip") || 
+								     "127.0.0.1"
+							} as Record<string, string>
+						};
+
+						// Add "Other" field if it has a value
+						if (data.other && data.other.trim()) {
+							leadData.custom_fields['Other'] = data.other;
+						}
+
+						// Add URL tracking parameters if available
+						const urlParams = request.nextUrl.searchParams;
+						const trackingParams: Record<string, string> = {};
+						urlParams.forEach((value, key) => {
+							trackingParams[key] = value;
+						});
+						
+						const finalLeadData = leadtrekker.addParams(leadData, trackingParams);
+
+						// Push to Leadtrekker
+						const leadResult = await leadtrekker.pushLead(finalLeadData);
+						console.log('Leadtrekker lead created:', leadResult);
+					} else {
+						console.log('Lead rejected - spam detected:', data.email, fullName);
+					}
+				} catch (leadtrekkerError) {
+					console.error("Failed to submit to Leadtrekker:", leadtrekkerError);
+					// Continue execution even if Leadtrekker fails
+				}
+			}
+		}
 
 		return NextResponse.json({ success: true }, { status: 200 });
 	} catch (error) {
