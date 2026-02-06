@@ -3,8 +3,8 @@ module.exports = {
     name: 'starbright',
     script: 'npm',
     args: 'start',
-    cwd: '/home/wdp/git/sb-rebuild',
-    instances: 'max',  // Use all CPU cores
+    cwd: '/home/ubuntu/production',
+    instances: 'max',
     exec_mode: 'cluster',
     env: {
       NODE_ENV: 'production',
