@@ -83,23 +83,31 @@ export default function Footer( footer: any) {
                         </h4>
                         <div className="flex items-center self-center  md:self-end gap-3 justify-start md:justify-end">
                             {footer.footer.siteOptions.siteOptionsFields.footer.socialMedia.map(
-                                (item: {  icon: any; url: string }, index: number) => (
-                                <a
-                                    key={index}
-                                    href={item.url}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="transition-transform hover:scale-105"
-                                >
-                                    <Image
-                                        src={item.icon.node.mediaItemUrl}
-                                        alt={item.icon.node.altText ?? 'Social media icon'}
-                                        width={24}
-                                        height={24}
-                                        className="w-6 h-6 object-contain"
-                                    />
-                                </a>
-                                )
+                                (item: {  icon: any; url: string }, index: number) => {
+                                    const altText = item.icon.node.altText || 'Social media';
+                                    const ariaLabel = altText.toLowerCase().includes('icon') 
+                                        ? altText.replace(/icon/gi, '').trim() 
+                                        : `Visit us on ${altText}`;
+                                    
+                                    return (
+                                        <a
+                                            key={index}
+                                            href={item.url}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="transition-transform hover:scale-105"
+                                            aria-label={ariaLabel || 'Visit our social media page'}
+                                        >
+                                            <Image
+                                                src={item.icon.node.mediaItemUrl}
+                                                alt=""
+                                                width={24}
+                                                height={24}
+                                                className="w-6 h-6 object-contain"
+                                            />
+                                        </a>
+                                    );
+                                }
                             )}
                         </div>
 

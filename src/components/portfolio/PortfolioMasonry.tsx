@@ -26,6 +26,15 @@ export default function PortfolioMasonry({ items }: any) {
             key={index}
             className="relative group mb-6 cursor-pointer"
             onClick={() => handleImageClick(item)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                handleImageClick(item);
+              }
+            }}
+            role="button"
+            tabIndex={0}
+            aria-label={`View ${item.portfolioFields.sliderImageMain.node.altText || `portfolio item ${index + 1}`} in full size`}
           >
             <Image
               src={item.portfolioFields.sliderImageMain.node.mediaItemUrl}

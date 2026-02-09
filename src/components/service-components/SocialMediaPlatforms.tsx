@@ -34,6 +34,7 @@ export default function SocialMediaPlatforms({ introTitle, platform, backgroundI
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="flex justify-center items-center transition-transform duration-300 ease-in-out hover:scale-105 flex-shrink-0"
+                                aria-label={platform.platformImage.node.altText || `Visit platform ${index + 1}`}
                             >
                                 {imageElement}
                             </Link>

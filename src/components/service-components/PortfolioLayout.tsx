@@ -31,6 +31,15 @@ export default function PortfolioLayout({ title, portfolioItems }: any) {
             key={index}
             className="relative group mb-6 cursor-pointer"
             onClick={() => handleImageClick(item.mediaItemUrl)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                handleImageClick(item.mediaItemUrl);
+              }
+            }}
+            role="button"
+            tabIndex={0}
+            aria-label={`View ${item.altText || `portfolio item ${index + 1}`} in full size`}
           >
             <Image
               src={item.mediaItemUrl}
