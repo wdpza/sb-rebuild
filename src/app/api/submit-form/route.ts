@@ -118,21 +118,21 @@ export async function POST(request: NextRequest) {
 			
 			if (leadtrekker) {
 				try {
-					const fullName = `${data.name || ''} ${data.surname || ''}`.trim();
 					const mobile = data.contactNumber?.replace(/[\s\(\)\-]/g, '') || '';
 					
 					// Check if lead is not spam
-					const isValidLead = await leadtrekker.checkLead(data.email, fullName);
+					const isValidLead = await leadtrekker.checkLead(data.email, data.name || '');
 					
 					if (isValidLead) {
 						// Prepare lead data
 						const leadData = {
-							name: fullName,
+							name: data.name || '',
 							email: data.email,
 							number: mobile,
 							company: data.companyName || '',
-						sourceid: data.sourceid || '8877',
+							sourceid: data.sourceid || null,
 							custom_fields: {
+								'Surname': data.surname || '',
 								'Service': data.service || '',
 								'How Did You Hear About Us': data.how || '',
 								'Message': data.message || '',
@@ -160,7 +160,7 @@ export async function POST(request: NextRequest) {
 						const leadResult = await leadtrekker.pushLead(finalLeadData);
 						console.log('Leadtrekker lead created:', leadResult);
 					} else {
-						console.log('Lead rejected - spam detected:', data.email, fullName);
+						console.log('Lead rejected - spam detected:', data.email, data.name);
 					}
 				} catch (leadtrekkerError) {
 					console.error("Failed to submit to Leadtrekker:", leadtrekkerError);

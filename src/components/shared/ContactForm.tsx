@@ -27,20 +27,21 @@ function ContactFormContent({ onSubmitSuccess, services = [] }: ContactFormProps
 	const [error, setError] = useState<string | null>(null);
 	const searchParams = useSearchParams();
 
-	console.log(services)
-
 	useEffect(() => {
 		const serviceParam = searchParams.get('service');
 		if (serviceParam) {
-			setFormData((prev) => ({ ...prev, service: serviceParam }));
+			// Find the matching service to get its source ID
+			const matchingService = services.find(s => s.slug === serviceParam);
+			const sourceid = matchingService?.leadtrekker_source_id || '';
+			setFormData((prev) => ({ ...prev, service: serviceParam, sourceid }));
 		}
-	}, [searchParams]);
+	}, [searchParams, services]);
 
 	const handleChange = (
 		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
 	) => {
 		const { name, value } = e.target;
-		
+
 		// If changing service, also capture the sourceid from data-sourceid attribute
 		if (name === 'service' && e.target instanceof HTMLSelectElement) {
 			const selectedOption = e.target.selectedOptions[0];
@@ -53,6 +54,12 @@ function ContactFormContent({ onSubmitSuccess, services = [] }: ContactFormProps
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
+
+		console.log('Form submission data:', {
+			formId: 2,
+			data: formData,
+		});
+
 		setIsSubmitting(true);
 		setError(null);
 
@@ -150,102 +157,104 @@ function ContactFormContent({ onSubmitSuccess, services = [] }: ContactFormProps
 
 
 			<div className="relative">
-		<select
-			name="service"
-			id="service"
-			onChange={handleChange}
-			value={formData.service}
-			className="appearance-none h-full bg-[#1F1F1F96] placeholder-white text-neutral-softest border border-[#353536] p-3 rounded w-full pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500"
-		>
-			<option value="">Select a Service*</option>
-			<optgroup label="Design">
-				<option value="graphic-design" data-sourceid={services.find(s => s.slug === 'graphic-design')?.leadtrekker_source_id || ''}>Graphic Design</option>
-				<option value="ux-ui-design" data-sourceid={services.find(s => s.slug === 'ux-ui-design')?.leadtrekker_source_id || ''}>UX/UI Design</option>
-				<option value="web-design" data-sourceid={services.find(s => s.slug === 'web-design')?.leadtrekker_source_id || ''}>Web Design</option>
-			</optgroup>
-			<optgroup label="Development">
-				<option value="website-development" data-sourceid={services.find(s => s.slug === 'website-development')?.leadtrekker_source_id || ''}>Website Development</option>
-				<option value="custom-development" data-sourceid={services.find(s => s.slug === 'custom-development')?.leadtrekker_source_id || ''}>Custom Development</option>
-				<option value="hosting-services" data-sourceid={services.find(s => s.slug === 'hosting-services')?.leadtrekker_source_id || ''}>Hosting Services</option>
-			</optgroup>
-			<optgroup label="Digital Marketing">
-				<option value="google-ads" data-sourceid={services.find(s => s.slug === 'google-ads')?.leadtrekker_source_id || ''}>Google Ads</option>
-				<option value="search-engine-optimisation" data-sourceid={services.find(s => s.slug === 'search-engine-optimisation')?.leadtrekker_source_id || ''}>Search Engine Optimisation</option>
-				<option value="social-media" data-sourceid={services.find(s => s.slug === 'social-media')?.leadtrekker_source_id || ''}>Social Media</option>
-				<option value="copywriting" data-sourceid={services.find(s => s.slug === 'copywriting')?.leadtrekker_source_id || ''}>Copywriting</option>
-				<option value="email-marketing" data-sourceid={services.find(s => s.slug === 'email-marketing')?.leadtrekker_source_id || ''}>Email Marketing</option>
-			</optgroup>
-			<optgroup label="Photography">
-				<option value="studio-photography" data-sourceid={services.find(s => s.slug === 'studio-photography')?.leadtrekker_source_id || ''}>Studio Photography</option>
-				<option value="studio-hire" data-sourceid={services.find(s => s.slug === 'studio-hire')?.leadtrekker_source_id || ''}>Studio Hire</option>
-			</optgroup>
-			<optgroup label="Business Solutions">
-				<option value="google-workspace" data-sourceid={services.find(s => s.slug === 'google-workspace')?.leadtrekker_source_id || ''}>Google Workspace</option>
-				<option value="google-review-booster" data-sourceid={services.find(s => s.slug === 'google-review-booster')?.leadtrekker_source_id || ''}>Google Review Booster</option>
-			</optgroup>
-		</select>
-		<span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2">
-			<Image
-				src="/images/select-down.png"
-				alt="Dropdown arrow"
-				width={20}
-				height={11}
-			/>
-		</span>
-	</div>
+				<select
+					name="service"
+					id="service"
+					onChange={handleChange}
+					value={formData.service}
+					required
+					className="appearance-none h-full bg-[#1F1F1F96] placeholder-white text-neutral-softest border border-[#353536] p-3 rounded w-full pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500"
+				>
+					<option value="">Select a Service*</option>
+					<optgroup label="Design">
+						<option value="graphic-design" data-sourceid={services.find(s => s.slug === 'graphic-design')?.leadtrekker_source_id || ''}>Graphic Design</option>
+						<option value="ux-ui-design" data-sourceid={services.find(s => s.slug === 'ux-ui-design')?.leadtrekker_source_id || ''}>UX/UI Design</option>
+						<option value="web-design" data-sourceid={services.find(s => s.slug === 'web-design')?.leadtrekker_source_id || ''}>Web Design</option>
+					</optgroup>
+					<optgroup label="Development">
+						<option value="website-development" data-sourceid={services.find(s => s.slug === 'website-development')?.leadtrekker_source_id || ''}>Website Development</option>
+						<option value="custom-development" data-sourceid={services.find(s => s.slug === 'custom-development')?.leadtrekker_source_id || ''}>Custom Development</option>
+						<option value="hosting-services" data-sourceid={services.find(s => s.slug === 'hosting-services')?.leadtrekker_source_id || ''}>Hosting Services</option>
+					</optgroup>
+					<optgroup label="Digital Marketing">
+						<option value="google-ads" data-sourceid={services.find(s => s.slug === 'google-ads')?.leadtrekker_source_id || ''}>Google Ads</option>
+						<option value="search-engine-optimisation" data-sourceid={services.find(s => s.slug === 'search-engine-optimisation')?.leadtrekker_source_id || ''}>Search Engine Optimisation</option>
+						<option value="social-media" data-sourceid={services.find(s => s.slug === 'social-media')?.leadtrekker_source_id || ''}>Social Media</option>
+						<option value="copywriting" data-sourceid={services.find(s => s.slug === 'copywriting')?.leadtrekker_source_id || ''}>Copywriting</option>
+						<option value="email-marketing" data-sourceid={services.find(s => s.slug === 'email-marketing')?.leadtrekker_source_id || ''}>Email Marketing</option>
+					</optgroup>
+					<optgroup label="Photography">
+						<option value="studio-photography" data-sourceid={services.find(s => s.slug === 'studio-photography')?.leadtrekker_source_id || ''}>Studio Photography</option>
+						<option value="studio-hire" data-sourceid={services.find(s => s.slug === 'studio-hire')?.leadtrekker_source_id || ''}>Studio Hire</option>
+					</optgroup>
+					<optgroup label="Business Solutions">
+						<option value="google-workspace" data-sourceid={services.find(s => s.slug === 'google-workspace')?.leadtrekker_source_id || ''}>Google Workspace</option>
+						<option value="google-review-booster" data-sourceid={services.find(s => s.slug === 'google-review-booster')?.leadtrekker_source_id || ''}>Google Review Booster</option>
+					</optgroup>
+				</select>
+				<span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2">
+					<Image
+						src="/images/select-down.png"
+						alt="Dropdown arrow"
+						width={20}
+						height={11}
+					/>
+				</span>
+			</div>
 
-	<div
-		className={`md:col-span-2 flex flex-col md:flex-row gap-6 transition-all duration-300 ${isOtherSelected ? "items-stretch" : "items-center"
-			}`}
-	>
-		<div className="relative flex-1 h-full w-full">
-			<select
-				name="how"
-				required
-				value={formData.how}
-				onChange={handleChange}
-				className="appearance-none h-full bg-[#1F1F1F96] placeholder-white text-neutral-softest border border-[#353536] p-3 rounded w-full pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500"
+			<div
+				className={`md:col-span-2 flex flex-col md:flex-row gap-6 transition-all duration-300 ${isOtherSelected ? "items-stretch" : "items-center"
+					}`}
 			>
-				<option value="">How did you hear about us*</option>
-				<option>Google</option>
-				<option>Word of Mouth</option>
-				<option>Billboard</option>
-				<option>Social Media</option>
-				<option>Email newsletter</option>
-				<option>SMS Campaign</option>
-				<option>Returning Client</option>
-				<option>Other</option>
-			</select>
-			<span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2">
-				<Image
-					src="/images/select-down.png"
-					alt="Dropdown arrow"
-					width={20}
-					height={11}
-				/>
-			</span>
-		</div>
+				<div className="relative flex-1 h-full w-full">
+					<select
+						name="how"
+						value={formData.how}
+						onChange={handleChange}
+						required
+						className="appearance-none h-full bg-[#1F1F1F96] placeholder-white text-neutral-softest border border-[#353536] p-3 rounded w-full pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500"
+					>
+						<option value="">How did you hear about us?*</option>
+						<option>Google</option>
+						<option>Word of Mouth</option>
+						<option>Billboard</option>
+						<option>Social Media</option>
+						<option>Email newsletter</option>
+						<option>SMS Campaign</option>
+						<option>Returning Client</option>
+						<option>Other</option>
+					</select>
+					<span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2">
+						<Image
+							src="/images/select-down.png"
+							alt="Dropdown arrow"
+							width={20}
+							height={11}
+						/>
+					</span>
+				</div>
 
-		{isOtherSelected && (
-			<input
-				type="text"
-				name="other"
-				placeholder="Please specify other*"
-				required
-				value={formData.other}
+				{isOtherSelected && (
+					<input
+						type="text"
+						name="other"
+						placeholder="Please specify other*"
+						required
+						value={formData.other}
+						onChange={handleChange}
+						className="flex-1 h-full bg-[#1F1F1F96] placeholder-white text-neutral-softest border border-[#353536] p-3 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+					/>
+				)}
+			</div>
+
+			<textarea
+				name="message"
+				placeholder="Message*"
+				value={formData.message}
 				onChange={handleChange}
-				className="flex-1 h-full bg-[#1F1F1F96] placeholder-white text-neutral-softest border border-[#353536] p-3 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+				required
+				className="bg-[#1F1F1F96] placeholder-white text-neutral-softest md:col-span-2 border border-[#353536] p-3 rounded w-full h-32 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
 			/>
-		)}
-	</div>
-
-	<textarea
-		name="message"
-		placeholder="Message"
-		value={formData.message}
-		onChange={handleChange}
-		className="bg-[#1F1F1F96] placeholder-white text-neutral-softest md:col-span-2 border border-[#353536] p-3 rounded w-full h-32 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
-	/>
 
 			<button
 				type="submit"
