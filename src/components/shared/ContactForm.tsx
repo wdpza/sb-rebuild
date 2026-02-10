@@ -23,6 +23,7 @@ function ContactFormContent({ onSubmitSuccess, services = [] }: ContactFormProps
 		other: "",
 		message: "",
 	});
+	
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [error, setError] = useState<string | null>(null);
 	const searchParams = useSearchParams();
