@@ -24,7 +24,7 @@ async function getGravityForm(id: number) {
 	return res.json();
 }
 
-export default async function FormLayout({ title, formId, backgroundImage }: any) {
+export default async function FormLayout({ title, formId, backgroundImage, sourceId }: any) {
 
     const base_url  = process.env.NEXT_PUBLIC_WP_BASE_URL;
     const backgroundImageUrl = backgroundImage?.node?.filePath ? `${base_url}${backgroundImage.node.filePath}` : null;
@@ -45,7 +45,7 @@ export default async function FormLayout({ title, formId, backgroundImage }: any
                     </h2>
                 )}
                 {form && (
-                    <Forms form={form} formId={formId} />
+                    <Forms form={form} formId={formId} sourceId={sourceId} />
                 )}
             </div>
         </div>

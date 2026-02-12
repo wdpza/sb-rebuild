@@ -67,6 +67,7 @@ export default async function Page({ params }: any) {
       <PageRenderer 
         pageBuilder={page.pageFieldGroup?.pageBuilder} 
         services={services}
+        sourceId={page.pageFieldGroup?.sourceId}
       />
     </main>
   )

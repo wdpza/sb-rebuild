@@ -51,7 +51,7 @@ type GravityForm = {
     fields: GFField[];
 };
 
-export default function Forms({ form, formId }: { form: GravityForm, formId: number }) {
+export default function Forms({ form, formId, sourceId }: { form: GravityForm, formId: number, sourceId?: string }) {
     const formRef = useRef<HTMLFormElement>(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
@@ -67,14 +67,17 @@ export default function Forms({ form, formId }: { form: GravityForm, formId: num
         const data = Object.fromEntries(formData.entries());
 
         try {
-            const response = await fetch("/api/submit-form", {
+            const response = await fetch("/api/submit-g-form", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
                     formId,
-                    data,
+                    data: {
+                        ...data,
+                        ...(sourceId && { sourceid: sourceId }),
+                    },
                 }),
             });
 

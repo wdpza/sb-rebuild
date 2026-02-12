@@ -10,7 +10,7 @@ export default function CaseStudySidebar({ item }: { item: any }) {
   const sections: Section[] = item?.caseStudies?.pageSection ?? [];
 
   return (
-    <aside className="category-sidebar sticky top-10">
+    <aside className="category-sidebar sticky top-24 lg:top-28">
       <ul className="space-y-3 text-xl font-light">
         {sections.map((s, i) => {
           const id = makeSectionId(s.sectionTitle, i);

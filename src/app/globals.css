@@ -133,6 +133,11 @@
     color: transparent;
   }
 
+  #article a {
+    color: #38abf7;
+    text-decoration: underline;
+  }
+
   .flex-\[0_0_12rem\] {
     flex: 0 0 12rem;
   }
