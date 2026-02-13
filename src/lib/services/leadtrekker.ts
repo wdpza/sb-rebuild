@@ -102,6 +102,8 @@ export class Leadtrekker {
 	 */
 	async pushLeadFile(fileData: FormData): Promise<any> {
 		try {
+			console.log('Uploading file to Leadtrekker:', this.apiUrlFiles);
+			
 			const response = await fetch(this.apiUrlFiles, {
 				method: 'POST',
 				headers: {
@@ -110,8 +112,24 @@ export class Leadtrekker {
 				body: fileData,
 			});
 
-			const result = await response.json();
-			return result;
+			console.log('Leadtrekker file upload response status:', response.status);
+			
+			const responseText = await response.text();
+			console.log('Leadtrekker file upload response:', responseText);
+			
+			try {
+				const result = JSON.parse(responseText);
+				
+				if (result.error) {
+					console.error('Leadtrekker API error:', result.error);
+					throw new Error(result.error);
+				}
+				
+				return result;
+			} catch (parseError) {
+				// If response is not JSON, return the text
+				return responseText;
+			}
 		} catch (error) {
 			console.error('Error pushing file to Leadtrekker:', error);
 			throw error;

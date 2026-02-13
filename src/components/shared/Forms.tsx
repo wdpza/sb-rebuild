@@ -64,21 +64,18 @@ export default function Forms({ form, formId, sourceId }: { form: GravityForm, f
         setSubmitStatus("idle");
 
         const formData = new FormData(e.currentTarget);
-        const data = Object.fromEntries(formData.entries());
+        
+        // Add formId and sourceId to FormData
+        formData.append('formId', formId.toString());
+        if (sourceId) {
+            formData.append('sourceid', sourceId);
+        }
 
         try {
+            // Submit form with multipart/form-data to handle files
             const response = await fetch("/api/submit-g-form", {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    formId,
-                    data: {
-                        ...data,
-                        ...(sourceId && { sourceid: sourceId }),
-                    },
-                }),
+                body: formData, // Send as FormData instead of JSON
             });
 
             if (response.ok) {
