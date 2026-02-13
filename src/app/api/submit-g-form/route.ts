@@ -5,7 +5,7 @@ export async function POST(request: NextRequest) {
 	try {
 		let formId: number;
 		let data: Record<string, any> = {};
-		let uploadedFiles: Map<string, File> = new Map(); // fieldKey -> File object
+		const uploadedFiles: Map<string, File> = new Map(); // fieldKey -> File object
 
 		// Check if request is multipart/form-data or JSON
 		const contentType = request.headers.get("content-type") || "";
