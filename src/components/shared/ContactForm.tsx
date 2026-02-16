@@ -23,6 +23,7 @@ function ContactFormContent({ onSubmitSuccess, services = [] }: ContactFormProps
 		how: "",
 		other: "",
 		message: "",
+		updates: false,
 	});
 	
 	const [isSubmitting, setIsSubmitting] = useState(false);
@@ -257,6 +258,21 @@ function ContactFormContent({ onSubmitSuccess, services = [] }: ContactFormProps
 				required
 				className="bg-[#1F1F1F96] placeholder-white text-neutral-softest md:col-span-2 border border-[#353536] p-3 rounded w-full h-32 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
 			/>
+
+			{/* Receive updates */}
+			<div className="md:col-span-2 flex items-center">
+				<input
+					type="checkbox"
+					id="updates"
+					name="updates"
+					checked={formData.updates}
+					onChange={(e) => setFormData((prev) => ({ ...prev, updates: e.target.checked }))}
+					className="mr-2 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+				/>
+				<label htmlFor="updates" className="text-neutral-softest">
+					I would like to receive updates and offers from Starbright.
+				</label>
+			</div>
 
 			<button
 				type="submit"

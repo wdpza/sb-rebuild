@@ -40,8 +40,6 @@ export async function POST(request: NextRequest) {
 			data = body.data || {};
 		}
 
-        console.log(data);
-
 		// Create Gravity Forms entry via REST API v2
 		if (process.env.GF_ENDPOINT && 
 		    process.env.GF_API_KEY && 

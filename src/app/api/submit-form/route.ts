@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 import { createLeadtrekkerInstance } from "@/lib/services/leadtrekker";
+import { createEverlyticInstance } from "@/lib/services/everlytic";
 
 export async function POST(request: NextRequest) {
 	try {
@@ -38,6 +39,10 @@ export async function POST(request: NextRequest) {
 				${formFields}
 			`,
 		});
+
+		console.log('Updates', data.updates);
+		
+		//return NextResponse.json({ success: true }, { status: 200 });
 
 		// Create Gravity Forms entry via REST API v2
 		if (process.env.GF_ENDPOINT && 
@@ -115,6 +120,7 @@ export async function POST(request: NextRequest) {
 		// Submit to Leadtrekker (Form ID 2 - Contact Form)
 		if (formId === 2) {
 			const leadtrekker = createLeadtrekkerInstance();
+			const everlytic = createEverlyticInstance();
 			
 			if (leadtrekker) {
 				try {
@@ -158,7 +164,40 @@ export async function POST(request: NextRequest) {
 
 						// Push to Leadtrekker
 						const leadResult = await leadtrekker.pushLead(finalLeadData);
+
 						console.log('Leadtrekker lead created:', leadResult);
+
+						// Also push to Everlytic if configured and if user opted in for updates
+						const fullName = `${data.name || ''} ${data.surname || ''}`.trim();
+						if (data.updates) {
+							if (everlytic) {
+								try {
+									const everlyticData = {
+										name: fullName,
+										email: data.email,
+										mobile: mobile,
+										on_duplicate: 'update',
+										list_id: {
+											'237396': 'subscribed',
+											'209951': 'subscribed',
+											'205234': 'subscribed',
+											'205233': 'subscribed',
+											'210461': 'subscribed',
+											'211945': 'subscribed'
+										}
+									};
+
+									const everlyticResult = await everlytic.pushLead(everlyticData);
+									console.log('Everlytic contact created/updated:', everlyticResult);
+								} catch (everlyticError) {
+									console.error("Failed to submit to Everlytic:", everlyticError);
+									// Continue execution even if Everlytic fails
+								}
+							} else {
+								console.warn('Everlytic not configured, skipping contact creation');
+							}
+						}
+
 					} else {
 						console.log('Lead rejected - spam detected:', data.email, data.name);
 					}
