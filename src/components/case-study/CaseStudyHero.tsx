@@ -1,4 +1,6 @@
 import Image from "next/image";
+import { ArrowDown } from "lucide-react";
+import Link from "next/link";
 
 type CaseStudy = {
 	title?: string;
@@ -32,7 +34,7 @@ export default function CaseStudyHero({ item }: { item: CaseStudy }) {
 				<div className="flex flex-col justify-center gap-4">
 					{logoImg ? (
 						<Image
-							className="self-center mb-16"
+							className="self-center mb-12"
 							src={logoImg}
 							alt={logoAlt}
 							width={420}
@@ -43,6 +45,12 @@ export default function CaseStudyHero({ item }: { item: CaseStudy }) {
 					<h1 className="font-archivo uppercase hero-title font-black drop-shadow-lg text-gradient-starbright text-center">
 						{title}
 					</h1>
+
+					<Link 
+						href="#case-study-content"
+						className="rounded-full bg-white/10 p-4 inline-flex self-center mt-16 hover:bg-white/20 transition-colors duration-300 ease-in-out animate-bounce">
+						<ArrowDown className="w-8 h-8 text-neutral-softest" />
+					</Link>
 				</div>
 
 				{/* Right Column */}
