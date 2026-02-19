@@ -5,7 +5,31 @@ import { createEverlyticInstance } from "@/lib/services/everlytic";
 
 export async function POST(request: NextRequest) {
 	try {
-		const { formId, data } = await request.json();
+		const { formId, data, recaptchaToken } = await request.json();
+
+		const recaptchaResponse = await fetch(
+		"https://www.google.com/recaptcha/api/siteverify",
+		{
+			method: "POST",
+			headers: {
+				"Content-Type": "application/x-www-form-urlencoded",
+			},
+			body: new URLSearchParams({
+				secret: process.env.RECAPTCHA_SECRET_KEY!,
+				response: recaptchaToken,
+			}),
+		}
+	);
+
+	const recaptchaData = await recaptchaResponse.json();
+
+	if (!recaptchaData.success) {
+		console.error("reCAPTCHA verification failed:", recaptchaData);
+		return NextResponse.json(
+			{ success: false, error: "reCAPTCHA failed" },
+			{ status: 403 }
+		);
+	}
 
 		// Configure nodemailer transporter
 		// You'll need to set these environment variables:

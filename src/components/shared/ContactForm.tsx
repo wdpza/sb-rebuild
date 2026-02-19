@@ -3,7 +3,9 @@
 import { useState, useEffect, Suspense } from "react";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import type { ServiceOption } from "@/lib/graphql/queries/getServicesForForm";
+import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
 
 interface ContactFormProps {
 	onSubmitSuccess?: () => void;
@@ -11,7 +13,8 @@ interface ContactFormProps {
 }
 
 function ContactFormContent({ onSubmitSuccess, services = [] }: ContactFormProps) {
-	
+	const { executeRecaptcha } = useGoogleReCaptcha();
+
 	const [formData, setFormData] = useState({
 		name: "",
 		surname: "",
@@ -58,9 +61,17 @@ function ContactFormContent({ onSubmitSuccess, services = [] }: ContactFormProps
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 
+		if (!executeRecaptcha) {
+			console.log('reCAPTCHA not yet available');
+			return;
+		}
+
+		const token = await executeRecaptcha('contact_submit');
+
 		console.log('Form submission data:', {
 			formId: 2,
 			data: formData,
+			recaptchaToken: token
 		});
 
 		setIsSubmitting(true);
@@ -287,8 +298,10 @@ function ContactFormContent({ onSubmitSuccess, services = [] }: ContactFormProps
 
 export default function ContactForm({ onSubmitSuccess, services }: ContactFormProps) {
 	return (
-		<Suspense fallback={<div className="bg-[#1F1F1F96] border border-[#353536] p-6 rounded animate-pulse">Loading form...</div>}>
-			<ContactFormContent onSubmitSuccess={onSubmitSuccess} services={services} />
-		</Suspense>
+		<GoogleReCaptchaProvider reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ''}>
+			<Suspense fallback={<div className="bg-[#1F1F1F96] border border-[#353536] p-6 rounded animate-pulse">Loading form...</div>}>
+				<ContactFormContent onSubmitSuccess={onSubmitSuccess} services={services} />
+			</Suspense>
+		</GoogleReCaptchaProvider>
 	);
 }
