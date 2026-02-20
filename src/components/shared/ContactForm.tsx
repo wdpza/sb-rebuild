@@ -71,7 +71,6 @@ function ContactFormContent({ onSubmitSuccess, services = [] }: ContactFormProps
 		console.log('Form submission data:', {
 			formId: 2,
 			data: formData,
-			recaptchaToken: token
 		});
 
 		setIsSubmitting(true);
@@ -86,6 +85,7 @@ function ContactFormContent({ onSubmitSuccess, services = [] }: ContactFormProps
 				body: JSON.stringify({
 					formId: 2,
 					data: formData,
+					recaptchaToken: token
 				}),
 			});
 

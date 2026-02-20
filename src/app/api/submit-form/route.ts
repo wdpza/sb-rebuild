@@ -24,12 +24,12 @@ export async function POST(request: NextRequest) {
 	const recaptchaData = await recaptchaResponse.json();
 
 	console.log("reCAPTCHA verify:", {
-	success: recaptchaData.success,
-	score: recaptchaData.score,
-	action: recaptchaData.action,
-	hostname: recaptchaData.hostname,
-	challenge_ts: recaptchaData.challenge_ts,
-	"error-codes": recaptchaData["error-codes"],
+		success: recaptchaData.success,
+		score: recaptchaData.score,
+		action: recaptchaData.action,
+		hostname: recaptchaData.hostname,
+		challenge_ts: recaptchaData.challenge_ts,
+		"error-codes": recaptchaData["error-codes"],
 	});
 
 	if (!recaptchaData.success) {
