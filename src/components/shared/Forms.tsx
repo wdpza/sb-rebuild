@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
+import { GoogleReCaptchaProvider, useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 
 type GFChoice = {
     text: string;
@@ -51,10 +52,11 @@ type GravityForm = {
     fields: GFField[];
 };
 
-export default function Forms({ form, formId, sourceId }: { form: GravityForm, formId: number, sourceId?: string }) {
+function FormsContent({ form, formId, sourceId }: { form: GravityForm, formId: number, sourceId?: string }) {
     const formRef = useRef<HTMLFormElement>(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+    const { executeRecaptcha } = useGoogleReCaptcha();
 
     if (!form) return null;
 
@@ -69,6 +71,12 @@ export default function Forms({ form, formId, sourceId }: { form: GravityForm, f
         formData.append('formId', formId.toString());
         if (sourceId) {
             formData.append('sourceid', sourceId);
+        }
+
+        // Execute reCAPTCHA and append token
+        if (executeRecaptcha) {
+            const token = await executeRecaptcha('gravity_form_submit');
+            formData.append('recaptchaToken', token);
         }
 
         try {
@@ -295,5 +303,13 @@ export default function Forms({ form, formId, sourceId }: { form: GravityForm, f
                 </div>
             )}
         </form>
+    );
+}
+
+export default function Forms({ form, formId, sourceId }: { form: GravityForm, formId: number, sourceId?: string }) {
+    return (
+        <GoogleReCaptchaProvider reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ''}>
+            <FormsContent form={form} formId={formId} sourceId={sourceId} />
+        </GoogleReCaptchaProvider>
     );
 }

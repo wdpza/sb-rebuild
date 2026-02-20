@@ -15,10 +15,48 @@ export async function POST(request: NextRequest) {
 			const formData = await request.formData();
 			
 			formId = parseInt(formData.get('formId') as string, 10);
-			
+
+			// Verify reCAPTCHA token
+			const recaptchaToken = formData.get('recaptchaToken') as string | null;
+			if (!recaptchaToken || !process.env.RECAPTCHA_SECRET_KEY) {
+				return NextResponse.json(
+					{ success: false, error: "reCAPTCHA token missing" },
+					{ status: 400 }
+				);
+			}
+
+			const recaptchaResponse = await fetch(
+				"https://www.google.com/recaptcha/api/siteverify",
+				{
+					method: "POST",
+					headers: { "Content-Type": "application/x-www-form-urlencoded" },
+					body: new URLSearchParams({
+						secret: process.env.RECAPTCHA_SECRET_KEY,
+						response: recaptchaToken,
+					}),
+				}
+			);
+			const recaptchaData = await recaptchaResponse.json();
+
+			console.log("reCAPTCHA verify:", {
+				success: recaptchaData.success,
+				score: recaptchaData.score,
+				action: recaptchaData.action,
+				hostname: recaptchaData.hostname,
+				"error-codes": recaptchaData["error-codes"],
+			});
+
+			if (!recaptchaData.success || recaptchaData.score < 0.5) {
+				console.error("reCAPTCHA verification failed:", recaptchaData);
+				return NextResponse.json(
+					{ success: false, error: "reCAPTCHA verification failed" },
+					{ status: 403 }
+				);
+			}
+
 			// Process all form fields
 			for (const [key, value] of formData.entries()) {
-				if (key === 'formId') continue; // Skip formId as we already extracted it
+				if (key === 'formId' || key === 'recaptchaToken') continue; // Skip formId and token as we already extracted them
 				
 				if (value instanceof File) {
 					// Store file object for later upload to Leadtrekker
