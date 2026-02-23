@@ -242,8 +242,21 @@
   }
 
   .gradient-border {
-    transition: 250ms;
+    transition: 0.6s ease;
     border: 2px solid transparent;
+    background: linear-gradient(
+      99deg,
+      var(--color-blue-softer, #36aefa) 0%,
+      var(--color-purple-regular, #bd208b) 37.5%,
+      var(--color-orange-regular, #f15d22) 87.02%,
+      var(--color-yellow-regular, #eeb42c) 99.99%
+    );
+    background-clip: padding-box, border-box;
+    background-position: 100% 0;
+  }
+
+  .gradient-border.active,
+  .gradient-border:hover {
     background: linear-gradient(var(--btn-bg, #28262c), var(--btn-bg, #28262c))
         padding-box,
       linear-gradient(
@@ -254,7 +267,6 @@
           #eeb42c 99.99%
         )
         border-box;
-    transition: 0.6s ease;
   }
 
   .gradient-border-set {
@@ -303,18 +315,6 @@
         border-box;
   }
 
-  .gradient-border.active,
-  .gradient-border:hover {
-    background: linear-gradient(
-      99deg,
-      var(--color-blue-softer, #36aefa) 0%,
-      var(--color-purple-regular, #bd208b) 37.5%,
-      var(--color-orange-regular, #f15d22) 87.02%,
-      var(--color-yellow-regular, #eeb42c) 99.99%
-    );
-    background-clip: padding-box, border-box;
-    background-position: 100% 0;
-  }
   .transition-flex {
     transition: flex-basis 0.6s ease, flex-grow 0.6s ease;
   }
