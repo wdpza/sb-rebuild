@@ -78,6 +78,23 @@ export async function POST(request: NextRequest) {
 			data = body.data || {};
 		}
 
+		// Honeypot check — bots fill hidden fields, humans don't
+		if (data._hp && data._hp.toString().trim() !== '') {
+			console.warn('Honeypot triggered — spam submission rejected');
+			// Return success to avoid tipping off the bot
+			return NextResponse.json({ success: true }, { status: 200 });
+		}
+
+		// Phone number must contain at least some digits (Form 1: input_4, Form 2: input_5)
+		const phoneFieldValue = data.input_4 || data.input_5;
+		if (phoneFieldValue && !/\d/.test(phoneFieldValue.toString())) {
+			console.warn('Invalid phone number — spam submission rejected:', phoneFieldValue);
+			return NextResponse.json(
+				{ success: false, error: "Invalid phone number" },
+				{ status: 400 }
+			);
+		}
+
 		// Create Gravity Forms entry via REST API v2
 		if (process.env.GF_ENDPOINT && 
 		    process.env.GF_API_KEY && 

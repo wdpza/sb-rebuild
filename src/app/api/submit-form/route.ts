@@ -32,13 +32,29 @@ export async function POST(request: NextRequest) {
 		"error-codes": recaptchaData["error-codes"],
 	});
 
-	if (!recaptchaData.success) {
+	if (!recaptchaData.success || recaptchaData.score < 0.5) {
 		console.error("reCAPTCHA verification failed:", recaptchaData);
 		return NextResponse.json(
 			{ success: false, error: "reCAPTCHA failed" },
 			{ status: 403 }
 		);
 	}
+
+		// Honeypot check — bots fill hidden fields, humans don't
+		if (data._hp && data._hp.toString().trim() !== '') {
+			console.warn('Honeypot triggered — spam submission rejected');
+			// Return success to avoid tipping off the bot
+			return NextResponse.json({ success: true }, { status: 200 });
+		}
+
+		// Phone number must contain at least some digits
+		if (data.contactNumber && !/\d/.test(data.contactNumber.toString())) {
+			console.warn('Invalid phone number — spam submission rejected:', data.contactNumber);
+			return NextResponse.json(
+				{ success: false, error: "Invalid phone number" },
+				{ status: 400 }
+			);
+		}
 
 		// Configure nodemailer transporter
 		// You'll need to set these environment variables:

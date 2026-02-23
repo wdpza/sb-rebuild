@@ -275,6 +275,17 @@ function FormsContent({ form, formId, sourceId }: { form: GravityForm, formId: n
                 />
             )}
 
+            {/* Honeypot field — hidden from humans, bots fill it in */}
+            <input
+                type="text"
+                name="_hp"
+                defaultValue=""
+                autoComplete="off"
+                tabIndex={-1}
+                aria-hidden="true"
+                style={{ position: 'absolute', left: '-9999px', width: '1px', height: '1px', overflow: 'hidden' }}
+            />
+
             {/* GRID LAYOUT */}
             <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
                 {form.fields.map((field) => renderField(field))}

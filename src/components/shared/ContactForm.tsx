@@ -27,6 +27,7 @@ function ContactFormContent({ onSubmitSuccess, services = [] }: ContactFormProps
 		other: "",
 		message: "",
 		updates: false,
+		_hp: "", // honeypot — must remain empty
 	});
 	
 	const [isSubmitting, setIsSubmitting] = useState(false);
@@ -118,6 +119,18 @@ function ContactFormContent({ onSubmitSuccess, services = [] }: ContactFormProps
 					{error}
 				</div>
 			)}
+
+			{/* Honeypot field — hidden from humans, bots fill it in */}
+			<input
+				type="text"
+				name="_hp"
+				value={formData._hp}
+				onChange={handleChange}
+				autoComplete="off"
+				tabIndex={-1}
+				aria-hidden="true"
+				style={{ position: 'absolute', left: '-9999px', width: '1px', height: '1px', overflow: 'hidden' }}
+			/>
 
 			<input
 				type="text"
