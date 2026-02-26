@@ -126,3 +126,32 @@ export interface EmployeeCarouselLayoutProps {
   visible?: 5 | 7 | 9;
   backgroundImage?: MediaItem;
 }
+
+// types for Rank Math redirections
+export interface RankMathRedirectionSource {
+  comparison: string;
+  ignore: boolean;
+  pattern: string;
+}
+
+export interface RankMathRedirection {
+  databaseId: number;
+  dateCreated: string;
+  dateCreatedGmt: string;
+  dateLastAccessed: string;
+  dateLastAccessedGmt: string;
+  dateModified: string;
+  dateModifiedGmt: string;
+  hits: number;
+  id: string;
+  redirectToUrl: string;
+  sources: RankMathRedirectionSource[];
+  status: string;
+  type: string;
+}
+
+export interface RankMathRedirectionsResponse {
+  redirections: {
+    nodes: RankMathRedirection[];
+  };
+}
