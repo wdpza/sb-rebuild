@@ -1,6 +1,16 @@
 import type { NextConfig } from "next";
 
-import { fetchRankMathRedirections } from "./src/lib/graphql/queries/getRedirections";
+async function fetchRedirections() {
+    try {
+        const res = await fetch(
+            `${process.env.NEXT_PUBLIC_WP_BASE_URL}/wp-json/custom/v1/redirections`
+        );
+        if (!res.ok) return [];
+        return res.json() as Promise<{ source: string; destination: string; status: string }[]>;
+    } catch {
+        return [];
+    }
+}
 
 const nextConfig: NextConfig = {
     /* config options here */
@@ -15,23 +25,23 @@ const nextConfig: NextConfig = {
         qualities: [75, 85, 90, 100], // Configure quality presets
     },
     async redirects() {
-        try {
-            const rd = await fetchRankMathRedirections();
-            return rd.map((r) => {
-                // use the first source pattern; more complex rules may be necessary
-                const rawSource = r.sources?.[0]?.pattern || '/';
-                const source = rawSource.startsWith('/') ? rawSource : `/${rawSource}`;
-                const permanent = r.status === '301';
+        const items = await fetchRedirections();
+        return items
+            .filter((item) => item.source && item.destination)
+            .map((item) => {
+                // source is a full URL — extract just the pathname
+                let source: string;
+                try {
+                    source = new URL(item.source).pathname;
+                } catch {
+                    source = item.source.startsWith('/') ? item.source : `/${item.source}`;
+                }
                 return {
                     source,
-                    destination: r.redirectToUrl,
-                    permanent,
+                    destination: item.destination,
+                    permanent: item.status === '301',
                 };
             });
-        } catch (err) {
-            console.error('Failed to load Rank Math redirects:', err);
-            return [];
-        }
     },
 };
 

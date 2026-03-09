@@ -3,6 +3,7 @@ import { getAllArticles } from "@/lib/graphql/queries/getAllArticles";
 import BlogInnerHero from "@/components/blog/BlogInnerHero"
 import DOMPurify from 'isomorphic-dompurify';
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 
 // Revalidate every hour (3600 seconds)
 export const revalidate = 3600;
@@ -66,15 +67,12 @@ export default async function ArticleSlugPage(
 
     // getPostBySlug
     const post = await getPostBySlug(slug);
-    const sanitizedHtml = DOMPurify.sanitize(post.content || '');
 
     if (!post) {
-        return (
-            <div className="mx-auto px-6 py-8">
-                <h2 className="text-xl text-red-500">Article not found.</h2>
-            </div>
-        );
+        notFound();
     }
+
+    const sanitizedHtml = DOMPurify.sanitize(post.content || '');
     
     return (
         <article className="article-slug-page">
