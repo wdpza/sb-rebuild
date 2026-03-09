@@ -19,7 +19,8 @@ const nextConfig: NextConfig = {
             const rd = await fetchRankMathRedirections();
             return rd.map((r) => {
                 // use the first source pattern; more complex rules may be necessary
-                const source = r.sources?.[0]?.pattern || '/';
+                const rawSource = r.sources?.[0]?.pattern || '/';
+                const source = rawSource.startsWith('/') ? rawSource : `/${rawSource}`;
                 const permanent = r.status === '301';
                 return {
                     source,
