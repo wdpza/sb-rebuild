@@ -465,6 +465,10 @@ html {
   border-radius: 8px;
 }
 
+.case-study img.auto-width {
+  width: auto !important;
+}
+
 .text-neutral-softest strong {
   color: #fff !important;
 }
