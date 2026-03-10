@@ -1,0 +1,39 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Build & Deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script_stop: true
+          script: |
+            set -e
+            cd /home/ubuntu/production
+
+            echo "→ Pulling latest code..."
+            git pull origin main
+
+            echo "→ Installing dependencies..."
+            npm ci --omit=dev
+
+            echo "→ Building..."
+            NODE_OPTIONS='--max-old-space-size=1536' npm run build
+
+            echo "→ Reloading PM2..."
+            pm2 reload starbright --update-env
+
+            echo "✓ Deploy complete"
