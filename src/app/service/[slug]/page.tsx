@@ -4,9 +4,6 @@ import ServiceRenderer from "@/components/ServiceRenderer"
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 
-// Revalidate every hour (3600 seconds)
-export const revalidate = 3600;
-
 export async function generateStaticParams() {
     const services = await getAllServices(100);
     return services.map((service: any) => ({

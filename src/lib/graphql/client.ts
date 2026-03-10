@@ -15,7 +15,7 @@ export const client = new GraphQLClient(WP_GRAPHQL_URL, {
   fetch: (url: RequestInfo | URL, options: RequestInit = {}) => {
     return fetch(url, {
       ...options,
-      next: { revalidate: 3600 }, // Cache for 1 hour
+      next: { revalidate: false, tags: ["wordpress"] },
     });
   },
 });

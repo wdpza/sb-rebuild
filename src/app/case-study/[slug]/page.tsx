@@ -4,9 +4,6 @@ import { notFound } from "next/navigation"
 import CaseStudyItem from "@/components/case-study/CaseStudyItem"
 import type { Metadata } from "next"
 
-// Revalidate every hour (3600 seconds)
-export const revalidate = 3600;
-
 export async function generateStaticParams() {
     const items = await getCaseStudyItems(100);
     return items.map((item: any) => ({

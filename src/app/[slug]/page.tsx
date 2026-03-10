@@ -4,10 +4,6 @@ import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 import { getServicesForForm } from "@/lib/graphql/queries/getServicesForForm"
 
-// Remove force-dynamic to allow static generation where possible
-// export const dynamic = 'force-dynamic'
-export const revalidate = 3600 // Revalidate every hour instead of every minute
-
 export async function generateMetadata({ params }: any): Promise<Metadata> {
   const { slug } = await params
   const page = await getPageBySlug(slug)

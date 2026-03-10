@@ -5,9 +5,6 @@ import DOMPurify from 'isomorphic-dompurify';
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-// Revalidate every hour (3600 seconds)
-export const revalidate = 3600;
-
 export async function generateStaticParams() {
     const articles = await getAllArticles(100);
     return articles.map((article: any) => ({
