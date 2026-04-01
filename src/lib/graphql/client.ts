@@ -12,10 +12,27 @@ export const client = new GraphQLClient(WP_GRAPHQL_URL, {
     "Content-Type": "application/json",
     "Authorization": authHeader,
   },
-  fetch: (url: RequestInfo | URL, options: RequestInit = {}) => {
-    return fetch(url, {
+  fetch: async (url: RequestInfo | URL, options: RequestInit = {}) => {
+    const response = await fetch(url, {
       ...options,
       next: { revalidate: false, tags: ["wordpress"] },
     });
+
+    // Guard: if the WordPress server returned HTML (e.g. WP Redirection intercepted
+    // the GraphQL POST) or an empty body, return a synthetic error JSON so that
+    // graphql-request throws a typed GraphQL error instead of crashing with
+    // "SyntaxError: Unexpected end of JSON input".
+    const contentType = response.headers.get("content-type") || "";
+    if (!contentType.includes("application/json")) {
+      const syntheticBody = JSON.stringify({
+        errors: [{ message: `GraphQL endpoint returned non-JSON response (${response.status}) — content-type: ${contentType}` }],
+      });
+      return new Response(syntheticBody, {
+        status: response.status,
+        headers: { "content-type": "application/json" },
+      });
+    }
+
+    return response;
   },
 });
