@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { Archivo } from "next/font/google";
 import "./globals.css";
 import Script from "next/script";
+import UrlTrackingSession from "@/components/shared/UrlTrackingSession";
 
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
@@ -51,6 +53,9 @@ export default async function RootLayout({
       <body
         className={`${archivo.variable} antialiased overflow-x-hidden`}
       >
+        <Suspense fallback={null}>
+          <UrlTrackingSession />
+        </Suspense>
         {/* Google Tag Manager */}
         <Script id="google-tag-manager" strategy="afterInteractive">
           {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 import { createLeadtrekkerInstance } from "@/lib/services/leadtrekker";
 import { createEverlyticInstance } from "@/lib/services/everlytic";
+import { parseUrlTracking } from "@/lib/utils/urltracking";
 
 export async function POST(request: NextRequest) {
 	try {
@@ -201,7 +202,11 @@ export async function POST(request: NextRequest) {
 						if (data.other && data.other.trim()) {
 							leadData.custom_fields['Other'] = data.other;
 						}
-
+					// Add first-touch URL tracking from sessionStorage
+					const sessionTracking = parseUrlTracking(data.urltracking);
+					if (sessionTracking && Object.keys(sessionTracking).length > 0) {
+						leadData.custom_fields['urltracking'] = JSON.stringify(sessionTracking);
+					}
 						// Add URL tracking parameters if available
 						const urlParams = request.nextUrl.searchParams;
 						const trackingParams: Record<string, string> = {};

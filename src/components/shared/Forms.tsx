@@ -2,6 +2,7 @@
 
 import { useState, useRef } from "react";
 import { GoogleReCaptchaProvider, useGoogleReCaptcha } from 'react-google-recaptcha-v3';
+import { getSessionUrlTracking } from "@/lib/utils/urltracking";
 
 type GFChoice = {
     text: string;
@@ -77,6 +78,12 @@ function FormsContent({ form, formId, sourceId }: { form: GravityForm, formId: n
         if (executeRecaptcha) {
             const token = await executeRecaptcha('gravity_form_submit');
             formData.append('recaptchaToken', token);
+        }
+
+        // Append first-touch URL tracking from sessionStorage
+        const urltracking = getSessionUrlTracking();
+        if (urltracking !== null) {
+            formData.append('urltracking', urltracking);
         }
 
         try {

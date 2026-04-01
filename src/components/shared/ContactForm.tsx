@@ -6,6 +6,7 @@ import { useSearchParams } from "next/navigation";
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import type { ServiceOption } from "@/lib/graphql/queries/getServicesForForm";
 import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
+import { getSessionUrlTracking } from "@/lib/utils/urltracking";
 
 interface ContactFormProps {
 	onSubmitSuccess?: () => void;
@@ -69,6 +70,8 @@ function ContactFormContent({ onSubmitSuccess, services = [] }: ContactFormProps
 
 		const token = await executeRecaptcha('contact_submit');
 
+		const urltracking = getSessionUrlTracking();
+
 		console.log('Form submission data:', {
 			formId: 2,
 			data: formData,
@@ -85,7 +88,7 @@ function ContactFormContent({ onSubmitSuccess, services = [] }: ContactFormProps
 				},
 				body: JSON.stringify({
 					formId: 2,
-					data: formData,
+					data: { ...formData, ...(urltracking !== null ? { urltracking } : {}) },
 					recaptchaToken: token
 				}),
 			});

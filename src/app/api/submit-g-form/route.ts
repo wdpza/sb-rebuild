@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createLeadtrekkerInstance } from "@/lib/services/leadtrekker";
+import { parseUrlTracking } from "@/lib/utils/urltracking";
 
 export async function POST(request: NextRequest) {
 	try {
@@ -195,6 +196,12 @@ export async function POST(request: NextRequest) {
 							} as Record<string, string>
 						};
 
+						// Add first-touch URL tracking from sessionStorage
+						const sessionTracking1 = parseUrlTracking(data.urltracking?.toString());
+						if (sessionTracking1 && Object.keys(sessionTracking1).length > 0) {
+							leadData.custom_fields['urltracking'] = JSON.stringify(sessionTracking1);
+						}
+
 						// Add URL tracking parameters if available
 						const urlParams = request.nextUrl.searchParams;
 						const trackingParams: Record<string, string> = {};
@@ -300,6 +307,12 @@ export async function POST(request: NextRequest) {
 						// Add "Other" field if it has a value
 						if (other && other.toString().trim()) {
 							leadData.custom_fields['Other'] = other.toString();
+						}
+
+						// Add first-touch URL tracking from sessionStorage
+						const sessionTracking2 = parseUrlTracking(data.urltracking?.toString());
+						if (sessionTracking2 && Object.keys(sessionTracking2).length > 0) {
+							leadData.custom_fields['urltracking'] = JSON.stringify(sessionTracking2);
 						}
 
 						// Add URL tracking parameters if available
