@@ -3,8 +3,19 @@ import Image from "next/image";
 
 import { getAllPosts } from "@/lib/graphql/queries/getAllPosts";
 
-export default async function BlogPage() {
-    const { posts } = await getAllPosts(10);
+interface BlogPageProps {
+    searchParams: Promise<{ after?: string; before?: string }>;
+}
+
+export default async function BlogPage({ searchParams }: BlogPageProps) {
+    const { after, before } = await searchParams;
+
+    // Fetch the postsPerPage setting first to use as page size
+    const { postsPerPage } = await getAllPosts({});
+
+    const { posts } = before
+        ? await getAllPosts({ last: postsPerPage, before })
+        : await getAllPosts({ first: postsPerPage, after });
 
     if (!posts?.nodes?.length) {
         return (
@@ -15,9 +26,10 @@ export default async function BlogPage() {
         );
     }
 
+    const { hasNextPage, hasPreviousPage, startCursor, endCursor } = posts.pageInfo;
+
     return (
         <div className="mx-auto px-6">
-            {/* You don't really need grid here since each post is full width */}
             <div className="flex flex-col gap-8">
                 {posts.nodes.map((post: any) => {
                     return (
@@ -68,23 +80,32 @@ export default async function BlogPage() {
             </div>
 
             {/* Pagination */}
-            {posts.pageInfo?.hasNextPage && (
-                <div className="text-center mt-10 hidden">
-                    <form action="/posts/load-more" method="GET">
-                        <input
-                            type="hidden"
-                            name="after"
-                            value={posts.pageInfo.endCursor}
-                        />
-                        <button
-                            type="submit"
-                            className="px-6 py-2 bg-accent-strong text-neutral-softest rounded hover:bg-accent-strong/90"
+            {(hasPreviousPage || hasNextPage) && (
+                <div className="flex items-center justify-between mt-10 pt-6 border-t border-neutral-strong">
+                    {hasPreviousPage && startCursor ? (
+                        <Link
+                            href={`/articles?before=${encodeURIComponent(startCursor)}`}
+                            className="text-sm inline-block gradient-border rounded py-2 px-6 text-neutral-softest"
                         >
-                            Load More
-                        </button>
-                    </form>
+                            &larr; Previous
+                        </Link>
+                    ) : (
+                        <span />
+                    )}
+
+                    {hasNextPage && endCursor ? (
+                        <Link
+                            href={`/articles?after=${encodeURIComponent(endCursor)}`}
+                            className="text-sm inline-block gradient-border rounded py-2 px-6 text-neutral-softest"
+                        >
+                            Next &rarr;
+                        </Link>
+                    ) : (
+                        <span />
+                    )}
                 </div>
             )}
         </div>
     );
 }
+

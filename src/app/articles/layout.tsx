@@ -5,7 +5,7 @@ import CategorySidebar from "@/components/shared/CategorySidebar";
 import BlogExit from "@/components/blog/BlogExit";
 
 export default async function ArticleLayout({ children }: { children: React.ReactNode }) {
-	const { blogOptions, categories } = await getAllPosts();
+	const { blogOptions, categories } = await getAllPosts({});
 
 	if (!blogOptions || !categories) return notFound();
 
