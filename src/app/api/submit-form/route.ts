@@ -202,19 +202,21 @@ export async function POST(request: NextRequest) {
 						if (data.other && data.other.trim()) {
 							leadData.custom_fields['Other'] = data.other;
 						}
-					// Add first-touch URL tracking from sessionStorage
-					const sessionTracking = parseUrlTracking(data.urltracking);
-					if (sessionTracking && Object.keys(sessionTracking).length > 0) {
-						leadData.custom_fields['urltracking'] = JSON.stringify(sessionTracking);
-					}
-						// Add URL tracking parameters if available
+						// Add URL tracking parameters from current page (last-touch)
 						const urlParams = request.nextUrl.searchParams;
 						const trackingParams: Record<string, string> = {};
 						urlParams.forEach((value, key) => {
 							trackingParams[key] = value;
 						});
-						
-						const finalLeadData = leadtrekker.addParams(leadData, trackingParams);
+						leadtrekker.addParams(leadData, trackingParams);
+
+						// Add first-touch URL tracking from sessionStorage (overwrites current-page params)
+						const sessionTracking = parseUrlTracking(data.urltracking);
+						if (sessionTracking) {
+							leadtrekker.addParams(leadData, sessionTracking);
+						}
+
+						const finalLeadData = leadData;
 
 						// Push to Leadtrekker
 						const leadResult = await leadtrekker.pushLead(finalLeadData);

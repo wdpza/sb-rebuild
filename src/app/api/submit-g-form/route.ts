@@ -196,23 +196,22 @@ export async function POST(request: NextRequest) {
 							} as Record<string, string>
 						};
 
-						// Add first-touch URL tracking from sessionStorage
-						const sessionTracking1 = parseUrlTracking(data.urltracking?.toString());
-						if (sessionTracking1 && Object.keys(sessionTracking1).length > 0) {
-							leadData.custom_fields['urltracking'] = JSON.stringify(sessionTracking1);
-						}
-
-						// Add URL tracking parameters if available
+						// Add URL tracking parameters from current page (last-touch)
 						const urlParams = request.nextUrl.searchParams;
 						const trackingParams: Record<string, string> = {};
 						urlParams.forEach((value, key) => {
 							trackingParams[key] = value;
 						});
-						
-						const finalLeadData = leadtrekker.addParams(leadData, trackingParams);
+						leadtrekker.addParams(leadData, trackingParams);
+
+						// Add first-touch URL tracking from sessionStorage (overwrites current-page params)
+						const sessionTracking1 = parseUrlTracking(data.urltracking?.toString());
+						if (sessionTracking1) {
+							leadtrekker.addParams(leadData, sessionTracking1);
+						}
 
 						// Push to Leadtrekker
-						const leadResult = await leadtrekker.pushLead(finalLeadData);
+						const leadResult = await leadtrekker.pushLead(leadData);
 						console.log('Leadtrekker lead created:', leadResult);
 
 						// Upload CV file if present and we have a lead ID
@@ -309,23 +308,22 @@ export async function POST(request: NextRequest) {
 							leadData.custom_fields['Other'] = other.toString();
 						}
 
-						// Add first-touch URL tracking from sessionStorage
-						const sessionTracking2 = parseUrlTracking(data.urltracking?.toString());
-						if (sessionTracking2 && Object.keys(sessionTracking2).length > 0) {
-							leadData.custom_fields['urltracking'] = JSON.stringify(sessionTracking2);
-						}
-
-						// Add URL tracking parameters if available
+						// Add URL tracking parameters from current page (last-touch)
 						const urlParams = request.nextUrl.searchParams;
 						const trackingParams: Record<string, string> = {};
 						urlParams.forEach((value, key) => {
 							trackingParams[key] = value;
 						});
-						
-						const finalLeadData = leadtrekker.addParams(leadData, trackingParams);
+						leadtrekker.addParams(leadData, trackingParams);
+
+						// Add first-touch URL tracking from sessionStorage (overwrites current-page params)
+						const sessionTracking2 = parseUrlTracking(data.urltracking?.toString());
+						if (sessionTracking2) {
+							leadtrekker.addParams(leadData, sessionTracking2);
+						}
 
 						// Push to Leadtrekker
-						const leadResult = await leadtrekker.pushLead(finalLeadData);
+						const leadResult = await leadtrekker.pushLead(leadData);
 						console.log('Leadtrekker lead created:', leadResult);
 					} else {
 						console.log('Lead rejected - spam detected:', email, name);
