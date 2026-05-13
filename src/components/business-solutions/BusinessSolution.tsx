@@ -14,8 +14,43 @@ export default function BusinessSolutions({ items, title }: any) {
     return (
         <section className="bg-white">
             <div className="layout-wrapper">
-                <div className="relative z-10 grid grid-cols-1 gap-6 text-center md:text-left lg:gap-12 xl:gap-36 lg:grid-cols-5 py-12 md:py-24">
-                    {/* LEFT: Info panel */}
+                <div className="relative z-10 grid grid-cols-1 gap-6 text-center md:text-left lg:gap-12 lg:grid-cols-5 py-12 md:py-24">
+                    {/* LEFT: Logo grid */}
+                    {/* <div className="col-span-1 lg:col-span-3 grid grid-cols-2 gap-8"></div> */}
+                    <div className="col-span-1 lg:col-span-3 hidden md:block">
+                        <div className="grid grid-cols-2 gap-4 md:gap-8">
+                            {items.map((item: any, index: number) => {
+                                const logo =
+                                    item.businessSolutionFields?.logo?.node
+                                        ?.mediaItemUrl || "";
+
+                                return (
+                                    <button
+                                        key={item.slug || index}
+                                        onClick={() => setActiveIndex(index)}
+                                        className="bg-[#F8F8F8] cursor-pointer relative flex items-center justify-center aspect-4/3 w-full rounded-lg transition-all duration-300 ease-in-out"
+                                    >
+                                        {logo ? (
+                                            <div className="relative w-32 h-32 md:w-64 md:h-64 transform hover:scale-110 transition-transform duration-300 ease-in-out">
+                                                <Image
+                                                    src={logo}
+                                                    alt={item.slug}
+                                                    fill
+                                                    className="p-4 object-contain"
+                                                />
+                                            </div>
+                                        ) : (
+                                            <div className="text-neutral-regular text-sm">
+                                                No logo
+                                            </div>
+                                        )}
+                                    </button>
+                                );
+                            })}
+                        </div>
+                    </div>
+
+                    {/* RIGHT: Info panel */}
                     <div className="col-span-1 lg:col-span-2 flex flex-col justify-center space-y-6">
                         <h2 className="subtitle font-bold text-gradient-starbright">
                             {title ?? "Business Solutions"}
@@ -84,41 +119,6 @@ export default function BusinessSolutions({ items, title }: any) {
                                     View Solution
                                 </a>
                             )}
-                        </div>
-                    </div>
-
-                    {/* RIGHT: Logo grid (2 columns) */}
-                    {/* <div className="col-span-1 lg:col-span-3 grid grid-cols-2 gap-8"></div> */}
-                    <div className="col-span-1 lg:col-span-3 hidden md:block">
-                        <div className="grid grid-cols-2 gap-4 md:gap-8">
-                            {items.map((item: any, index: number) => {
-                                const logo =
-                                    item.businessSolutionFields?.logo?.node
-                                        ?.mediaItemUrl || "";
-
-                                return (
-                                    <button
-                                        key={item.slug || index}
-                                        onClick={() => setActiveIndex(index)}
-                                        className="bg-[#F8F8F8] cursor-pointer relative flex items-center justify-center aspect-4/3 w-full rounded-lg transition-all duration-300 ease-in-out"
-                                    >
-                                        {logo ? (
-                                            <div className="relative w-32 h-32 md:w-64 md:h-64 transform hover:scale-110 transition-transform duration-300 ease-in-out">
-                                                <Image
-                                                    src={logo}
-                                                    alt={item.slug}
-                                                    fill
-                                                    className="p-4 object-contain"
-                                                />
-                                            </div>
-                                        ) : (
-                                            <div className="text-neutral-regular text-sm">
-                                                No logo
-                                            </div>
-                                        )}
-                                    </button>
-                                );
-                            })}
                         </div>
                     </div>
                 </div>
