@@ -8,6 +8,7 @@ type CaseStudyItem = {
 		headerLogo?: { node?: { altText?: string; mediaItemUrl: string } } | null;
 		headerImage?: { node?: { altText?: string; mediaItemUrl: string } } | null;
 		cardBg?: any;
+		service?: { nodes?: { id: string; title: string; uri: string }[] };
 	};
 	terms?: { nodes?: { name: string; id: string }[] };
 };

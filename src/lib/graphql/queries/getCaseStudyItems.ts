@@ -46,6 +46,16 @@ export const GET_CASE_STUDY_ITEMS = gql`
                         filePath
                     }
                 }
+                service {
+                    nodes {
+                    id
+                    ... on Service {
+                            title
+                            uri
+                            id
+                        }
+                    }
+                }
             }
             terms {
                 nodes {

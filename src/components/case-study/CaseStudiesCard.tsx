@@ -8,6 +8,7 @@ type CaseStudyItem = {
 		headerLogo?: { node?: { altText?: string; mediaItemUrl: string } } | null;
 		headerImage?: { node?: { altText?: string; mediaItemUrl: string } } | null;
 		cardBg?: any;
+		service?: { nodes?: { id: string; title: string; uri: string }[] };
 	};
 	terms?: { nodes?: { name: string; id: string }[] };
 };
@@ -25,6 +26,8 @@ export default function CaseStudiesCard({ item }: { item: CaseStudyItem }) {
 	const categories =
 		item.terms?.nodes?.map((n) => n.name).join(" | ") ||
 		"Uncategorised";
+
+	const services = item.caseStudies?.service?.nodes || [];
 
 	const baseUrl = process.env.NEXT_PUBLIC_WP_BASE_URL;
 	
@@ -63,9 +66,18 @@ export default function CaseStudiesCard({ item }: { item: CaseStudyItem }) {
 					)}
 				</div>
 
-				{/* Categories */}
+				{/* Display linked services, otherwise fall back to categories */}
 				<p className="mb-8 text-sm font-medium tracking-wide text-neutral-softest text-balance">
-					{categories}
+					{services.length > 0
+						? services.map((s, i) => (
+								<span key={s.id}>
+									<Link href={s.uri} className="hover:underline">
+										{s.title}
+									</Link>
+									{i < services.length - 1 && " | "}
+								</span>
+							))
+						: categories}
 				</p>
 
 				{/* Button */}
