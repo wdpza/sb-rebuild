@@ -418,6 +418,14 @@
     @apply container max-w-[1240px] w-full mx-auto;
     padding-inline: calc(var(--spacing) * 4);
   }
+
+  body:has(main.page-competition) .site-header, body:has(main.page-competition) footer, body:has(main.page-competition) .copyright-text {
+    display:none;
+  }
+
+  body:has(main.page-home) .site-header {
+    border-top-color: transparent;
+  }
 }
 
 @media (prefers-color-scheme: dark) {

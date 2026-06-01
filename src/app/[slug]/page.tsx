@@ -59,7 +59,7 @@ export default async function Page({ params }: any) {
   const services = slug === 'contact' ? await getServicesForForm() : []
 
   return (
-    <main>
+    <main className={`page-root ${slug} page-${slug}`}>
       <PageRenderer 
         pageBuilder={page.pageFieldGroup?.pageBuilder} 
         services={services}

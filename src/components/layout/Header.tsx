@@ -94,7 +94,7 @@ export default function Header({ menu, logo }: HeaderProps) {
 	if (!menu) return null;
 
 	return (
-		<header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 max-w-[100vw] ${isScrolled ? 'py-4 lg:py-6 gradient-border-top bg-sb-black/90 shadow-lg' : 'py-4 lg:py-12 bg-transparent'}`}>
+		<header className={`site-header fixed top-0 left-0 right-0 z-50 transition-all duration-300 max-w-[100vw] ${isScrolled ? 'is-scrolled py-4 lg:py-6 gradient-border-top bg-sb-black/90 shadow-lg' : 'py-4 lg:py-12 bg-transparent'}`}>
 			<div className="layout-wrapper bg-transparent">
 				<div className="flex items-center justify-between gap-4">
 					{logo?.mediaItemUrl && (

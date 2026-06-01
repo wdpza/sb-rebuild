@@ -7,7 +7,7 @@ export default function Copyright({ footer }: { footer?: any }) {
     const menuNodes = footer?.policiesMenu?.menuItems?.nodes ?? [];
 
     return (
-        <div className="bg-[#49474D] w-full">
+        <div className="copyright-text bg-[#49474D] w-full">
             <div className="layout-wrapper font-extralight text-neutral-softest py-4 flex justify-center md:justify-between flex-row flex-wrap text-center gap-2">
                 <div className=" text-sm md:text-base">Starbright © 2005 - {currentYear}  - All Rights Reserved.</div>
                 <div className="flex space-x-3 text-sm md:text-base">
