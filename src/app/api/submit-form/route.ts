@@ -107,9 +107,9 @@ export async function POST(request: NextRequest) {
 					? {
 						name: "1",
 						surname: "3",
-						email: "4",
-						contactNumber: "5",
-						company: "7",
+						company: "4",
+						contactNumber: "6",
+						email: "7",
 						socialChannel: "8",
 						platformUsername: "9",
 						websiteUrl: "10"
