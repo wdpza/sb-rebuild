@@ -21,6 +21,11 @@ export async function POST(request: NextRequest) {
 			// Verify reCAPTCHA token
 			const recaptchaToken = formData.get('recaptchaToken') as string | null;
 			if (!recaptchaToken || !process.env.RECAPTCHA_SECRET_KEY) {
+				console.error("submit-g-form rejected before reCAPTCHA verify", {
+					formId,
+					hasRecaptchaToken: Boolean(recaptchaToken),
+					hasRecaptchaSecret: Boolean(process.env.RECAPTCHA_SECRET_KEY),
+				});
 				return NextResponse.json(
 					{ success: false, error: "reCAPTCHA token missing" },
 					{ status: 400 }

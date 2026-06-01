@@ -57,6 +57,7 @@ function FormsContent({ form, formId, sourceId }: { form: GravityForm, formId: n
     const formRef = useRef<HTMLFormElement>(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+    const [submitError, setSubmitError] = useState<string | null>(null);
     const { executeRecaptcha } = useGoogleReCaptcha();
 
     if (!form) return null;
@@ -65,6 +66,7 @@ function FormsContent({ form, formId, sourceId }: { form: GravityForm, formId: n
         e.preventDefault();
         setIsSubmitting(true);
         setSubmitStatus("idle");
+        setSubmitError(null);
 
         const formData = new FormData(e.currentTarget);
         
@@ -74,11 +76,16 @@ function FormsContent({ form, formId, sourceId }: { form: GravityForm, formId: n
             formData.append('sourceid', sourceId);
         }
 
-        // Execute reCAPTCHA and append token
-        if (executeRecaptcha) {
-            const token = await executeRecaptcha('gravity_form_submit');
-            formData.append('recaptchaToken', token);
+        // Do not submit until reCAPTCHA is ready; the API rejects missing tokens.
+        if (!executeRecaptcha) {
+            setSubmitStatus("error");
+            setSubmitError("reCAPTCHA is still loading. Please wait a moment and try again.");
+            setIsSubmitting(false);
+            return;
         }
+
+        const token = await executeRecaptcha('gravity_form_submit');
+        formData.append('recaptchaToken', token);
 
         // Append first-touch URL tracking from sessionStorage
         const urltracking = getSessionUrlTracking();
@@ -93,15 +100,26 @@ function FormsContent({ form, formId, sourceId }: { form: GravityForm, formId: n
                 body: formData, // Send as FormData instead of JSON
             });
 
+            const result = await response.json().catch(() => null);
+
             if (response.ok) {
                 setSubmitStatus("success");
+                setSubmitError(null);
                 formRef.current?.reset();
             } else {
+                const errorMessage = result?.error || `Request failed with status ${response.status}`;
+                console.error("Form submission failed:", {
+                    status: response.status,
+                    error: errorMessage,
+                    result,
+                });
                 setSubmitStatus("error");
+                setSubmitError(errorMessage);
             }
         } catch (error) {
             console.error("Form submission error:", error);
             setSubmitStatus("error");
+            setSubmitError("Unable to submit the form right now. Please try again.");
         } finally {
             setIsSubmitting(false);
         }
@@ -317,7 +335,7 @@ function FormsContent({ form, formId, sourceId }: { form: GravityForm, formId: n
             )}
             {submitStatus === "error" && (
                 <div className="mt-4 p-4 bg-red-600/20 border border-red-600 rounded text-red-400">
-                    There was an error submitting your form. Please try again.
+                    {submitError || "There was an error submitting your form. Please try again."}
                 </div>
             )}
         </form>
