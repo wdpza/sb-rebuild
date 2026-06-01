@@ -294,7 +294,7 @@ function FormsContent({ form, formId, sourceId }: { form: GravityForm, formId: n
     }
 
     return (
-        <form ref={formRef} onSubmit={handleSubmit} className="mt-10 w-full">
+        <form ref={formRef} onSubmit={handleSubmit} className="mt-10 w-full p-3">
             {/* Description */}
             {form.description && (
                 <div
