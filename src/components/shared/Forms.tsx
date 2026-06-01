@@ -226,7 +226,10 @@ function FormsContent({ form, formId, sourceId }: { form: GravityForm, formId: n
                             required={field.isRequired}
                             className="mt-1"
                         />
-                        <span className="text-neutral-soft">{field.checkboxLabel || field.label}</span>
+                        <span
+                            className="text-neutral-soft"
+                            dangerouslySetInnerHTML={{ __html: field.checkboxLabel || field.label || "" }}
+                        />
                     </label>
                 );
 
