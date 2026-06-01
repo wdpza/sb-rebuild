@@ -419,7 +419,7 @@
     padding-inline: calc(var(--spacing) * 4);
   }
 
-  body:has(main.page-competition) .site-header nav, body:has(main.page-competition) footer, body:has(main.page-competition) .copyright-text {
+  body:has(main.page-competition) .site-header nav, body:has(main.page-competition) .site-header button, body:has(main.page-competition) footer, body:has(main.page-competition) .copyright-text {
     display:none;
   }
 
