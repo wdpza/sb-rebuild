@@ -242,6 +242,8 @@ export const GET_PAGE_BY_SLUG = gql`
                 filePath
               }
             }
+            titleAlign
+            padding
           }
           ... on PageFieldGroupPageBuilderWhyWorkWithUsSectionLayout {
             introTitle

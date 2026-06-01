@@ -24,7 +24,7 @@ async function getGravityForm(id: number) {
 	return res.json();
 }
 
-export default async function FormLayout({ title, formId, backgroundImage, sourceId }: any) {
+export default async function FormLayout({ title, formId, backgroundImage, sourceId, titleAlign, padding }: any) {
 
     const base_url  = process.env.NEXT_PUBLIC_WP_BASE_URL;
     const backgroundImageUrl = backgroundImage?.node?.filePath ? `${base_url}${backgroundImage.node.filePath}` : null;
@@ -38,9 +38,9 @@ export default async function FormLayout({ title, formId, backgroundImage, sourc
             backgroundPosition: 'center',
         }}
         >
-            <div className="layout-wrapper py-12">
+            <div className={`layout-wrapper py-12`} style={{ padding: padding ? `${padding}` : undefined }}>
                 {title && (
-                    <h2 className="uppercase hero-title text-balance font-extrabold text-gradient-starbright">
+                    <h2 className={`uppercase hero-title text-balance font-extrabold text-gradient-starbright ${titleAlign === "center" ? "text-center" : titleAlign === "right" ? "text-right" : "text-left"}`}>
                         {title}
                     </h2>
                 )}
