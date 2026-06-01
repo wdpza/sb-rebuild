@@ -50,6 +50,7 @@ function CompetitionFormContent({ onSubmitSuccess }: ContactFormProps) {
 		const urltracking = getSessionUrlTracking();
 
 		console.log('Form submission data:', {
+			formId: 3,
 			data: formData,
 		});
 
@@ -57,12 +58,13 @@ function CompetitionFormContent({ onSubmitSuccess }: ContactFormProps) {
 		setError(null);
 
 		try {
-			const response = await fetch("/api/submit-competition-form", {
+			const response = await fetch("/api/submit-form", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
 				},
 				body: JSON.stringify({
+					formId: 3,
 					data: { ...formData, ...(urltracking !== null ? { urltracking } : {}) },
 					recaptchaToken: token
 				}),

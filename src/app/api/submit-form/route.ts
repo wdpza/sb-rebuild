@@ -100,18 +100,31 @@ export async function POST(request: NextRequest) {
 		    process.env.GF_API_SECRET) {
 			
 			try {
+				const numericFormId = typeof formId === 'string' ? parseInt(formId, 10) : formId;
+
 				// Map form field names to Gravity Forms field IDs
-				const fieldMapping: Record<string, string> = {
-					name: "1",
-					surname: "3",
-					email: "4",
-					contactNumber: "5",
-					companyName: "7",
-					service: "8",
-					how: "9",
-					other: "10",
-					message: "11"
-				};
+				const fieldMapping: Record<string, string> = numericFormId === 3
+					? {
+						name: "1",
+						surname: "3",
+						email: "4",
+						contactNumber: "5",
+						company: "7",
+						socialChannel: "8",
+						platformUsername: "9",
+						websiteUrl: "10"
+					}
+					: {
+						name: "1",
+						surname: "3",
+						email: "4",
+						contactNumber: "5",
+						companyName: "7",
+						service: "8",
+						how: "9",
+						other: "10",
+						message: "11"
+					};
 
 				// Convert form data to Gravity Forms format
 				const gravityFieldsData: Record<string, any> = {};
@@ -124,7 +137,7 @@ export async function POST(request: NextRequest) {
 
 				// Prepare entry data with form_id and field data
 				const entryData = {
-					form_id: typeof formId === 'string' ? parseInt(formId, 10) : formId,
+					form_id: numericFormId,
 					...gravityFieldsData,
 					// Optional: Add additional metadata
 					source_url: request.headers.get("referer") || "",
@@ -260,6 +273,88 @@ export async function POST(request: NextRequest) {
 				} catch (leadtrekkerError) {
 					console.error("Failed to submit to Leadtrekker:", leadtrekkerError);
 					// Continue execution even if Leadtrekker fails
+				}
+			}
+		}
+
+		// Submit to Leadtrekker (Form ID 3 - Competition Form)
+		if (formId === 3) {
+			const leadtrekker = createLeadtrekkerInstance();
+			const everlytic = createEverlyticInstance();
+
+			if (leadtrekker) {
+				try {
+					const mobile = data.contactNumber?.replace(/[\s\(\)\-]/g, '') || '';
+
+					// Check if lead is not spam
+					const isValidLead = await leadtrekker.checkLead(data.email, data.name || '');
+
+					if (isValidLead) {
+						const leadData = {
+							name: data.name || '',
+							email: data.email,
+							number: mobile,
+							company: data.company || '',
+							sourceid: '10233',
+							custom_fields: {
+								'Surname': data.surname || '',
+								'Social Channel': data.socialChannel || '',
+								'Platform Username': data.platformUsername || '',
+								'Existing Website URL': data.websiteUrl || '',
+								'Opt-in for updates': data.updates ? 'Yes' : 'No',
+								'IP': request.headers.get("x-forwarded-for") || 
+								     request.headers.get("x-real-ip") || 
+								     "127.0.0.1"
+							} as Record<string, string>
+						};
+
+						const trackingParams: Record<string, string> = {};
+						request.nextUrl.searchParams.forEach((value, key) => {
+							trackingParams[key] = value;
+						});
+						leadtrekker.addParams(leadData, trackingParams);
+
+						const sessionTracking = parseUrlTracking(data.urltracking);
+						if (sessionTracking) {
+							leadtrekker.addParams(leadData, sessionTracking);
+						}
+
+						const leadResult = await leadtrekker.pushLead(leadData);
+						console.log('Leadtrekker competition lead created:', leadResult);
+
+						const fullName = `${data.name || ''} ${data.surname || ''}`.trim();
+						if (data.updates) {
+							if (everlytic) {
+								try {
+									const everlyticData = {
+										name: fullName,
+										email: data.email,
+										mobile: mobile,
+										on_duplicate: 'update',
+										list_id: {
+											'237396': 'subscribed',
+											'209951': 'subscribed',
+											'205234': 'subscribed',
+											'205233': 'subscribed',
+											'210461': 'subscribed',
+											'211945': 'subscribed'
+										}
+									};
+
+									const everlyticResult = await everlytic.pushLead(everlyticData);
+									console.log('Everlytic contact created/updated:', everlyticResult);
+								} catch (everlyticError) {
+									console.error("Failed to submit to Everlytic:", everlyticError);
+								}
+							} else {
+								console.warn('Everlytic not configured, skipping contact creation');
+							}
+						}
+					} else {
+						console.log('Competition lead rejected - spam detected:', data.email, data.name);
+					}
+				} catch (leadtrekkerError) {
+					console.error("Failed to submit competition lead to Leadtrekker:", leadtrekkerError);
 				}
 			}
 		}
