@@ -92,8 +92,14 @@ export async function POST(request: NextRequest) {
 			return NextResponse.json({ success: true }, { status: 200 });
 		}
 
-		// Phone number must contain at least some digits (Form 1: input_4, Form 2: input_5, Form 3: input_6)
-		const phoneFieldValue = data.input_4 || data.input_5 || data.input_6;
+		// Phone number must contain at least some digits.
+		const phoneFieldValue = formId === 1
+			? data.input_4
+			: formId === 2
+			? data.input_5
+			: formId === 3
+			? data.input_6
+			: undefined;
 		if (phoneFieldValue && !/\d/.test(phoneFieldValue.toString())) {
 			console.warn('Invalid phone number — spam submission rejected:', phoneFieldValue);
 			return NextResponse.json(
