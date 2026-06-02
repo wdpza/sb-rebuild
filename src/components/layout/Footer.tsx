@@ -45,7 +45,8 @@ export default function Footer( footer: any) {
 									<Image src="/images/whatsapp-icon.png" alt="Whatsapp Icon" width={20} height={20} />
                                     <a href={`https://wa.me/${whatsappLinkNumber}?text=Hello%20Starbright`} target="_blank">{footer.footer.siteOptions.siteOptionsFields.footer.whatsappNumber}</a>
 								</li>
-							</ul>                        </div>
+							</ul>                        
+                        </div>
 
                         {/* Column 3: Contact */}
                         <div className='mb-6 md:mb-0'>

@@ -74,10 +74,10 @@ export default async function ArticleSlugPage(
     return (
         <article className="article-slug-page">
             <BlogInnerHero background={post.featuredImage.node.sourceUrl} title={post.title} />
-            <div id="article" className="relative z-10 py-12 w-full max-w-[1600px] mx-auto flex flex-col text-neutral-softest px-6">
+            <div id="article" className="relative z-10 py-12 w-full max-w-[760px] mx-auto flex flex-col text-neutral-softest px-6">
                 {sanitizedHtml ? (
                 <div
-                    className="prose w-full text-neutral-softest mb-8 max-w-none"
+                    className="prose w-full text-neutral-softest mb-8 max-w-none text-lg/8"
                     dangerouslySetInnerHTML={{ __html: sanitizedHtml }}
                 />
                 ) : null}

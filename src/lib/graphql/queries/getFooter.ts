@@ -1,4 +1,5 @@
 import { gql } from "graphql-request";
+import { cache } from "react";
 import { client } from "@/lib/graphql/client";
 
 export const GET_FOOTER = gql`
@@ -89,7 +90,7 @@ export const GET_FOOTER = gql`
     }
 `;
 
-export async function getFooter() {
+export const getFooter = cache(async function getFooter() {
     try {
         const data: any = await client.request(
             GET_FOOTER
@@ -97,7 +98,7 @@ export async function getFooter() {
 
         return data;
     } catch (error) {
-        console.error("Error fetching primary menu:", error);
+        console.error("Error fetching footer:", error);
         return { menu: null, logo: null };
     }
-}
+});

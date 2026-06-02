@@ -2,6 +2,21 @@ import { gql } from "graphql-request";
 import { client } from "../client";
 import { RankMathSitemapResponse, RankMathSitemap } from "@/types/sitemap";
 
+const EMPTY_SITEMAP: RankMathSitemap = {
+    author: null,
+    contentTypes: [],
+    general: {
+        canPingSearchEngines: false,
+        excludedPostDatabaseIds: [],
+        excludedTermDatabaseIds: [],
+        hasFeaturedImage: false,
+        hasImages: false,
+        linksPerSitemap: 0,
+    },
+    sitemapIndexUrl: "",
+    taxonomies: [],
+};
+
 export const FETCH_RANK_MATH_SITEMAP = gql`
     query FetchRankMathSitemap {
         rankMathSettings {
@@ -48,6 +63,11 @@ export const FETCH_RANK_MATH_SITEMAP = gql`
 `;
 
 export async function fetchRankMathSitemap(): Promise<RankMathSitemap> {
-    const data = await client.request<RankMathSitemapResponse>(FETCH_RANK_MATH_SITEMAP);
-    return data.rankMathSettings.sitemap;
+    try {
+        const data = await client.request<RankMathSitemapResponse>(FETCH_RANK_MATH_SITEMAP);
+        return data.rankMathSettings.sitemap;
+    } catch (error) {
+        console.error("Error fetching Rank Math sitemap:", error);
+        return EMPTY_SITEMAP;
+    }
 }
