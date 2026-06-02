@@ -2,6 +2,9 @@ import Link from 'next/link';
 import Image from "next/image";
 
 export default function Footer( footer: any) {
+    const whatsappLinkNumber = footer.footer.siteOptions.siteOptionsFields.footer.whatsappNumber
+        .replace(/\D+/g, '')
+        .replace(/^0/, '27');
 
     return (
         <footer className="bg-neutral-strongest w-full gradient-border-top text-center md:text-left">
@@ -40,7 +43,7 @@ export default function Footer( footer: any) {
 								</li>
 								<li className="flex text-neutral-softest gap-2 items-center self-center md:self-start">
 									<Image src="/images/whatsapp-icon.png" alt="Whatsapp Icon" width={20} height={20} />
-									<a href={`https://wa.me/${footer.footer.siteOptions.siteOptionsFields.footer.whatsappNumber.replace(/\s+/g, "")}`} target="_blank">{footer.footer.siteOptions.siteOptionsFields.footer.whatsappNumber}</a>
+                                    <a href={`https://wa.me/${whatsappLinkNumber}?text=Hello%20Starbright`} target="_blank">{footer.footer.siteOptions.siteOptionsFields.footer.whatsappNumber}</a>
 								</li>
 							</ul>                        </div>
 
