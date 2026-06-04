@@ -20,7 +20,7 @@ export default async function CaseStudiesLayout({
 	numberOfItems?: number;
 	title?: string;
 }) {
-	const items: CaseStudyItem[] = await getCaseStudyItems(numberOfItems);
+	const items: CaseStudyItem[] = await getCaseStudyItems(100);
 
 	return (
 		<div id="case-studies" className="w-full bg-[#28262C]">

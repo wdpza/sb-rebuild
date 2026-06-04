@@ -71,7 +71,7 @@ export const GET_CASE_STUDY_ITEMS = gql`
     }
 `;
 
-export async function getCaseStudyItems(numberOfItems: number = 6) {
+export async function getCaseStudyItems(numberOfItems: number = 100) {
     try {
         const data: any = await client.request(GET_CASE_STUDY_ITEMS, {
             numberOfItems,
