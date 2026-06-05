@@ -27,7 +27,7 @@ export default async function CaseStudyLayout({
 }) {
 	const { slug } = await params;
 	const caseStudy = await getCaseStudyBySlug('case-study/' + slug);
-	const items: CaseStudyItem[] = await getCaseStudyItems(10);
+	const items: CaseStudyItem[] = await getCaseStudyItems(12);
 	if (!caseStudy) return notFound();
 
 	return (

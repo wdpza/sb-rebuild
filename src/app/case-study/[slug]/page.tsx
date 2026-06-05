@@ -5,7 +5,7 @@ import CaseStudyItem from "@/components/case-study/CaseStudyItem"
 import type { Metadata } from "next"
 
 export async function generateStaticParams() {
-    const items = await getCaseStudyItems(100);
+    const items = await getCaseStudyItems(12);
     return items.map((item: any) => ({
         slug: item.slug,
     }));
