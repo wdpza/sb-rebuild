@@ -429,8 +429,8 @@ export async function POST(request: NextRequest) {
 				console.log('Leadtrekker skipped — contact_id was pre-filled');
 			}
 
-			// Everlytic always runs when contact opted in (Leadtrekker bypass or not)
-			if (optInUpdates) {
+			// Everlytic always runs when contact opted in (or when re-confirming via contact_id)
+			if (optInUpdates || skipLeadtrekker) {
 				const everlytic = createEverlyticInstance();
 				if (everlytic) {
 					try {
@@ -443,7 +443,7 @@ export async function POST(request: NextRequest) {
 							website_url14: websiteUrl?.toString() || '',
 							social_media_channel61: socialChannel?.toString() || '',
 							social_media_username13: platformUsername?.toString() || '',
-							receive_updates27: optInUpdates ? 'Yes' : 'No',
+							receive_updates27: optInUpdates || skipLeadtrekker ? 'Yes' : 'No',
 							area64: data.area64?.toString() || '',
 							business_information34: data.business_information34?.toString() || '',
 							on_duplicate: 'update',
