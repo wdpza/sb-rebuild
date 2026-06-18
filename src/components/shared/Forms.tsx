@@ -90,19 +90,18 @@ function FormsContent({ form, formId, sourceId }: { form: GravityForm, formId: n
 
                 const heading = document.querySelector("[data-form-heading]");
                 if (heading) {
-                    heading.textContent = "Confirm Details & Win a Free Domain with Hosting";
+                    heading.textContent = "Confirm Your Details & Win a Free Domain with Hosting";
                 }
             })
             .catch(err => console.error("[Forms] Failed to fetch contact:", err));
     }, []);
 
-    // Populate dynamically-injected extra fields after they render
+    // Populate dynamically-injected extra fields when contact data is loaded
     useEffect(() => {
-        if (!hasContactData || !contactData || !formRef.current) return;
+        if (!contactData || !formRef.current) return;
         console.log("[Forms] Populating extra fields from contactData:", contactData);
         for (const name of [
             "area64",
-            "business_information34",
             "cfv_business_type94",
             "cfv_facebook_business_page88",
             "cfv_instagram_business_profile37",
@@ -118,7 +117,7 @@ function FormsContent({ form, formId, sourceId }: { form: GravityForm, formId: n
             console.log(`[Forms] found DOM element [name="${name}"]:`, !!el);
             if (el) el.value = value;
         }
-    }, [hasContactData]);
+    }, [contactData]);
 
     if (!form) return null;
 
@@ -410,18 +409,6 @@ function FormsContent({ form, formId, sourceId }: { form: GravityForm, formId: n
                                     <option value="I'm selling products">I'm selling products</option>
                                     <option value="I'm offering a service">I'm offering a service</option>
                                 </select>
-                            </div>,
-                            <div key="extra-business" className="col-span-12 flex flex-col gap-2">
-                                <label htmlFor="business_information34" className="font-semibold text-neutral-softest">
-                                    Please tell us more about your business.<span className="text-red-500 ml-1">*</span>
-                                </label>
-                                <textarea
-                                    id="business_information34"
-                                    name="business_information34"
-                                    required
-                                    rows={5}
-                                    className={common}
-                                />
                             </div>,
                             <div key="extra-facebook" className="col-span-12 md:col-span-6 flex flex-col gap-2">
                                 <label htmlFor="cfv_facebook_business_page88" className="font-semibold text-neutral-softest">

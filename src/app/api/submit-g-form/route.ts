@@ -359,8 +359,6 @@ export async function POST(request: NextRequest) {
 			const everlyticLinkedId = request.cookies.get("everlytic_linked_id")?.value;
 			const skipLeadtrekker = Boolean(everlyticLinkedId);
 
-			console.log('gform', { skipLeadtrekker });
-
 			// Map form data (used by both Leadtrekker and Everlytic)
 			const name = data.input_1 || '';
 			const surname = data.input_3 || '';
@@ -425,8 +423,6 @@ export async function POST(request: NextRequest) {
 						// Continue execution even if Leadtrekker fails
 					}
 				}
-			} else {
-				console.log('Leadtrekker skipped — contact_id was pre-filled');
 			}
 
 			// Everlytic always runs when contact opted in (or when re-confirming via contact_id)
