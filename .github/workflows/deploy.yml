@@ -24,6 +24,10 @@ jobs:
             set -e
             cd /home/ubuntu/production
 
+            echo "→ Cleaning working tree..."
+            git reset --hard HEAD
+            git clean -fd
+
             echo "→ Pulling latest code..."
             git pull origin main
 
