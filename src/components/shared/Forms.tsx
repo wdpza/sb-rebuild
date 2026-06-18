@@ -423,7 +423,7 @@ function FormsContent({ form, formId, sourceId }: { form: GravityForm, formId: n
                             </div>,
                             <div key="extra-instagram" className="col-span-12 md:col-span-6 flex flex-col gap-2">
                                 <label htmlFor="cfv_instagram_business_profile37" className="font-semibold text-neutral-softest">
-                                    Instagram Business Profile
+                                    Instagram Business Profile URL
                                 </label>
                                 <input
                                     id="cfv_instagram_business_profile37"
