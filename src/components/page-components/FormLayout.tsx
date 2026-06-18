@@ -32,8 +32,13 @@ export default async function FormLayout({ title, formId, backgroundImage, sourc
 
     const form = formId ? await getGravityForm(formId) : null;
 
-    const cookieStore = await cookies();
-    const hasContactData = cookieStore.has("everlytic_contact");
+    let hasContactData = false;
+    try {
+        const cookieStore = await cookies();
+        hasContactData = cookieStore.has("everlytic_contact");
+    } catch {
+        // cookies() throws DYNAMIC_SERVER_USAGE during static generation — safe to ignore
+    }
     const displayTitle = hasContactData ? "Confirm Details & Win a Free Domain with Hosting" : title;
 
     return (
