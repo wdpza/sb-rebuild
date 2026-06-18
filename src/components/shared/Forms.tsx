@@ -64,15 +64,22 @@ function FormsContent({ form, formId, sourceId }: { form: GravityForm, formId: n
     const [contactData, setContactData] = useState<Record<string, string> | null>(null);
 
     useEffect(() => {
-        const match = document.cookie.match(/(^| )everlytic_contact=([^;]+)/);
-        if (match && formRef.current) {
-            try {
-                const data = JSON.parse(decodeURIComponent(match[2]));
-                console.log("[Forms] everlytic_contact cookie data:", data);
+        const params = new URLSearchParams(window.location.search);
+        const contactId = params.get("contact_id");
+        if (!contactId || !formRef.current) return;
+
+        fetch(`/api/everlytic-contact/${contactId}`)
+            .then(res => res.json())
+            .then(data => {
+                if (data.error) {
+                    console.error("[Forms] Everlytic API error:", data.error);
+                    return;
+                }
+                console.log("[Forms] Everlytic contact data:", data);
                 setContactData(data);
                 for (const [name, value] of Object.entries(data)) {
                     if (!value) continue;
-                    const el = formRef.current.querySelector(`[name="${name}"]`) as
+                    const el = formRef.current!.querySelector(`[name="${name}"]`) as
                         | HTMLInputElement
                         | HTMLSelectElement
                         | null;
@@ -80,10 +87,13 @@ function FormsContent({ form, formId, sourceId }: { form: GravityForm, formId: n
                     if (el) el.value = value as string;
                 }
                 setHasContactData(true);
-            } catch (e) {
-                console.error("Failed to parse everlytic_contact cookie:", e);
-            }
-        }
+
+                const heading = document.querySelector("[data-form-heading]");
+                if (heading) {
+                    heading.textContent = "Confirm Details & Win a Free Domain with Hosting";
+                }
+            })
+            .catch(err => console.error("[Forms] Failed to fetch contact:", err));
     }, []);
 
     // Populate dynamically-injected extra fields after they render

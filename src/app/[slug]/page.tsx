@@ -4,8 +4,6 @@ import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 import { getServicesForForm } from "@/lib/graphql/queries/getServicesForForm"
 
-export const dynamic = 'force-dynamic'
-
 export async function generateMetadata({ params }: any): Promise<Metadata> {
   const { slug } = await params
   const page = await getPageBySlug(slug)
@@ -69,5 +67,9 @@ export default async function Page({ params }: any) {
       />
     </main>
   )
+}
+
+export async function generateStaticParams() {
+  return [{ slug: "home" }]
 }
 
