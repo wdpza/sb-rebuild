@@ -1,13 +1,18 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
-    _request: Request,
+    request: NextRequest,
     { params }: { params: Promise<{ id: string }> }
 ) {
     const { id } = await params;
 
     if (!id) {
         return NextResponse.json({ error: "Missing contact id" }, { status: 400 });
+    }
+
+    const linkedId = request.cookies.get("everlytic_linked_id")?.value;
+    if (!linkedId || linkedId !== id) {
+        return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
     const apiKey = process.env.EVERLYTIC_API_KEY;

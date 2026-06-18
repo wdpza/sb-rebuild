@@ -10,6 +10,14 @@ export async function middleware(request: NextRequest) {
         if (urlContactId) {
             const linkedId = request.cookies.get("everlytic_linked_id")?.value;
 
+            // If a cookie exists and doesn't match the URL param, strip the param
+            // to prevent a user from tampering with contact_id in the URL.
+            if (linkedId && linkedId !== urlContactId) {
+                const url = request.nextUrl.clone();
+                url.searchParams.delete("contact_id");
+                return NextResponse.redirect(url);
+            }
+
             const nextRes = NextResponse.next();
 
             // Lock the contact_id to this device on first visit
