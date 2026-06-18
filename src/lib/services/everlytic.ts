@@ -16,7 +16,7 @@ export class Everlytic {
     }
 
     async pushLead(jsonObject: Record<string, any>): Promise<any> {
-        
+
         const auth = Buffer.from(`${this.username}:${this.apiKey}`).toString('base64');
 
         const headers = {
@@ -35,7 +35,34 @@ export class Everlytic {
         });
 
         if (!response.ok) {
-            throw new Error(`Everlytic API error: ${response.status} ${response.statusText}`);
+            const body = await response.text().catch(() => '');
+            console.error(`Everlytic API error: ${response.status} ${response.statusText}`, body);
+            throw new Error(`Everlytic API error: ${response.status} ${response.statusText}${body ? ` — ${body.slice(0, 500)}` : ''}`);
+        }
+
+        return response.json();
+    }
+
+    async getContact(contactId: string): Promise<any> {
+        const auth = Buffer.from(`${this.username}:${this.apiKey}`).toString('base64');
+
+        const headers = {
+            'Authorization': `Basic ${auth}`,
+        };
+
+        const url = `${this.apiUrl}/${contactId}`;
+
+        console.log(`Fetching Everlytic contact: ${contactId}`);
+
+        const response = await fetch(url, {
+            method: 'GET',
+            headers,
+        });
+
+        if (!response.ok) {
+            const body = await response.text().catch(() => '');
+            console.error(`Everlytic API error: ${response.status} ${response.statusText}`, body);
+            throw new Error(`Everlytic API error: ${response.status} ${response.statusText}${body ? ` — ${body.slice(0, 500)}` : ''}`);
         }
 
         return response.json();

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, Suspense } from "react";
+import { useState, useEffect, Suspense } from "react";
 import Image from "next/image";
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
@@ -8,6 +8,16 @@ import { getSessionUrlTracking } from "@/lib/utils/urltracking";
 
 interface ContactFormProps {
 	onSubmitSuccess?: () => void;
+}
+
+function getCookie(name: string): string | null {
+	if (typeof document === "undefined") return null;
+	const match = document.cookie.match(new RegExp(`(^| )${name}=([^;]+)`));
+	return match ? decodeURIComponent(match[2]) : null;
+}
+
+function deleteCookie(name: string) {
+	document.cookie = `${name}=; path=/; max-age=0`;
 }
 
 function CompetitionFormContent({ onSubmitSuccess }: ContactFormProps) {
@@ -25,6 +35,29 @@ function CompetitionFormContent({ onSubmitSuccess }: ContactFormProps) {
 		updates: false,
 		_hp: "", // honeypot — must remain empty
 	});
+
+	useEffect(() => {
+		const cookie = getCookie("everlytic_contact");
+		if (cookie) {
+			try {
+				const contactData = JSON.parse(cookie);
+				setFormData((prev) => ({
+					...prev,
+					name: contactData.name || "",
+					surname: contactData.surname || "",
+					company: contactData.company || "",
+					contactNumber: contactData.contactNumber || "",
+					email: contactData.email || "",
+					socialChannel: contactData.socialChannel || "",
+					platformUsername: contactData.platformUsername || "",
+					websiteUrl: contactData.websiteUrl || "",
+				}));
+			} catch (e) {
+				console.error("Failed to parse everlytic_contact cookie:", e);
+			}
+			deleteCookie("everlytic_contact");
+		}
+	}, []);
 	
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [error, setError] = useState<string | null>(null);
@@ -109,7 +142,7 @@ function CompetitionFormContent({ onSubmitSuccess }: ContactFormProps) {
 				aria-hidden="true"
 				style={{ position: 'absolute', left: '-9999px', width: '1px', height: '1px', overflow: 'hidden' }}
 			/>
-
+dfsgdsfgfd
 			<input
 				type="text"
 				name="name"

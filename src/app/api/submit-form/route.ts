@@ -279,6 +279,7 @@ export async function POST(request: NextRequest) {
 
 		// Submit to Leadtrekker (Form ID 3 - Competition Form)
 		if (formId === 3) {
+			console.log('form');
 			const leadtrekker = createLeadtrekkerInstance();
 			const everlytic = createEverlyticInstance();
 

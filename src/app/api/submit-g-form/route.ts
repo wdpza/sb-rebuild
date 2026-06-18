@@ -18,47 +18,51 @@ export async function POST(request: NextRequest) {
 			
 			formId = parseInt(formData.get('formId') as string, 10);
 
-			// Verify reCAPTCHA token
-			const recaptchaToken = formData.get('recaptchaToken') as string | null;
-			if (!recaptchaToken || !process.env.RECAPTCHA_SECRET_KEY) {
-				console.error("submit-g-form rejected before reCAPTCHA verify", {
-					formId,
-					hasRecaptchaToken: Boolean(recaptchaToken),
-					hasRecaptchaSecret: Boolean(process.env.RECAPTCHA_SECRET_KEY),
-				});
-				return NextResponse.json(
-					{ success: false, error: "reCAPTCHA token missing" },
-					{ status: 400 }
-				);
-			}
-
-			const recaptchaResponse = await fetch(
-				"https://www.google.com/recaptcha/api/siteverify",
-				{
-					method: "POST",
-					headers: { "Content-Type": "application/x-www-form-urlencoded" },
-					body: new URLSearchParams({
-						secret: process.env.RECAPTCHA_SECRET_KEY,
-						response: recaptchaToken,
-					}),
+			// Verify reCAPTCHA token (skipped in dev mode when BYPASS_RECAPTCHA=true)
+			if (process.env.BYPASS_RECAPTCHA !== 'true') {
+				const recaptchaToken = formData.get('recaptchaToken') as string | null;
+				if (!recaptchaToken || !process.env.RECAPTCHA_SECRET_KEY) {
+					console.error("submit-g-form rejected before reCAPTCHA verify", {
+						formId,
+						hasRecaptchaToken: Boolean(recaptchaToken),
+						hasRecaptchaSecret: Boolean(process.env.RECAPTCHA_SECRET_KEY),
+					});
+					return NextResponse.json(
+						{ success: false, error: "reCAPTCHA token missing" },
+						{ status: 400 }
+					);
 				}
-			);
-			const recaptchaData = await recaptchaResponse.json();
 
-			console.log("reCAPTCHA verify:", {
-				success: recaptchaData.success,
-				score: recaptchaData.score,
-				action: recaptchaData.action,
-				hostname: recaptchaData.hostname,
-				"error-codes": recaptchaData["error-codes"],
-			});
-
-			if (!recaptchaData.success || recaptchaData.score < 0.5) {
-				console.error("reCAPTCHA verification failed:", recaptchaData);
-				return NextResponse.json(
-					{ success: false, error: "reCAPTCHA verification failed" },
-					{ status: 403 }
+				const recaptchaResponse = await fetch(
+					"https://www.google.com/recaptcha/api/siteverify",
+					{
+						method: "POST",
+						headers: { "Content-Type": "application/x-www-form-urlencoded" },
+						body: new URLSearchParams({
+							secret: process.env.RECAPTCHA_SECRET_KEY,
+							response: recaptchaToken,
+						}),
+					}
 				);
+				const recaptchaData = await recaptchaResponse.json();
+
+				console.log("reCAPTCHA verify:", {
+					success: recaptchaData.success,
+					score: recaptchaData.score,
+					action: recaptchaData.action,
+					hostname: recaptchaData.hostname,
+					"error-codes": recaptchaData["error-codes"],
+				});
+
+				if (!recaptchaData.success || recaptchaData.score < 0.5) {
+					console.error("reCAPTCHA verification failed:", recaptchaData);
+					return NextResponse.json(
+						{ success: false, error: "reCAPTCHA verification failed" },
+						{ status: 403 }
+					);
+				}
+			} else {
+				console.log("submit-g-form: BYPASS_RECAPTCHA is true, skipping reCAPTCHA verification");
 			}
 
 			// Process all form fields
@@ -349,6 +353,8 @@ export async function POST(request: NextRequest) {
 
 		// Submit to Leadtrekker - Form ID 3 (Competition Form)
 		if (formId === 3) {
+
+			console.log('gform');
 			const leadtrekker = createLeadtrekkerInstance();
 			const everlytic = createEverlyticInstance();
 
@@ -406,14 +412,21 @@ export async function POST(request: NextRequest) {
 						const leadResult = await leadtrekker.pushLead(leadData);
 						console.log('Leadtrekker competition lead created:', leadResult);
 
-						const fullName = `${name?.toString() || ''} ${surname?.toString() || ''}`.trim();
 						if (optInUpdates) {
 							if (everlytic) {
 								try {
 									const everlyticData = {
-										name: fullName,
+										name: name?.toString() || '',
+										lastname: surname?.toString() || '',
 										email: email?.toString() || '',
 										mobile: mobile,
+										company_name: company?.toString() || '',
+										website_url14: websiteUrl?.toString() || '',
+										social_media_channel61: socialChannel?.toString() || '',
+										social_media_username13: platformUsername?.toString() || '',
+										receive_updates27: optInUpdates ? 'Yes' : 'No',
+										area64: data.area64?.toString() || '',
+										business_information34: data.business_information34?.toString() || '',
 										on_duplicate: 'update',
 										list_id: {
 											'237396': 'subscribed',

@@ -1,3 +1,4 @@
+import { cookies } from "next/headers";
 import Forms from "../shared/Forms";
 
 async function getGravityForm(id: number) {
@@ -31,6 +32,10 @@ export default async function FormLayout({ title, formId, backgroundImage, sourc
 
     const form = formId ? await getGravityForm(formId) : null;
 
+    const cookieStore = await cookies();
+    const hasContactData = cookieStore.has("everlytic_contact");
+    const displayTitle = hasContactData ? "Confirm Details & Win a Free Domain with Hosting" : title;
+
     return (
         <div style={{
             backgroundImage: backgroundImageUrl ? `url(${backgroundImageUrl})` : undefined,
@@ -39,9 +44,9 @@ export default async function FormLayout({ title, formId, backgroundImage, sourc
         }}
         >
             <div className={`layout-wrapper py-12`} style={{ padding: padding ? `${padding}` : undefined }}>
-                {title && (
+                {displayTitle && (
                     <h2 className={`uppercase hero-title text-balance font-extrabold text-gradient-starbright ${titleAlign === "center" ? "text-center" : titleAlign === "right" ? "text-right" : "text-left"}`}>
-                        {title}
+                        {displayTitle}
                     </h2>
                 )}
                 {form && (

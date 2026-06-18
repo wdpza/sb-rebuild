@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { GoogleReCaptchaProvider, useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { getSessionUrlTracking } from "@/lib/utils/urltracking";
 
@@ -59,6 +59,49 @@ function FormsContent({ form, formId, sourceId }: { form: GravityForm, formId: n
     const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
     const [submitError, setSubmitError] = useState<string | null>(null);
     const { executeRecaptcha } = useGoogleReCaptcha();
+
+    const [hasContactData, setHasContactData] = useState(false);
+    const [contactData, setContactData] = useState<Record<string, string> | null>(null);
+
+    useEffect(() => {
+        const match = document.cookie.match(/(^| )everlytic_contact=([^;]+)/);
+        if (match && formRef.current) {
+            try {
+                const data = JSON.parse(decodeURIComponent(match[2]));
+                console.log("[Forms] everlytic_contact cookie data:", data);
+                setContactData(data);
+                for (const [name, value] of Object.entries(data)) {
+                    if (!value) continue;
+                    const el = formRef.current.querySelector(`[name="${name}"]`) as
+                        | HTMLInputElement
+                        | HTMLSelectElement
+                        | null;
+                    console.log(`[Forms] found DOM element [name="${name}"]:`, !!el, "value:", value);
+                    if (el) el.value = value as string;
+                }
+                setHasContactData(true);
+            } catch (e) {
+                console.error("Failed to parse everlytic_contact cookie:", e);
+            }
+        }
+    }, []);
+
+    // Populate dynamically-injected extra fields after they render
+    useEffect(() => {
+        if (!hasContactData || !contactData || !formRef.current) return;
+        console.log("[Forms] Populating extra fields from contactData:", contactData);
+        for (const name of ["area64", "business_information34"]) {
+            const value = contactData[name];
+            console.log(`[Forms] extra field "${name}" value:`, value);
+            if (!value) continue;
+            const el = formRef.current.querySelector(`[name="${name}"]`) as
+                | HTMLInputElement
+                | HTMLTextAreaElement
+                | null;
+            console.log(`[Forms] found DOM element [name="${name}"]:`, !!el);
+            if (el) el.value = value;
+        }
+    }, [hasContactData]);
 
     if (!form) return null;
 
@@ -316,7 +359,41 @@ function FormsContent({ form, formId, sourceId }: { form: GravityForm, formId: n
 
             {/* GRID LAYOUT */}
             <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
-                {form.fields.map((field) => renderField(field))}
+                {form.fields.map((field) => {
+                    const nodes: React.ReactNode[] = [];
+
+                    if (hasContactData && field.id === 11) {
+                        nodes.push(
+                            <div key="extra-area" className="col-span-12 md:col-span-6 flex flex-col gap-2">
+                                <label htmlFor="area64" className="font-semibold text-neutral-softest">
+                                    Area<span className="text-red-500 ml-1">*</span>
+                                </label>
+                                <input
+                                    id="area64"
+                                    name="area64"
+                                    type="text"
+                                    required
+                                    className="bg-[#1F1F1F96] placeholder-white text-neutral-softest border border-[#353536] p-3 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                />
+                            </div>,
+                            <div key="extra-business" className="col-span-12 flex flex-col gap-2">
+                                <label htmlFor="business_information34" className="font-semibold text-neutral-softest">
+                                    Please tell us more about your business.<span className="text-red-500 ml-1">*</span>
+                                </label>
+                                <textarea
+                                    id="business_information34"
+                                    name="business_information34"
+                                    required
+                                    rows={5}
+                                    className="bg-[#1F1F1F96] placeholder-white text-neutral-softest border border-[#353536] p-3 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                />
+                            </div>
+                        );
+                    }
+
+                    nodes.push(renderField(field));
+                    return nodes;
+                })}
             </div>
 
             {/* Submit Button */}
