@@ -399,6 +399,8 @@ function FormsContent({ form, formId, sourceId }: { form: GravityForm, formId: n
                                 />
                             </div>
                         );
+                        // Skip the Receive Updates checkbox (field 11) when re-confirming existing contact
+                        return nodes;
                     }
 
                     nodes.push(renderField(field));
