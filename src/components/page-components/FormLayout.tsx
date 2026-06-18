@@ -1,4 +1,4 @@
-import { cookies } from "next/headers";
+import { headers } from "next/headers";
 import Forms from "../shared/Forms";
 
 async function getGravityForm(id: number) {
@@ -32,13 +32,8 @@ export default async function FormLayout({ title, formId, backgroundImage, sourc
 
     const form = formId ? await getGravityForm(formId) : null;
 
-    let hasContactData = false;
-    try {
-        const cookieStore = await cookies();
-        hasContactData = cookieStore.has("everlytic_contact");
-    } catch {
-        // cookies() throws DYNAMIC_SERVER_USAGE during static generation — safe to ignore
-    }
+    const headersList = await headers();
+    const hasContactData = headersList.has("x-everlytic-contact");
     const displayTitle = hasContactData ? "Confirm Details & Win a Free Domain with Hosting" : title;
 
     return (

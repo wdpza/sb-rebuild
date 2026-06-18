@@ -53,7 +53,14 @@ export async function middleware(request: NextRequest) {
                             "business_information34": item.business_information34 || "",
                         };
 
-                        const nextRes = NextResponse.next();
+                        const requestHeaders = new Headers(request.headers);
+                        requestHeaders.set("x-everlytic-contact", JSON.stringify(contactData));
+
+                        const nextRes = NextResponse.next({
+                            request: {
+                                headers: requestHeaders,
+                            },
+                        });
                         nextRes.cookies.set("everlytic_contact", JSON.stringify(contactData), {
                             path: "/",
                             maxAge: 60,
