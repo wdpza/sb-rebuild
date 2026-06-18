@@ -446,6 +446,9 @@ export async function POST(request: NextRequest) {
 							receive_updates27: optInUpdates || skipLeadtrekker ? 'Yes' : 'No',
 							area64: data.area64?.toString() || '',
 							business_information34: data.business_information34?.toString() || '',
+							cfv_business_type94: data.cfv_business_type94?.toString() || '',
+							cfv_facebook_business_page88: data.cfv_facebook_business_page88?.toString() || '',
+							cfv_instagram_business_profile37: data.cfv_instagram_business_profile37?.toString() || '',
 							on_duplicate: 'update',
 							list_id: {
 								'237396': 'subscribed',

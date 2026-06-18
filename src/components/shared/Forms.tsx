@@ -100,12 +100,19 @@ function FormsContent({ form, formId, sourceId }: { form: GravityForm, formId: n
     useEffect(() => {
         if (!hasContactData || !contactData || !formRef.current) return;
         console.log("[Forms] Populating extra fields from contactData:", contactData);
-        for (const name of ["area64", "business_information34"]) {
+        for (const name of [
+            "area64",
+            "business_information34",
+            "cfv_business_type94",
+            "cfv_facebook_business_page88",
+            "cfv_instagram_business_profile37",
+        ]) {
             const value = contactData[name];
             console.log(`[Forms] extra field "${name}" value:`, value);
             if (!value) continue;
             const el = formRef.current.querySelector(`[name="${name}"]`) as
                 | HTMLInputElement
+                | HTMLSelectElement
                 | HTMLTextAreaElement
                 | null;
             console.log(`[Forms] found DOM element [name="${name}"]:`, !!el);
@@ -373,18 +380,36 @@ function FormsContent({ form, formId, sourceId }: { form: GravityForm, formId: n
                     const nodes: React.ReactNode[] = [];
 
                     if (hasContactData && field.id === 11) {
+                        const common =
+                            "bg-[#1F1F1F96] placeholder-white text-neutral-softest border border-[#353536] p-3 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500";
                         nodes.push(
-                            <div key="extra-area" className="col-span-12 md:col-span-6 flex flex-col gap-2">
+                            <div key="extra-city" className="col-span-12 md:col-span-6 flex flex-col gap-2">
                                 <label htmlFor="area64" className="font-semibold text-neutral-softest">
-                                    Area<span className="text-red-500 ml-1">*</span>
+                                    City<span className="text-red-500 ml-1">*</span>
                                 </label>
                                 <input
                                     id="area64"
                                     name="area64"
                                     type="text"
                                     required
-                                    className="bg-[#1F1F1F96] placeholder-white text-neutral-softest border border-[#353536] p-3 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    className={common}
                                 />
+                            </div>,
+                            <div key="extra-business-type" className="col-span-12 md:col-span-6 flex flex-col gap-2">
+                                <label htmlFor="cfv_business_type94" className="font-semibold text-neutral-softest">
+                                    Product/Service<span className="text-red-500 ml-1">*</span>
+                                </label>
+                                <select
+                                    id="cfv_business_type94"
+                                    name="cfv_business_type94"
+                                    required
+                                    defaultValue=""
+                                    className={common}
+                                >
+                                    <option value="" disabled>-- Please Select --</option>
+                                    <option value="I'm selling products">I'm selling products</option>
+                                    <option value="I'm offering a service">I'm offering a service</option>
+                                </select>
                             </div>,
                             <div key="extra-business" className="col-span-12 flex flex-col gap-2">
                                 <label htmlFor="business_information34" className="font-semibold text-neutral-softest">
@@ -395,7 +420,29 @@ function FormsContent({ form, formId, sourceId }: { form: GravityForm, formId: n
                                     name="business_information34"
                                     required
                                     rows={5}
-                                    className="bg-[#1F1F1F96] placeholder-white text-neutral-softest border border-[#353536] p-3 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    className={common}
+                                />
+                            </div>,
+                            <div key="extra-facebook" className="col-span-12 md:col-span-6 flex flex-col gap-2">
+                                <label htmlFor="cfv_facebook_business_page88" className="font-semibold text-neutral-softest">
+                                    Facebook Business Page URL
+                                </label>
+                                <input
+                                    id="cfv_facebook_business_page88"
+                                    name="cfv_facebook_business_page88"
+                                    type="url"
+                                    className={common}
+                                />
+                            </div>,
+                            <div key="extra-instagram" className="col-span-12 md:col-span-6 flex flex-col gap-2">
+                                <label htmlFor="cfv_instagram_business_profile37" className="font-semibold text-neutral-softest">
+                                    Instagram Business Profile
+                                </label>
+                                <input
+                                    id="cfv_instagram_business_profile37"
+                                    name="cfv_instagram_business_profile37"
+                                    type="text"
+                                    className={common}
                                 />
                             </div>
                         );

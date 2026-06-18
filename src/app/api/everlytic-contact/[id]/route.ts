@@ -57,6 +57,9 @@ export async function GET(
             "input_10": item.website_url14 || "",
             "area64": item.area64 || "",
             "business_information34": item.business_information34 || "",
+            "cfv_business_type94": item.cfv_business_type94 || "",
+            "cfv_facebook_business_page88": item.cfv_facebook_business_page88 || "",
+            "cfv_instagram_business_profile37": item.cfv_instagram_business_profile37 || "",
         };
 
         return NextResponse.json(contactData);
