@@ -16,6 +16,8 @@ import TextHeadingBlock from "@/components/page-components/TextHeadingBlock"
 import PortfolioTabsLayout from "./page-components/PortfolioTabsLayout"
 import FormLayout from "./page-components/FormLayout"
 import WhyWorkWithUs from "./service-components/WhyWorkWithUs"
+import EditorBlockLayout from "./page-components/EditorBlockLayout"
+import FaqSectionLayout from "./page-components/FaqSectionLayout"
 import type { PageRendererProps, PageBuilderBlock } from "@/types/common"
 import type { ServiceOption } from "@/lib/graphql/queries/getServicesForForm"
 
@@ -62,6 +64,10 @@ export default function PageRenderer({ pageBuilder, services, sourceId }: PageRe
 						return <FormLayout key={index} {...block} sourceId={sourceId} />;
 					case "PageFieldGroupPageBuilderWhyWorkWithUsSectionLayout":
 						return <WhyWorkWithUs key={index} {...block} />;
+					case "PageFieldGroupPageBuilderEditorBlockLayout":
+						return <EditorBlockLayout key={index} {...block} />;
+					case "PageFieldGroupPageBuilderFaqSectionLayout":
+						return <FaqSectionLayout key={index} {...block} />;
 					default:
 						return null
 				}

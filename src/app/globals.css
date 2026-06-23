@@ -92,8 +92,31 @@
     @apply text-lg md:text-[24px] text-balance;
   }
 
-  .subtitle {
+  .editor-block p {
+    color: var(--color-neutral-softer);
+  }
+
+  .subtitle, .editor-block h2 {
     @apply text-3xl md:text-5xl;
+  }
+
+  @media (min-width: 768px) {
+    .editor-block h2 {
+      max-width: 50%;
+      @apply leading-snug;
+    }
+  }
+
+  .editor-block h2,   .editor-block h3, .editor-block h4, .editor-block ul, .editor-block ul li  {
+    color: var(--color-neutral-softest);
+  }
+
+  .editor-block h3 {
+    @apply md:text-2xl/10 mb-4;
+  }
+
+  .editor-block h4 {
+    @apply md:text-lg/10 mb-2;
   }
 
   .case-study .subtitle {
@@ -520,6 +543,28 @@ body {
 
 .max-w-\[1600px\] {
   max-width: 1600px;
+}
+
+/* WordPress content alignment */
+.alignright {
+  float: right;
+  margin: 0 0 10em 5em;
+}
+
+.alignleft {
+  float: left;
+  margin: 5rem 5em 10em 0;
+}
+
+.aligncenter {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.prose img {
+  max-width: 100%;
+  height: auto;
 }
 
 /* Screen reader only - visually hidden but accessible */

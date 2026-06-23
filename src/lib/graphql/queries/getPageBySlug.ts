@@ -269,6 +269,19 @@ export const GET_PAGE_BY_SLUG = gql`
             }
             style
           }
+          ... on PageFieldGroupPageBuilderEditorBlockLayout {
+            blockContent
+            fieldGroupName
+          }
+          ... on PageFieldGroupPageBuilderFaqSectionLayout {
+            fieldGroupName
+            introTitle
+            item {
+              description
+              fieldGroupName
+              title
+            }
+          }
         }
         sourceId
       }
