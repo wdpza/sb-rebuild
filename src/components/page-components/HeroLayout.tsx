@@ -47,7 +47,7 @@ design
 
 	return (
 		<section
-			className={`relative flex w-full items-center overflow-hidden ${sectionHeight}`}
+			className={`hero-layout relative flex w-full items-center overflow-hidden ${sectionHeight}`}
 		>
 			{/* Optimized background image using Next.js Image */}
 			{bgUrl && (

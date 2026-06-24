@@ -96,15 +96,29 @@
     color: var(--color-neutral-softer);
   }
 
+  .editor-block ul, .editor-block ol {
+    list-style:inside;
+  }
+
+  .editor-block strong {
+    color:var(--color-neutral-softest);
+  }
+
   .subtitle, .editor-block h2 {
     @apply text-3xl md:text-5xl;
   }
 
   @media (min-width: 768px) {
+
     .editor-block h2 {
       max-width: 50%;
       @apply leading-snug;
     }
+
+    .page-home .hero-layout h1, .page-home .hero-layout h2 {
+      max-width:50%;
+    }
+
   }
 
   .editor-block h2,   .editor-block h3, .editor-block h4, .editor-block ul, .editor-block ul li  {
@@ -166,10 +180,13 @@
   }
 
   .prose {
-    :where(ol > li):not(
+    :where(ol > li, ul > li):not(
         :where([class~="not-prose"], [class~="not-prose"] *)
       )::marker {
       color: #fff;
+    }
+    ul, ol {
+      list-inside: inside;
     }
   }
 
@@ -548,12 +565,12 @@ body {
 /* WordPress content alignment */
 .alignright {
   float: right;
-  margin: 0 0 10em 5em;
+  margin: 0 0 8em 5em;
 }
 
 .alignleft {
   float: left;
-  margin: 5rem 5em 10em 0;
+  margin: 5rem 5em 8em 0;
 }
 
 .aligncenter {
