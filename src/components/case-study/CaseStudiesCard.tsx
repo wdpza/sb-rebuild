@@ -60,9 +60,7 @@ export default function CaseStudiesCard({ item }: { item: CaseStudyItem }) {
 							className="h-auto w-auto max-h-20 object-contain"
 						/>
 					) : (
-						<div className="flex h-20 w-52 items-center justify-center rounded-lg bg-white/5 text-neutral-softest/60">
-							<span className="px-2 text-sm">{item.title}</span>
-						</div>
+						<span className="px-2 text-4xl text-neutral-softest text-balance font-extrabold">{item.title}</span>
 					)}
 				</div>
 

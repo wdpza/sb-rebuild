@@ -37,6 +37,7 @@ export interface FormFields {
 
 export interface HeroLayoutProps {
   title?: string;
+  design?: string;
   description?: string;
   subTitle?: string;
   background?: MediaItem;

@@ -20,10 +20,13 @@ image,
 ctaLink,
 showContactForm,
 forms,
-services
+services,
+design
 }: HeroLayoutProps & { services?: ServiceOption[] }) {
 	const params = useParams<{ slug: string; }>()
 	const {slug} = params;
+
+	console.log(design);
 	
 	const [submitted, setSubmitted] = useState(false);
 	const bgUrl = background?.node?.mediaItemUrl ?? null;
@@ -35,7 +38,7 @@ services
 	const sectionHeight = title ? "md:min-h-screen" : "md:h-[160px]";
 
 	// Dynamic adjustments
-	const colSpanLeft = showForm ? "col-span-12" : "col-span-13";
+	const colSpanLeft = showForm ? "col-span-12" : imageUrl ? "col-span-13" : "col-span-24";
 	const colSpanRight = showForm ? "col-span-12" : "col-span-11";
 	const subTitleSize = showForm ? "font-normal text-[20px] lg:text-[24px]" : "hero-subtitle";
 	const paddingY = showForm ? "py-32" : "py-24";
@@ -60,6 +63,7 @@ services
 					sizes="100vw"
 				/>
 			)}
+			{design && design == 'grayscale' && <div className="absolute inset-0 bg-linear-to-r from-sb-black to-black/60 backdrop-grayscale z-0"></div>}
 			
 			<div className={`relative z-10 grid layout-wrapper grid-cols-1 md:grid-cols-24 gap-2 ${paddingY} ${title ? "min-h-screen" : "h-[160px]"}`}>
 

@@ -61,6 +61,7 @@ export const GET_PAGE_BY_SLUG = gql`
               fieldGroupName
               gravityFormId
             }
+            design
           }
           ... on PageFieldGroupPageBuilderServicesAccordionLayout {
             content {
