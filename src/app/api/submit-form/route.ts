@@ -24,15 +24,6 @@ export async function POST(request: NextRequest) {
 
 	const recaptchaData = await recaptchaResponse.json();
 
-	console.log("reCAPTCHA verify:", {
-		success: recaptchaData.success,
-		score: recaptchaData.score,
-		action: recaptchaData.action,
-		hostname: recaptchaData.hostname,
-		challenge_ts: recaptchaData.challenge_ts,
-		"error-codes": recaptchaData["error-codes"],
-	});
-
 	if (!recaptchaData.success || recaptchaData.score < 0.5) {
 		console.error("reCAPTCHA verification failed:", recaptchaData);
 		return NextResponse.json(
@@ -89,8 +80,6 @@ export async function POST(request: NextRequest) {
 				${formFields}
 			`,
 		});
-
-		console.log('Updates', data.updates);
 		
 		//return NextResponse.json({ success: true }, { status: 200 });
 
@@ -172,7 +161,6 @@ export async function POST(request: NextRequest) {
 					// Continue execution even if Gravity Forms fails
 				} else {
 					const gravityData = await gravityResponse.json();
-					console.log("Gravity Forms entry created:", gravityData.id);
 				}
 			} catch (gravityError) {
 				console.error("Failed to create Gravity Forms entry:", gravityError);
@@ -234,8 +222,6 @@ export async function POST(request: NextRequest) {
 						// Push to Leadtrekker
 						const leadResult = await leadtrekker.pushLead(finalLeadData);
 
-						console.log('Leadtrekker lead created:', leadResult);
-
 						// Also push to Everlytic if configured and if user opted in for updates
 						const fullName = `${data.name || ''} ${data.surname || ''}`.trim();
 						if (data.updates) {
@@ -257,7 +243,6 @@ export async function POST(request: NextRequest) {
 									};
 
 									const everlyticResult = await everlytic.pushLead(everlyticData);
-									console.log('Everlytic contact created/updated:', everlyticResult);
 								} catch (everlyticError) {
 									console.error("Failed to submit to Everlytic:", everlyticError);
 									// Continue execution even if Everlytic fails
@@ -279,7 +264,6 @@ export async function POST(request: NextRequest) {
 
 		// Submit to Leadtrekker (Form ID 3 - Competition Form)
 		if (formId === 3) {
-			console.log('form');
 			const leadtrekker = createLeadtrekkerInstance();
 			const everlytic = createEverlyticInstance();
 
@@ -321,7 +305,6 @@ export async function POST(request: NextRequest) {
 						}
 
 						const leadResult = await leadtrekker.pushLead(leadData);
-						console.log('Leadtrekker competition lead created:', leadResult);
 
 						const fullName = `${data.name || ''} ${data.surname || ''}`.trim();
 						if (data.updates) {
@@ -343,7 +326,6 @@ export async function POST(request: NextRequest) {
 									};
 
 									const everlyticResult = await everlytic.pushLead(everlyticData);
-									console.log('Everlytic contact created/updated:', everlyticResult);
 								} catch (everlyticError) {
 									console.error("Failed to submit to Everlytic:", everlyticError);
 								}

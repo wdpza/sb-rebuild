@@ -26,8 +26,6 @@ export class Everlytic {
 
         const json = JSON.stringify(jsonObject);
 
-        console.log("Submitting to Everlytic with data:", json);
-
         const response = await fetch(this.apiUrl, {
             method: 'POST',
             headers,
@@ -51,8 +49,6 @@ export class Everlytic {
         };
 
         const url = `${this.apiUrl}/${contactId}`;
-
-        console.log(`Fetching Everlytic contact: ${contactId}`);
 
         const response = await fetch(url, {
             method: 'GET',

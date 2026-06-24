@@ -102,7 +102,6 @@ export class Leadtrekker {
 	 */
 	async pushLeadFile(fileData: FormData): Promise<any> {
 		try {
-			console.log('Uploading file to Leadtrekker:', this.apiUrlFiles);
 			
 			const response = await fetch(this.apiUrlFiles, {
 				method: 'POST',
@@ -111,11 +110,8 @@ export class Leadtrekker {
 				},
 				body: fileData,
 			});
-
-			console.log('Leadtrekker file upload response status:', response.status);
 			
 			const responseText = await response.text();
-			console.log('Leadtrekker file upload response:', responseText);
 			
 			try {
 				const result = JSON.parse(responseText);

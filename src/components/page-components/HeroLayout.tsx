@@ -25,8 +25,6 @@ design
 }: HeroLayoutProps & { services?: ServiceOption[] }) {
 	const params = useParams<{ slug: string; }>()
 	const {slug} = params;
-
-	console.log(design);
 	
 	const [submitted, setSubmitted] = useState(false);
 	const bgUrl = background?.node?.mediaItemUrl ?? null;

@@ -72,11 +72,6 @@ function ContactFormContent({ onSubmitSuccess, services = [] }: ContactFormProps
 
 		const urltracking = getSessionUrlTracking();
 
-		console.log('Form submission data:', {
-			formId: 2,
-			data: formData,
-		});
-
 		setIsSubmitting(true);
 		setError(null);
 

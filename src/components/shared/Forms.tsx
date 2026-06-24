@@ -75,7 +75,7 @@ function FormsContent({ form, formId, sourceId }: { form: GravityForm, formId: n
                     console.error("[Forms] Everlytic API error:", data.error);
                     return;
                 }
-                console.log("[Forms] Everlytic contact data:", data);
+
                 setContactData(data);
                 for (const [name, value] of Object.entries(data)) {
                     if (!value) continue;
@@ -83,7 +83,7 @@ function FormsContent({ form, formId, sourceId }: { form: GravityForm, formId: n
                         | HTMLInputElement
                         | HTMLSelectElement
                         | null;
-                    console.log(`[Forms] found DOM element [name="${name}"]:`, !!el, "value:", value);
+
                     if (el) el.value = value as string;
                 }
                 setHasContactData(true);
@@ -99,7 +99,7 @@ function FormsContent({ form, formId, sourceId }: { form: GravityForm, formId: n
     // Populate dynamically-injected extra fields when contact data is loaded
     useEffect(() => {
         if (!contactData || !formRef.current) return;
-        console.log("[Forms] Populating extra fields from contactData:", contactData);
+
         for (const name of [
             "area64",
             "cfv_business_type94",
@@ -107,14 +107,14 @@ function FormsContent({ form, formId, sourceId }: { form: GravityForm, formId: n
             "cfv_instagram_business_profile37",
         ]) {
             const value = contactData[name];
-            console.log(`[Forms] extra field "${name}" value:`, value);
+
             if (!value) continue;
             const el = formRef.current.querySelector(`[name="${name}"]`) as
                 | HTMLInputElement
                 | HTMLSelectElement
                 | HTMLTextAreaElement
                 | null;
-            console.log(`[Forms] found DOM element [name="${name}"]:`, !!el);
+
             if (el) el.value = value;
         }
     }, [contactData]);

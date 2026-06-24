@@ -46,14 +46,6 @@ export async function POST(request: NextRequest) {
 				);
 				const recaptchaData = await recaptchaResponse.json();
 
-				console.log("reCAPTCHA verify:", {
-					success: recaptchaData.success,
-					score: recaptchaData.score,
-					action: recaptchaData.action,
-					hostname: recaptchaData.hostname,
-					"error-codes": recaptchaData["error-codes"],
-				});
-
 				if (!recaptchaData.success || recaptchaData.score < 0.5) {
 					console.error("reCAPTCHA verification failed:", recaptchaData);
 					return NextResponse.json(
@@ -74,7 +66,6 @@ export async function POST(request: NextRequest) {
 					if (value.size > 0) {
 						uploadedFiles.set(key, value);
 						data[key] = value.name; // Store filename for reference
-						console.log(`File detected: ${key} -> ${value.name}`);
 					} else {
 						data[key] = {}; // Empty file
 					}
@@ -166,7 +157,6 @@ export async function POST(request: NextRequest) {
 					// Continue execution even if Gravity Forms fails
 				} else {
 					const gravityData = await gravityResponse.json();
-					console.log("Gravity Forms entry created:", gravityData.id);
 				}
 			} catch (gravityError) {
 				console.error("Failed to create Gravity Forms entry:", gravityError);
@@ -228,7 +218,6 @@ export async function POST(request: NextRequest) {
 
 						// Push to Leadtrekker
 						const leadResult = await leadtrekker.pushLead(leadData);
-						console.log('Leadtrekker lead created:', leadResult);
 
 						// Upload CV file if present and we have a lead ID
 						const leadId = leadResult?.leadid || leadResult?.id;
@@ -236,13 +225,6 @@ export async function POST(request: NextRequest) {
 						if (leadId && uploadedFiles.has('input_9')) {
 							try {
 								const cvFileObj = uploadedFiles.get('input_9')!;
-								
-								console.log('Preparing to upload file:', {
-									fileName: cvFileObj.name,
-									fileSize: cvFileObj.size,
-									fileType: cvFileObj.type,
-									leadId: leadId
-								});
 								
 								// Create FormData with leadid and file
 								const fileFormData = new FormData();

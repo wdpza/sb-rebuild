@@ -63,10 +63,6 @@ export async function POST(request: NextRequest) {
   // Always revalidate the root layout (covers header/footer/menu changes)
   revalidatePath("/", "layout");
 
-  console.log(
-    `[revalidate] tag=wordpress post_type=${post_type ?? "unknown"} slug=${slug ?? "unknown"}`
-  );
-
   return NextResponse.json({
     revalidated: true,
     tag: "wordpress",
