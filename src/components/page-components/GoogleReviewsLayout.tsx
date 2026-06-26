@@ -179,9 +179,9 @@ export default function GoogleReviewsLayout() {
           viewport={{ once: true }}
           className="mb-10 text-center"
         >
-          <h2 className="text-3xl font-semibold text-neutral-softest">
+          <h3 className="text-3xl font-semibold text-neutral-softest">
             Rated {data.averageRating.toFixed(1)} — {data.totalCount} review{data.totalCount !== 1 ? "s" : ""} on Google
-          </h2>
+          </h3>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
