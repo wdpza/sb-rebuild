@@ -283,6 +283,9 @@ export const GET_PAGE_BY_SLUG = gql`
               title
             }
           }
+          ... on PageFieldGroupPageBuilderGoogleReviewsLayout {
+            fieldGroupName
+          }
         }
         sourceId
       }

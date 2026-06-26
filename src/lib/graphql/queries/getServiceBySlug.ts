@@ -358,6 +358,7 @@ export const GET_SERVICE_BY_SLUG = gql`
                         }
                         layout
                     }
+
                 }
             }
         }

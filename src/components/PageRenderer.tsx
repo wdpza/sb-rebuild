@@ -16,6 +16,7 @@ import TextHeadingBlock from "@/components/page-components/TextHeadingBlock"
 import PortfolioTabsLayout from "./page-components/PortfolioTabsLayout"
 import FormLayout from "./page-components/FormLayout"
 import WhyWorkWithUs from "./service-components/WhyWorkWithUs"
+import GoogleReviewsLayout from "./page-components/GoogleReviewsLayout"
 import EditorBlockLayout from "./page-components/EditorBlockLayout"
 import FaqSectionLayout from "./page-components/FaqSectionLayout"
 import type { PageRendererProps, PageBuilderBlock } from "@/types/common"
@@ -68,6 +69,8 @@ export default function PageRenderer({ pageBuilder, services, sourceId }: PageRe
 						return <EditorBlockLayout key={index} {...block} />;
 					case "PageFieldGroupPageBuilderFaqSectionLayout":
 						return <FaqSectionLayout key={index} {...block} />;
+					case "PageFieldGroupPageBuilderGoogleReviewsLayout":
+						return <GoogleReviewsLayout key={index} />;
 					default:
 						return null
 				}
