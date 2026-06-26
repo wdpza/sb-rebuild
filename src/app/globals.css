@@ -109,16 +109,13 @@
   }
 
   @media (min-width: 768px) {
-
     .editor-block h2 {
       max-width: 50%;
       @apply leading-snug;
     }
-
     .page-home .hero-layout h1, .page-home .hero-layout h2 {
       max-width:50%;
     }
-
   }
 
   .editor-block h2,   .editor-block h3, .editor-block h4, .editor-block ul, .editor-block ul li  {

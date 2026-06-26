@@ -13,7 +13,7 @@ export default function EditorBlockLayout({ blockContent }: Props) {
   const sanitizedHtml = DOMPurify.sanitize(blockContent);
 
   return (
-    <section className="editor-block bg-sb-black">
+    <section id="editor-content" className="editor-block bg-sb-black">
         <div className="w-full max-w-[1600px] mx-auto px-6 py-12 md:py-24">
         <div
             className="prose max-w-none"
