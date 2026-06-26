@@ -93,7 +93,7 @@ function ReviewCard({ review, index }: { review: Review; index: number }) {
           </>
         ) : (
           <>
-            <div className="google-review-item mb-3">
+            <div className="google-review-item mb-3 text-base">
               {review.text}
             </div>
             {isLong && expanded && (
