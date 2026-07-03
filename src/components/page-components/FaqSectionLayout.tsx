@@ -32,27 +32,33 @@ export default function FaqSectionLayout({ introTitle, item }: Props) {
         )}
 
         <div className="w-full md:w-2/3 space-y-2">
-          {item.map((faq, index) => (
-            <div key={index} className="rounded space-y-2">
-              <button
-                className={`text-neutral-softer cursor-pointer bg-sb-black/80 w-full text-left px-6 py-4 text-lg font-semibold rounded focus:outline-none focus:ring-2 focus:ring-blue-500 flex justify-between items-center ${activeIndex === index ? "text-neutral-softest-important" : ""}`}
-                onClick={() => toggleItem(index)}
-              >
-                <span>{faq.title}</span>
-                <span className="text-xl text-neutral-softest">
-                  {activeIndex === index ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
-                </span>
-              </button>
+          {item.map((faq, index) => {
+            const isActive = activeIndex === index;
 
-              <div
-                className={`overflow-hidden transition-all duration-300 ease-in-out ${activeIndex === index ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"}`}
-              >
-                <div className="px-6 py-4 text-neutral-softest bg-[#49474D] rounded text-left">
-                  {faq.description}
+            return (
+              <div key={index} className="rounded space-y-2">
+                <button
+                  type="button"
+                  aria-expanded={isActive}
+                  className="text-neutral-softer cursor-pointer bg-sb-black/80 w-full text-left px-6 py-4 text-lg font-semibold rounded focus:outline-none focus:ring-2 focus:ring-blue-500 flex justify-between items-center"
+                  onClick={() => toggleItem(index)}
+                >
+                  <span className={isActive ? "text-gradient-starbright" : ""}>{faq.title}</span>
+                  <span className="text-xl text-neutral-softest">
+                    {isActive ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+                  </span>
+                </button>
+
+                <div
+                  className={`overflow-hidden transition-all duration-300 ease-in-out ${isActive ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"}`}
+                >
+                  <div className="px-6 py-4 text-neutral-softest bg-[#49474D] rounded text-left">
+                    {faq.description}
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </div>

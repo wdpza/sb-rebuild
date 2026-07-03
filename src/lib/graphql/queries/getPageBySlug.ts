@@ -1,7 +1,7 @@
 import { gql } from "graphql-request";
 
 export const GET_PAGE_BY_SLUG = gql`
-  query GetPageBySlug($slug: ID!) {
+    query GetPageBySlug($slug: ID!) {
     page(id: $slug, idType: URI) {
       title
       slug
@@ -285,6 +285,36 @@ export const GET_PAGE_BY_SLUG = gql`
           }
           ... on PageFieldGroupPageBuilderGoogleReviewsLayout {
             fieldGroupName
+          }
+          ... on PageFieldGroupPageBuilderWysiwygImageLeftLayout {
+            editorContent
+            fieldGroupName
+            ctaOptional {
+              title
+              url
+              target
+            }
+            image {
+              node {
+                altText
+                mediaItemUrl
+              }
+            }
+          }
+          ... on PageFieldGroupPageBuilderWysiwygImageRightLayout {
+            editorContent
+            fieldGroupName
+            ctaOptional {
+              target
+              title
+              url
+            }
+            image {
+              node {
+                altText
+                mediaItemUrl
+              }
+            }
           }
         }
         sourceId

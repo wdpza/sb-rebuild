@@ -19,6 +19,8 @@ import WhyWorkWithUs from "./service-components/WhyWorkWithUs"
 import GoogleReviewsLayout from "./page-components/GoogleReviewsLayout"
 import EditorBlockLayout from "./page-components/EditorBlockLayout"
 import FaqSectionLayout from "./page-components/FaqSectionLayout"
+import WysiwygImageLeftLayout from "./page-components/WysiwygImageLeftLayout"
+import WysiwygImageRightLayout from "./page-components/WysiwygImageRightLayout"
 import type { PageRendererProps, PageBuilderBlock } from "@/types/common"
 import type { ServiceOption } from "@/lib/graphql/queries/getServicesForForm"
 
@@ -71,6 +73,10 @@ export default function PageRenderer({ pageBuilder, services, sourceId }: PageRe
 						return <FaqSectionLayout key={index} {...block} />;
 					case "PageFieldGroupPageBuilderGoogleReviewsLayout":
 						return <GoogleReviewsLayout key={index} />;
+					case "PageFieldGroupPageBuilderWysiwygImageLeftLayout":
+						return <WysiwygImageLeftLayout key={index} {...block} />;
+					case "PageFieldGroupPageBuilderWysiwygImageRightLayout":
+						return <WysiwygImageRightLayout key={index} {...block} />;
 					default:
 						return null
 				}

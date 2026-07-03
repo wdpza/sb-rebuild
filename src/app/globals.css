@@ -104,7 +104,7 @@
     color:var(--color-neutral-softest);
   }
 
-  .subtitle, .editor-block h2 {
+  .subtitle, .editor-block h2, .wysiwyg-image-content h2 {
     @apply text-3xl md:text-5xl;
   }
 
