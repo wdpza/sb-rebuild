@@ -1,15 +1,18 @@
 "use client";
 
-import Slider from "react-slick";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useRef } from "react";
+import type { Settings } from "react-slick";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
+const Slider = dynamic(() => import("react-slick"), { ssr: false }) as any;
+
 export default function PortfolioSlider({ items, title, backgroundImage }: any) {
 
-    const sliderRef = useRef<Slider | null>(null);
+    const sliderRef = useRef<any>(null);
     const bgUrl = backgroundImage?.node?.mediaItemUrl ?? null;
 
     const settings = {
@@ -38,9 +41,11 @@ export default function PortfolioSlider({ items, title, backgroundImage }: any) 
                             onClick={() => sliderRef.current?.slickPrev()}
                             className="slider-custom-nav gradient-border"
                         >
-                            <img
+                            <Image
                                 src="/slider-navigation-right.svg"
                                 alt="Previous slide"
+                                width={24}
+                                height={24}
                             />
                         </button>
 
@@ -52,9 +57,11 @@ export default function PortfolioSlider({ items, title, backgroundImage }: any) 
                             onClick={() => sliderRef.current?.slickNext()}
                             className="slider-custom-nav gradient-border"
                         >
-                            <img
+                            <Image
                                 src="/slider-navigation-left.svg"
                                 alt="Next slide"
+                                width={24}
+                                height={24}
                             />
                         </button>
                     </div>                
@@ -92,7 +99,7 @@ export default function PortfolioSlider({ items, title, backgroundImage }: any) 
                                             alt={`${altText}`}
                                             width={300}
                                             height={80}
-                                            className="object-contain mb-6 self-center py-8"
+                                            className="mb-6 self-center py-8 w-[150px] md:w-[300px] h-auto"
                                         />
                                     )}
                                 </div>

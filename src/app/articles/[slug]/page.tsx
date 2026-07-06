@@ -1,5 +1,3 @@
-export const dynamic = "force-dynamic";
-
 import { getCategoryBySlug } from "@/lib/graphql/queries/getCategoryBySlug";
 import Image from "next/image";
 import Link from "next/link";
@@ -73,7 +71,7 @@ export default async function ArticlesSlugPage({
 
                                     <Link
                                         className="text-sm inline-block gradient-border rounded py-2 px-6 text-neutral-softest"
-                                        href={post.uri}
+                                        href={`/article/${post.slug}`}
                                     >
                                         Read It!
                                     </Link>

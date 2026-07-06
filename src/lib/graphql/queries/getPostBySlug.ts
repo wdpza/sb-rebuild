@@ -1,4 +1,5 @@
 import { gql } from "graphql-request";
+import { cache } from "react";
 import { client } from "@/lib/graphql/client";
 
 export const GET_POST_BY_SLUG = gql`
@@ -14,11 +15,40 @@ export const GET_POST_BY_SLUG = gql`
                     altText
                 }
             }
+            seo {
+                title
+                description
+                canonicalUrl
+                focusKeywords
+                robots
+                openGraph {
+                    title
+                    description
+                    url
+                    type
+                    locale
+                    siteName
+                    image {
+                        url
+                        width
+                        height
+                        type
+                    }
+                    twitterMeta {
+                        card
+                        site
+                        creator
+                        title
+                        description
+                        image
+                    }
+                }
+            }
         }
     }
 `;
 
-export async function getPostBySlug(
+export const getPostBySlug = cache(async function getPostBySlug(
     slug: string,
 ) {
     try {
@@ -28,4 +58,4 @@ export async function getPostBySlug(
         console.error(`Error fetching post "${slug}":`, err);
         return null;
     }
-}
+});

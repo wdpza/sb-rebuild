@@ -2,30 +2,27 @@ import { gql } from "graphql-request";
 import { client } from "@/lib/graphql/client";
 
 export const GET_ALL_POSTS = gql`
-    query GetAllPosts($first: Int = 10, $after: String) {
+    query GetAllPosts($first: Int, $after: String, $last: Int, $before: String) {
+        readingSettings {
+            postsPerPage
+        }
         blogOptions {
             blogOptionsFields {
                 blogHero {
                     backgroundImage {
-                    node {
-                        altText
-                        mediaDetails {
-                        filePath
-                        file
+                        node {
+                            altText
+                            mediaItemUrl
                         }
-                    }
                     }
                     title
                     subHeading
                     description
                     mainImage {
-                    node {
-                        altText
-                        mediaDetails {
-                        file
-                        filePath
+                        node {
+                            altText
+                            mediaItemUrl
                         }
-                    }
                     }
                     anchor
                 }
@@ -51,9 +48,11 @@ export const GET_ALL_POSTS = gql`
             uri
             }
         }
-        posts(first: $first, after: $after) {
+        posts(first: $first, after: $after, last: $last, before: $before) {
             pageInfo {
             hasNextPage
+            hasPreviousPage
+            startCursor
             endCursor
             }
             nodes {
@@ -74,27 +73,36 @@ export const GET_ALL_POSTS = gql`
     }
 `;
 
-export async function getAllPosts(first = 10, after?: string | null) {
+export async function getAllPosts(options?: {
+    first?: number | null;
+    after?: string | null;
+    last?: number | null;
+    before?: string | null;
+}) {
+    const { first, after, last, before } = options ?? {};
     try {
-        const data: any = await client.request(GET_ALL_POSTS, { first, after });
+        const data: any = await client.request(GET_ALL_POSTS, { first, after, last, before });
+        const postsPerPage: number = data?.readingSettings?.postsPerPage ?? 10;
 
         return {
             posts: data?.posts || {
                 nodes: [],
-                pageInfo: { hasNextPage: false, endCursor: null },
+                pageInfo: { hasNextPage: false, hasPreviousPage: false, startCursor: null, endCursor: null },
             },
             blogOptions: data?.blogOptions || null,
             categories: data?.categories?.nodes || [],
+            postsPerPage,
         };
     } catch (err) {
         console.error("Error fetching posts:", err);
         return {
             posts: {
                 nodes: [],
-                pageInfo: { hasNextPage: false, endCursor: null },
+                pageInfo: { hasNextPage: false, hasPreviousPage: false, startCursor: null, endCursor: null },
             },
             blogOptions: null,
             categories: [],
+            postsPerPage: 10,
         };
     }
 }

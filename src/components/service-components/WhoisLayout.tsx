@@ -18,9 +18,6 @@ export default function WhoisLayout() {
     const [loading, setLoading] = useState(false);
     const hasSearched = result !== null;
 
-    //const domains = getDomains()
-    //console.log(domains)
-
     async function handleLookup() {
         if (!domain.trim()) return;
 

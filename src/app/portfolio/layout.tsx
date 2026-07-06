@@ -6,7 +6,7 @@ import PortfolioLogoSlider from "@/components/portfolio/PortfolioLogoSlider";
 import PortfolioExit from "@/components/portfolio/PortfolioExit";
 import ScrollToTopOnEnter from "@/components/shared/ScrollToTopOnEnter";
 
-export default async function ArticleLayout({ children }: { children: React.ReactNode }) {
+export default async function PortfolioLayout({ children }: { children: React.ReactNode }) {
     const portfolioOptions = await getAllPortfolioItems();
 
     if (!getAllPortfolioItems) return notFound();
@@ -24,7 +24,7 @@ export default async function ArticleLayout({ children }: { children: React.Reac
                     backgroundImage: bgUrl ? `url(${bgUrl})` : undefined,
                 }}
             >
-                <div className="grid w-full max-w-[1600px] mx-auto px-12 py-16 bg-cover bg-center">
+                <div className="grid w-full max-w-[1600px] mx-auto px-12 py-16 bg-cover bg-center bg-[url(/bg.svg)]">
                     <PortfolioCategories portfolioOptions={portfolioOptions} />
                     {children}
                 </div>

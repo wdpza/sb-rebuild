@@ -12,8 +12,14 @@ import RightImageSectionVideo from "@/components/service-components/RightImageSe
 import GoogleReviewBoosterLayout from "@/components/service-components/GoogleReviewBoosterLayout"
 import ServiceCarouselLayout from "@/components/service-components/ServiceCarouselLayout"
 import HostingHeroLayout from "./service-components/HostingHeroLayout"
+import TwoColumnImageLeftLayout from "./service-components/TwoColumnImageLeftLayout"
+import TwoColumnImageRightLayout from "./service-components/TwoColumnImageRightLayout"
+import LogoSliderLayout from "./shared/LogoSliderLayout"
+import ServicesSlider from "./service-components/ServicesSlider"
+import CTABlock from "./service-components/CTABlock"
+import PhotoGalleryLayout from "./service-components/PhotoGalleryLayout"
 
-export default async function ServiceRenderer({ pageBuilder }: any) {
+export default async function ServiceRenderer({ pageBuilder}: any) {
     if (!pageBuilder) return null
 
     return (
@@ -49,6 +55,18 @@ export default async function ServiceRenderer({ pageBuilder }: any) {
                         return <ServiceCarouselLayout key={index} {...block} />
                     case "ServicePageFieldsServicePageBuilderHostingPageHeroLayout":
                         return <HostingHeroLayout key={index} {...block} />
+                    case "ServicePageFieldsServicePageBuilderTwoColumnImageLeftLayout":
+                        return <TwoColumnImageLeftLayout key={index} {...block} />
+                    case "ServicePageFieldsServicePageBuilderTwoColumnImageRightLayout":
+                        return <TwoColumnImageRightLayout key={index} {...block} />
+                    case "ServicePageFieldsServicePageBuilderLogoSliderLayout":
+                        return <LogoSliderLayout key={index} {...block} />
+                    case "ServicePageFieldsServicePageBuilderServicesSliderLayout":
+                        return <ServicesSlider key={index} {...block} />
+                    case "ServicePageFieldsServicePageBuilderCtaBlockLayout":
+                        return <CTABlock key={index} {...block} />
+                    case "ServicePageFieldsServicePageBuilderPhotoSliderLayout":
+                        return <PhotoGalleryLayout key={index} {...block} />
                     default:
                         return null
                 }

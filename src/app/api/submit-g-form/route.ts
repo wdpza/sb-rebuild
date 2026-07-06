@@ -1,0 +1,460 @@
+import { NextRequest, NextResponse } from "next/server";
+import { createLeadtrekkerInstance } from "@/lib/services/leadtrekker";
+import { createEverlyticInstance } from "@/lib/services/everlytic";
+import { parseUrlTracking } from "@/lib/utils/urltracking";
+
+export async function POST(request: NextRequest) {
+	try {
+		let formId: number;
+		let data: Record<string, any> = {};
+		const uploadedFiles: Map<string, File> = new Map(); // fieldKey -> File object
+
+		// Check if request is multipart/form-data or JSON
+		const contentType = request.headers.get("content-type") || "";
+		
+		if (contentType.includes("multipart/form-data")) {
+			// Handle FormData (with files)
+			const formData = await request.formData();
+			
+			formId = parseInt(formData.get('formId') as string, 10);
+
+			// Verify reCAPTCHA token (skipped in dev mode when BYPASS_RECAPTCHA=true)
+			if (process.env.BYPASS_RECAPTCHA !== 'true') {
+				const recaptchaToken = formData.get('recaptchaToken') as string | null;
+				if (!recaptchaToken || !process.env.RECAPTCHA_SECRET_KEY) {
+					console.error("submit-g-form rejected before reCAPTCHA verify", {
+						formId,
+						hasRecaptchaToken: Boolean(recaptchaToken),
+						hasRecaptchaSecret: Boolean(process.env.RECAPTCHA_SECRET_KEY),
+					});
+					return NextResponse.json(
+						{ success: false, error: "reCAPTCHA token missing" },
+						{ status: 400 }
+					);
+				}
+
+				const recaptchaResponse = await fetch(
+					"https://www.google.com/recaptcha/api/siteverify",
+					{
+						method: "POST",
+						headers: { "Content-Type": "application/x-www-form-urlencoded" },
+						body: new URLSearchParams({
+							secret: process.env.RECAPTCHA_SECRET_KEY,
+							response: recaptchaToken,
+						}),
+					}
+				);
+				const recaptchaData = await recaptchaResponse.json();
+
+				if (!recaptchaData.success || recaptchaData.score < 0.5) {
+					console.error("reCAPTCHA verification failed:", recaptchaData);
+					return NextResponse.json(
+						{ success: false, error: "reCAPTCHA verification failed" },
+						{ status: 403 }
+					);
+				}
+			} else {
+				console.log("submit-g-form: BYPASS_RECAPTCHA is true, skipping reCAPTCHA verification");
+			}
+
+			// Process all form fields
+			for (const [key, value] of formData.entries()) {
+				if (key === 'formId' || key === 'recaptchaToken') continue; // Skip formId and token as we already extracted them
+				
+				if (value instanceof File) {
+					// Store file object for later upload to Leadtrekker
+					if (value.size > 0) {
+						uploadedFiles.set(key, value);
+						data[key] = value.name; // Store filename for reference
+					} else {
+						data[key] = {}; // Empty file
+					}
+				} else {
+					data[key] = value;
+				}
+			}
+		} else {
+			// Handle JSON (backward compatibility)
+			const body = await request.json();
+			formId = body.formId;
+			data = body.data || {};
+		}
+
+		// Honeypot check — bots fill hidden fields, humans don't
+		if (data._hp && data._hp.toString().trim() !== '') {
+			console.warn('Honeypot triggered — spam submission rejected');
+			// Return success to avoid tipping off the bot
+			return NextResponse.json({ success: true }, { status: 200 });
+		}
+
+		// Phone number must contain at least some digits.
+		const phoneFieldValue = formId === 1
+			? data.input_4
+			: formId === 2
+			? data.input_5
+			: formId === 3
+			? data.input_6
+			: undefined;
+		if (phoneFieldValue && !/\d/.test(phoneFieldValue.toString())) {
+			console.warn('Invalid phone number — spam submission rejected:', phoneFieldValue);
+			return NextResponse.json(
+				{ success: false, error: "Invalid phone number" },
+				{ status: 400 }
+			);
+		}
+
+		// Create Gravity Forms entry via REST API v2
+		if (process.env.GF_ENDPOINT && 
+		    process.env.GF_API_KEY && 
+		    process.env.GF_API_SECRET) {
+			
+			try {
+				// Parse input_X field names to extract field IDs
+				const gravityFieldsData: Record<string, any> = {};
+				Object.entries(data).forEach(([key, value]) => {
+					// Parse field names like "input_1", "input_3", etc.
+					const match = key.match(/^input_(\d+)$/);
+					if (match) {
+						const fieldId = match[1];
+						gravityFieldsData[fieldId] = value;
+					}
+				});
+
+				// Prepare entry data with form_id and field data
+				const entryData = {
+					form_id: typeof formId === 'string' ? parseInt(formId, 10) : formId,
+					...gravityFieldsData,
+					// Optional: Add additional metadata
+					source_url: request.headers.get("referer") || "",
+					ip: request.headers.get("x-forwarded-for") || 
+					    request.headers.get("x-real-ip") || 
+					    "127.0.0.1",
+					user_agent: request.headers.get("user-agent") || "",
+					date_created: new Date().toISOString(),
+				};
+
+				// Create Basic Auth header
+				const auth = Buffer.from(
+					`${process.env.GF_API_KEY}:${process.env.GF_API_SECRET}`
+				).toString("base64");
+
+				// Make POST request to Gravity Forms REST API
+				const gravityResponse = await fetch(
+					`${process.env.GF_ENDPOINT}/entries`,
+					{
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+							"Authorization": `Basic ${auth}`,
+						},
+						body: JSON.stringify(entryData),
+					}
+				);
+
+				if (!gravityResponse.ok) {
+					const errorData = await gravityResponse.json();
+					console.error("Gravity Forms API error:", errorData);
+					// Continue execution even if Gravity Forms fails
+				} else {
+					const gravityData = await gravityResponse.json();
+				}
+			} catch (gravityError) {
+				console.error("Failed to create Gravity Forms entry:", gravityError);
+				// Continue execution even if Gravity Forms fails
+			}
+		}
+
+		// Submit to Leadtrekker - Form ID 1 (Career/Job Application Form)
+		if (formId === 1) {
+			const leadtrekker = createLeadtrekkerInstance();
+			
+			if (leadtrekker) {
+				try {
+					// Map field IDs to data for Form 1
+					const name = data.input_1 || '';
+					const phone = data.input_4 || '';
+					const email = data.input_5 || '';
+					const interestedIn = data.input_8 || '';
+					const cvFile = data.input_9 || '';
+					const message = data.input_10 || '';
+					const optInUpdates = data.input_12 || '';
+					
+					const mobile = phone?.toString().replace(/[\s\(\)\-]/g, '') || '';
+					
+					// Check if lead is not spam
+					const isValidLead = await leadtrekker.checkLead(email?.toString() || '', name?.toString() || '');
+					
+					if (isValidLead) {
+						// Prepare lead data
+						const leadData = {
+							name: name?.toString() || '',
+							email: email?.toString() || '',
+							number: mobile,
+							company: '',
+							sourceid: data.sourceid || null,
+							custom_fields: {
+								'Tell us what you\'re interested in': interestedIn?.toString() || '',
+								'Message': message?.toString() || '',
+								'Opt-in for updates': optInUpdates?.toString() || '',
+								'IP': request.headers.get("x-forwarded-for") || 
+								     request.headers.get("x-real-ip") || 
+								     "127.0.0.1"
+							} as Record<string, string>
+						};
+
+						// Add URL tracking parameters from current page (last-touch)
+						const urlParams = request.nextUrl.searchParams;
+						const trackingParams: Record<string, string> = {};
+						urlParams.forEach((value, key) => {
+							trackingParams[key] = value;
+						});
+						leadtrekker.addParams(leadData, trackingParams);
+
+						// Add first-touch URL tracking from sessionStorage (overwrites current-page params)
+						const sessionTracking1 = parseUrlTracking(data.urltracking?.toString());
+						if (sessionTracking1) {
+							leadtrekker.addParams(leadData, sessionTracking1);
+						}
+
+						// Push to Leadtrekker
+						const leadResult = await leadtrekker.pushLead(leadData);
+
+						// Upload CV file if present and we have a lead ID
+						const leadId = leadResult?.leadid || leadResult?.id;
+						
+						if (leadId && uploadedFiles.has('input_9')) {
+							try {
+								const cvFileObj = uploadedFiles.get('input_9')!;
+								
+								// Create FormData with leadid and file
+								const fileFormData = new FormData();
+								fileFormData.append('leadid', Buffer.from(leadId.toString()).toString('base64'));
+								
+								// Convert File to Blob with proper type
+								const fileBuffer = await cvFileObj.arrayBuffer();
+								const blob = new Blob([fileBuffer], { type: cvFileObj.type });
+								fileFormData.append('file', blob, cvFileObj.name);
+								
+								// Upload directly to Leadtrekker
+								const fileResult = await leadtrekker.pushLeadFile(fileFormData);
+								console.log('CV file uploaded to Leadtrekker:', fileResult);
+							} catch (fileError) {
+								console.error('Failed to upload CV file:', fileError);
+								if (fileError instanceof Error) {
+									console.error('Error details:', fileError.message);
+								}
+								// Continue even if file upload fails
+							}
+						} else if (!uploadedFiles.has('input_9')) {
+							console.log('No CV file was uploaded');
+						} else {
+							console.log('Lead ID not found in response:', leadResult);
+						}
+					} else {
+						console.log('Lead rejected - spam detected:', email, name);
+					}
+				} catch (leadtrekkerError) {
+					console.error("Failed to submit to Leadtrekker:", leadtrekkerError);
+					// Continue execution even if Leadtrekker fails
+				}
+			}
+		}
+
+		// Submit to Leadtrekker - Form ID 2 (Contact Form)
+		if (formId === 2) {
+			const leadtrekker = createLeadtrekkerInstance();
+			
+			if (leadtrekker) {
+				try {
+					// Map field IDs to data for Form 2
+					const name = data.input_1 || '';
+					const surname = data.input_3 || '';
+					const email = data.input_4 || '';
+					const contactNumber = data.input_5 || '';
+					const companyName = data.input_7 || '';
+					const service = data.input_8 || '';
+					const how = data.input_9 || '';
+					const other = data.input_10 || '';
+					const message = data.input_11 || '';
+					
+					const mobile = contactNumber?.toString().replace(/[\s\(\)\-]/g, '') || '';
+					
+					// Check if lead is not spam
+					const isValidLead = await leadtrekker.checkLead(email?.toString() || '', name?.toString() || '');
+					
+					if (isValidLead) {
+						// Prepare lead data
+						const leadData = {
+							name: name?.toString() || '',
+							email: email?.toString() || '',
+							number: mobile,
+							company: companyName?.toString() || '',
+							sourceid: data.sourceid || null,
+							custom_fields: {
+								'Surname': surname?.toString() || '',
+								'Service': service?.toString() || '',
+								'How Did You Hear About Us': how?.toString() || '',
+								'Message': message?.toString() || '',
+								'IP': request.headers.get("x-forwarded-for") || 
+								     request.headers.get("x-real-ip") || 
+								     "127.0.0.1"
+							} as Record<string, string>
+						};
+
+						// Add "Other" field if it has a value
+						if (other && other.toString().trim()) {
+							leadData.custom_fields['Other'] = other.toString();
+						}
+
+						// Add URL tracking parameters from current page (last-touch)
+						const urlParams = request.nextUrl.searchParams;
+						const trackingParams: Record<string, string> = {};
+						urlParams.forEach((value, key) => {
+							trackingParams[key] = value;
+						});
+						leadtrekker.addParams(leadData, trackingParams);
+
+						// Add first-touch URL tracking from sessionStorage (overwrites current-page params)
+						const sessionTracking2 = parseUrlTracking(data.urltracking?.toString());
+						if (sessionTracking2) {
+							leadtrekker.addParams(leadData, sessionTracking2);
+						}
+
+						// Push to Leadtrekker
+						const leadResult = await leadtrekker.pushLead(leadData);
+						console.log('Leadtrekker lead created:', leadResult);
+					} else {
+						console.log('Lead rejected - spam detected:', email, name);
+					}
+				} catch (leadtrekkerError) {
+					console.error("Failed to submit to Leadtrekker:", leadtrekkerError);
+					// Continue execution even if Leadtrekker fails
+				}
+			}
+		}
+
+		// Submit to Leadtrekker - Form ID 3 (Competition Form)
+		if (formId === 3) {
+
+			// Skip Leadtrekker when a contact_id was used to pre-fill the form
+			// (the user is re-confirming existing data, not a new lead)
+			const everlyticLinkedId = request.cookies.get("everlytic_linked_id")?.value;
+			const skipLeadtrekker = Boolean(everlyticLinkedId);
+
+			// Map form data (used by both Leadtrekker and Everlytic)
+			const name = data.input_1 || '';
+			const surname = data.input_3 || '';
+			const company = data.input_4 || '';
+			const contactNumber = data.input_6 || '';
+			const email = data.input_7 || '';
+			const socialChannel = data.input_8 || '';
+			const platformUsername = data.input_9 || '';
+			const websiteUrl = data.input_10 || '';
+			const optInUpdates = data.input_11 || '';
+			const mobile = contactNumber?.toString().replace(/[\s\(\)\-]/g, '') || '';
+
+			if (!skipLeadtrekker) {
+				const leadtrekker = createLeadtrekkerInstance();
+
+				if (leadtrekker) {
+					try {
+						// Check if lead is not spam
+						const isValidLead = await leadtrekker.checkLead(email?.toString() || '', name?.toString() || '');
+
+						if (isValidLead) {
+							const leadData = {
+								name: name?.toString() || '',
+								email: email?.toString() || '',
+								number: mobile,
+								company: company?.toString() || '',
+								sourceid: '10233',
+								custom_fields: {
+									'Surname': surname?.toString() || '',
+									'Social Channel': socialChannel?.toString() || '',
+									'Platform Username': platformUsername?.toString() || '',
+									'Existing Website URL': websiteUrl?.toString() || '',
+									'Opt-in for updates': optInUpdates ? 'Yes' : 'No',
+									'IP': request.headers.get("x-forwarded-for") || 
+									     request.headers.get("x-real-ip") || 
+									     "127.0.0.1"
+								} as Record<string, string>
+							};
+
+							// Add URL tracking parameters from current page (last-touch)
+							const urlParams = request.nextUrl.searchParams;
+							const trackingParams: Record<string, string> = {};
+							urlParams.forEach((value, key) => {
+								trackingParams[key] = value;
+							});
+							leadtrekker.addParams(leadData, trackingParams);
+
+							// Add first-touch URL tracking from sessionStorage (overwrites current-page params)
+							const sessionTracking3 = parseUrlTracking(data.urltracking?.toString());
+							if (sessionTracking3) {
+								leadtrekker.addParams(leadData, sessionTracking3);
+							}
+
+							// Push to Leadtrekker
+							const leadResult = await leadtrekker.pushLead(leadData);
+							console.log('Leadtrekker competition lead created:', leadResult);
+						} else {
+							console.log('Competition lead rejected - spam detected:', email, name);
+						}
+					} catch (leadtrekkerError) {
+						console.error("Failed to submit competition lead to Leadtrekker:", leadtrekkerError);
+						// Continue execution even if Leadtrekker fails
+					}
+				}
+			}
+
+			// Everlytic always runs when contact opted in (or when re-confirming via contact_id)
+			if (optInUpdates || skipLeadtrekker) {
+				const everlytic = createEverlyticInstance();
+				if (everlytic) {
+					try {
+						const everlyticData = {
+							name: name?.toString() || '',
+							lastname: surname?.toString() || '',
+							email: email?.toString() || '',
+							mobile: mobile,
+							company_name: company?.toString() || '',
+							website_url14: websiteUrl?.toString() || '',
+							social_media_channel61: socialChannel?.toString() || '',
+							social_media_username13: platformUsername?.toString() || '',
+							receive_updates27: optInUpdates || skipLeadtrekker ? 'Yes' : 'No',
+							area64: data.area64?.toString() || '',
+							business_information34: data.business_information34?.toString() || '',
+							cfv_business_type94: data.cfv_business_type94?.toString() || '',
+							cfv_facebook_business_page88: data.cfv_facebook_business_page88?.toString() || '',
+							cfv_instagram_business_profile37: data.cfv_instagram_business_profile37?.toString() || '',
+							on_duplicate: 'update',
+							list_id: {
+								'237396': 'subscribed',
+								'209951': 'subscribed',
+								'205234': 'subscribed',
+								'205233': 'subscribed',
+								'210461': 'subscribed',
+								'211945': 'subscribed'
+							}
+						};
+
+						const everlyticResult = await everlytic.pushLead(everlyticData);
+						console.log('Everlytic contact created/updated:', everlyticResult);
+					} catch (everlyticError) {
+						console.error("Failed to submit to Everlytic:", everlyticError);
+					}
+				} else {
+					console.warn('Everlytic not configured, skipping contact creation');
+				}
+			}
+		}
+
+		return NextResponse.json({ success: true }, { status: 200 });
+	} catch (error) {
+		console.error("Error submitting form:", error);
+		return NextResponse.json(
+			{ success: false, error: "Failed to submit form" },
+			{ status: 500 }
+		);
+	}
+}

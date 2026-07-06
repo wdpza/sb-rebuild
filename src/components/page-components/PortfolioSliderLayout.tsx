@@ -44,5 +44,5 @@ export default async function PortfolioSliderLayout({
         );
     });
 
-    return <PortfolioSlider items={filteredItems} backgroundImage={backgroundImage} title="Our Work" />;
+    return <PortfolioSlider items={filteredItems} backgroundImage={backgroundImage} title="View Our Work" />;
 }

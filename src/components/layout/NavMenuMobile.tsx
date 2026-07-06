@@ -6,235 +6,262 @@ import type { MenuItem, MenuNode, MegaMenuChild } from "../../types/menuTypes";
 
 import { IoCloseOutline } from "react-icons/io5";
 import { TbArrowBackUp } from "react-icons/tb";
+import { RxHamburgerMenu } from "react-icons/rx";
 
 // Local recursive node used just for the mobile menu
 type LocalMenuNode = MegaMenuChild & {
-  children: LocalMenuNode[];
+	children: LocalMenuNode[];
 };
 
 type NavMenuMobileProps = {
-  tree: MenuNode[];          // passed from Header, currently not used but kept for API consistency
-  flatItems: MenuItem[];
+	tree: MenuNode[];          // passed from Header, currently not used but kept for API consistency
+	flatItems: MenuItem[];
 };
 
 export default function NavMenuMobile({ tree: _tree, flatItems }: NavMenuMobileProps) {
-  const buildHref = (item: MenuItem): string => {
-    if (item?.connectedObject?.slug) return `/${item.connectedObject.slug}`;
-    if (item?.uri) return item.uri ?? "#";
-    return item?.url ?? "#";
-  };
+	const buildHref = (item: MenuItem): string => {
+		if (item?.connectedObject?.slug) return `/${item.connectedObject.slug}`;
+		if (item?.uri) return item.uri ?? "#";
+		return item?.url ?? "#";
+	};
 
-  // Group items by mainMenuFields.categoryGrouping.nodes[0].name
-  const groupItemsByCategory = (items: LocalMenuNode[]) => {
-    const grouped: Record<string, LocalMenuNode[]> = {};
-    const ungrouped: LocalMenuNode[] = [];
+	// Build a nested tree from flat items
+	const menuTree = useMemo(() => {
+		const childrenByParent: Record<string, MegaMenuChild[]> = {};
 
-    items.forEach(item => {
-      const groupName =
-        item.mainMenuFields?.categoryGrouping?.nodes?.[0]?.name;
+		flatItems.forEach(item => {
+			const parentKey = String(item.parentId ?? "");
+			if (!childrenByParent[parentKey]) childrenByParent[parentKey] = [];
+			childrenByParent[parentKey].push(item as MegaMenuChild);
+		});
 
-      if (groupName) {
-        if (!grouped[groupName]) grouped[groupName] = [];
-        grouped[groupName].push(item);
-      } else {
-        ungrouped.push(item);
-      }
-    });
+		// Sort each group by order
+		Object.values(childrenByParent).forEach(group =>
+			group.sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
+		);
 
-    return { grouped, ungrouped };
-  };
+		const buildNodeWithChildren = (item: MegaMenuChild): LocalMenuNode => {
+			const idKey = String(item.id ?? "");
+			const directChildren = childrenByParent[idKey] ?? [];
+			return {
+				...item,
+				children: directChildren.map(buildNodeWithChildren),
+			};
+		};
 
-  // Build a nested tree from flat items
-  const menuTree = useMemo(() => {
-    const childrenByParent: Record<string, MegaMenuChild[]> = {};
+		const rootItems =
+			childrenByParent[""] ?? childrenByParent["null"] ?? [];
 
-    flatItems.forEach(item => {
-      const parentKey = String(item.parentId ?? "");
-      if (!childrenByParent[parentKey]) childrenByParent[parentKey] = [];
-      childrenByParent[parentKey].push(item as MegaMenuChild);
-    });
+		return rootItems.map(buildNodeWithChildren);
+	}, [flatItems]);
 
-    // Sort each group by order
-    Object.values(childrenByParent).forEach(group =>
-      group.sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
-    );
+	const [openstate, setOpenstate] = useState(false);
+	const [navigationStack, setNavigationStack] = useState<LocalMenuNode[][]>([]);
+	const [currentItems, setCurrentItems] = useState<LocalMenuNode[]>(menuTree);
 
-    const buildNodeWithChildren = (item: MegaMenuChild): LocalMenuNode => {
-      const idKey = String(item.id ?? "");
-      const directChildren = childrenByParent[idKey] ?? [];
-      return {
-        ...item,
-        children: directChildren.map(buildNodeWithChildren),
-      };
-    };
+	const handleCloseMenu = () => {
+		setOpenstate(false);
+		setNavigationStack([]);
+		setCurrentItems(menuTree);
+	};
 
-    const rootItems =
-      childrenByParent[""] ?? childrenByParent["null"] ?? [];
+	const handleNavigateToSubmenu = (item: LocalMenuNode) => {
+		if (item.children && item.children.length > 0) {
+			setNavigationStack(prev => [...prev, currentItems]);
+			setCurrentItems(item.children);
+		}
+	};
 
-    return rootItems.map(buildNodeWithChildren);
-  }, [flatItems]);
+	const handleNavigateBack = () => {
+		if (navigationStack.length > 0) {
+			const previousItems = navigationStack[navigationStack.length - 1];
+			setNavigationStack(prev => prev.slice(0, -1));
+			setCurrentItems(previousItems);
+		}
+	};
 
-  const [openstate, setOpenstate] = useState(false);
-  const [navigationStack, setNavigationStack] = useState<LocalMenuNode[][]>([]);
-  const [currentItems, setCurrentItems] = useState<LocalMenuNode[]>(menuTree);
+	const isAtRootLevel = navigationStack.length === 0;
 
-  const handleCloseMenu = () => {
-    setOpenstate(false);
-    setNavigationStack([]);
-    setCurrentItems(menuTree);
-  };
+	// Lock/unlock body scroll when menu opens/closes
+	useEffect(() => {
+		if (openstate) {
+			document.body.style.overflow = "hidden";
+		} else {
+			document.body.style.overflow = "";
+		}
 
-  const handleNavigateToSubmenu = (item: LocalMenuNode) => {
-    if (item.children && item.children.length > 0) {
-      setNavigationStack(prev => [...prev, currentItems]);
-      setCurrentItems(item.children);
-    }
-  };
+		return () => {
+			document.body.style.overflow = "";
+		};
+	}, [openstate]);
 
-  const handleNavigateBack = () => {
-    if (navigationStack.length > 0) {
-      const previousItems = navigationStack[navigationStack.length - 1];
-      setNavigationStack(prev => prev.slice(0, -1));
-      setCurrentItems(previousItems);
-    }
-  };
+	// Reset current items when menuTree changes
+	useEffect(() => {
+		setCurrentItems(menuTree);
+		setNavigationStack([]);
+	}, [menuTree]);
 
-  const isAtRootLevel = navigationStack.length === 0;
+	return (
+		<div>
+			{/* Hamburger button */}
+			<button
+				className="mobile-open-btn group hover:cursor-pointer md:hidden py-2 rounded-lg hover:bg-white/10 transition-all duration-300 text-white hover:text-neutral-softest hover:scale-110 active:scale-95"
+				onClick={() => setOpenstate(prev => !prev)}
+				aria-label="Toggle menu"
+			>
+				<RxHamburgerMenu size={28} />
+			</button>
 
-  // Lock/unlock body scroll when menu opens/closes
-  useEffect(() => {
-    if (openstate) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
+			{/* Backdrop overlay */}
+			<div
+				className={`fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300 z-40 ${
+					openstate ? "opacity-100" : "opacity-0 pointer-events-none"
+				}`}
+				onClick={handleCloseMenu}
+			/>
 
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [openstate]);
+			{/* Mobile nav overlay */}
+			<nav
+				className={`fixed top-0 right-0 w-full sm:w-[400px] h-screen bg-gradient-to-br from-neutral-strongest via-neutral-strongest to-neutral-strongest/95 flex flex-col shadow-2xl transition-transform duration-300 ease-out z-50 ${
+					openstate ? "translate-x-0" : "translate-x-full"
+				}`}
+			>
+				{/* Close / Back button */}
+				<div className="layout-wrapper relative flex justify-center z-[99] gradient-border-bottom flex-shrink-0 py-3 border-b border-white/10 bg-white/5">
+					<button
+						className="mb-0 text-neutral-softest hover:text-white transition-all duration-200 hover:scale-110 active:scale-95 rounded-full hover:bg-white/10"
+						onClick={isAtRootLevel ? handleCloseMenu : handleNavigateBack}
+						aria-label={isAtRootLevel ? "Close menu" : "Go back"}
+					>
+						{isAtRootLevel ? (
+							<IoCloseOutline size={32} />
+						) : (
+							<TbArrowBackUp size={32} />
+						)}
+					</button>
+				</div>
 
-  // Reset current items when menuTree changes
-  useEffect(() => {
-    setCurrentItems(menuTree);
-    setNavigationStack([]);
-  }, [menuTree]);
+				{/* Scrollable content */}
+				<div className="flex-1 layout-wrapper overflow-y-auto pb-8">
+					{(() => {
+						// Group items by databaseId (same logic as desktop MegaMenu)
+						type GroupedItems = {
+							databaseId: number;
+							name: string;
+							items: LocalMenuNode[];
+						};
 
-  return (
-    <div>
-      {/* Hamburger button */}
-      <div
-        className="mobile-open-btn group hover:cursor-pointer md:hidden w-[35px]"
-        onMouseDown={() => setOpenstate(prev => !prev)}
-      >
-        <div className="ml-auto w-full border-white border-t-2 mb-2 transition-[width] duration-400 ease-in-out"></div>
-        <div className="ml-auto w-full group-hover:w-[80%] border-white border-t-2 mb-2 transition-[width] duration-400 ease-in-out"></div>
-        <div className="ml-auto w-full group-hover:w-[50%] border-white border-t-2 transition-[width] duration-400 ease-in-out"></div>
-      </div>
+						const groupsMap: Record<number, GroupedItems> = {};
+						const ungroupedItems: LocalMenuNode[] = [];
 
-      {/* Mobile nav overlay */}
-      <nav
-        className={`fixed top-0 left-0 w-full h-screen bg-neutral-strongest text-center flex flex-col ${
-          openstate ? "block" : "hidden"
-        }`}
-      >
-        {/* Close / Back button */}
-        <div className="flex-shrink-0 py-8">
-          <button
-            className="mb-0 text-neutral-softest"
-            onClick={isAtRootLevel ? handleCloseMenu : handleNavigateBack}
-          >
-            {isAtRootLevel ? (
-              <IoCloseOutline size={30} />
-            ) : (
-              <TbArrowBackUp size={30} />
-            )}
-          </button>
-        </div>
+						currentItems.forEach(item => {
+							const groups = item.mainMenuFields?.categoryGrouping?.nodes ?? [];
+							
+							if (groups.length > 0) {
+								groups.forEach(group => {
+									const id = group.databaseId;
+									if (!groupsMap[id]) {
+										groupsMap[id] = {
+											databaseId: id,
+											name: group.name,
+											items: [],
+										};
+									}
+									groupsMap[id].items.push(item);
+								});
+							} else {
+								ungroupedItems.push(item);
+							}
+						});
 
-        {/* Scrollable content */}
-        <div className="flex-1 overflow-y-auto px-4 pb-8">
-          {(() => {
-            const { grouped, ungrouped } = groupItemsByCategory(currentItems);
+						// Convert to array and sort by databaseId for consistent ordering
+						const orderedGroups = Object.values(groupsMap).sort(
+							(a, b) => a.databaseId - b.databaseId
+						);
 
-            return (
-              <div>
-                {/* Ungrouped items */}
-                {ungrouped.length > 0 && (
-                  <ul className="mb-6">
-                    {ungrouped.map((item, index) => {
-                      const href = buildHref(item);
-                      const hasChildren =
-                        item.children && item.children.length > 0;
+						return (
+							<div className="space-y-6 pt-6">
+								{/* Ungrouped items first */}
+								{ungroupedItems.length > 0 && (
+									<ul className="space-y-2">
+										{ungroupedItems.map((item, index) => {
+											const href = buildHref(item);
+											const hasChildren = item.children && item.children.length > 0;
 
-                      return (
-                        <li className="mb-3" key={`ungrouped-${index}`}>
-                          {hasChildren ? (
-                            <button
-                              className="block w-full text-center text-neutral-softest text-2xl"
-                              onClick={() => handleNavigateToSubmenu(item)}
-                            >
-                              {item.label ?? "Item"}
-                            </button>
-                          ) : (
-                            <Link
-                              className="block text-neutral-softest text-2xl"
-                              href={href}
-                              onClick={handleCloseMenu}
-                            >
-                              {item.label ?? "Item"}
-                            </Link>
-                          )}
-                        </li>
-                      );
-                    })}
-                  </ul>
-                )}
+											return (
+												<li key={`ungrouped-${index}`}>
+													{hasChildren ? (
+														<button
+															className="group block w-full text-left py-3 text-neutral-softest text-lg font-medium rounded-lg hover:bg-white/10 transition-all duration-200 hover:translate-x-1 active:scale-[0.98] border border-transparent hover:border-white/20"
+															onClick={() => handleNavigateToSubmenu(item)}
+														>
+															<span className="flex items-center justify-between">
+																<span>{item.label ?? "Item"}</span>
+																<svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+																	<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+																</svg>
+															</span>
+														</button>
+													) : (
+														<Link
+															className="block py-3 text-neutral-softest text-lg font-medium rounded-lg hover:bg-white/10 transition-all duration-200 hover:translate-x-1 active:scale-[0.98] border border-transparent hover:border-white/20"
+															href={href}
+															onClick={handleCloseMenu}
+														>
+															{item.label ?? "Item"}
+														</Link>
+													)}
+												</li>
+											);
+										})}
+									</ul>
+								)}
 
-                {/* Grouped items */}
-                {Object.entries(grouped).map(([groupName, groupItems]) => (
-                  <div key={groupName} className="mb-6">
-                    <h3 className="text-neutral-softest text-lg font-bold mb-3 border-b border-white/20 pb-2">
-                      {groupName}
-                    </h3>
-                    <ul>
-                      {groupItems.map((item, index) => {
-                        const href = buildHref(item);
-                        const hasChildren =
-                          item.children && item.children.length > 0;
+								{/* Grouped items ordered by databaseId */}
+								{orderedGroups.map((group) => (
+									<div key={group.databaseId} className="space-y-3">
+										<h3 className="text-gradient-starbright text-lg font-bold pb-2 uppercase tracking-wider">
+											{group.name}
+										</h3>
+										<ul className="space-y-2">
+											{group.items.map((item, index) => {
+												const href = buildHref(item);
+												const hasChildren = item.children && item.children.length > 0;
 
-                        return (
-                          <li
-                            className="mb-3"
-                            key={`${groupName}-${index}`}
-                          >
-                            {hasChildren ? (
-                              <button
-                                className="block w-full text-center text-neutral-softest text-2xl"
-                                onClick={() => handleNavigateToSubmenu(item)}
-                              >
-                                {item.label ?? "Item"}
-                              </button>
-                            ) : (
-                              <Link
-                                className="block text-neutral-softest text-2xl"
-                                href={href}
-                                onClick={handleCloseMenu}
-                              >
-                                {item.label ?? "Item"}
-                              </Link>
-                            )}
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  </div>
-                ))}
-              </div>
-            );
-          })()}
-        </div>
-      </nav>
-    </div>
-  );
+												return (
+													<li key={`${group.databaseId}-${index}`}>
+														{hasChildren ? (
+															<button
+																className="group block w-full text-left py-3 text-neutral-softest text-lg font-medium rounded-lg hover:bg-white/10 transition-all duration-200 hover:translate-x-1 active:scale-[0.98] border border-transparent hover:border-white/20"
+																onClick={() => handleNavigateToSubmenu(item)}
+															>
+																<span className="flex items-center justify-between">
+																	<span>{item.label ?? "Item"}</span>
+																	<svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+																		<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+																	</svg>
+																</span>
+															</button>
+														) : (
+															<Link
+																className="block py-1 text-neutral-softest font-regular rounded-lg hover:bg-white/10 transition-all duration-200 hover:translate-x-1 active:scale-[0.98] border border-transparent hover:border-white/20"
+																href={href}
+																onClick={handleCloseMenu}
+															>
+																{item.label ?? "Item"}
+															</Link>
+														)}
+													</li>
+												);
+											})}
+										</ul>
+									</div>
+								))}
+							</div>
+						);
+					})()}
+				</div>
+			</nav>
+		</div>
+	);
 }

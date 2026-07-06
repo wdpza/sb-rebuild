@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from 'react';
+import Image from "next/image";
 
 export default function PortfolioLayout({ title, portfolioItems }: any) {
   const [isOpen, setIsOpen] = useState(false);
@@ -30,11 +31,24 @@ export default function PortfolioLayout({ title, portfolioItems }: any) {
             key={index}
             className="relative group mb-6 cursor-pointer"
             onClick={() => handleImageClick(item.mediaItemUrl)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                handleImageClick(item.mediaItemUrl);
+              }
+            }}
+            role="button"
+            tabIndex={0}
+            aria-label={`View ${item.altText || `portfolio item ${index + 1}`} in full size`}
           >
-            <img
+            <Image
               src={item.mediaItemUrl}
               alt={item.altText || `Portfolio Item ${index + 1}`}
+              width={800}
+              height={1000}
               className="w-full h-auto object-cover rounded-lg shadow-lg transition-transform duration-300 ease-in-out transform group-hover:scale-105"
+              loading="lazy"
+              quality={90}
             />
           </div>
         ))}
@@ -50,9 +64,11 @@ export default function PortfolioLayout({ title, portfolioItems }: any) {
             >
               ×  
             </button>
-            <img
+            <Image
               src={currentImage ?? ''}
               alt="Large View"
+              width={1200}
+              height={800}
               className="w-full h-auto max-h-[80vh] object-contain rounded-lg"
             />
           </div>

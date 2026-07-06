@@ -1,4 +1,5 @@
 import { gql } from "graphql-request";
+import { cache } from "react";
 import { client } from "@/lib/graphql/client";
 
 export const GET_PRIMARY_MENU = gql`
@@ -65,7 +66,7 @@ export const GET_PRIMARY_MENU = gql`
     }
 `;
 
-export async function getPrimaryMenu() {
+export const getPrimaryMenu = cache(async function getPrimaryMenu() {
     try {
         const data: any = await client.request(GET_PRIMARY_MENU);
 
@@ -77,4 +78,4 @@ export async function getPrimaryMenu() {
         console.error("Error fetching primary menu:", error);
         return { menu: null, logo: null };
     }
-}
+});

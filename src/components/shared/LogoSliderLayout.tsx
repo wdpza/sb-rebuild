@@ -3,20 +3,25 @@
 import Marquee from "react-fast-marquee"
 import Image from "next/image"
 
-export default function LogoSliderLayout({ logo: logos }: any) {
-    if (!logos || !Array.isArray(logos) || logos.length === 0) return null
+export default function LogoSliderLayout({ logo, logos, style }: any) {
+    const logosData = logos || logo
+    if (!logosData || !Array.isArray(logosData) || logosData.length === 0) return null
+
+    const sectionClassName = style && style[0] === "style_2"
+        ? "bg-sb-black"
+        : "bg-gradient-starbright"
 
     return (
-        <section className="bg-gradient-starbright py-12">
+        <section id="logo-slider" className={`py-6 md:py-2 ${sectionClassName}`}>
             <Marquee gradient={false} speed={100} autoFill={true}>
-                {logos.map((item: any, index: number) => {
+                {logosData.map((item: any, index: number) => {
                     const node = item.logo?.node
                     if (!node?.mediaItemUrl) return null
 
                     return (
                         <div
                             key={index}
-                            className="flex items-center justify-center mx-6" // reduced from mx-12
+                            className="flex items-center justify-center mx-6"
                             style={{ width: "auto", height: "80px" }}
                         >
                             <Image
@@ -24,7 +29,8 @@ export default function LogoSliderLayout({ logo: logos }: any) {
                                 alt={node.altText?.trim() || `Logo ${index + 1}`}
                                 width={120}
                                 height={60}
-                                className="object-contain max-h-[80px] w-auto"
+                                quality={100}
+                                className="object-contain max-h-[50px] h-auto w-auto max-w-[150px] w-auto hover:scale-115 transition-transform duration-300 ease-in-out"
                                 priority={false}
                             />
                         </div>

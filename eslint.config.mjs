@@ -23,6 +23,7 @@ const eslintConfig = [
       "@typescript-eslint/no-explicit-any": "off", // disable app-wide
       //"@typescript-eslint/no-unused-expressions": "off",
       "@next/next/no-img-element": "off",
+      "@typescript-eslint/no-unused-vars": "off"
     },
   },
 ];

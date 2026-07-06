@@ -1,6 +1,12 @@
-import Link from "next/link";
+'use client'
 
-export default function ExitLayout({ title, backgroundImage, ctaLink, backgroundOverlay }: any) {
+import Link from "next/link";
+import Image from "next/image";
+import { motion } from "framer-motion";
+import { ANIMATION_PRESETS } from "@/lib/constants/animations";
+import type { ExitLayoutProps } from "@/types/common";
+
+export default function ExitLayout({ title, backgroundImage, ctaLink, backgroundOverlay }: ExitLayoutProps) {
   const bgUrl = backgroundImage?.node?.mediaItemUrl ?? null;
 
   const cleanUrl = ctaLink?.url
@@ -8,12 +14,18 @@ export default function ExitLayout({ title, backgroundImage, ctaLink, background
     : null;
 
   return (
-    <div
-      className="relative py-24 bg-cover bg-center"
-      style={{
-        backgroundImage: bgUrl ? `url(${bgUrl})` : undefined,
-      }}
-    >
+    <div className="relative py-24">
+      {/* Optimized background image using Next.js Image */}
+      {bgUrl && (
+        <Image
+          src={bgUrl}
+          alt="Background"
+          fill
+          className="object-cover object-center"
+          quality={90}
+          sizes="100vw"
+        />
+      )}
       {backgroundOverlay && (
         <>
           <div className="absolute backdrop-grayscale w-full h-full left-0 top-0"></div>
@@ -21,9 +33,13 @@ export default function ExitLayout({ title, backgroundImage, ctaLink, background
         </>
       )}
       <div className="relative z-10 layout-wrapper flex flex-col items-center justify-center text-center text-neutral-softest">
-        <h2 className="exit-title uppercase font-bold mb-8 text-balance">
+        <motion.h2
+          className="exit-title uppercase font-bold mb-8 text-balance"
+          {...ANIMATION_PRESETS.fadeInUp}
+          viewport={{ once: false, amount: 0.2 }}
+        >
           {title ?? null}
-        </h2>
+        </motion.h2>
         {cleanUrl && (
           <Link
             href={cleanUrl}

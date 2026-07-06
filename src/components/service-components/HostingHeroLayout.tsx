@@ -2,9 +2,12 @@
 
 import DOMPurify from 'isomorphic-dompurify';
 import Link from "next/link";
+import Image from "next/image";
 import WhoisLayout from "./WhoisLayout"
-import Slider from "react-slick";
+import dynamic from "next/dynamic";
 import { useMemo, useEffect, useState } from "react";
+
+const Slider = dynamic(() => import("react-slick"), { ssr: false });
 
 function ArrowBase({
   onClick,
@@ -28,7 +31,7 @@ const iconSrc = isLeft
         side === "left" ? "hidden" : "right-3"
       }`}
     >
-      <img src={iconSrc} alt={label} />
+      <Image src={iconSrc} alt={label} width={24} height={24} />
     </button>
   );
 }
@@ -49,9 +52,6 @@ type Item = {
 };
 
 export default function HostingHeroLayout({ hostingPageHero, hostingPageServices }: any) {
-
-    console.log(hostingPageHero);
-    console.log(hostingPageServices);
 
 	const bgUrl = hostingPageHero.background?.node?.mediaItemUrl ?? null
 	const imageUrl = hostingPageHero.image?.node?.mediaItemUrl ?? null
@@ -185,11 +185,14 @@ export default function HostingHeroLayout({ hostingPageHero, hostingPageServices
 
 				{imageUrl && (
 					<div className="col-span-11 flex justify-center items-center">
-						<img
+						<Image
 							src={imageUrl}
-							alt={hostingPageHero.title ?? ""}
+							alt={hostingPageHero.title ?? "Hosting hero image"}
+							width={800}
+							height={600}
 							className="absolute max-h-[80vh] object-contain"
 							style={{ bottom: "2px" }}
+							priority
 						/>
 					</div>
 				)}

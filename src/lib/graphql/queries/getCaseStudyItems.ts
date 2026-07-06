@@ -32,13 +32,29 @@ export const GET_CASE_STUDY_ITEMS = gql`
                 }
                 }
                 pageSection {
-                sectionCtaLink {
-                    target
-                    title
-                    url
+                    sectionCtaLink {
+                        target
+                        title
+                        url
+                    }
+                    sectionDescription
+                    sectionTitle
                 }
-                sectionDescription
-                sectionTitle
+                cardBg {
+                    node {
+                        altText
+                        filePath
+                    }
+                }
+                service {
+                    nodes {
+                    id
+                    ... on Service {
+                            title
+                            uri
+                            id
+                        }
+                    }
                 }
             }
             terms {
@@ -55,7 +71,7 @@ export const GET_CASE_STUDY_ITEMS = gql`
     }
 `;
 
-export async function getCaseStudyItems(numberOfItems: number = 6) {
+export async function getCaseStudyItems(numberOfItems: number = 100) {
     try {
         const data: any = await client.request(GET_CASE_STUDY_ITEMS, {
             numberOfItems,

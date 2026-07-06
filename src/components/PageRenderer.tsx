@@ -1,6 +1,6 @@
 import HeroLayout from "@/components/page-components/HeroLayout"
 import ServicesAccordionLayout from "@/components/page-components/ServicesAccordionLayout"
-import LogoSliderLayout from "./page-components/LogoSliderLayout"
+import LogoSliderLayout from "./shared/LogoSliderLayout"
 import PortfolioSliderLayout from "./page-components/PortfolioSliderLayout"
 import BusinessSolutionsLayout from "./page-components/BusinessSolutionsLayout"
 import ExitLayout from "./page-components/ExitLayout"
@@ -13,16 +13,26 @@ import RightImageSectionLayout from "./page-components/RightImageSectionLayout"
 import BlogTabsLayout from "./page-components/BlogTabsLayout"
 import CaseStudiesLayout from "./page-components/CaseStudiesLayout"
 import TextHeadingBlock from "@/components/page-components/TextHeadingBlock"
+import PortfolioTabsLayout from "./page-components/PortfolioTabsLayout"
+import FormLayout from "./page-components/FormLayout"
+import WhyWorkWithUs from "./service-components/WhyWorkWithUs"
+import GoogleReviewsLayout from "./page-components/GoogleReviewsLayout"
+import EditorBlockLayout from "./page-components/EditorBlockLayout"
+import FaqSectionLayout from "./page-components/FaqSectionLayout"
+import WysiwygImageLeftLayout from "./page-components/WysiwygImageLeftLayout"
+import WysiwygImageRightLayout from "./page-components/WysiwygImageRightLayout"
+import type { PageRendererProps, PageBuilderBlock } from "@/types/common"
+import type { ServiceOption } from "@/lib/graphql/queries/getServicesForForm"
 
-export default function PageRenderer({ pageBuilder }: any) {
+export default function PageRenderer({ pageBuilder, services, sourceId }: PageRendererProps & { services?: ServiceOption[], sourceId?: string }) {
 	if (!pageBuilder) return null
 
 	return (
 		<>
-			{pageBuilder.map((block: any, index: number) => {
+			{pageBuilder.map((block: PageBuilderBlock, index: number) => {
 				switch (block.__typename) {
 					case "PageFieldGroupPageBuilderHeroLayout":
-						return <HeroLayout key={index} {...block} />
+						return <HeroLayout key={index} {...block} services={services} />
 					case "PageFieldGroupPageBuilderServicesAccordionLayout":
 						return <ServicesAccordionLayout key={index} {...block} />
 					case "PageFieldGroupPageBuilderLogoSliderLayout":
@@ -51,6 +61,22 @@ export default function PageRenderer({ pageBuilder }: any) {
 						return <CaseStudiesLayout key={index} {...block} />
 					case "PageFieldGroupPageBuilderTextWHeadingLayoutLayout":
 						return <TextHeadingBlock key={index} {...block} />
+					case "PageFieldGroupPageBuilderPortfolioTabsLayout":
+						return <PortfolioTabsLayout key={index} {...block} />;
+					case "PageFieldGroupPageBuilderFormLayout":
+						return <FormLayout key={index} {...block} sourceId={sourceId} />;
+					case "PageFieldGroupPageBuilderWhyWorkWithUsSectionLayout":
+						return <WhyWorkWithUs key={index} {...block} />;
+					case "PageFieldGroupPageBuilderEditorBlockLayout":
+						return <EditorBlockLayout key={index} {...block} />;
+					case "PageFieldGroupPageBuilderFaqSectionLayout":
+						return <FaqSectionLayout key={index} {...block} />;
+					case "PageFieldGroupPageBuilderGoogleReviewsLayout":
+						return <GoogleReviewsLayout key={index} />;
+					case "PageFieldGroupPageBuilderWysiwygImageLeftLayout":
+						return <WysiwygImageLeftLayout key={index} {...block} />;
+					case "PageFieldGroupPageBuilderWysiwygImageRightLayout":
+						return <WysiwygImageRightLayout key={index} {...block} />;
 					default:
 						return null
 				}

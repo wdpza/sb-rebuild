@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import DOMPurify from "isomorphic-dompurify";
 
 export default function RightImageSectionVideo({ description, title, video, image }: any) {
@@ -47,11 +48,14 @@ useEffect(() => {
         {/* Right Section */}
         <div className="flex justify-center items-center relative px-6 w-full">
           {!showVideo && (
-            <img
+            <Image
               src={image?.node?.mediaItemUrl}
-              alt={image?.node?.altText || ""}
+              alt={image?.node?.altText || "Video thumbnail"}
+              width={800}
+              height={600}
               className="cursor-pointer max-w-full rounded-lg shadow-lg transition-all duration-300 hover:opacity-90"
               onClick={() => setShowVideo(true)}
+              loading="lazy"
             />
           )}
 

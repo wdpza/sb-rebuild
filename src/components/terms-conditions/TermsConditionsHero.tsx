@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import DOMPurify from "isomorphic-dompurify";
 
 export default function TermsConditionsHero({ options }: any) {
@@ -63,11 +64,14 @@ export default function TermsConditionsHero({ options }: any) {
                 {/* Right column: hero image */}
                 {mainImg && (
                     <div className="col-span-11 flex justify-center items-center">
-                        <img
+                        <Image
                             src={mainImg}
-                            alt={title ?? ""}
+                            alt={title ?? "Terms and conditions hero image"}
+                            width={800}
+                            height={600}
                             className="absolute max-h-[80vh] object-contain"
                             style={{ bottom: "2px" }}
+                            priority
                         />
                     </div>
                 )}

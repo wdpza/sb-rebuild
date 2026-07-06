@@ -1,0 +1,353 @@
+import { NextRequest, NextResponse } from "next/server";
+import nodemailer from "nodemailer";
+import { createLeadtrekkerInstance } from "@/lib/services/leadtrekker";
+import { createEverlyticInstance } from "@/lib/services/everlytic";
+import { parseUrlTracking } from "@/lib/utils/urltracking";
+
+export async function POST(request: NextRequest) {
+	try {
+		const { formId, data, recaptchaToken } = await request.json();
+
+		const recaptchaResponse = await fetch(
+		"https://www.google.com/recaptcha/api/siteverify",
+		{
+			method: "POST",
+			headers: {
+				"Content-Type": "application/x-www-form-urlencoded",
+			},
+			body: new URLSearchParams({
+				secret: process.env.RECAPTCHA_SECRET_KEY!,
+				response: recaptchaToken,
+			}),
+		}
+	);
+
+	const recaptchaData = await recaptchaResponse.json();
+
+	if (!recaptchaData.success || recaptchaData.score < 0.5) {
+		console.error("reCAPTCHA verification failed:", recaptchaData);
+		return NextResponse.json(
+			{ success: false, error: "reCAPTCHA failed" },
+			{ status: 403 }
+		);
+	}
+
+		// Honeypot check — bots fill hidden fields, humans don't
+		if (data._hp && data._hp.toString().trim() !== '') {
+			console.warn('Honeypot triggered — spam submission rejected');
+			// Return success to avoid tipping off the bot
+			return NextResponse.json({ success: true }, { status: 200 });
+		}
+
+		// Phone number must contain at least some digits
+		if (data.contactNumber && !/\d/.test(data.contactNumber.toString())) {
+			console.warn('Invalid phone number — spam submission rejected:', data.contactNumber);
+			return NextResponse.json(
+				{ success: false, error: "Invalid phone number" },
+				{ status: 400 }
+			);
+		}
+
+		// Configure nodemailer transporter
+		// You'll need to set these environment variables:
+		// EMAIL_HOST, EMAIL_PORT, EMAIL_USER, EMAIL_PASS, EMAIL_TO
+		const transporter = nodemailer.createTransport({
+			host: process.env.EMAIL_HOST,
+			port: parseInt(process.env.EMAIL_PORT || "587"),
+			secure: process.env.EMAIL_PORT === "465",
+			auth: {
+				user: process.env.EMAIL_USER,
+				pass: process.env.EMAIL_PASS,
+			},
+		});
+
+		// Format form data for email
+		const formFields = Object.entries(data)
+			.map(([key, value]) => `<strong>${key}:</strong> ${value}`)
+			.join("<br>");
+
+		// Send email
+		await transporter.sendMail({
+			from: process.env.EMAIL_FROM || "noreply@starbright.co.za",
+			to: process.env.EMAIL_TO || process.env.EMAIL_USER,
+			subject: `Form Submission - Form ID: ${formId}`,
+			html: `
+				<h2>New Form Submission</h2>
+				<p><strong>Form ID:</strong> ${formId}</p>
+				<p><strong>Submission Date:</strong> ${new Date().toLocaleString()}</p>
+				<hr>
+				<h3>Form Data:</h3>
+				${formFields}
+			`,
+		});
+		
+		//return NextResponse.json({ success: true }, { status: 200 });
+
+		// Create Gravity Forms entry via REST API v2
+		if (process.env.GF_ENDPOINT && 
+		    process.env.GF_API_KEY && 
+		    process.env.GF_API_SECRET) {
+			
+			try {
+				const numericFormId = typeof formId === 'string' ? parseInt(formId, 10) : formId;
+
+				// Map form field names to Gravity Forms field IDs
+				const fieldMapping: Record<string, string> = numericFormId === 3
+					? {
+						name: "1",
+						surname: "3",
+						company: "4",
+						contactNumber: "6",
+						email: "7",
+						socialChannel: "8",
+						platformUsername: "9",
+						websiteUrl: "10"
+					}
+					: {
+						name: "1",
+						surname: "3",
+						email: "4",
+						contactNumber: "5",
+						companyName: "7",
+						service: "8",
+						how: "9",
+						other: "10",
+						message: "11"
+					};
+
+				// Convert form data to Gravity Forms format
+				const gravityFieldsData: Record<string, any> = {};
+				Object.entries(data).forEach(([key, value]) => {
+					const fieldId = fieldMapping[key];
+					if (fieldId) {
+						gravityFieldsData[fieldId] = value;
+					}
+				});
+
+				// Prepare entry data with form_id and field data
+				const entryData = {
+					form_id: numericFormId,
+					...gravityFieldsData,
+					// Optional: Add additional metadata
+					source_url: request.headers.get("referer") || "",
+					ip: request.headers.get("x-forwarded-for") || 
+					    request.headers.get("x-real-ip") || 
+					    "127.0.0.1",
+					user_agent: request.headers.get("user-agent") || "",
+					date_created: new Date().toISOString(),
+				};
+
+				// Create Basic Auth header
+				const auth = Buffer.from(
+					`${process.env.GF_API_KEY}:${process.env.GF_API_SECRET}`
+				).toString("base64");
+
+				// Make POST request to Gravity Forms REST API
+				const gravityResponse = await fetch(
+					`${process.env.GF_ENDPOINT}/entries`,
+					{
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+							"Authorization": `Basic ${auth}`,
+						},
+						body: JSON.stringify(entryData),
+					}
+				);
+
+				if (!gravityResponse.ok) {
+					const errorData = await gravityResponse.json();
+					console.error("Gravity Forms API error:", errorData);
+					// Continue execution even if Gravity Forms fails
+				} else {
+					const gravityData = await gravityResponse.json();
+				}
+			} catch (gravityError) {
+				console.error("Failed to create Gravity Forms entry:", gravityError);
+				// Continue execution even if Gravity Forms fails
+			}
+		}
+
+		// Submit to Leadtrekker (Form ID 2 - Contact Form)
+		if (formId === 2) {
+			const leadtrekker = createLeadtrekkerInstance();
+			const everlytic = createEverlyticInstance();
+			
+			if (leadtrekker) {
+				try {
+					const mobile = data.contactNumber?.replace(/[\s\(\)\-]/g, '') || '';
+					
+					// Check if lead is not spam
+					const isValidLead = await leadtrekker.checkLead(data.email, data.name || '');
+					
+					if (isValidLead) {
+						// Prepare lead data
+						const leadData = {
+							name: data.name || '',
+							email: data.email,
+							number: mobile,
+							company: data.companyName || '',
+							sourceid: data.sourceid || null,
+							custom_fields: {
+								'Surname': data.surname || '',
+								'Service': data.service || '',
+								'How Did You Hear About Us': data.how || '',
+								'Message': data.message || '',
+								'IP': request.headers.get("x-forwarded-for") || 
+								     request.headers.get("x-real-ip") || 
+								     "127.0.0.1"
+							} as Record<string, string>
+						};
+
+						// Add "Other" field if it has a value
+						if (data.other && data.other.trim()) {
+							leadData.custom_fields['Other'] = data.other;
+						}
+						// Add URL tracking parameters from current page (last-touch)
+						const urlParams = request.nextUrl.searchParams;
+						const trackingParams: Record<string, string> = {};
+						urlParams.forEach((value, key) => {
+							trackingParams[key] = value;
+						});
+						leadtrekker.addParams(leadData, trackingParams);
+
+						// Add first-touch URL tracking from sessionStorage (overwrites current-page params)
+						const sessionTracking = parseUrlTracking(data.urltracking);
+						if (sessionTracking) {
+							leadtrekker.addParams(leadData, sessionTracking);
+						}
+
+						const finalLeadData = leadData;
+
+						// Push to Leadtrekker
+						const leadResult = await leadtrekker.pushLead(finalLeadData);
+
+						// Also push to Everlytic if configured and if user opted in for updates
+						const fullName = `${data.name || ''} ${data.surname || ''}`.trim();
+						if (data.updates) {
+							if (everlytic) {
+								try {
+									const everlyticData = {
+										name: fullName,
+										email: data.email,
+										mobile: mobile,
+										on_duplicate: 'update',
+										list_id: {
+											'237396': 'subscribed',
+											'209951': 'subscribed',
+											'205234': 'subscribed',
+											'205233': 'subscribed',
+											'210461': 'subscribed',
+											'211945': 'subscribed'
+										}
+									};
+
+									const everlyticResult = await everlytic.pushLead(everlyticData);
+								} catch (everlyticError) {
+									console.error("Failed to submit to Everlytic:", everlyticError);
+									// Continue execution even if Everlytic fails
+								}
+							} else {
+								console.warn('Everlytic not configured, skipping contact creation');
+							}
+						}
+
+					} else {
+						console.log('Lead rejected - spam detected:', data.email, data.name);
+					}
+				} catch (leadtrekkerError) {
+					console.error("Failed to submit to Leadtrekker:", leadtrekkerError);
+					// Continue execution even if Leadtrekker fails
+				}
+			}
+		}
+
+		// Submit to Leadtrekker (Form ID 3 - Competition Form)
+		if (formId === 3) {
+			const leadtrekker = createLeadtrekkerInstance();
+			const everlytic = createEverlyticInstance();
+
+			if (leadtrekker) {
+				try {
+					const mobile = data.contactNumber?.replace(/[\s\(\)\-]/g, '') || '';
+
+					// Check if lead is not spam
+					const isValidLead = await leadtrekker.checkLead(data.email, data.name || '');
+
+					if (isValidLead) {
+						const leadData = {
+							name: data.name || '',
+							email: data.email,
+							number: mobile,
+							company: data.company || '',
+							sourceid: '10233',
+							custom_fields: {
+								'Surname': data.surname || '',
+								'Social Channel': data.socialChannel || '',
+								'Platform Username': data.platformUsername || '',
+								'Existing Website URL': data.websiteUrl || '',
+								'Opt-in for updates': data.updates ? 'Yes' : 'No',
+								'IP': request.headers.get("x-forwarded-for") || 
+								     request.headers.get("x-real-ip") || 
+								     "127.0.0.1"
+							} as Record<string, string>
+						};
+
+						const trackingParams: Record<string, string> = {};
+						request.nextUrl.searchParams.forEach((value, key) => {
+							trackingParams[key] = value;
+						});
+						leadtrekker.addParams(leadData, trackingParams);
+
+						const sessionTracking = parseUrlTracking(data.urltracking);
+						if (sessionTracking) {
+							leadtrekker.addParams(leadData, sessionTracking);
+						}
+
+						const leadResult = await leadtrekker.pushLead(leadData);
+
+						const fullName = `${data.name || ''} ${data.surname || ''}`.trim();
+						if (data.updates) {
+							if (everlytic) {
+								try {
+									const everlyticData = {
+										name: fullName,
+										email: data.email,
+										mobile: mobile,
+										on_duplicate: 'update',
+										list_id: {
+											'237396': 'subscribed',
+											'209951': 'subscribed',
+											'205234': 'subscribed',
+											'205233': 'subscribed',
+											'210461': 'subscribed',
+											'211945': 'subscribed'
+										}
+									};
+
+									const everlyticResult = await everlytic.pushLead(everlyticData);
+								} catch (everlyticError) {
+									console.error("Failed to submit to Everlytic:", everlyticError);
+								}
+							} else {
+								console.warn('Everlytic not configured, skipping contact creation');
+							}
+						}
+					} else {
+						console.log('Competition lead rejected - spam detected:', data.email, data.name);
+					}
+				} catch (leadtrekkerError) {
+					console.error("Failed to submit competition lead to Leadtrekker:", leadtrekkerError);
+				}
+			}
+		}
+
+		return NextResponse.json({ success: true }, { status: 200 });
+	} catch (error) {
+		console.error("Error submitting form:", error);
+		return NextResponse.json(
+			{ success: false, error: "Failed to submit form" },
+			{ status: 500 }
+		);
+	}
+}

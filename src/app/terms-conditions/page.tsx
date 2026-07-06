@@ -12,7 +12,6 @@ export default async function TermsAndConditionsPage() {
 
     return (
         <main>
-            <h1 className="sr-only">Terms & Conditions</h1>
             <TermsConditionsHero options={page} />
             <TermsConditionsContent options={page} />
             <TermsConditionsExit options={page} />
