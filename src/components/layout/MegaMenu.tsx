@@ -11,6 +11,7 @@ type MegaMenuProps = {
 
 type Column = {
   name: string;
+  uri?: string | null;
   items: MegaMenuChild[];
 };
 
@@ -38,12 +39,18 @@ export default function MegaMenu({ item, onClose }: MegaMenuProps) {
 
     groups.forEach(group => {
       const id = group.databaseId;
+      const uri = group.serviceCategories?.pageLink?.nodes?.[0]?.uri ?? null;
 
       if (!columns[id]) {
         columns[id] = {
           name: group.name,
+          uri,
           items: [],
         };
+      }
+
+      if (!columns[id].uri && uri) {
+        columns[id].uri = uri;
       }
 
       columns[id].items.push(child);
@@ -54,9 +61,19 @@ export default function MegaMenu({ item, onClose }: MegaMenuProps) {
     <div className="flex flex-wrap gap-8 max-w-8xl">
       {Object.values(columns).map((col, index) => (
         <div key={col.name} className="flex flex-col space-y-4 px-5">
-          <h3 className="text-gradient-starbright text-lg font-bold text-neutral-soft">
-            {col.name}
-          </h3>
+          {col.uri ? (
+            <Link
+              href={col.uri}
+              onClick={onClose}
+              className="text-gradient-starbright text-lg font-bold text-neutral-soft hover:text-accent-soft transition-colors"
+            >
+              {col.name}
+            </Link>
+          ) : (
+            <h3 className="text-gradient-starbright text-lg font-bold text-neutral-soft">
+              {col.name}
+            </h3>
+          )}
 
           <ul className="space-y-2">
             {col.items.map(link => (

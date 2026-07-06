@@ -17,6 +17,13 @@ export interface MenuItem {
 export interface CategoryGroup {
   name: string;
   databaseId: number;
+  serviceCategories?: {
+    pageLink?: {
+      nodes?: {
+        uri?: string | null;
+      }[] | null;
+    } | null;
+  } | null;
 }
 
 export interface MainMenuFields {

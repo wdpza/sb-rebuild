@@ -148,6 +148,7 @@ export default function NavMenuMobile({ tree: _tree, flatItems }: NavMenuMobileP
 						type GroupedItems = {
 							databaseId: number;
 							name: string;
+							uri?: string | null;
 							items: LocalMenuNode[];
 						};
 
@@ -160,12 +161,17 @@ export default function NavMenuMobile({ tree: _tree, flatItems }: NavMenuMobileP
 							if (groups.length > 0) {
 								groups.forEach(group => {
 									const id = group.databaseId;
+									const uri = group.serviceCategories?.pageLink?.nodes?.[0]?.uri ?? null;
 									if (!groupsMap[id]) {
 										groupsMap[id] = {
 											databaseId: id,
 											name: group.name,
+											uri,
 											items: [],
 										};
+									}
+									if (!groupsMap[id].uri && uri) {
+										groupsMap[id].uri = uri;
 									}
 									groupsMap[id].items.push(item);
 								});
@@ -220,9 +226,19 @@ export default function NavMenuMobile({ tree: _tree, flatItems }: NavMenuMobileP
 								{/* Grouped items ordered by databaseId */}
 								{orderedGroups.map((group) => (
 									<div key={group.databaseId} className="space-y-3">
-										<h3 className="text-gradient-starbright text-lg font-bold pb-2 uppercase tracking-wider">
-											{group.name}
-										</h3>
+										{group.uri ? (
+											<Link
+												href={group.uri}
+												onClick={handleCloseMenu}
+												className="block text-gradient-starbright text-lg font-bold pb-2 uppercase tracking-wider"
+											>
+												{group.name}
+											</Link>
+										) : (
+											<h3 className="text-gradient-starbright text-lg font-bold pb-2 uppercase tracking-wider">
+												{group.name}
+											</h3>
+										)}
 										<ul className="space-y-2">
 											{group.items.map((item, index) => {
 												const href = buildHref(item);

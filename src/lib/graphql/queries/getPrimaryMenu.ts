@@ -9,47 +9,58 @@ export const GET_PRIMARY_MENU = gql`
             name
             slug
             menuItems(first: 100) {
-                nodes {
+            nodes {
+                id
+                label
+                url
+                uri
+                target
+                cssClasses
+                parentId
+                order
+                connectedObject {
+                ... on Page {
                     id
-                    label
-                    url
-                    uri
-                    target
-                    cssClasses
-                    parentId
-                    order
-                    connectedObject {
-                    ... on Page {
-                        id
-                        slug
-                        title
+                    slug
+                    title
+                }
+                ... on Post {
+                    id
+                    slug
+                    title
+                }
+                ... on Category {
+                    slug
+                    name
+                    id
+                }
+                }
+                mainMenuFields {
+                backgroundImage {
+                    node {
+                    altText
+                    mediaItemUrl
                     }
-                    ... on Post {
+                }
+                categoryGrouping {
+                    nodes {
+                    name
+                    databaseId
+                    ... on ServiceCategory {
                         id
-                        slug
-                        title
-                    }
-                    ... on Category {
-                        id
-                        slug
                         name
-                    }
-                    }
-                    mainMenuFields {
-                    backgroundImage {
-                        node {
-                        altText
-                        mediaItemUrl
+                        serviceCategories {
+                        pageLink {
+                            nodes {
+                            uri
+                            }
                         }
-                    }
-                    categoryGrouping {
-                        nodes {
-                        name
-                        databaseId
                         }
                     }
                     }
                 }
+                }
+            }
             }
         }
         siteOptions {
