@@ -43,7 +43,7 @@ export default function NavMenu({
 
 	return (
 		<nav ref={navRef} aria-label="Main" className="ml-auto">
-			<ul className="hidden md:flex gap-3 relative">
+			<ul className="main-menu hidden md:flex items-center gap-3 relative">
 				{(tree ?? []).map((item, index) => {
 					const href = buildHref(item);
 					const hasChildren =
@@ -52,12 +52,12 @@ export default function NavMenu({
 					// Normal link
 					if (!hasChildren || href !== "#") {
 						const external = isExternal(href);
-
+						console.log(item);
 						return (
 							<li key={item.id ?? index} className="relative">
 								<Link
 									href={href}
-									className="text-neutral-softest text-xl transition font-light hover:bg-white/5 rounded py-2 px-4"
+									className={`${item.connectedObject?.slug == 'contact' ? 'bg-neutral-strongest gradient-border inline-block px-4 py-2 text-neutral-softest font-semibold uppercase rounded-md shadow-md transition-all duration-300 hover:bg-gradient-starbright' : 'text-neutral-softest text-xl transition font-light hover:bg-white/5 rounded py-2 px-4'}`}
 									scroll
 									{...(external
 										? { target: "_blank", rel: "noopener noreferrer" }
