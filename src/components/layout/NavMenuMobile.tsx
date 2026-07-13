@@ -195,7 +195,7 @@ export default function NavMenuMobile({ tree: _tree, flatItems }: NavMenuMobileP
 											const hasChildren = item.children && item.children.length > 0;
 
 											return (
-												<li key={`ungrouped-${index}`}>
+												<li key={`ungrouped-${index}`} className={`flex ${item.connectedObject?.slug == 'contact' ? 'justify-self-center' : ''}`}>
 													{hasChildren ? (
 														<button
 															className="group block w-full text-left py-3 text-neutral-softest text-lg font-medium rounded-lg hover:bg-white/10 transition-all duration-200 hover:translate-x-1 active:scale-[0.98] border border-transparent hover:border-white/20"
@@ -210,7 +210,7 @@ export default function NavMenuMobile({ tree: _tree, flatItems }: NavMenuMobileP
 														</button>
 													) : (
 														<Link
-															className="block py-3 text-neutral-softest text-lg font-medium rounded-lg hover:bg-white/10 transition-all duration-200 hover:translate-x-1 active:scale-[0.98] border border-transparent hover:border-white/20"
+															className={`${item.connectedObject?.slug == 'contact' ? 'mt-3 justify-self-center bg-neutral-strongest gradient-border inline-block px-4 py-2 text-neutral-softest font-semibold uppercase rounded-md shadow-md transition-all duration-300 hover:bg-gradient-starbright' : 'block py-3 text-neutral-softest text-lg font-medium rounded-lg hover:bg-white/10 transition-all duration-200 hover:translate-x-1 active:scale-[0.98] border border-transparent hover:border-white/20'}`}
 															href={href}
 															onClick={handleCloseMenu}
 														>

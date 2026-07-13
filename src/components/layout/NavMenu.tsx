@@ -52,7 +52,6 @@ export default function NavMenu({
 					// Normal link
 					if (!hasChildren || href !== "#") {
 						const external = isExternal(href);
-						console.log(item);
 						return (
 							<li key={item.id ?? index} className="relative">
 								<Link
