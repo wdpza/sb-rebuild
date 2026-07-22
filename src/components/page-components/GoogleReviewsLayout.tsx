@@ -5,13 +5,12 @@ import { motion } from "motion/react"
 import { Star } from "lucide-react"
 
 interface Review {
-  author_name: string
-  author_url: string
-  profile_photo_url: string
+  name: string
+  displayName: string
+  profilePhotoUrl: string
   rating: number
-  relative_time_description: string
+  relativeTime: string
   text: string
-  time: number
 }
 
 interface ReviewsData {
@@ -49,32 +48,26 @@ function ReviewCard({ review, index }: { review: Review; index: number }) {
       className="flex flex-col gap-3 rounded-xl bg-neutral-strongest p-5 border border-neutral-700/50"
     >
       <div className="flex items-center gap-3">
-        <a
-          href={review.author_url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="shrink-0"
-        >
+        {review.profilePhotoUrl ? (
           <img
-            src={review.profile_photo_url}
-            alt={`${review.author_name}'s profile photo`}
+            src={review.profilePhotoUrl}
+            alt={`${review.displayName}'s profile photo`}
             className="size-10 rounded-full object-cover"
             loading="lazy"
           />
-        </a>
+        ) : (
+          <div className="size-10 rounded-full bg-neutral-700 flex items-center justify-center text-sm font-semibold text-neutral-softest">
+            {review.displayName.charAt(0).toUpperCase()}
+          </div>
+        )}
         <div className="flex flex-col gap-0.5 min-w-0">
-          <a
-            href={review.author_url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-md font-semibold text-gradient-starbright truncate hover:underline"
-          >
-            {review.author_name}
-          </a>
+          <span className="text-md font-semibold text-gradient-starbright truncate">
+            {review.displayName}
+          </span>
           <StarRating rating={review.rating} />
         </div>
         <span className="ml-auto shrink-0 text-xs text-neutral-regular">
-          {review.relative_time_description}
+          {review.relativeTime}
         </span>
       </div>
 
@@ -186,7 +179,7 @@ export default function GoogleReviewsLayout() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {data.reviews.map((review, index) => (
-            <ReviewCard key={review.time} review={review} index={index} />
+            <ReviewCard key={review.name} review={review} index={index} />
           ))}
         </div>
       </div>

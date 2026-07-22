@@ -27,7 +27,7 @@ export async function GET() {
     }
 
     return NextResponse.json(
-      { error: "Failed to fetch reviews" },
+      { error: process.env.NODE_ENV === "production" ? "Failed to fetch reviews" : error instanceof Error ? error.message : "Failed to fetch reviews" },
       { status: 502 }
     );
   }
