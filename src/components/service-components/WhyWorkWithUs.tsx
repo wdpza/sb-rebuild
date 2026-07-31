@@ -15,7 +15,8 @@ export default function WhyWorkWithUs({
 	item,
 	backgroundImage,
 	ctaButtonGroup,
-	style
+	style,
+	columns
 }: any) {
 
 	const params = useParams<{ slug: string; }>()
@@ -30,6 +31,7 @@ export default function WhyWorkWithUs({
 			backgroundImage={backgroundImage}
 			ctaButtonGroup={ctaButtonGroup}
 			slug={slug}
+			columns={columns}
 		/>
 	}
 
@@ -40,6 +42,7 @@ export default function WhyWorkWithUs({
 			backgroundImage={backgroundImage}
 			ctaButtonGroup={ctaButtonGroup}
 			slug={slug}
+			columns={columns}
 		/>
 	}
 

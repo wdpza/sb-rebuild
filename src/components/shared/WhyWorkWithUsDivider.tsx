@@ -14,10 +14,20 @@ export default function WhyWorkWithUsDivider({
 	item,
 	backgroundImage,
 	ctaButtonGroup,
-	slug
+	slug,
+	columns
 }: any) {
 	const bgUrl = backgroundImage?.node?.mediaItemUrl ?? null;
 	const { buttonLabel, ctaButtonUrl } = ctaButtonGroup || {};
+	const effectiveColumns = columns ?? 3;
+	const gridColsClass: Record<number, string> = {
+		1: 'md:grid-cols-1',
+		2: 'md:grid-cols-2',
+		3: 'md:grid-cols-3',
+		4: 'md:grid-cols-4',
+		5: 'md:grid-cols-5',
+		6: 'md:grid-cols-6',
+	};
 
 	return (
 		<div
@@ -33,48 +43,52 @@ export default function WhyWorkWithUsDivider({
 					</h2>
 				)}
 				
-				<div className="w-full flex flex-col md:flex-row">
-					{item.map((card: Item, index: number) => (
-						<React.Fragment key={index}>
-							<motion.div
-								initial={{ opacity: 0, y: 50 }}
-								whileInView={{ opacity: 1, y: 0 }}
-								transition={{ 
-									duration: 0.3, 
-									delay: index * 0.5,
-									ease: "linear"
+			<div className={`
+				grid 
+				grid-cols-1 
+				${gridColsClass[effectiveColumns] || 'md:grid-cols-3'}
+				w-full
+			`}>
+				{item.map((card: Item, index: number) => (
+					<motion.div
+						key={index}
+						initial={{ opacity: 0, y: 50 }}
+						whileInView={{ opacity: 1, y: 0 }}
+						transition={{ 
+							duration: 0.3, 
+							delay: index * 0.5,
+							ease: "linear"
+						}}
+						viewport={{ once: false, amount: 0.2 }}
+						className="
+							relative
+							p-6
+							md:p-8 
+							md:py-12
+							flex 
+							flex-col 
+							transition-transform 
+							hover:scale-105
+							duration-600
+						"
+					>
+						{(index + 1) % effectiveColumns !== 0 && index < item.length - 1 && (
+							<div 
+								className="hidden md:block absolute right-0 top-0 bottom-0 w-px" 
+								style={{
+									background: 'linear-gradient(to bottom, var(--color-blue-softer, #36aefa) 0%, var(--color-purple-regular, #bd208b) 37.5%, var(--color-orange-regular, #f15d22) 87.02%, var(--color-yellow-regular, #eeb42c) 99.99%)'
 								}}
-								viewport={{ once: false, amount: 0.2 }}
-								className="
-									p-6
-									md:p-8 
-									md:py-12
-									flex 
-									flex-col 
-									flex-1
-									transition-transform 
-									hover:scale-105
-									duration-600
-								"
-							>
-								<h3 className="text-2xl md:text-3xl font-semibold mb-3 text-white">
-									{card.title}
-								</h3>
-								<p className="font-extralight text-sm md:text-base text-neutral-softer leading-relaxed">
-									{card.description}
-								</p>
-							</motion.div>
-							{index < item.length - 1 && (
-								<div 
-									className="hidden md:block w-px self-stretch" 
-									style={{
-										background: 'linear-gradient(to bottom, var(--color-blue-softer, #36aefa) 0%, var(--color-purple-regular, #bd208b) 37.5%, var(--color-orange-regular, #f15d22) 87.02%, var(--color-yellow-regular, #eeb42c) 99.99%)'
-									}}
-								/>
-							)}
-						</React.Fragment>
-					))}
-				</div>
+							/>
+						)}
+						<h3 className="text-2xl md:text-3xl font-semibold mb-3 text-white">
+							{card.title}
+						</h3>
+						<p className="font-extralight text-sm md:text-base text-neutral-softer leading-relaxed">
+							{card.description}
+						</p>
+					</motion.div>
+				))}
+			</div>
 
 				{buttonLabel && ctaButtonUrl?.nodes && ctaButtonUrl.nodes.length > 0 && (
 					<div className="mt-8">

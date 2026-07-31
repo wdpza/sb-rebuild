@@ -3,6 +3,7 @@ import { getCaseStudyItems } from "@/lib/graphql/queries/getCaseStudyItems"
 import { notFound } from "next/navigation"
 import CaseStudyItem from "@/components/case-study/CaseStudyItem"
 import type { Metadata } from "next"
+import { toSiteUrl } from "@/lib/utils/seo"
 
 export async function generateStaticParams() {
     const items = await getCaseStudyItems(12);
@@ -28,13 +29,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
         description: seo?.description || caseStudy.caseStudies?.headerText || 'Starbright Case Study',
         keywords: seo?.focusKeywords,
         alternates: {
-            canonical: seo?.canonicalUrl,
+            canonical: toSiteUrl(seo?.canonicalUrl),
         },
         robots: seo?.robots ? seo.robots.join(', ') : undefined,
         openGraph: {
             title: seo?.openGraph?.title || `${caseStudy.title} | Starbright`,
             description: seo?.openGraph?.description || caseStudy.caseStudies?.headerText || 'Starbright Case Study',
-            url: seo?.openGraph?.url,
+            url: toSiteUrl(seo?.openGraph?.url),
             siteName: seo?.openGraph?.siteName || 'Starbright',
             locale: seo?.openGraph?.locale || 'en_US',
             type: (seo?.openGraph?.type as any) || 'article',

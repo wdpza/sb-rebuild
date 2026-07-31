@@ -3,6 +3,7 @@ import PageRenderer from "@/components/PageRenderer"
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 import { getServicesForForm } from "@/lib/graphql/queries/getServicesForForm"
+import { toSiteUrl } from "@/lib/utils/seo"
 
 export async function generateMetadata({ params }: any): Promise<Metadata> {
   const { slug } = await params
@@ -21,13 +22,13 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
     description: seo?.description || page.pageFieldGroup?.pageBuilder?.[0]?.description || page.pageFieldGroup?.pageBuilder?.[0]?.subTitle || 'Crafting Amazing Brands | Partner with Starbright',
     keywords: seo?.focusKeywords,
     alternates: {
-      canonical: seo?.canonicalUrl,
+      canonical: toSiteUrl(seo?.canonicalUrl),
     },
     robots: seo?.robots ? seo.robots.join(', ') : undefined,
     openGraph: {
       title: seo?.openGraph?.title || `${page.title} | Starbright`,
       description: seo?.openGraph?.description || page.pageFieldGroup?.pageBuilder?.[0]?.description || page.pageFieldGroup?.pageBuilder?.[0]?.subTitle || 'Crafting Amazing Brands',
-      url: seo?.openGraph?.url,
+      url: toSiteUrl(seo?.openGraph?.url),
       siteName: seo?.openGraph?.siteName || 'Starbright',
       locale: seo?.openGraph?.locale || 'en_US',
       type: (seo?.openGraph?.type as any) || 'website',

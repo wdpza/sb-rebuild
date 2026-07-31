@@ -3,6 +3,7 @@ import { getAllServices } from "@/lib/graphql/queries/getAllServices"
 import ServiceRenderer from "@/components/ServiceRenderer"
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
+import { toSiteUrl } from "@/lib/utils/seo"
 
 export async function generateStaticParams() {
     const services = await getAllServices(100);
@@ -28,13 +29,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
         description: seo?.description || 'Starbright Services',
         keywords: seo?.focusKeywords,
         alternates: {
-            canonical: seo?.canonicalUrl,
+            canonical: toSiteUrl(seo?.canonicalUrl),
         },
         robots: seo?.robots ? seo.robots.join(', ') : undefined,
         openGraph: {
             title: seo?.openGraph?.title || `${page.title} | Starbright`,
             description: seo?.openGraph?.description || 'Starbright Services',
-            url: seo?.openGraph?.url,
+            url: toSiteUrl(seo?.openGraph?.url),
             siteName: seo?.openGraph?.siteName || 'Starbright',
             locale: seo?.openGraph?.locale || 'en_US',
             type: (seo?.openGraph?.type as any) || 'website',

@@ -269,6 +269,7 @@ export const GET_PAGE_BY_SLUG = gql`
               }
             }
             style
+            columns
           }
           ... on PageFieldGroupPageBuilderEditorBlockLayout {
             blockContent

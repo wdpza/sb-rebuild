@@ -14,10 +14,20 @@ export default function WhyWorkWithUsBreath({
 	item,
 	backgroundImage,
 	ctaButtonGroup,
-	slug
+	slug,
+	columns
 }: any) {
 	const bgUrl = backgroundImage?.node?.mediaItemUrl ?? null;
 	const { buttonLabel, ctaButtonUrl } = ctaButtonGroup || {};
+	const effectiveColumns = columns ?? 3;
+	const gridColsClass: Record<number, string> = {
+		1: 'md:grid-cols-1',
+		2: 'md:grid-cols-2',
+		3: 'md:grid-cols-3',
+		4: 'md:grid-cols-4',
+		5: 'md:grid-cols-5',
+		6: 'md:grid-cols-6',
+	};
 
 	return (
 		<div
@@ -33,18 +43,17 @@ export default function WhyWorkWithUsBreath({
 				)}
 
 				{/* Cards Container */}
-				<div
-					className="
+			<div
+				className={`
             grid 
             grid-cols-1 
-            sm:grid-cols-2 
-            lg:grid-cols-3 
+            ${gridColsClass[effectiveColumns] || 'md:grid-cols-3'}
             gap-6 
             md:gap-8 
             w-full 
             justify-items-center
-          "
-				>
+          `}
+			>
 					{item.map((card: Item, index: number) => (
 					<motion.div
 						key={index}

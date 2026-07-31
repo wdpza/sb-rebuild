@@ -4,6 +4,7 @@ import BlogInnerHero from "@/components/blog/BlogInnerHero"
 import DOMPurify from 'isomorphic-dompurify';
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { toSiteUrl } from "@/lib/utils/seo";
 
 export async function generateStaticParams() {
     const articles = await getAllArticles(100);
@@ -29,13 +30,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
         description: seo?.description || post.excerpt,
         keywords: seo?.focusKeywords,
         alternates: {
-            canonical: seo?.canonicalUrl,
+            canonical: toSiteUrl(seo?.canonicalUrl),
         },
         robots: seo?.robots ? seo.robots.join(', ') : undefined,
         openGraph: {
             title: seo?.openGraph?.title || `${post.title} | Starbright`,
             description: seo?.openGraph?.description || post.excerpt,
-            url: seo?.openGraph?.url,
+            url: toSiteUrl(seo?.openGraph?.url),
             siteName: seo?.openGraph?.siteName || 'Starbright',
             locale: seo?.openGraph?.locale || 'en_US',
             type: (seo?.openGraph?.type as any) || 'article',
