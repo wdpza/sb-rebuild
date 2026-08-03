@@ -9,6 +9,9 @@ export const GET_POST_BY_SLUG = gql`
             title
             content
             excerpt
+            shared {
+                schema
+            }
             featuredImage {
                 node {
                     sourceUrl

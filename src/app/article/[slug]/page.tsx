@@ -1,6 +1,7 @@
 import { getPostBySlug } from "@/lib/graphql/queries/getPostBySlug";
 import { getAllArticles } from "@/lib/graphql/queries/getAllArticles";
 import BlogInnerHero from "@/components/blog/BlogInnerHero"
+import JsonLd from "@/components/shared/JsonLd"
 import DOMPurify from 'isomorphic-dompurify';
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -74,6 +75,7 @@ export default async function ArticleSlugPage(
     
     return (
         <article className="article-slug-page">
+            <JsonLd raw={post.shared?.schema} />
             <BlogInnerHero background={post.featuredImage.node.sourceUrl} title={post.title} />
             <div id="article" className="relative z-10 py-12 w-full max-w-[760px] mx-auto flex flex-col text-neutral-softest px-6">
                 {sanitizedHtml ? (

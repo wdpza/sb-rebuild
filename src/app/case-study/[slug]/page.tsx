@@ -2,6 +2,7 @@ import { getCaseStudyBySlug } from "@/lib/data/case-studies"
 import { getCaseStudyItems } from "@/lib/graphql/queries/getCaseStudyItems"
 import { notFound } from "next/navigation"
 import CaseStudyItem from "@/components/case-study/CaseStudyItem"
+import JsonLd from "@/components/shared/JsonLd"
 import type { Metadata } from "next"
 import { toSiteUrl } from "@/lib/utils/seo"
 
@@ -65,6 +66,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
 
     return (
         <main>
+            <JsonLd raw={caseStudy.shared?.schema} />
             <CaseStudyItem item={caseStudy} />
         </main>
     )

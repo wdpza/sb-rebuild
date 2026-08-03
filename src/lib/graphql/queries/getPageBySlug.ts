@@ -5,6 +5,9 @@ export const GET_PAGE_BY_SLUG = gql`
     page(id: $slug, idType: URI) {
       title
       slug
+      shared {
+        schema
+      }
       seo {
         title
         description

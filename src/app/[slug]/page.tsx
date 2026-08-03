@@ -1,5 +1,6 @@
 import { getPageBySlug } from "@/lib/data/pages"
 import PageRenderer from "@/components/PageRenderer"
+import JsonLd from "@/components/shared/JsonLd"
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 import { getServicesForForm } from "@/lib/graphql/queries/getServicesForForm"
@@ -61,6 +62,7 @@ export default async function Page({ params }: any) {
 
   return (
     <main className={`page-root ${slug} page-${slug}`}>
+      <JsonLd raw={page.shared?.schema} />
       <PageRenderer 
         pageBuilder={page.pageFieldGroup?.pageBuilder} 
         services={services}

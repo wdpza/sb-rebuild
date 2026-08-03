@@ -1,6 +1,7 @@
 import { getServiceBySlug } from "@/lib/data/services"
 import { getAllServices } from "@/lib/graphql/queries/getAllServices"
 import ServiceRenderer from "@/components/ServiceRenderer"
+import JsonLd from "@/components/shared/JsonLd"
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 import { toSiteUrl } from "@/lib/utils/seo"
@@ -66,6 +67,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
 
     return (
         <main>
+            <JsonLd raw={page.shared?.schema} />
             <ServiceRenderer pageBuilder={page.servicePageFields?.servicePageBuilder} />
         </main>
     )

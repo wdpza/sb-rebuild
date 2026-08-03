@@ -5,6 +5,9 @@ export const GET_SERVICE_BY_SLUG = gql`
         service(id: $slug, idType: URI) {
             title
             slug
+            shared {
+                schema
+            }
             seo {
                 title
                 description

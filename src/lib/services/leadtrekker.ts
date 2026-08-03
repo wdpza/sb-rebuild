@@ -52,7 +52,7 @@ export class Leadtrekker {
 			const response = await fetch(this.apiUrl, {
 				method: 'POST',
 				headers: {
-					'api_key': this.apiKey,
+					'Apikey': this.apiKey,
 					'Content-Type': 'application/json',
 				},
 				body: JSON.stringify(encodedData),

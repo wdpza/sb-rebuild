@@ -5,6 +5,9 @@ export const GET_CASE_STUDY_BY_SLUG = gql`
         caseStudy(id: $slug, idType: URI) {
             title
             slug
+            shared {
+                schema
+            }
             seo {
                 title
                 description
