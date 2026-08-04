@@ -19,7 +19,6 @@ export default function WhyWorkWithUs({
 	style,
 	columns
 }: any) {
-	console.log(introText)
 	const params = useParams<{ slug: string; }>()
 	const {slug} = params;
 

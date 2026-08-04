@@ -22,7 +22,6 @@ export default function WhyWorkWithUsBreath({
 	slug,
 	columns
 }: any) {
-	console.log('Component', introText)
 	const bgUrl = backgroundImage?.node?.mediaItemUrl ?? null;
 	const { buttonLabel, ctaButtonUrl } = ctaButtonGroup || {};
 	const effectiveColumns = columns ?? 3;
