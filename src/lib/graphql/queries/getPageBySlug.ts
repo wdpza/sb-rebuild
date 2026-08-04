@@ -251,9 +251,14 @@ export const GET_PAGE_BY_SLUG = gql`
           }
           ... on PageFieldGroupPageBuilderWhyWorkWithUsSectionLayout {
             introTitle
+            introText
             item {
               description
               title
+              ctaLink {
+                title
+                url
+              }
             }
             backgroundImage {
               node {

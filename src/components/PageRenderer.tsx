@@ -66,6 +66,7 @@ export default function PageRenderer({ pageBuilder, services, sourceId }: PageRe
 					case "PageFieldGroupPageBuilderFormLayout":
 						return <FormLayout key={index} {...block} sourceId={sourceId} />;
 					case "PageFieldGroupPageBuilderWhyWorkWithUsSectionLayout":
+						console.log(block)
 						return <WhyWorkWithUs key={index} {...block} />;
 					case "PageFieldGroupPageBuilderEditorBlockLayout":
 						return <EditorBlockLayout key={index} {...block} />;

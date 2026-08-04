@@ -7,16 +7,22 @@ import { motion } from 'motion/react';
 type Item = {
 	title: string;
 	description: string;
+	ctaLink?: {
+		title?: string;
+		url?: string;
+	};
 };
 
 export default function WhyWorkWithUsBreath({
 	introTitle,
+	introText,
 	item,
 	backgroundImage,
 	ctaButtonGroup,
 	slug,
 	columns
 }: any) {
+	console.log('Component', introText)
 	const bgUrl = backgroundImage?.node?.mediaItemUrl ?? null;
 	const { buttonLabel, ctaButtonUrl } = ctaButtonGroup || {};
 	const effectiveColumns = columns ?? 3;
@@ -40,6 +46,10 @@ export default function WhyWorkWithUsBreath({
 					<h2 className="subtitle font-bold mb-8 text-neutral-softest text-balance">
 						{introTitle}
 					</h2>
+				)}
+
+				{introText && (
+					<p>{introText}</p>
 				)}
 
 				{/* Cards Container */}
@@ -87,6 +97,19 @@ export default function WhyWorkWithUsBreath({
 						<p className="font-extralight text-sm md:text-base text-neutral-softer leading-relaxed">
 							{card.description}
 						</p>
+						{card.ctaLink?.url && card.ctaLink.title && (
+							<div className="mt-6">
+								<Link
+									href={card.ctaLink.url.replace(/^https?:\/\/[^/]+/, "")}
+									className="
+										inline-flex items-center justify-center rounded-md px-8 py-3 font-semibold text-neutral-softest gradient-border
+										hover:bg-gradient-starbright
+									"
+								>
+									{card.ctaLink.title}
+								</Link>
+							</div>
+						)}
 					</motion.div>
 				))}
 

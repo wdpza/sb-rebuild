@@ -12,13 +12,14 @@ type Item = {
 
 export default function WhyWorkWithUs({
 	introTitle,
+	introText,
 	item,
 	backgroundImage,
 	ctaButtonGroup,
 	style,
 	columns
 }: any) {
-
+	console.log(introText)
 	const params = useParams<{ slug: string; }>()
 	const {slug} = params;
 
@@ -27,6 +28,7 @@ export default function WhyWorkWithUs({
 	if (layoutStyle === "style_1") {
 		return <WhyWorkWithUsBreath
 			introTitle={introTitle}
+			introText={introText}
 			item={item}
 			backgroundImage={backgroundImage}
 			ctaButtonGroup={ctaButtonGroup}
@@ -38,6 +40,7 @@ export default function WhyWorkWithUs({
 	if (layoutStyle === "style_2") {
 		return <WhyWorkWithUsDivider
 			introTitle={introTitle}
+			introText={introText}
 			item={item}
 			backgroundImage={backgroundImage}
 			ctaButtonGroup={ctaButtonGroup}
