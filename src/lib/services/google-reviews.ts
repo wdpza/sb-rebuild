@@ -109,7 +109,9 @@ async function getAccessToken(): Promise<string> {
   });
 
   if (!response.ok) {
-    throw new Error(`Token exchange failed: ${response.status}`);
+    const errorBody = await response.text();
+    console.error(`OAuth token exchange failed ${response.status}:`, errorBody);
+    throw new Error(`Token exchange failed: ${response.status} - ${errorBody.slice(0, 500)}`);
   }
 
   const data = await response.json();
