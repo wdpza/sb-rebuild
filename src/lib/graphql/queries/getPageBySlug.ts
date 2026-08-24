@@ -208,6 +208,7 @@ export const GET_PAGE_BY_SLUG = gql`
                 mediaItemUrl
               }
             }
+            alignment
           }
           ... on PageFieldGroupPageBuilderPortfolioTabsLayout {
             fieldGroupName
