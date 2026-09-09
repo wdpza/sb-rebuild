@@ -1,22 +1,27 @@
 "use client";
 
 import Link from "next/link";
-import { Suspense, type Dispatch, type SetStateAction } from "react";
+import {
+	Suspense,
+	type RefObject,
+	type Dispatch,
+	type SetStateAction,
+} from "react";
 import type { MenuNode } from "../../types/menuTypes";
 import NavDropdown from "./NavDropdown";
 
 export type NavMenuProps = {
 	tree: MenuNode[];
+	navRef: RefObject<HTMLElement | null>;
 	openIndex: number | null;
 	setOpenIndex: Dispatch<SetStateAction<number | null>>;
-	indexOffset?: number;
 };
 
 export default function NavMenu({
 	tree,
+	navRef,
 	openIndex,
 	setOpenIndex,
-	indexOffset = 0,
 }: NavMenuProps) {
 	const buildHref = (item: MenuNode): string => {
 		if (item?.connectedObject?.slug) return `/${item.connectedObject.slug}`;
@@ -37,10 +42,9 @@ export default function NavMenu({
 	};
 
 	return (
-		<nav aria-label="Main">
+		<nav ref={navRef} aria-label="Main" className="ml-auto">
 			<ul className="main-menu hidden md:flex items-center gap-3 relative">
 				{(tree ?? []).map((item, index) => {
-					const globalIndex = indexOffset + index;
 					const href = buildHref(item);
 					const hasChildren =
 						Array.isArray(item.children) && item.children.length > 0;
@@ -49,7 +53,7 @@ export default function NavMenu({
 					if (!hasChildren || href !== "#") {
 						const external = isExternal(href);
 						return (
-							<li key={item.id ?? globalIndex} className="relative">
+							<li key={item.id ?? index} className="relative">
 								<Link
 									href={href}
 									className={`${item.connectedObject?.slug == 'contact' ? 'bg-neutral-strongest gradient-border inline-block px-4 py-2 text-neutral-softest font-semibold uppercase rounded-md shadow-md transition-all duration-300 hover:bg-gradient-starbright' : 'text-neutral-softest text-xl transition font-light hover:bg-white/5 rounded py-2 px-4'}`}
@@ -66,11 +70,11 @@ export default function NavMenu({
 
 					// Dropdown
 					return (
-						<Suspense key={item.id ?? globalIndex} fallback={null}>
+						<Suspense key={item.id ?? index} fallback={null}>
 							<NavDropdown
 								item={item}
-								index={globalIndex}
-								isOpen={openIndex === globalIndex}
+								index={index}
+								isOpen={openIndex === index}
 								setOpenIndex={setOpenIndex}
 							/>
 						</Suspense>

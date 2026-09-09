@@ -57,7 +57,7 @@ export default function Header({ menu, logo }: HeaderProps) {
 
 	const [openIndex, setOpenIndex] = useState<number | null>(null);
 	const [isScrolled, setIsScrolled] = useState(false);
-	const navRef = useRef<HTMLDivElement | null>(null);
+	const navRef = useRef<HTMLElement | null>(null);
 
 	// Scroll detection
 	useEffect(() => {
@@ -93,58 +93,31 @@ export default function Header({ menu, logo }: HeaderProps) {
 
 	if (!menu) return null;
 
-	const midpoint = Math.ceil(tree.length / 2);
-	const leftTree = tree.slice(0, midpoint);
-	const rightTree = tree.slice(midpoint);
-
 	return (
 		<header className={`site-header fixed top-0 left-0 right-0 z-50 transition-all duration-300 max-w-[100vw] ${isScrolled ? 'is-scrolled py-4 lg:py-6 gradient-border-top bg-sb-black/90 shadow-lg' : 'py-4 lg:py-12 bg-transparent'}`}>
 			<div className="layout-wrapper bg-transparent">
-				<div ref={navRef} className="hidden md:flex items-center justify-between gap-4">
-					<div className="flex-1">
-						<NavMenu
-							tree={leftTree}
-							openIndex={openIndex}
-							setOpenIndex={setOpenIndex}
-						/>
-					</div>
-
+				<div className="flex items-center justify-between gap-4">
 					{logo?.mediaItemUrl && (
-						<Link href="/home" className="flex-shrink-0">
-							<Image
-								src={'/logo.png'}
-								alt={logo.altText || "Starbright"}
-								className={`h-8 md:h-10 w-auto object-contain transition-all duration-300 ${isScrolled ? "md:h-8" : "md:h-11"}`}
-								width={320}
-								height={62}
-								priority
-							/>
-						</Link>
+						<div className="flex items-start justify-start">
+							<Link href="/home">
+								<Image
+									src={'/logo.png'}
+									alt={logo.altText || "Starbright"}
+									className={`h-8 md:h-10 w-auto object-contain transition-all duration-300 ${isScrolled ? "md:h-8" : "md:h-11"}`}
+									width={320}
+									height={62}
+									priority
+								/>
+							</Link>
+						</div>
 					)}
 
-					<div className="flex-1 flex justify-end">
-						<NavMenu
-							tree={rightTree}
-							openIndex={openIndex}
-							setOpenIndex={setOpenIndex}
-							indexOffset={leftTree.length}
-						/>
-					</div>
-				</div>
-
-				<div className="flex md:hidden items-center justify-between gap-4">
-					{logo?.mediaItemUrl && (
-						<Link href="/home" className="flex-shrink-0">
-							<Image
-								src={'/logo.png'}
-								alt={logo.altText || "Starbright"}
-								className={`h-8 md:h-10 w-auto object-contain transition-all duration-300 ${isScrolled ? "md:h-8" : "md:h-11"}`}
-								width={320}
-								height={62}
-								priority
-							/>
-						</Link>
-					)}
+					<NavMenu
+						tree={tree}
+						navRef={navRef}
+						openIndex={openIndex}
+						setOpenIndex={setOpenIndex}
+					/>
 
 					<NavMenuMobile tree={tree} flatItems={flatItems} />
 				</div>
