@@ -149,6 +149,24 @@
     bottom:-45px !important;
   }
 
+  .home .text-heading {
+    background-color: #171717;
+    margin-bottom:0 !important;
+    padding-bottom:0 !important;
+    padding-top:60px !important;
+  }
+
+  .home .text-heading .prose {
+    @apply text-xl md:max-w-sm;
+    max-width:70% !important;
+    margin:0 auto;
+    margin-bottom: 60px !important;
+  }
+
+  .home .text-heading a {
+    margin: 0 auto;
+  }
+
   .article-slug-page h1,
   .article-slug-page h3,
   .article-slug-page h2,

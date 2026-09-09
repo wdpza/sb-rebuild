@@ -40,7 +40,7 @@ export default function TextHeadingBlock({
 
   return (
     <div
-      className={`relative py-12 bg-center ${bgUrl ? 'bg-cover' : ''}`}
+      className={`relative py-12 bg-center text-heading ${bgUrl ? 'bg-cover' : ''}`}
       style={bgUrl ? { backgroundImage: `url(${bgUrl})` } : undefined}
     >
       {/* Optional overlay if you plan to add one later */}
@@ -48,7 +48,7 @@ export default function TextHeadingBlock({
 
       <div className={`relative z-10 w-full max-w-[1600px] mx-auto flex flex-col text-neutral-softest px-6 ${ alignment ? `text-${alignment}` : '' }`}>
         {title ? (
-          <h2 className="text-[45px] font-bold mb-12 text-gradient-starbright">
+          <h2 className="subtitle font-bold mb-12 text-gradient-starbright">
             {title}
           </h2>
         ) : null}
@@ -61,7 +61,7 @@ export default function TextHeadingBlock({
         ) : null}
 
         {ctaLink?.url && ctaLink?.title ? (
-          <div className="flex flex-col items-start text-center">
+          <div className={`flex flex-col items-start text-center`}>
             <a
                 href={ctaLink.url}
                 target={target}
