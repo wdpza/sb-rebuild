@@ -71,7 +71,7 @@ export default function BusinessSolutions({ items, title }: any) {
                                 
                                 return (
                                     <div key={item.slug || index} className="space-y-4">
-                                        <h3 className="text-2xl font-archivo font-semibold text-neutral-strongest capitalize">
+                                        <h3 className="text-2xl font-sans font-semibold text-neutral-strongest capitalize">
                                             {item.slug.replace(/-/g, " ")}
                                         </h3>
 
@@ -99,7 +99,7 @@ export default function BusinessSolutions({ items, title }: any) {
                         {/* Desktop: Interactive with active item */}
                         <div className="transition-all duration-300 ease-in-out hidden md:block">
 
-                            <h3 className="font-archivo subtitle font-semibold text-neutral-strongest mb-4 capitalize">
+                            <h3 className="font-sans subtitle font-semibold text-neutral-strongest mb-4 capitalize">
                                 {activeItem.slug.replace(/-/g, " ")}
                             </h3>
 

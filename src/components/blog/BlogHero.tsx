@@ -38,7 +38,7 @@ export default function BlogblogHero({ blogOptions }: any) {
             <div className="layout-wrapper h-screen flex relative z-10">
                 {/* Left column: title, subtitle, description, anchor */}
                 <div className="col-span-8 flex flex-col justify-center text-left gap-4 z-40">
-                    <span className="w-full md:w-3/4 font-archivo uppercase hero-title font-black drop-shadow-lg text-gradient-starbright text-center md:text-left">
+                    <span className="w-full md:w-3/4 font-sans uppercase hero-title font-black drop-shadow-lg text-gradient-starbright text-center md:text-left">
                         {title}
                     </span>
 

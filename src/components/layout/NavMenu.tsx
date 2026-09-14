@@ -4,6 +4,7 @@ import Link from "next/link";
 import {
 	Suspense,
 	type RefObject,
+	type ReactNode,
 	type Dispatch,
 	type SetStateAction,
 } from "react";
@@ -12,6 +13,7 @@ import NavDropdown from "./NavDropdown";
 
 export type NavMenuProps = {
 	tree: MenuNode[];
+	brand: ReactNode;
 	navRef: RefObject<HTMLElement | null>;
 	openIndex: number | null;
 	setOpenIndex: Dispatch<SetStateAction<number | null>>;
@@ -19,6 +21,7 @@ export type NavMenuProps = {
 
 export default function NavMenu({
 	tree,
+	brand,
 	navRef,
 	openIndex,
 	setOpenIndex,
@@ -42,9 +45,13 @@ export default function NavMenu({
 	};
 
 	return (
-		<nav ref={navRef} aria-label="Main" className="ml-auto">
-			<ul className="main-menu hidden md:flex items-center gap-3 relative">
-				{(tree ?? []).map((item, index) => {
+		<nav ref={navRef} aria-label="Main" className="desktop-navigation">
+			{[tree.slice(0, Math.ceil(tree.length / 2)), tree.slice(Math.ceil(tree.length / 2))].map((group, side) => (
+				<Suspense key={side} fallback={null}>
+					{side === 1 && brand}
+					<ul className={`main-menu header-menu ${side === 0 ? "header-menu-left" : "header-menu-right"}`}>
+				{group.map((item, groupIndex) => {
+					const index = groupIndex + (side === 1 ? Math.ceil(tree.length / 2) : 0);
 					const href = buildHref(item);
 					const hasChildren =
 						Array.isArray(item.children) && item.children.length > 0;
@@ -56,7 +63,7 @@ export default function NavMenu({
 							<li key={item.id ?? index} className="relative">
 								<Link
 									href={href}
-									className={`${item.connectedObject?.slug == 'contact' ? 'bg-neutral-strongest gradient-border inline-block px-4 py-2 text-neutral-softest font-semibold uppercase rounded-md shadow-md transition-all duration-300 hover:bg-gradient-starbright' : 'text-neutral-softest text-xl transition font-light hover:bg-white/5 rounded py-2 px-4'}`}
+									className="header-nav-link"
 									scroll
 									{...(external
 										? { target: "_blank", rel: "noopener noreferrer" }
@@ -81,6 +88,8 @@ export default function NavMenu({
 					);
 				})}
 			</ul>
+				</Suspense>
+			))}
 		</nav>
 	);
 }

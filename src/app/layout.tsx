@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { Archivo } from "next/font/google";
+import { Figtree } from "next/font/google";
 import "./globals.css";
 import Script from "next/script";
 import UrlTrackingSession from "@/components/shared/UrlTrackingSession";
@@ -13,9 +13,8 @@ import { getFooter } from "@/lib/graphql/queries/getFooter";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-const archivo = Archivo({
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
-  variable: "--font-archivo",
+const figtree = Figtree({
+  variable: "--font-figtree",
   subsets: ["latin"],
 });
 
@@ -51,7 +50,7 @@ export default async function RootLayout({
         />
       </head>
       <body
-        className={`${archivo.variable} antialiased overflow-x-hidden`}
+        className={`${figtree.variable} antialiased overflow-x-hidden`}
       >
         <Suspense fallback={null}>
           <UrlTrackingSession />

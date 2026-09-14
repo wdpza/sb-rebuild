@@ -1,0 +1,84 @@
+.footer,
+.copyright {
+  background: #28262c;
+  color: #cecdcf;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.55;
+}
+
+.container {
+  width: min(100% - 48px, 1200px);
+  margin-inline: auto;
+}
+
+.footer { padding-top: 64px; }
+
+.columns {
+  display: grid;
+  grid-template-columns: 1fr 1.45fr 1.3fr auto;
+  gap: 40px;
+}
+
+.heading {
+  margin: 0 0 16px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.links,
+.contactLinks,
+.policies { list-style: none; margin: 0; padding: 0; }
+.links li + li { margin-top: 2px; }
+.contactLinks { display: grid; gap: 8px; }
+.contactLinks li { display: flex; align-items: center; gap: 8px; }
+.contactLinks img { flex-shrink: 0; object-fit: contain; }
+.address { margin-top: 16px; font-style: normal; white-space: pre-line; }
+
+.brandRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  padding-block: 36px 40px;
+}
+
+.brand { display: block; width: 240px; max-width: 55%; }
+.brand img { width: 100%; height: auto; }
+.socials { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
+.socials a { display: inline-flex; }
+.socials img { width: 28px; height: 28px; object-fit: contain; filter: grayscale(1); }
+
+.copyrightRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  border-top: 1px solid #77757b;
+  padding-block: 24px;
+  font-size: 14px;
+}
+.copyrightRow p { margin: 0; }
+.policies { display: flex; flex-wrap: wrap; }
+.policies li + li::before { content: "|"; margin-inline: 5px; }
+.footer a,
+.copyright a { transition: color 180ms ease; }
+.footer a:hover,
+.copyright a:hover { color: #fff; }
+.footer a:focus-visible,
+.copyright a:focus-visible { outline: 2px solid #fff; outline-offset: 4px; }
+
+@media (max-width: 900px) {
+  .columns { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; }
+}
+
+@media (max-width: 540px) {
+  .footer { padding-top: 40px; }
+  .container { width: calc(100% - 40px); }
+  .columns { grid-template-columns: 1fr; }
+  .brandRow { flex-wrap: wrap; padding-block: 32px; }
+  .brand { width: 200px; max-width: 100%; }
+  .copyrightRow { align-items: flex-start; flex-direction: column; padding-block: 20px; }
+}

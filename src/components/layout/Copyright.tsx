@@ -1,27 +1,27 @@
-import React from 'react';
 import Link from "next/link";
+import type { FooterData } from "@/types/footer";
+import styles from "./Footer.module.css";
 
-export default function Copyright({ footer }: { footer?: any }) {
-
-    const currentYear = new Date().getFullYear();
+export default function Copyright({ footer }: { footer?: FooterData | null }) {
     const menuNodes = footer?.policiesMenu?.menuItems?.nodes ?? [];
-
     return (
-        <div className="copyright-text bg-[#49474D] w-full">
-            <div className="layout-wrapper font-extralight text-neutral-softest py-4 flex justify-center md:justify-between flex-row flex-wrap text-center gap-2">
-                <div className=" text-sm md:text-base">Starbright © 2005 - {currentYear}  - All Rights Reserved.</div>
-                <div className="flex space-x-3 text-sm md:text-base">
-                    {menuNodes.map((item: any, index: number) => (
-                        <React.Fragment key={item?.id ?? index}>
-                            <Link href={item?.uri ?? '#'}>
-                                {item?.label ?? ''}
-                            </Link>
-                            {index < menuNodes.length - 1 && (
-                                <span>|</span>
-                            )}
-                        </React.Fragment>
-                    ))}
-                </div>      
+        <div className={`copyright-text ${styles.copyright}`}>
+            <div className={styles.container}>
+                <div className={styles.copyrightRow}>
+                    <p>Starbright © 2005 - {new Date().getFullYear()} - All Rights Reserved.</p>
+                    <nav aria-label="Policies">
+                        <ul className={styles.policies}>
+                            {menuNodes.map((item, index) => item && (item.uri || item.url) ? (
+                                <li key={item.id ?? index}>
+                                    <Link href={item.uri || item.url!} target={item.target || undefined}
+                                        rel={item.target === "_blank" ? "noopener noreferrer" : undefined}>
+                                        {item.label}
+                                    </Link>
+                                </li>
+                            ) : null)}
+                        </ul>
+                    </nav>
+                </div>
             </div>
         </div>
     );

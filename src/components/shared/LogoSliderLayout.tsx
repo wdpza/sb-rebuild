@@ -2,41 +2,41 @@
 
 import Marquee from "react-fast-marquee"
 import Image from "next/image"
+import type { MediaItem } from "@/types/common"
+import styles from "./LogoSliderLayout.module.css"
 
-export default function LogoSliderLayout({ logo, logos, style }: any) {
-    const logosData = logos || logo
-    if (!logosData || !Array.isArray(logosData) || logosData.length === 0) return null
+type LogoSliderProps = {
+    logo?: { logo?: MediaItem | null }[] | null
+    logos?: { logo?: MediaItem | null }[] | null
+    style?: string[] | null
+}
 
-    const sectionClassName = style && style[0] === "style_2"
-        ? "bg-sb-black"
-        : "bg-gradient-starbright"
+export default function LogoSliderLayout({ logo, logos }: LogoSliderProps) {
+    const logosData = (logos ?? logo ?? []).filter(item => item.logo?.node?.mediaItemUrl)
+    if (logosData.length === 0) return null
 
     return (
-        <section id="logo-slider" className={`py-6 md:py-2 ${sectionClassName}`}>
-            <Marquee gradient={false} speed={100} autoFill={true}>
-                {logosData.map((item: any, index: number) => {
-                    const node = item.logo?.node
-                    if (!node?.mediaItemUrl) return null
+        <section id="logo-slider" className={styles.slider} aria-label="Our clients">
+            <div className={styles.track}>
+                <Marquee gradient={false} speed={35} autoFill pauseOnHover pauseOnClick>
+                    {logosData.map((item, index) => {
+                        const node = item.logo!.node!
 
-                    return (
-                        <div
-                            key={index}
-                            className="flex items-center justify-center mx-6"
-                            style={{ width: "auto", height: "80px" }}
-                        >
-                            <Image
-                                src={node.mediaItemUrl}
-                                alt={node.altText?.trim() || `Logo ${index + 1}`}
-                                width={120}
-                                height={60}
-                                quality={100}
-                                className="object-contain max-h-[50px] h-auto w-auto max-w-[150px] w-auto hover:scale-115 transition-transform duration-300 ease-in-out"
-                                priority={false}
-                            />
-                        </div>
-                    )
-                })}
-            </Marquee>
+                        return (
+                            <div key={`${node.mediaItemUrl}-${index}`} className={styles.item}>
+                                <Image
+                                    src={node.mediaItemUrl!}
+                                    alt={node.altText?.trim() || `Client logo ${index + 1}`}
+                                    width={120}
+                                    height={60}
+                                    sizes="100px"
+                                    className={styles.logo}
+                                />
+                            </div>
+                        )
+                    })}
+                </Marquee>
+            </div>
         </section>
     )
 }

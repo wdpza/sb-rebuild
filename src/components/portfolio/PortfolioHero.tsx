@@ -27,7 +27,7 @@ export default function PortfolioHero(portfolioOptions : any) {
         >
             <div className="h-screen relative z-10 grid w-full max-w-[1600px] mx-auto grid-cols-1 md:grid-cols-24 gap-2 px-12 py-24 mt-12">
                 <div className="col-span-13 flex flex-col justify-center text-left gap-4">
-                    <h1 className="font-archivo uppercase hero-title text-center md:text-left font-black drop-shadow-lg text-gradient-starbright">
+                    <h1 className="font-sans uppercase hero-title text-center md:text-left font-black drop-shadow-lg text-gradient-starbright">
                         {title}
                     </h1>
 

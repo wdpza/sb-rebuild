@@ -21,6 +21,7 @@ import EditorBlockLayout from "./page-components/EditorBlockLayout"
 import FaqSectionLayout from "./page-components/FaqSectionLayout"
 import WysiwygImageLeftLayout from "./page-components/WysiwygImageLeftLayout"
 import WysiwygImageRightLayout from "./page-components/WysiwygImageRightLayout"
+import HeroLayoutRevised from "./page-components/HeroLayoutRevised"
 import type { PageRendererProps, PageBuilderBlock } from "@/types/common"
 import type { ServiceOption } from "@/lib/graphql/queries/getServicesForForm"
 
@@ -33,6 +34,8 @@ export default function PageRenderer({ pageBuilder, services, sourceId }: PageRe
 				switch (block.__typename) {
 					case "PageFieldGroupPageBuilderHeroLayout":
 						return <HeroLayout key={index} {...block} services={services} />
+					case "PageFieldGroupPageBuilderHeroRevisedLayout":
+						return <HeroLayoutRevised key={index} {...block} />
 					case "PageFieldGroupPageBuilderServicesAccordionLayout":
 						return <ServicesAccordionLayout key={index} {...block} />
 					case "PageFieldGroupPageBuilderLogoSliderLayout":

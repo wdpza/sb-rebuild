@@ -12,7 +12,7 @@ export default function CTABlock({heading, buttonGroup}: any) {
         <section className="bg-neutral-strongest py-14">
             <div className="layout-wrapper mx-auto text-center">
                 {heading && (
-                    <h2 className="text-3xl md:text-4xl font-archivo font-semibold text-neutral-softest mb-8 drop-shadow-lg">
+                    <h2 className="text-3xl md:text-4xl font-sans font-semibold text-neutral-softest mb-8 drop-shadow-lg">
                         {heading}
                     </h2>
                 )}

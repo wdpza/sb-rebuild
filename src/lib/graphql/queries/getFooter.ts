@@ -3,91 +3,149 @@ import { cache } from "react";
 import { client } from "@/lib/graphql/client";
 
 export const GET_FOOTER = gql`
-    query GetFooter {
-        siteOptions {
-            siteOptionsFields {
-                siteLogo {
-                    node {
-                    altText
-                    mediaItemUrl
-                    }
-                }
-                footer {
-                    address
-                    officeNumber
-                    whatsappNumber
-                    socialMedia {
-                    url
-                    icon {
-                        node {
-                        altText
-                        mediaItemUrl
-                        }
-                    }
-                    }
-                    googleMapsLink
-                }
-            }
+query GetFooter {
+  siteOptions {
+    siteOptionsFields {
+      siteLogo {
+        node {
+          altText
+          mediaItemUrl
         }
-        otherLinks: menu(id: "Other Links", idType: NAME) {
-            id
-            name
-            slug
-            menuItems {
-                nodes {
-                    id
-                    label
-                    uri
-                    url
-                    target
-                    parentId
-                    order
-                    cssClasses
-                    connectedObject {
-                    ... on Page {
-                        id
-                        title
-                        slug
-                    }
-                    ... on Post {
-                        id
-                        title
-                        slug
-                    }
-                    }
-                }
+      }
+      footer {
+        address
+        officeNumber
+        whatsappNumber
+        socialMedia {
+          url
+          icon {
+            node {
+              altText
+              mediaItemUrl
             }
+          }
         }
-        policiesMenu: menu(id: "Policies Menu", idType: NAME) {
-            id
-            name
-            slug
-            menuItems {
-                nodes {
-                    id
-                    label
-                    uri
-                    url
-                    target
-                    parentId
-                    order
-                    cssClasses
-                    connectedObject {
-                    ... on Page {
-                        id
-                        title
-                        slug
-                    }
-                    ... on Post {
-                        id
-                        title
-                        slug
-                    }
-                    }
-                }
-            }
-        }
+        googleMapsLink
+      }
     }
+  }
+  otherLinks: menu(id: "Other Links", idType: NAME) {
+    id
+    name
+    slug
+    menuItems {
+      nodes {
+        id
+        label
+        uri
+        url
+        target
+        parentId
+        order
+        cssClasses
+        connectedObject {
+          ... on Page {
+            id
+            title
+            slug
+          }
+          ... on Post {
+            id
+            title
+            slug
+          }
+        }
+      }
+    }
+  }
+  policiesMenu: menu(id: "Policies Menu", idType: NAME) {
+    id
+    name
+    slug
+    menuItems {
+      nodes {
+        id
+        label
+        uri
+        url
+        target
+        parentId
+        order
+        cssClasses
+        connectedObject {
+          ... on Page {
+            id
+            title
+            slug
+          }
+          ... on Post {
+            id
+            title
+            slug
+          }
+        }
+      }
+    }
+  }
+  CompanyMenu: menu(id: "Company", idType: NAME) {
+    id
+    name
+    slug
+    menuItems {
+      nodes {
+        id
+        label
+        uri
+        url
+        target
+        parentId
+        order
+        cssClasses
+        connectedObject {
+          ... on Page {
+            id
+            title
+            slug
+          }
+          ... on Post {
+            id
+            title
+            slug
+          }
+        }
+      }
+    }
+  }
+  topRatedServices: menu(id: "Top Rated Services", idType: NAME) {
+    id
+    name
+    slug
+    menuItems {
+      nodes {
+        id
+        label
+        uri
+        url
+        target
+        parentId
+        order
+        cssClasses
+        connectedObject {
+          ... on Page {
+            id
+            title
+            slug
+          }
+          ... on Post {
+            id
+            title
+            slug
+          }
+        }
+      }
+    }
+  }
+}
 `;
 
 export const getFooter = cache(async function getFooter() {

@@ -70,7 +70,7 @@ design
 
 					{title && (
 						<motion.h1
-							className="font-archivo uppercase hero-title font-black drop-shadow-lg text-gradient-starbright text-center md:text-left text-balance"
+							className="font-sans uppercase hero-title font-black drop-shadow-lg text-gradient-starbright text-center md:text-left text-balance"
 							initial={{ opacity: 0, x: -ANIMATION_DISTANCES.medium }}
 							animate={{ opacity: 1, x: 0 }}
 							transition={{ duration: ANIMATION_DURATIONS.slow, ease: ANIMATION_EASINGS.easeOut, delay: ANIMATION_DELAYS.short }}

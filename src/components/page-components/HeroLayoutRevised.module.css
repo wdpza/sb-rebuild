@@ -1,0 +1,117 @@
+.hero {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  place-items: center;
+  min-height: clamp(480px, 46vw, 740px);
+  overflow: hidden;
+  padding: 150px 24px 120px;
+  background: #141414;
+  color: #fff;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(ellipse 38% 65% at 0% 110%, #d72d80 0%, #b53b32 35%, transparent 78%);
+}
+
+.background {
+  z-index: -2;
+  object-fit: cover;
+  object-position: center;
+}
+
+.pattern {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+  text-align: center;
+  font-size: clamp(32px, 4.2vw, 64px);
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  color: #202020;
+  opacity: 0.45;
+  white-space: nowrap;
+  mask-image: radial-gradient(ellipse 35% 65% at 50% 28%, #000, transparent);
+}
+
+.content {
+  width: 100%;
+  max-width: 1100px;
+  text-align: center;
+}
+
+.title {
+  max-width: 19ch;
+  margin: 0 auto;
+  font-size: clamp(36px, 4.8vw, 76px);
+  font-weight: 900;
+  line-height: 0.92;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+.title strong,
+.title b,
+.title em {
+  background: linear-gradient(105deg, #8753bd 0%, #bd208b 38%, #ef512c 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  font-weight: inherit;
+  font-style: normal;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+.subtitle {
+  margin: 22px auto 0;
+  max-width: 48rem;
+  font-size: clamp(16px, 1.65vw, 24px);
+  line-height: 1.5;
+  text-wrap: balance;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 26px;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 32px;
+  padding: 6px 20px;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  font-size: clamp(12px, 1vw, 15px);
+  font-weight: 400;
+  line-height: 1.3;
+  transition: background-color 180ms ease, border-color 180ms ease;
+}
+
+.primary { background: #e6a008; color: #141414; }
+.primary:hover { background: #f3b72a; }
+.secondary { border-color: #828282; color: #fff; background: transparent; }
+.secondary:hover { background: #ffffff12; border-color: #fff; }
+.button:focus-visible { outline: 2px solid #fff; outline-offset: 4px; }
+
+@media (max-width: 600px) {
+  .hero { min-height: 520px; padding: 120px 20px 90px; }
+  .title { font-size: clamp(34px, 8.5vw, 48px); line-height: 1; }
+  .button { min-height: 44px; }
+  .hero::after {
+    background: radial-gradient(ellipse 75% 45% at 0% 110%, #d72d80, #b53b3266 45%, transparent 80%);
+  }
+}

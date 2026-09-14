@@ -105,7 +105,7 @@ export default function NavMenuMobile({ tree: _tree, flatItems }: NavMenuMobileP
 		<div>
 			{/* Hamburger button */}
 			<button
-				className="mobile-open-btn group hover:cursor-pointer md:hidden py-2 rounded-lg hover:bg-white/10 transition-all duration-300 text-white hover:text-neutral-softest hover:scale-110 active:scale-95"
+				className="mobile-open-btn group hover:cursor-pointer xl:hidden py-2 rounded-lg hover:bg-white/10 transition-all duration-300 text-white hover:text-neutral-softest hover:scale-110 active:scale-95"
 				onClick={() => setOpenstate(prev => !prev)}
 				aria-label="Toggle menu"
 			>

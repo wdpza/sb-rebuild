@@ -93,32 +93,31 @@ export default function Header({ menu, logo }: HeaderProps) {
 
 	if (!menu) return null;
 
+	const brand = (
+		<Link href="/home" aria-label="Starbright home" className="header-brand">
+			<Image
+				src="/logo.png"
+				alt={logo?.altText || "Starbright"}
+				className="h-auto w-full object-contain"
+				width={291}
+				height={56}
+				priority
+			/>
+		</Link>
+	);
+
 	return (
-		<header className={`site-header fixed top-0 left-0 right-0 z-50 transition-all duration-300 max-w-[100vw] ${isScrolled ? 'is-scrolled py-4 lg:py-6 gradient-border-top bg-sb-black/90 shadow-lg' : 'py-4 lg:py-12 bg-transparent'}`}>
-			<div className="layout-wrapper bg-transparent">
-				<div className="flex items-center justify-between gap-4">
-					{logo?.mediaItemUrl && (
-						<div className="flex items-start justify-start">
-							<Link href="/home">
-								<Image
-									src={'/logo.png'}
-									alt={logo.altText || "Starbright"}
-									className={`h-8 md:h-10 w-auto object-contain transition-all duration-300 ${isScrolled ? "md:h-8" : "md:h-11"}`}
-									width={320}
-									height={62}
-									priority
-								/>
-							</Link>
-						</div>
-					)}
-
-					<NavMenu
-						tree={tree}
-						navRef={navRef}
-						openIndex={openIndex}
-						setOpenIndex={setOpenIndex}
-					/>
-
+		<header className={`site-header fixed inset-x-0 top-0 z-50 transition-all duration-300 ${isScrolled ? "is-scrolled bg-sb-black/95 shadow-lg" : "bg-transparent"}`}>
+			<div className="header-navigation">
+				<NavMenu
+					tree={tree}
+					navRef={navRef}
+					openIndex={openIndex}
+					setOpenIndex={setOpenIndex}
+					brand={brand}
+				/>
+				<div className="flex w-full items-center justify-between xl:hidden">
+					{brand}
 					<NavMenuMobile tree={tree} flatItems={flatItems} />
 				</div>
 			</div>

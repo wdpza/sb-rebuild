@@ -35,7 +35,7 @@ export default function HeroLayout({ title, ctaLink, description, subTitle, back
 
 				<div className="col-span-18 flex flex-col justify-center text-left gap-4">
 					<motion.h1
-						className="font-archivo uppercase hero-title font-black drop-shadow-lg text-gradient-starbright"
+						className="font-sans uppercase hero-title font-black drop-shadow-lg text-gradient-starbright"
 						initial={{ opacity: 0, x: -ANIMATION_DISTANCES.medium }}
 						animate={{ opacity: 1, x: 0 }}
 						transition={{ duration: ANIMATION_DURATIONS.slow, ease: ANIMATION_EASINGS.easeOut, delay: ANIMATION_DELAYS.short }}

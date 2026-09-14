@@ -14,7 +14,7 @@ export default function BlogInnerHero({ background, title } : any) {
       <div className="layout-wrapper flex flex-col justify-center items-center h-screen relative z-10">
         {/* Left Column */}
         <div className="col-span-24 flex flex-col justify-center gap-4 z-4 text-center">
-          <h1 className="font-archivo uppercase hero-title font-black drop-shadow-lg text-gradient-starbright mb-12">
+          <h1 className="font-sans uppercase hero-title font-black drop-shadow-lg text-gradient-starbright mb-12">
             {title}
           </h1>
         </div>

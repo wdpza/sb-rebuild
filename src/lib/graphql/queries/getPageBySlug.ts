@@ -1,334 +1,354 @@
 import { gql } from "graphql-request";
 
 export const GET_PAGE_BY_SLUG = gql`
-    query GetPageBySlug($slug: ID!) {
-    page(id: $slug, idType: URI) {
+query GetPageBySlug($slug: ID!) {
+  page(id: $slug, idType: URI) {
+    title
+    slug
+    shared {
+      schema
+    }
+    seo {
       title
-      slug
-      shared {
-        schema
-      }
-      seo {
+      description
+      canonicalUrl
+      focusKeywords
+      robots
+      openGraph {
         title
         description
-        canonicalUrl
-        focusKeywords
-        robots
-        openGraph {
+        url
+        type
+        locale
+        siteName
+        image {
+          url
+          width
+          height
+          type
+        }
+        twitterMeta {
+          card
+          site
+          creator
           title
           description
-          url
-          type
-          locale
-          siteName
-          image {
-            url
-            width
-            height
-            type
-          }
-          twitterMeta {
-            card
-            site
-            creator
-            title
-            description
-            image
-          }
+          image
         }
       }
-      pageFieldGroup {
-        pageBuilder {
-          __typename
-          ... on PageFieldGroupPageBuilderHeroLayout {
+    }
+    pageFieldGroup {
+      pageBuilder {
+        __typename
+        ... on PageFieldGroupPageBuilderHeroLayout {
+          title
+          description
+          subTitle
+          background {
+            node {
+              mediaItemUrl
+            }
+          }
+          image {
+            node {
+              mediaItemUrl
+            }
+          }
+          ctaLink {
+            url
+            title
+          }
+          showContactForm
+          forms {
+            showForm
+            fieldGroupName
+            gravityFormId
+          }
+          design
+        }
+        ... on PageFieldGroupPageBuilderServicesAccordionLayout {
+          content {
             title
             description
-            subTitle
-            background {
-              node {
-                mediaItemUrl
-              }
-            }
-            image {
-              node {
-                mediaItemUrl
-              }
-            }
-            ctaLink {
-              url
-              title
-            }
-            showContactForm
-            forms {
-              showForm
-              fieldGroupName
-              gravityFormId
-            }
-            design
           }
-          ... on PageFieldGroupPageBuilderServicesAccordionLayout {
-            content {
-              title
-              description
-            }
-          }
-          ... on PageFieldGroupPageBuilderLogoSliderLayout {
+        }
+        ... on PageFieldGroupPageBuilderLogoSliderLayout {
+          logo {
             logo {
-              logo {
-                node {
-                  altText
-                  mediaItemUrl
-                }
-              }
-            }
-          }
-          ... on PageFieldGroupPageBuilderPortfolioSectionLayout {
-            numberOfItems
-            title
-            backgroundImage {
               node {
                 altText
                 mediaItemUrl
               }
             }
           }
-          ... on PageFieldGroupPageBuilderBusinessSolutionsLayout {
-            numberOfItems
-            title
-          }
-          ... on PageFieldGroupPageBuilderStatsSectionLayout {
-            statsFirst
-            statsSecond
-            statsThird
-          }
-          ... on PageFieldGroupPageBuilderExitSectionLayout {
-            title
-            backgroundImage {
-              node {
-                altText
-                mediaItemUrl
-              }
+        }
+        ... on PageFieldGroupPageBuilderPortfolioSectionLayout {
+          numberOfItems
+          title
+          backgroundImage {
+            node {
+              altText
+              mediaItemUrl
             }
-            ctaLink {
-              target
-              title
-              url
-            }
-            backgroundOverlay
           }
-          ... on PageFieldGroupPageBuilderTeamsSectionLayout {
+        }
+        ... on PageFieldGroupPageBuilderBusinessSolutionsLayout {
+          numberOfItems
+          title
+        }
+        ... on PageFieldGroupPageBuilderStatsSectionLayout {
+          statsFirst
+          statsSecond
+          statsThird
+        }
+        ... on PageFieldGroupPageBuilderExitSectionLayout {
+          title
+          backgroundImage {
+            node {
+              altText
+              mediaItemUrl
+            }
+          }
+          ctaLink {
+            target
+            title
+            url
+          }
+          backgroundOverlay
+        }
+        ... on PageFieldGroupPageBuilderTeamsSectionLayout {
+          description
+          subTitle
+          title
+          backgroundImage {
+            node {
+              altText
+              mediaItemUrl
+            }
+          }
+        }
+        ... on PageFieldGroupPageBuilderCertificationSectionLayout {
+          fieldGroupName
+          certificates {
             description
-            subTitle
-            title
-            backgroundImage {
-              node {
-                altText
-                mediaItemUrl
-              }
-            }
-          }
-          ... on PageFieldGroupPageBuilderCertificationSectionLayout {
-            fieldGroupName
-            certificates {
-              description
-              logo {
-                node {
-                  altText
-                  mediaItemUrl
-                }
-              }
-              title
-            }
-          }
-          ... on PageFieldGroupPageBuilderEmployeeCarouselLayout {
-            description
-            employeePhotos {
-              nodes {
-                altText
-                mediaItemUrl
-              }
-            }
-            title
-            backgroundImage {
-              node {
-                altText
-                mediaItemUrl
-              }
-            }
-          }
-          ... on PageFieldGroupPageBuilderLeftGallerySectionLayout {
-            description
-            fieldGroupName
-            gallery {
-              nodes {
-                altText
-                mediaItemUrl
-              }
-            }
-            title
-            backgroundImage {
-              node {
-                altText
-                mediaItemUrl
-              }
-            }
-          }
-          ... on PageFieldGroupPageBuilderRightImageSectionLayout {
-            description
-            fieldGroupName
-            image {
+            logo {
               node {
                 altText
                 mediaItemUrl
               }
             }
             title
-            backgroundImage {
-              node {
-                altText
-                mediaItemUrl
-              }
+          }
+        }
+        ... on PageFieldGroupPageBuilderEmployeeCarouselLayout {
+          description
+          employeePhotos {
+            nodes {
+              altText
+              mediaItemUrl
             }
           }
-          ... on PageFieldGroupPageBuilderCaseStudiesLayout {
-            numberOfItems
+          title
+          backgroundImage {
+            node {
+              altText
+              mediaItemUrl
+            }
+          }
+        }
+        ... on PageFieldGroupPageBuilderLeftGallerySectionLayout {
+          description
+          fieldGroupName
+          gallery {
+            nodes {
+              altText
+              mediaItemUrl
+            }
+          }
+          title
+          backgroundImage {
+            node {
+              altText
+              mediaItemUrl
+            }
+          }
+        }
+        ... on PageFieldGroupPageBuilderRightImageSectionLayout {
+          description
+          fieldGroupName
+          image {
+            node {
+              altText
+              mediaItemUrl
+            }
+          }
+          title
+          backgroundImage {
+            node {
+              altText
+              mediaItemUrl
+            }
+          }
+        }
+        ... on PageFieldGroupPageBuilderCaseStudiesLayout {
+          numberOfItems
+          title
+        }
+        ... on PageFieldGroupPageBuilderTextWHeadingLayoutLayout {
+          description
+          title
+          ctaLink {
+            target
             title
+            url
           }
-          ... on PageFieldGroupPageBuilderTextWHeadingLayoutLayout {
-            description
-            title
-            ctaLink {
-              target
-              title
-              url
+          backgroundImage {
+            node {
+              altText
+              mediaItemUrl
             }
-            backgroundImage {
-              node {
-                altText
-                mediaItemUrl
-              }
-            }
-            alignment
           }
-          ... on PageFieldGroupPageBuilderPortfolioTabsLayout {
-            fieldGroupName
-            categories {
-              nodes {
+          alignment
+        }
+        ... on PageFieldGroupPageBuilderPortfolioTabsLayout {
+          fieldGroupName
+          categories {
+            nodes {
+              name
+              ... on PortfolioCategory {
+                id
                 name
-                ... on PortfolioCategory {
-                  id
-                  name
-                  portfolioCategoryFields {
-                    categoryImages {
-                      image {
-                        node {
-                          altText
-                          filePath
-                        }
+                portfolioCategoryFields {
+                  categoryImages {
+                    image {
+                      node {
+                        altText
+                        filePath
                       }
                     }
                   }
                 }
               }
             }
-            backgroundImage {
-              node {
-                filePath
-              }
-            }
           }
-          ... on PageFieldGroupPageBuilderFormLayout {
-            fieldGroupName
-            formId
-            title
-            backgroundImage {
-              node {
-                altText
-                filePath
-              }
-            }
-            titleAlign
-            padding
-          }
-          ... on PageFieldGroupPageBuilderWhyWorkWithUsSectionLayout {
-            introTitle
-            introText
-            item {
-              description
-              title
-              ctaLink {
-                title
-                url
-              }
-            }
-            backgroundImage {
-              node {
-                altText
-                mediaItemUrl
-              }
-            }
-            ctaButtonGroup {
-              buttonLabel
-              ctaButtonUrl {
-                nodes {
-                  uri
-                  slug
-                  link
-                }
-              }
-            }
-            style
-            columns
-          }
-          ... on PageFieldGroupPageBuilderEditorBlockLayout {
-            blockContent
-            fieldGroupName
-          }
-          ... on PageFieldGroupPageBuilderFaqSectionLayout {
-            fieldGroupName
-            introTitle
-            item {
-              description
-              fieldGroupName
-              title
-            }
-          }
-          ... on PageFieldGroupPageBuilderGoogleReviewsLayout {
-            fieldGroupName
-          }
-          ... on PageFieldGroupPageBuilderWysiwygImageLeftLayout {
-            editorContent
-            fieldGroupName
-            ctaOptional {
-              title
-              url
-              target
-            }
-            image {
-              node {
-                altText
-                mediaItemUrl
-              }
-            }
-          }
-          ... on PageFieldGroupPageBuilderWysiwygImageRightLayout {
-            editorContent
-            fieldGroupName
-            ctaOptional {
-              target
-              title
-              url
-            }
-            image {
-              node {
-                altText
-                mediaItemUrl
-              }
+          backgroundImage {
+            node {
+              filePath
             }
           }
         }
-        sourceId
+        ... on PageFieldGroupPageBuilderFormLayout {
+          fieldGroupName
+          formId
+          title
+          backgroundImage {
+            node {
+              altText
+              filePath
+            }
+          }
+          titleAlign
+          padding
+        }
+        ... on PageFieldGroupPageBuilderWhyWorkWithUsSectionLayout {
+          introTitle
+          introText
+          item {
+            description
+            title
+            ctaLink {
+              title
+              url
+            }
+          }
+          backgroundImage {
+            node {
+              altText
+              mediaItemUrl
+            }
+          }
+          ctaButtonGroup {
+            buttonLabel
+            ctaButtonUrl {
+              nodes {
+                uri
+                slug
+                link
+              }
+            }
+          }
+          style
+          columns
+        }
+        ... on PageFieldGroupPageBuilderEditorBlockLayout {
+          blockContent
+          fieldGroupName
+        }
+        ... on PageFieldGroupPageBuilderFaqSectionLayout {
+          fieldGroupName
+          introTitle
+          item {
+            description
+            fieldGroupName
+            title
+          }
+        }
+        ... on PageFieldGroupPageBuilderGoogleReviewsLayout {
+          fieldGroupName
+        }
+        ... on PageFieldGroupPageBuilderWysiwygImageLeftLayout {
+          editorContent
+          fieldGroupName
+          ctaOptional {
+            title
+            url
+            target
+          }
+          image {
+            node {
+              altText
+              mediaItemUrl
+            }
+          }
+        }
+        ... on PageFieldGroupPageBuilderWysiwygImageRightLayout {
+          editorContent
+          fieldGroupName
+          ctaOptional {
+            target
+            title
+            url
+          }
+          image {
+            node {
+              altText
+              mediaItemUrl
+            }
+          }
+        }
+        ... on PageFieldGroupPageBuilderHeroRevisedLayout {
+          description
+          fieldGroupName
+          background {
+            node {
+              mediaItemUrl
+            }
+          }
+          ctaFirstLink {
+            target
+            title
+            url
+          }
+          ctaSecondLink {
+            target
+            title
+            url
+          }
+          subTitle
+        }
       }
+      sourceId
     }
   }
+}
 `;

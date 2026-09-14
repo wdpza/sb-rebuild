@@ -42,7 +42,7 @@ export default function CaseStudyHero({ item }: { item: CaseStudy }) {
 							priority
 						/>
 					) : null}
-					<h1 className="font-archivo uppercase hero-title font-black drop-shadow-lg text-gradient-starbright text-center">
+					<h1 className="font-sans uppercase hero-title font-black drop-shadow-lg text-gradient-starbright text-center">
 						{title}
 					</h1>
 

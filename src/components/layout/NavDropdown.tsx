@@ -23,7 +23,7 @@ export default function NavDropdown({
       {/* Trigger */}
       <button
         type="button"
-        className="cursor-pointer text-neutral-softest text-xl transition inline-flex items-center gap-2 px-1 font-light"
+        className="header-nav-link cursor-pointer inline-flex items-center gap-2"
         onClick={() =>
           setOpenIndex(prev => (prev === index ? null : index))
         }
@@ -53,7 +53,7 @@ export default function NavDropdown({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 4, scale: 0.98 }}
             transition={{ duration: 0.18, ease: "easeOut" }}
-            className="absolute right-0 mt-4 z-50 bg-[#171717] p-10 shadow-xl rounded-xl w-6xl"
+            className="absolute left-1/2 top-full -translate-x-1/2 mt-4 z-50 bg-[#171717] p-6 lg:p-10 shadow-xl rounded-xl w-[min(72rem,calc(100vw-2rem))]"
           >
             <MegaMenu
               item={item}
