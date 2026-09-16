@@ -66,7 +66,7 @@ design
 			<div className={`relative z-10 grid layout-wrapper grid-cols-1 md:grid-cols-24 gap-2 ${paddingY} ${title ? "min-h-screen" : "h-[160px]"}`}>
 
 				{/* Left column */}
-				<div className={`${colSpanLeft} flex flex-col justify-center text-left gap-8 md:gap-4 mt-12 z-4`}>
+				<div className={`${colSpanLeft} flex w-full max-w-[600px] flex-col justify-center text-left gap-8 md:gap-4 mt-12 z-4`}>
 
 					{title && (
 						<motion.h1

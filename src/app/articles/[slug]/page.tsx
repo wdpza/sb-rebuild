@@ -1,4 +1,5 @@
-import { getCategoryBySlug } from "@/lib/graphql/queries/getCategoryBySlug";
+import { getCategoryBySlug, getCategoryPostPagination } from "@/lib/graphql/queries/getCategoryBySlug";
+import BlogPagination from "@/components/blog/BlogPagination";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -7,12 +8,22 @@ export default async function ArticlesSlugPage({
     searchParams,
 }: {
     params: Promise<{ slug: string }>;
-    searchParams?: Promise<{ after?: string | null }>;
+    searchParams?: Promise<{ page?: string | null; s?: string | null; sort?: string | null }>;
 }) {
     const { slug } = await params;
-    const after = (await searchParams)?.after ?? null;
+    const resolvedSearchParams = await searchParams;
+    const search = resolvedSearchParams?.s ?? null;
+    const isOldestFirst = resolvedSearchParams?.sort === "oldest";
+    const order = isOldestFirst ? "ASC" : "DESC";
 
-    const category = await getCategoryBySlug(slug, 10, after);
+    const postsPerPage = 10;
+    const cursors = await getCategoryPostPagination(slug, search, order);
+    const totalPages = Math.max(1, Math.ceil(cursors.length / postsPerPage));
+    const requestedPage = Number.parseInt(resolvedSearchParams?.page ?? "1", 10);
+    const currentPage = Math.min(Math.max(Number.isFinite(requestedPage) ? requestedPage : 1, 1), totalPages);
+    const after = currentPage > 1 ? cursors[(currentPage - 1) * postsPerPage - 1] : null;
+
+    const category = await getCategoryBySlug(slug, postsPerPage, after, search, order);
 
     if (!category) {
         return (
@@ -23,11 +34,16 @@ export default async function ArticlesSlugPage({
     }
 
     const posts = category.posts?.nodes ?? [];
-    const { hasNextPage, endCursor } = category.posts?.pageInfo ?? {};
-
     return (
         <div className="w-full">
-            <h1 className="mb-10 text-[32px] font-bold text-neutral-softest">{category.name}</h1>
+            <h1 className="mb-2 text-[32px] font-bold text-neutral-softest">{category.name}</h1>
+            <Link
+                href={`/articles/${slug}?sort=${isOldestFirst ? "newest" : "oldest"}${search ? `&s=${encodeURIComponent(search)}` : ""}`}
+                className="mb-10 inline-flex cursor-pointer items-center gap-2 text-[24px] font-normal text-neutral-softest transition-colors hover:text-white"
+            >
+                Sort By {isOldestFirst ? "Oldest" : "Newest"}
+                <span aria-hidden="true" className="text-[18px]">{isOldestFirst ? "↑" : "↓"}</span>
+            </Link>
 
             {posts.length === 0 ? (
                 <p className="text-gray-400">No posts found in this category.</p>
@@ -45,7 +61,7 @@ export default async function ArticlesSlugPage({
                             >
                                 {/* Featured Image or Placeholder */}
                                 {post.featuredImage?.node?.sourceUrl ? (
-                                    <div className="relative aspect-square w-full overflow-hidden rounded-sm">
+                                    <div className="relative h-[300px] max-h-[300px] w-full overflow-hidden rounded-sm">
                                         <Image
                                             src={post.featuredImage.node.sourceUrl}
                                             alt={post.featuredImage.node.altText || post.title}
@@ -55,7 +71,7 @@ export default async function ArticlesSlugPage({
                                         />
                                     </div>
                                 ) : (
-                                    <div className="flex aspect-square w-full items-center justify-center rounded-sm bg-neutral-strong">
+                                    <div className="flex h-[300px] max-h-[300px] w-full items-center justify-center rounded-sm bg-neutral-strong">
                                         <span className="text-neutral-softest text-sm tracking-wide uppercase">
                                             No Image Available
                                         </span>
@@ -87,20 +103,7 @@ export default async function ArticlesSlugPage({
                 </div>
             )}
 
-            {/* Pagination */}
-            {hasNextPage && (
-                <div className="text-center mt-10 hidden">
-                    <Link
-                        href={{
-                            pathname: `/articles/${slug}`,
-                            query: { after: endCursor },
-                        }}
-                        className="inline-block px-6 py-3 bg-accent-strong text-neutral-softest font-semibold rounded hover:bg-accent-strong/90 transition-all duration-300"
-                    >
-                        Next Page →
-                    </Link>
-                </div>
-            )}
+            <BlogPagination pathname={`/articles/${slug}`} currentPage={currentPage} totalPages={totalPages} search={search} sort={isOldestFirst ? "oldest" : "newest"} />
         </div>
     );
 }

@@ -19,9 +19,9 @@ export default function TermsConditionsHero({ options }: any) {
                 backgroundImage: background ? `url(${background})` : undefined,
             }}
         >
-            <div className="h-screen relative z-10 grid w-full max-w-[1600px] mx-auto grid-cols-1 md:grid-cols-24 gap-2 px-12 py-24">
+            <div className="h-screen relative z-10 grid w-full max-w-[1400px] mx-auto grid-cols-1 md:grid-cols-24 gap-2 px-12 py-24">
                 {/* Left column: title, subtitle, description, anchor */}
-                <div className="col-span-13 flex flex-col justify-center text-left gap-4 z-4">
+                <div className="col-span-13 flex w-full max-w-[600px] flex-col justify-center text-left gap-4 z-4">
                     <h1 className="font-sans uppercase hero-title font-black drop-shadow-lg text-gradient-starbright text-center md:text-left">
                         {title}
                     </h1>

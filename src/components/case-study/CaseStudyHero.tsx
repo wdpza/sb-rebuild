@@ -31,7 +31,7 @@ export default function CaseStudyHero({ item }: { item: CaseStudy }) {
 		>
 			<div className="layout-wrapper h-screen relative z-10 justify-center content-center">
 				{/* Left Column */}
-				<div className="flex flex-col justify-center gap-4">
+				<div className="mx-auto flex w-full max-w-[600px] flex-col justify-center gap-4">
 					{logoImg ? (
 						<Image
 							className="self-center mb-12"

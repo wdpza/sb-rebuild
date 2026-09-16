@@ -1,24 +1,24 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 
-export default function ScrollToTopOnEnter() {
+export default function ScrollToTopOnEnter({ pathPrefix = "/portfolio" }: { pathPrefix?: string }) {
   const pathname = usePathname();
   const prevPathRef = useRef<string | null>(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const prevPath = prevPathRef.current;
-    const isEnteringPortfolio =
-      pathname.startsWith("/portfolio") &&
-      (prevPath === null || !prevPath.startsWith("/portfolio"));
+    const isEnteringSection =
+      pathname.startsWith(pathPrefix) &&
+      (prevPath === null || !prevPath.startsWith(pathPrefix));
 
-    if (isEnteringPortfolio) {
+    if (isEnteringSection) {
       window.scrollTo({ top: 0, behavior: "instant" });
     }
 
     prevPathRef.current = pathname;
-  }, [pathname]);
+  }, [pathname, pathPrefix]);
 
   return null;
 }

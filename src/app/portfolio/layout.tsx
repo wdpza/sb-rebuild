@@ -24,7 +24,7 @@ export default async function PortfolioLayout({ children }: { children: React.Re
                     backgroundImage: bgUrl ? `url(${bgUrl})` : undefined,
                 }}
             >
-                <div className="grid w-full max-w-[1600px] mx-auto px-12 py-16 bg-cover bg-center bg-[url(/bg.svg)]">
+                <div className="grid w-full max-w-[1400px] mx-auto px-12 py-16 bg-cover bg-center bg-[url(/bg.svg)]">
                     <PortfolioCategories portfolioOptions={portfolioOptions} />
                     {children}
                 </div>

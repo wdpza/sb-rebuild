@@ -24,7 +24,7 @@ export default function CertificationSectionLayout({
 	return (
 		<section className="py-20 bg-white">
 			<div className="layout-wrapper">
-				<div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-6 max-w-[1600px] mx-auto">
+				<div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-6 max-w-[1400px] mx-auto">
 					{certificates.map((certificate) => {
 						const src = certificate.logo?.node?.mediaItemUrl ?? "";
 						const alt =

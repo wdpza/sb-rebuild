@@ -38,7 +38,7 @@ useEffect(() => {
 
   return (
     <section className="relative py-12 flex w-full items-center bg-[#28262C] overflow-hidden">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-[1600px] mx-auto w-full items-center">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-[1400px] mx-auto w-full items-center">
         {/* Left Section */}
         <div className="flex flex-col justify-center items-center lg:items-start text-center lg:text-left px-6">
           <h2 className="subtitle font-bold text-neutral-softest mb-4">{title}</h2>

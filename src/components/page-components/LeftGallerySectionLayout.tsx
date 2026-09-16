@@ -92,7 +92,7 @@ export default function LeftGallerySectionLayout({
 				/>
 			)}
 			<div className="relative z-10 layout-wrapper">
-				<div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-[1600px] mr-auto items-center">
+				<div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-[1400px] mr-auto items-center">
 					{/* Left: gallery */}
 					<div className="-ml-8 hidden sm:block">
 						<Slider {...settings} className="!overflow-visible">

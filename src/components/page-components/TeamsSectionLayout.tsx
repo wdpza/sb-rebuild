@@ -57,7 +57,7 @@ export default async function TeamsSectionLayout({ description, subTitle, title,
 					</p>
 				)}
 
-				<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-12 max-w-[1600px] mx-auto">
+				<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-12 max-w-[1400px] mx-auto">
 					{TeamMember.map((m: TeamMember) => {
 						const normalImg = m.teamMemberFields?.profileNormal?.node;
 						const hoverImg = m.teamMemberFields?.profileHover?.node;

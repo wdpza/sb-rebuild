@@ -46,7 +46,7 @@ export default function TextHeadingBlock({
       {/* Optional overlay if you plan to add one later */}
       {/* <div className="absolute inset-0 bg-black/40" /> */}
 
-      <div className={`relative z-10 w-full max-w-[1600px] mx-auto flex flex-col text-neutral-softest px-6 ${ alignment ? `text-${alignment}` : '' }`}>
+      <div className={`relative z-10 w-full max-w-[1400px] mx-auto flex flex-col text-neutral-softest px-6 ${ alignment ? `text-${alignment}` : '' }`}>
         {title ? (
           <h2 className="subtitle font-bold mb-12 text-gradient-starbright">
             {title}

@@ -27,6 +27,7 @@ export default function NavMenu({
 	setOpenIndex,
 }: NavMenuProps) {
 	const buildHref = (item: MenuNode): string => {
+		if (item?.label?.trim().toLowerCase() === "blog") return "/articles#articles-top";
 		if (item?.connectedObject?.slug) return `/${item.connectedObject.slug}`;
 		if (item?.uri) return item.uri;
 		return item?.url ?? "#";

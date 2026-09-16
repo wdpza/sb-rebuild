@@ -12,7 +12,7 @@ export default function GoogleReviewBoosterLayout({ features, image }: any) {
 
     return (
         <section id="review-booster" className="relative py-12 flex w-full items-center bg-[#28262C] overflow-hidden text-neutral-softest">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-[1600px] mx-auto w-full items-center px-4 md:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-[1400px] mx-auto w-full items-center px-4 md:px-8">
 
                 {/* --- Column 1: Left Features (Items 1 & 2) --- */}
                 <div className="flex flex-col gap-y-8 lg:text-right">

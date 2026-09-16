@@ -2,7 +2,7 @@ import { gql } from "graphql-request";
 import { client } from "@/lib/graphql/client";
 
 export const GET_ALL_POSTS = gql`
-    query GetAllPosts($first: Int, $after: String, $last: Int, $before: String) {
+    query GetAllPosts($first: Int, $after: String, $last: Int, $before: String, $search: String, $order: OrderEnum = DESC) {
         readingSettings {
             postsPerPage
         }
@@ -45,10 +45,11 @@ export const GET_ALL_POSTS = gql`
         categories {
             nodes {
             name
+            slug
             uri
             }
         }
-        posts(first: $first, after: $after, last: $last, before: $before) {
+        posts(first: $first, after: $after, last: $last, before: $before, where: { search: $search, orderby: { field: DATE, order: $order } }) {
             pageInfo {
             hasNextPage
             hasPreviousPage
@@ -73,15 +74,37 @@ export const GET_ALL_POSTS = gql`
     }
 `;
 
+export const GET_POST_PAGINATION = gql`
+    query GetPostPagination($search: String, $order: OrderEnum = DESC) {
+        posts(first: 1000, where: { search: $search, orderby: { field: DATE, order: $order } }) {
+            edges {
+                cursor
+            }
+        }
+    }
+`;
+
+export async function getPostPagination(search?: string | null, order: "ASC" | "DESC" = "DESC") {
+    try {
+        const data: any = await client.request(GET_POST_PAGINATION, { search, order });
+        return (data?.posts?.edges ?? []).map((edge: { cursor: string }) => edge.cursor);
+    } catch (err) {
+        console.error("Error fetching post pagination:", err);
+        return [];
+    }
+}
+
 export async function getAllPosts(options?: {
     first?: number | null;
     after?: string | null;
     last?: number | null;
     before?: string | null;
+    search?: string | null;
+    order?: "ASC" | "DESC";
 }) {
-    const { first, after, last, before } = options ?? {};
+    const { first, after, last, before, search, order = "DESC" } = options ?? {};
     try {
-        const data: any = await client.request(GET_ALL_POSTS, { first, after, last, before });
+        const data: any = await client.request(GET_ALL_POSTS, { first, after, last, before, search, order });
         const postsPerPage: number = data?.readingSettings?.postsPerPage ?? 10;
 
         return {

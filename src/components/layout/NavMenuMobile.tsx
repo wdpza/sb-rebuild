@@ -20,6 +20,7 @@ type NavMenuMobileProps = {
 
 export default function NavMenuMobile({ tree: _tree, flatItems }: NavMenuMobileProps) {
 	const buildHref = (item: MenuItem): string => {
+		if (item?.label?.trim().toLowerCase() === "blog") return "/articles#articles-top";
 		if (item?.connectedObject?.slug) return `/${item.connectedObject.slug}`;
 		if (item?.uri) return item.uri ?? "#";
 		return item?.url ?? "#";

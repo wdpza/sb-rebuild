@@ -1,21 +1,29 @@
 import Link from "next/link";
 import Image from "next/image";
 
-import { getAllPosts } from "@/lib/graphql/queries/getAllPosts";
+import { getAllPosts, getPostPagination } from "@/lib/graphql/queries/getAllPosts";
+import BlogPagination from "@/components/blog/BlogPagination";
 
 interface BlogPageProps {
-    searchParams: Promise<{ after?: string; before?: string }>;
+    searchParams: Promise<{ page?: string; s?: string; sort?: string }>;
 }
 
 export default async function BlogPage({ searchParams }: BlogPageProps) {
-    const { after, before } = await searchParams;
+    const { page: pageParam, s, sort } = await searchParams;
+    const isOldestFirst = sort === "oldest";
+    const order = isOldestFirst ? "ASC" : "DESC";
+    const sortHref = `/articles?sort=${isOldestFirst ? "newest" : "oldest"}${s ? `&s=${encodeURIComponent(s)}` : ""}`;
 
-    // Fetch the postsPerPage setting first to use as page size
-    const { postsPerPage } = await getAllPosts({});
+    const [{ postsPerPage }, cursors] = await Promise.all([
+        getAllPosts({}),
+        getPostPagination(s, order),
+    ]);
+    const totalPages = Math.max(1, Math.ceil(cursors.length / postsPerPage));
+    const requestedPage = Number.parseInt(pageParam ?? "1", 10);
+    const currentPage = Math.min(Math.max(Number.isFinite(requestedPage) ? requestedPage : 1, 1), totalPages);
+    const after = currentPage > 1 ? cursors[(currentPage - 1) * postsPerPage - 1] : undefined;
 
-    const { posts } = before
-        ? await getAllPosts({ last: postsPerPage, before })
-        : await getAllPosts({ first: postsPerPage, after });
+    const { posts } = await getAllPosts({ first: postsPerPage, after, search: s, order });
 
     if (!posts?.nodes?.length) {
         return (
@@ -26,10 +34,12 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
         );
     }
 
-    const { hasNextPage, hasPreviousPage, startCursor, endCursor } = posts.pageInfo;
-
     return (
         <div className="w-full">
+            <Link href={sortHref} className="mb-10 inline-flex cursor-pointer items-center gap-2 text-[24px] font-normal text-neutral-softest transition-colors hover:text-white">
+                Sort By {isOldestFirst ? "Oldest" : "Newest"}
+                <span aria-hidden="true" className="text-[18px]">{isOldestFirst ? "↑" : "↓"}</span>
+            </Link>
             <div className="flex flex-col gap-10">
                 {posts.nodes.map((post: any) => {
                     const formattedDate = post.date
@@ -43,7 +53,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
                         >
                             {/* Featured Image or Placeholder */}
                             {post.featuredImage?.node?.sourceUrl ? (
-                                <div className="relative aspect-square w-full overflow-hidden rounded-sm">
+                                <div className="relative h-[300px] max-h-[300px] w-full overflow-hidden rounded-sm">
                                     <Image
                                         src={post.featuredImage.node.sourceUrl}
                                         alt={post.featuredImage.node.altText || post.title}
@@ -53,7 +63,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
                                     />
                                 </div>
                             ) : (
-                                <div className="flex aspect-square w-full items-center justify-center rounded-sm bg-neutral-strong">
+                                <div className="flex h-[300px] max-h-[300px] w-full items-center justify-center rounded-sm bg-neutral-strong">
                                     <span className="text-neutral-softest text-sm tracking-wide uppercase">
                                         No Image Available
                                     </span>
@@ -84,32 +94,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
                 })}
             </div>
 
-            {/* Pagination */}
-            {(hasPreviousPage || hasNextPage) && (
-                <div className="mt-14 flex items-center justify-center gap-4 border-t border-neutral-strong pt-7">
-                    {hasPreviousPage && startCursor ? (
-                        <Link
-                            href={`/articles?before=${encodeURIComponent(startCursor)}`}
-                            className="text-sm inline-block gradient-border rounded py-2 px-6 text-neutral-softest"
-                        >
-                            &larr; Previous
-                        </Link>
-                    ) : (
-                        <span />
-                    )}
-
-                    {hasNextPage && endCursor ? (
-                        <Link
-                            href={`/articles?after=${encodeURIComponent(endCursor)}`}
-                            className="text-sm inline-block gradient-border rounded py-2 px-6 text-neutral-softest"
-                        >
-                            Next &rarr;
-                        </Link>
-                    ) : (
-                        <span />
-                    )}
-                </div>
-            )}
+            <BlogPagination pathname="/articles" currentPage={currentPage} totalPages={totalPages} search={s} sort={isOldestFirst ? "oldest" : "newest"} />
         </div>
     );
 }

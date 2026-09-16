@@ -79,7 +79,7 @@
     margin-bottom: 15px;
   }
   .layout-wrapper {
-    @apply container max-w-[1600px] w-full mx-auto;
+    @apply container max-w-[1400px] w-full mx-auto;
     padding-inline: calc(var(--spacing) * 4);
   }
 
@@ -175,6 +175,21 @@
   .article-slug-page h2,
   .article-slug-page h4,
   .text-gradient-starbright {
+    background: linear-gradient(
+      99deg,
+      var(--color-blue-softer, #36aefa) 0%,
+      var(--color-purple-regular, #bd208b) 37.5%,
+      var(--color-orange-regular, #f15d22) 87.02%,
+      var(--color-yellow-regular, #eeb42c) 99.99%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .blog-pagination-link:hover,
+  .blog-pagination-link.is-active {
     background: linear-gradient(
       99deg,
       var(--color-blue-softer, #36aefa) 0%,
@@ -585,8 +600,8 @@ body {
   font-family: var(--font-figtree), sans-serif;
 }
 
-.max-w-\[1600px\] {
-  max-width: 1600px;
+.max-w-\[1400px\] {
+  max-width: 1400px;
 }
 
 /* WordPress content alignment */

@@ -45,7 +45,7 @@ export default function TermsConditionsContent({ options }: TermsConditionsProps
 	return (
 		<div
 			id="terms_conditions"
-			className="grid w-full max-w-[1600px] mx-auto grid-cols-1 lg:grid-cols-8 gap-8 px-4 sm:px-8 lg:px-12 py-10 sm:py-16"
+			className="grid w-full max-w-[1400px] mx-auto grid-cols-1 lg:grid-cols-8 gap-8 px-4 sm:px-8 lg:px-12 py-10 sm:py-16"
 		>
 			{/* Sidebar */}
 			<div className="lg:col-span-2">
