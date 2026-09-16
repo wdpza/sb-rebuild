@@ -302,19 +302,8 @@
   .gradient-border {
     transition: 0.6s ease;
     border: 2px solid transparent;
-    background: linear-gradient(
-      99deg,
-      var(--color-blue-softer, #36aefa) 0%,
-      var(--color-purple-regular, #bd208b) 37.5%,
-      var(--color-orange-regular, #f15d22) 87.02%,
-      var(--color-yellow-regular, #eeb42c) 99.99%
-    );
-    background-clip: padding-box, border-box;
-    background-position: 100% 0;
-  }
-
-  .gradient-border.active,
-  .gradient-border:hover {
+    padding: 6px 20px !important;
+    text-transform: none !important;
     background: linear-gradient(var(--btn-bg, #28262c), var(--btn-bg, #28262c))
         padding-box,
       linear-gradient(
@@ -325,6 +314,19 @@
           #eeb42c 99.99%
         )
         border-box;
+    background-clip: padding-box, border-box;
+    background-position: 100% 0;
+  }
+
+  .gradient-border.active,
+  .gradient-border:hover {
+    background: linear-gradient(
+      99deg,
+      var(--color-blue-softer, #36aefa) 0%,
+      var(--color-purple-regular, #bd208b) 37.5%,
+      var(--color-orange-regular, #f15d22) 87.02%,
+      var(--color-yellow-regular, #eeb42c) 99.99%
+    );
   }
 
   .gradient-border-set {
@@ -529,6 +531,14 @@ html {
 
 .case-study img.auto-width {
   width: auto !important;
+}
+
+.case-study .prose img,
+.case-study .prose img.auto-width {
+  display: block;
+  width: 100% !important;
+  max-width: none;
+  height: auto;
 }
 
 .text-neutral-softest strong {

@@ -6,6 +6,7 @@ export default function CategorySidebar({ categories }: any) {
 
   return (
     <aside className="category-sidebar">
+      <h2 className="mb-5 text-[18px] font-semibold text-neutral-softest">View Topics</h2>
       <ul className="space-y-3">
         {categories.map((category: any) => (
           <li key={category.uri}>

@@ -68,7 +68,7 @@ export default function TestimonialsLayoutSection({ title }: Props) {
 
     return (
         <section className="bg-[#28272d] px-5 py-16 text-white lg:py-20">
-            <div className="mx-auto w-full max-w-[1090px]">
+            <div className="mx-auto w-full max-w-[1400px]">
                 <div className="mb-10 flex items-center justify-between gap-6">
                     {title && (
                         <div className="text-[32px] font-bold leading-tight text-white md:text-[38px] [&_p]:m-0 [&_b]:text-[#f15d40] [&_strong]:text-[#f15d40]" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(title) }} />

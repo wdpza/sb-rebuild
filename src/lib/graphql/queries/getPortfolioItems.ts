@@ -38,6 +38,20 @@ export const GET_PORTFOLIO_ITEMS = gql`
                             mediaItemUrl
                         }
                     }
+                    relatedCaseStudy {
+                        nodes {
+                            ... on CaseStudy {
+                                title
+                                slug
+                                caseStudyCategories {
+                                    nodes {
+                                        name
+                                        slug
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }

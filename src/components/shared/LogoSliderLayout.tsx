@@ -27,9 +27,9 @@ export default function LogoSliderLayout({ logo, logos }: LogoSliderProps) {
                                 <Image
                                     src={node.mediaItemUrl!}
                                     alt={node.altText?.trim() || `Client logo ${index + 1}`}
-                                    width={120}
-                                    height={60}
-                                    sizes="100px"
+                                    width={160}
+                                    height={80}
+                                    sizes="130px"
                                     className={styles.logo}
                                 />
                             </div>

@@ -26,32 +26,36 @@ export default async function ArticlesSlugPage({
     const { hasNextPage, endCursor } = category.posts?.pageInfo ?? {};
 
     return (
-        <div className="mx-auto px-6">
-            <h1 className="text-[45px] font-bold mb-8 text-neutral-softest">{category.name}</h1>
+        <div className="w-full">
+            <h1 className="mb-10 text-[32px] font-bold text-neutral-softest">{category.name}</h1>
 
             {posts.length === 0 ? (
                 <p className="text-gray-400">No posts found in this category.</p>
             ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-1 gap-2">
+                <div className="flex flex-col gap-10">
                     {posts.map((post: any) => {
+                        const formattedDate = post.date
+                            ? new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric", year: "numeric" }).format(new Date(post.date))
+                            : null;
+
                         return (
-                            <div
+                            <article
                                 key={post.id}
-                                className="grid grid-cols-12 rounded overflow-hidden duration-200 mb-8"
+                                className="grid grid-cols-1 overflow-hidden md:grid-cols-[minmax(260px,0.9fr)_minmax(0,1.1fr)] md:gap-9"
                             >
                                 {/* Featured Image or Placeholder */}
                                 {post.featuredImage?.node?.sourceUrl ? (
-                                    <div className="relative w-full col-span-4 rounded">
+                                    <div className="relative aspect-square w-full overflow-hidden rounded-sm">
                                         <Image
                                             src={post.featuredImage.node.sourceUrl}
                                             alt={post.featuredImage.node.altText || post.title}
                                             fill
-                                            sizes="100vw"
-                                            className="object-cover object-center rounded-lg"
+                                            sizes="(min-width: 1280px) 380px, (min-width: 768px) 40vw, 100vw"
+                                            className="object-cover object-center"
                                         />
                                     </div>
                                 ) : (
-                                    <div className="w-full bg-neutral-strong flex items-center justify-center col-span-2">
+                                    <div className="flex aspect-square w-full items-center justify-center rounded-sm bg-neutral-strong">
                                         <span className="text-neutral-softest text-sm tracking-wide uppercase">
                                             No Image Available
                                         </span>
@@ -59,24 +63,25 @@ export default async function ArticlesSlugPage({
                                 )}
 
                                 {/* Article Content */}
-                                <div className="p-4 col-span-8 p-12">
-                                    <h2 className="font-bold mb-2 text-neutral-softest text-gradient-starbright text-4xl mb-12">
+                                <div className="flex flex-col justify-center px-1 py-7 md:py-4">
+                                    {formattedDate && <p className="mb-3 text-[12px] font-medium uppercase tracking-[0.08em] text-neutral-softer">{formattedDate}</p>}
+                                    <h2 className="mb-4 text-[24px] font-bold uppercase leading-[1.12] text-gradient-starbright md:text-[27px]">
                                         {post.title}
                                     </h2>
 
                                     <div
-                                        className="text-neutral-softer mb-8 line-clamp-3"
+                                        className="mb-5 line-clamp-3 text-[15px] leading-6 text-neutral-softer [&_p]:m-0"
                                         dangerouslySetInnerHTML={{ __html: post.excerpt }}
                                     />
 
                                     <Link
-                                        className="text-sm inline-block gradient-border rounded py-2 px-6 text-neutral-softest"
+                                        className="gradient-border inline-block w-fit rounded text-[13px] text-neutral-softest"
                                         href={`/article/${post.slug}`}
                                     >
                                         Read It!
                                     </Link>
                                 </div>
-                            </div>
+                            </article>
                         )
                     })}
                 </div>
