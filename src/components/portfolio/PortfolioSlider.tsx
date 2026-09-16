@@ -97,11 +97,11 @@ export default function PortfolioSlider({
                             </div>
 
                             <div className="portfolio-slide-content flex min-h-[190px] flex-col items-center px-4 pt-7 text-center">
-                                <h3 className="text-[40px] font-normal uppercase leading-tight">
+                                <h3 className="text-[48px] font-normal leading-tight">
                                     {caseStudy.title}
                                 </h3>
                                 {categories.length > 0 && (
-                                    <p className="mt-1 text-[40px] font-bold leading-tight">
+                                    <p className="mt-1 text-[34px] font-bold leading-tight">
                                         {categories.map((category) => category.name).join(" | ")}
                                     </p>
                                 )}
