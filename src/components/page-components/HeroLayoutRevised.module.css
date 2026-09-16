@@ -3,7 +3,7 @@
   isolation: isolate;
   display: grid;
   place-items: center;
-  min-height: clamp(480px, 46vw, 740px);
+  min-height: calc(100vh - 90px);
   overflow: hidden;
   padding: 150px 24px 120px;
   background: #141414;

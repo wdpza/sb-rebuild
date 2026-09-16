@@ -92,7 +92,12 @@ export async function POST(request: NextRequest) {
 				const numericFormId = typeof formId === 'string' ? parseInt(formId, 10) : formId;
 
 				// Map form field names to Gravity Forms field IDs
-				const fieldMapping: Record<string, string> = numericFormId === 3
+				const fieldMapping: Record<string, string> = numericFormId === 4
+					? {
+						name: "1",
+						email: "3"
+					}
+					: numericFormId === 3
 					? {
 						name: "1",
 						surname: "3",

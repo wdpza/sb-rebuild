@@ -16,12 +16,17 @@ import TextHeadingBlock from "@/components/page-components/TextHeadingBlock"
 import PortfolioTabsLayout from "./page-components/PortfolioTabsLayout"
 import FormLayout from "./page-components/FormLayout"
 import WhyWorkWithUs from "./service-components/WhyWorkWithUs"
+import WhyWorkWithUsRevised from "./service-components/WhyWorkWithUsRevised"
 import GoogleReviewsLayout from "./page-components/GoogleReviewsLayout"
 import EditorBlockLayout from "./page-components/EditorBlockLayout"
 import FaqSectionLayout from "./page-components/FaqSectionLayout"
 import WysiwygImageLeftLayout from "./page-components/WysiwygImageLeftLayout"
 import WysiwygImageRightLayout from "./page-components/WysiwygImageRightLayout"
+import WysiwygImageRightLayoutRevised from "./page-components/WysiwygImageRightLayoutRevised"
 import HeroLayoutRevised from "./page-components/HeroLayoutRevised"
+import TestimonialsLayoutSection from "./page-components/TestimonialsLayoutSection"
+import NewsletterLayoutSection from "./page-components/NewsletterLayoutSection"
+
 import type { PageRendererProps, PageBuilderBlock } from "@/types/common"
 import type { ServiceOption } from "@/lib/graphql/queries/getServicesForForm"
 
@@ -80,6 +85,14 @@ export default function PageRenderer({ pageBuilder, services, sourceId }: PageRe
 						return <WysiwygImageLeftLayout key={index} {...block} />;
 					case "PageFieldGroupPageBuilderWysiwygImageRightLayout":
 						return <WysiwygImageRightLayout key={index} {...block} />;
+					case "PageFieldGroupPageBuilderRightImageSectionRevisedLayout":
+						return <WysiwygImageRightLayoutRevised key={index} {...block} />;
+					case "PageFieldGroupPageBuilderWhyWorkWithUsSectionRevisedLayout":
+						return <WhyWorkWithUsRevised key={index} {...block} />;
+					case "PageFieldGroupPageBuilderTestimonialsLayout":
+						return <TestimonialsLayoutSection key={index} {...block} />;
+					case "PageFieldGroupPageBuilderNewsletterLayout":
+						return <NewsletterLayoutSection key={index} {...block} />;
 					default:
 						return null
 				}

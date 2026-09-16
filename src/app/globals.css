@@ -160,7 +160,7 @@
   }
 
   .home .text-heading .prose {
-    @apply text-xl md:max-w-sm;
+    @apply text-[24px] md:max-w-sm;
     max-width:70% !important;
     margin:0 auto;
     margin-bottom: 60px !important;

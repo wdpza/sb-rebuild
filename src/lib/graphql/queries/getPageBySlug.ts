@@ -346,6 +346,47 @@ query GetPageBySlug($slug: ID!) {
           }
           subTitle
         }
+        ... on PageFieldGroupPageBuilderWhyWorkWithUsSectionRevisedLayout {
+          columns
+          fieldGroupName
+          introText
+          introTitle
+          item {
+            ctaLink {
+              title
+              target
+              url
+            }
+            description
+            fieldGroupName
+            title
+          }
+        }
+        ... on PageFieldGroupPageBuilderRightImageSectionRevisedLayout {
+          title
+          description
+          fieldGroupName
+          backgroundImage {
+            node {
+              mediaItemUrl
+            }
+          }
+          image {
+            node {
+              altText
+              mediaItemUrl
+            }
+          }
+        }
+        ... on PageFieldGroupPageBuilderTestimonialsLayout {
+          fieldGroupName
+          title
+        }
+        ... on PageFieldGroupPageBuilderNewsletterLayout {
+          description
+          fieldGroupName
+          title
+        }
       }
       sourceId
     }
