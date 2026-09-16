@@ -94,13 +94,13 @@ export default function TestimonialsLayoutSection({ title }: Props) {
                         <a href="https://www.google.com/maps/place/Starbright+Solutions/@-25.8620919,28.2548587,17z/data=!4m8!3m7!1s0x1e9567b2038ef8b5:0x33cb256256ff63c5!8m2!3d-25.8620919!4d28.257439!9m1!1b1!16s%2Fg%2F11_v1dbm0?entry=ttu&amp;g_ep=EgoyMDI2MDkxNC4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer" className="flex w-fit items-center gap-2 border-b border-white/70 pb-1 text-[14px] text-white">Leave a Review <ExternalLink size={13} /></a>
                     </aside>
 
-                    <article className="flex min-h-[255px] flex-col rounded-md bg-[linear-gradient(120deg,#3ba8f4_0%,#d51f92_52%,#ff781b_88%,#ffc51d_100%)] px-8 py-8 md:px-10">
+                    <article className="flex min-h-[255px] min-w-0 flex-col overflow-hidden rounded-md bg-[linear-gradient(120deg,#3ba8f4_0%,#d51f92_52%,#ff781b_88%,#ffc51d_100%)] px-8 py-8 md:px-10">
                         {review ? (
                             <>
-                                <div className="mb-5 flex items-center gap-4">
-                                    {review.profilePhotoUrl ? <Image src={review.profilePhotoUrl} alt={`${review.displayName}'s profile photo`} width={58} height={58} unoptimized className="size-[58px] rounded-full border-2 border-white object-cover" /> : <span className="flex size-[58px] items-center justify-center rounded-full border-2 border-white bg-[#504e53] text-xl font-bold">{review.displayName.charAt(0)}</span>}
-                                    <div className="min-w-0 flex-1">
-                                        <h3 className="truncate text-[23px] font-medium">{review.displayName}</h3>
+                                <div className="mb-5 flex min-w-0 items-center gap-4 overflow-hidden">
+                                    {review.profilePhotoUrl ? <Image src={review.profilePhotoUrl} alt={`${review.displayName}'s profile photo`} width={58} height={58} unoptimized className="size-[58px] shrink-0 rounded-full border-2 border-white object-cover" /> : <span className="flex size-[58px] shrink-0 items-center justify-center rounded-full border-2 border-white bg-[#504e53] text-xl font-bold">{review.displayName.charAt(0)}</span>}
+                                    <div className="min-w-0 flex-1 overflow-hidden">
+                                        <h3 className="block max-w-full truncate text-[23px] font-medium">{review.displayName}</h3>
                                         <div className="mt-1 flex items-center justify-between gap-4">
                                             <Stars rating={review.rating} size={16} />
                                             <p className="shrink-0 text-[14px] text-white/80">{review.relativeTime}</p>
