@@ -91,7 +91,7 @@ export default function TestimonialsLayoutSection({ title }: Props) {
                             </div>
                             <Stars rating={data?.averageRating ?? 5} />
                         </div>
-                        <a href="https://www.google.com/maps/place/Starbright+Solutions/@-25.8620919,28.2548587,17z/data=!4m8!3m7!1s0x1e9567b2038ef8b5:0x33cb256256ff63c5!8m2!3d-25.8620919!4d28.257439!9m1!1b1!16s%2Fg%2F11_v1dbm0?entry=ttu&amp;g_ep=EgoyMDI2MDkxNC4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer" className="flex w-fit items-center gap-2 border-b border-white/70 pb-1 text-[14px] text-white">Leave a Review <ExternalLink size={13} /></a>
+                        <a href="https://search.google.com/local/writereview?placeid=ChIJtfiOA7JnlR4RxWP_VmIlyzM" target="_blank" rel="noopener noreferrer" className="flex w-fit items-center gap-2 border-b border-white/70 pb-1 text-[14px] text-white">Leave a Review <ExternalLink size={13} /></a>
                     </aside>
 
                     <article className="flex min-h-[255px] min-w-0 flex-col overflow-hidden rounded-md bg-[linear-gradient(120deg,#3ba8f4_0%,#d51f92_52%,#ff781b_88%,#ffc51d_100%)] px-8 py-8 md:px-10">
