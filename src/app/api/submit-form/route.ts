@@ -173,6 +173,34 @@ export async function POST(request: NextRequest) {
 			}
 		}
 
+		// Subscribe newsletter submissions (Form ID 4) in Everlytic.
+		if (Number(formId) === 4) {
+			const everlytic = createEverlyticInstance();
+
+			if (everlytic) {
+				try {
+					await everlytic.pushLead({
+						name: data.name?.toString().trim() || '',
+						email: data.email?.toString().trim() || '',
+						on_duplicate: 'update',
+						list_id: {
+							'237396': 'subscribed',
+							'209951': 'subscribed',
+							'205234': 'subscribed',
+							'205233': 'subscribed',
+							'210461': 'subscribed',
+							'211945': 'subscribed'
+						}
+					});
+				} catch (everlyticError) {
+					console.error("Failed to submit newsletter subscription to Everlytic:", everlyticError);
+					// Preserve the existing form submission if Everlytic is unavailable.
+				}
+			} else {
+				console.warn('Everlytic not configured, skipping newsletter subscription');
+			}
+		}
+
 		// Submit to Leadtrekker (Form ID 2 - Contact Form)
 		if (formId === 2) {
 			const leadtrekker = createLeadtrekkerInstance();
