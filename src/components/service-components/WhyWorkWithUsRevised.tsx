@@ -27,7 +27,7 @@ export default function WhyWorkWithUsRevised({ introTitle, introText, item = [],
     const columnCount = Math.min(Math.max(Number.parseInt(String(columns), 10) || 4, 1), 4);
 
     return (
-        <section className="w-full bg-[#28272d] px-5 py-16 text-white lg:py-[70px]">
+        <section className="w-full bg-[#28272d] px-5 py-16 text-white lg:py-[70px]" id="services">
             <div className="mx-auto w-full max-w-[1400px]">
                 {(introTitle || introText) && (
                     <header className="mb-9">
